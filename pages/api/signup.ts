@@ -1,7 +1,7 @@
 // pages/api/signup.ts
 import type { NextApiRequest, NextApiResponse } from 'next'
 import bcrypt from 'bcrypt'
-import pool from '../../lib/db'
+import prisma from '../../lib/prisma'
 import { withSession } from '../../lib/session'
 
 function isValidEmail(email?: string) {
@@ -26,32 +26,26 @@ export default withSession(async function handler(req: NextApiRequest, res: Next
   }
 
   try {
-    // check email uniqueness
-    const [existsRows] = await pool.query('SELECT id FROM users WHERE email = ?', [email])
-    const exists: any = Array.isArray(existsRows) && existsRows.length ? existsRows[0] : null
-    if (exists) return res.status(409).json({ error: 'email exists' })
+    // check email and username uniqueness using Prisma
+    const existingByEmail = await prisma.user.findUnique({ where: { email: email.toLowerCase().trim() } })
+    if (existingByEmail) return res.status(409).json({ error: 'email exists' })
 
-    // optionally check username uniqueness too
-    const [userRows] = await pool.query('SELECT id FROM users WHERE username = ?', [username])
-    const userExists: any = Array.isArray(userRows) && userRows.length ? userRows[0] : null
-    if (userExists) return res.status(409).json({ error: 'username exists' })
+    const existingByUsername = await prisma.user.findUnique({ where: { username } })
+    if (existingByUsername) return res.status(409).json({ error: 'username exists' })
 
-    // hash password and insert into `password_hash`
+    // hash password and create user
     const hash = await bcrypt.hash(password, 10)
 
-    const defaultLives = 5
-    const defaultIsPremium = 0 // 0=false, 1=true
-    const defaultDownloadsUsed = 0
+    const created = await prisma.user.create({
+      data: {
+        username,
+        email: email.toLowerCase().trim(),
+        password_hash: hash,
+        // lives, isPremium, downloads_used use model defaults
+      },
+    })
 
-    const [resIns] = await pool.query(
-      `INSERT INTO users
-        (username, email, password_hash, lives, isPremium, downloads_used)
-       VALUES (?,?,?,?,?,?)`,
-      [username, email.toLowerCase().trim(), hash, defaultLives, defaultIsPremium, defaultDownloadsUsed]
-    )
-
-    // @ts-ignore - mysql2 result typing
-    const insertId = resIns?.insertId ?? null
+    const insertId = created.id
 
     // set session (preserve your previous structure)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -59,8 +53,8 @@ export default withSession(async function handler(req: NextApiRequest, res: Next
       id: insertId,
       username,
       email,
-      isPremium: false,
-      lives: defaultLives,
+      isPremium: created.isPremium,
+      lives: created.lives,
     }
     await (req as any).session.save()
 
@@ -68,8 +62,8 @@ export default withSession(async function handler(req: NextApiRequest, res: Next
   } catch (err: any) {
     console.error('Signup error:', err?.code ?? err?.message ?? err)
 
-    // duplicate key
-    if (err?.code === 'ER_DUP_ENTRY') {
+    // unique constraint error from Prisma
+    if (err?.code === 'P2002') {
       return res.status(409).json({ error: 'duplicate entry' })
     }
 
