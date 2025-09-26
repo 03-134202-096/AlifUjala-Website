@@ -1,0 +1,29 @@
+{
+  "mapping": [
+    {
+      "id": "alif",
+      "label": "Anar",
+      "src": "/images/anarteaser.png"
+    },
+    {
+      "id": "bay",
+      "label": "Bakra",
+      "src": "/images/goat.png"
+    },
+    {
+      "id": "pay",
+      "label": "Patang",
+      "src": "/images/kite.png"
+    },
+    {
+      "id": "tay",
+      "label": "Tubelight",
+      "src": "/images/bulb.png"
+    },
+    {
+      "id": "say",
+      "label": "Samar",
+      "src": "/images/strawberry.png"
+    }
+  ]
+}
