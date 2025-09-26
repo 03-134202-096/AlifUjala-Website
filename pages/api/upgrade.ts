@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import pool from '../../lib/db'
+import prisma from '../../lib/prisma'
 import { withSession } from '../../lib/session'
 
 export default withSession(async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -8,7 +8,7 @@ export default withSession(async function handler(req: NextApiRequest, res: Next
   const user = (req as any).session?.user
   if (!user) return res.status(401).json({ error: 'not logged in' })
 
-  await pool.query('UPDATE users SET isPremium = 1 WHERE id = ?', [user.id])
+  await prisma.user.update({ where: { id: Number(user.id) }, data: { isPremium: true } })
   // update session object
   ;(req as any).session.user.isPremium = true
   await (req as any).session.save()

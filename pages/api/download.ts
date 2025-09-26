@@ -1,5 +1,5 @@
 import { withSession } from "@/lib/session"
-import pool from "@/lib/db"
+import prisma from '@/lib/prisma'
 
 export default withSession(async (req: any, res: any) => {
   if (req.method !== "POST") {
@@ -18,20 +18,17 @@ export default withSession(async (req: any, res: any) => {
     // that column doesn't exist, fall back to `downloads_left` (legacy) or 0.
     let downloadsUsed = 0
     let isPremium = false
-    try {
-      const [rows]: any = await pool.query("SELECT downloads_used, isPremium FROM users WHERE id = ?", [userId])
-      const r0: any = Array.isArray(rows) && rows.length ? rows[0] : null
-      if (!r0) return res.status(404).json({ error: "User not found" })
+    // Try modern schema first
+    const r0 = await prisma.user.findUnique({ where: { id: Number(userId) }, select: { downloads_used: true, isPremium: true } })
+    if (r0) {
       downloadsUsed = Number(r0.downloads_used || 0)
       isPremium = !!r0.isPremium
-    } catch (e: any) {
-      // Possible Unknown column error: try legacy columns
-      console.warn('downloads_used not present, falling back to legacy columns', e?.message)
+    } else {
+      // Fallback: try to query legacy column names via raw SQL and try to interpret them.
       try {
-        const [rows2]: any = await pool.query("SELECT downloads_left, is_premium, isPremium FROM users WHERE id = ?", [userId])
-        const r1: any = Array.isArray(rows2) && rows2.length ? rows2[0] : null
+        const raw = await prisma.$queryRawUnsafe(`SELECT downloads_left, is_premium, "isPremium" FROM users WHERE id = ${Number(userId)} LIMIT 1`)
+        const r1 = Array.isArray(raw) && raw.length ? raw[0] : null
         if (!r1) return res.status(404).json({ error: "User not found" })
-        // If downloads_left exists, compute downloadsUsed as MAX_FREE - downloads_left (best effort)
         const downloadsLeft = typeof r1.downloads_left !== 'undefined' ? Number(r1.downloads_left) : null
         if (downloadsLeft !== null) {
           const MAX_FREE = 3
@@ -50,7 +47,7 @@ export default withSession(async (req: any, res: any) => {
 
     const MAX_FREE = 3
     if (downloadsUsed < MAX_FREE) {
-      await pool.query("UPDATE users SET downloads_used = downloads_used + 1 WHERE id = ?", [userId])
+      await prisma.user.update({ where: { id: Number(userId) }, data: { downloads_used: { increment: 1 } as any } })
       return res.status(200).json({ ok: true, remaining: MAX_FREE - (downloadsUsed + 1) })
     }
 

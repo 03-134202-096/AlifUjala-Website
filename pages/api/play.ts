@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { withSession } from '../../lib/session'
-import pool from '../../lib/db'
+import prisma from '../../lib/prisma'
 
 export default withSession(async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') return res.status(405).end()
@@ -17,8 +17,7 @@ export default withSession(async function handler(req: NextApiRequest, res: Next
   }
 
   // signed-in user — return ok and include their lives/isPremium if helpful for UI
-  const [rows] = await pool.query('SELECT lives, isPremium FROM users WHERE id = ?', [user.id])
-  const r0: any = Array.isArray(rows) && rows.length ? rows[0] : null
+  const r0 = await prisma.user.findUnique({ where: { id: Number(user.id) }, select: { lives: true, isPremium: true } })
   if (!r0) return res.status(404).json({ error: 'user not found' })
 
   const lives = Number(r0.lives || 0)
