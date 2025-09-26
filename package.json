@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "node node_modules/next/dist/bin/next build",
-   "vercel-build": "npx prisma generate && npx prisma migrate deploy && npm run build",
+    "vercel-build": "node ./node_modules/prisma/build/index.js generate && npm run build",
+    "migrate:deploy": "node ./node_modules/prisma/build/index.js migrate deploy",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
@@ -30,3 +31,4 @@
     "prisma": "^5.9.0"
   }
 }
+
