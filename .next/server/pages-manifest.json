@@ -1,1 +1,13 @@
-{"/_error":"pages/_error.js","/_app":"pages/_app.js","/api/db-test":"pages/api/db-test.js","/api/play":"pages/api/play.js","/api/login":"pages/api/login.js","/api/logout":"pages/api/logout.js","/api/download":"pages/api/download.js","/api/profile":"pages/api/profile.js","/api/upgrade":"pages/api/upgrade.js","/api/signup":"pages/api/signup.js","/_document":"pages/_document.js","/en/500":"pages/en/500.html","/ur/500":"pages/ur/500.html","/en/404":"pages/en/404.html","/ur/404":"pages/ur/404.html","/en/about":"pages/en/about.html","/ur/about":"pages/ur/about.html","/en/administration":"pages/en/administration.html","/ur/administration":"pages/ur/administration.html","/en/games/alphabetMatch":"pages/en/games/alphabetMatch.html","/ur/games/alphabetMatch":"pages/ur/games/alphabetMatch.html","/en/login":"pages/en/login.html","/ur/login":"pages/ur/login.html","/en":"pages/en.html","/ur":"pages/ur.html","/en/games/imageMatch":"pages/en/games/imageMatch.html","/ur/games/imageMatch":"pages/ur/games/imageMatch.html","/en/logout":"pages/en/logout.html","/ur/logout":"pages/ur/logout.html","/en/profile":"pages/en/profile.html","/ur/profile":"pages/ur/profile.html","/en/signup":"pages/en/signup.html","/ur/signup":"pages/ur/signup.html","/en/students":"pages/en/students.html","/ur/students":"pages/ur/students.html","/en/games/matching":"pages/en/games/matching.html","/ur/games/matching":"pages/ur/games/matching.html"}
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/api/logout": "pages/api/logout.js",
+  "/404": "pages/404.js",
+  "/": "pages/index.js",
+  "/api/play": "pages/api/play.js",
+  "/games/alphabetMatch": "pages/games/alphabetMatch.js",
+  "/api/profile": "pages/api/profile.js",
+  "/signup": "pages/signup.js",
+  "/api/signup": "pages/api/signup.js"
+}

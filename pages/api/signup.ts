@@ -61,7 +61,6 @@ export default withSession(async function handler(req: NextApiRequest, res: Next
     return res.status(201).json({ ok: true, id: insertId })
   } catch (err: any) {
     console.error('Signup error:', err?.code ?? err?.message ?? err)
-
     // unique constraint error from Prisma
     if (err?.code === 'P2002') {
       return res.status(409).json({ error: 'duplicate entry' })
@@ -69,6 +68,11 @@ export default withSession(async function handler(req: NextApiRequest, res: Next
 
     if (err?.message?.includes('Unknown column')) {
       return res.status(500).json({ error: 'Database schema mismatch: ' + err.message })
+    }
+
+    // Opt-in debug output: set DEBUG_ERRORS=true in Vercel to include error details
+    if (process.env.DEBUG_ERRORS === 'true') {
+      return res.status(500).json({ error: 'Internal server error', detail: String(err?.message ?? err), stack: err?.stack })
     }
 
     return res.status(500).json({ error: 'Internal server error' })
