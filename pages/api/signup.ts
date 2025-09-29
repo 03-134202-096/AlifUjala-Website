@@ -1,6 +1,6 @@
 // pages/api/signup.ts
 import type { NextApiRequest, NextApiResponse } from 'next'
-import bcrypt from 'bcrypt'
+import bcrypt from "bcryptjs"
 import prisma from '../../lib/prisma'
 import { withSession } from '../../lib/session'
 
