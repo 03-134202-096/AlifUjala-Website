@@ -17,7 +17,27 @@
   font-display: swap;
 }
 
-html,body{@apply bg-white text-gray-900}
+@layer base {
+  html, body {
+    background-color: #ffffff;
+    color: #111827; /* Tailwind gray-900 */
+    /* site-wide background with subtle white overlay for readability.
+       Provide a fallback to /images/hero.jpg when Background_website.JPG is missing. */
+  background-image: linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88)), url('/images/Background_website.jpg'), url('/images/hero.jpg');
+    background-position: center, center, center;
+    background-size: cover, cover, cover;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-attachment: fixed, fixed, fixed;
+  }
+
+  /* On small screens avoid fixed attachment for performance */
+  @media (max-width: 768px) {
+    html, body {
+      background-attachment: scroll;
+      background-position: center top;
+    }
+  }
+}
 
 /* helper for bordered selects used in toolbars */
 .bordered-select{
