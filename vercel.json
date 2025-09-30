@@ -3,10 +3,7 @@
   "builds": [
     { "src": "next.config.js", "use": "@vercel/next" }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/"
-    }
+  "rewrites": [
+    { "source": "/:path*", "destination": "/:path*" }
   ]
 }
