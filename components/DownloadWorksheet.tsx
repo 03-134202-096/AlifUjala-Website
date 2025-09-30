@@ -190,11 +190,11 @@ export default function DownloadWorksheet({
   }
 
   return (
-    <div className="inline-flex items-center gap-3 px-3 py-2 border rounded-lg bg-gray-100">
+    <div className="inline-flex items-center gap-3 px-3 py-2 border rounded-lg bg-transparent download-control">
       <select
         value={bgType}
         onChange={(e) => setBgType(e.target.value as "color" | "bw")}
-        className="px-2 py-1 rounded-md border text-sm"
+        className="bordered-select px-2 py-1 rounded-md text-sm download-select"
       >
         <option value="color">Color</option>
         <option value="bw">Black & White</option>
