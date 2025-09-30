@@ -1,13 +1,7 @@
-import { createPool } from 'mysql2/promise'
+// Legacy MySQL helper removed.
+// The project now uses Prisma (see `lib/prisma.ts`).
+// Keeping this shim prevents builds from failing if any code still imports `lib/db`.
 
-const pool = createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-})
+const legacyDbShim: null = null
 
-export default pool
+export default legacyDbShim
