@@ -45,14 +45,8 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
   const startDrag = (e: React.PointerEvent, id: string) => {
     if (!gameStarted) return // ❌ prevent tracing before game starts
     if (usedLeft.has(id)) return
-    const el = e.currentTarget as HTMLElement
+    const el = e.currentTarget as Element
     const pos = getCenter(el)
-    // capture pointer so move events continue even if finger goes outside the element
-    try {
-      el.setPointerCapture?.(e.pointerId)
-    } catch (err) {
-      // ignore if not supported
-    }
     setDragging({ fromId: id, start: pos })
     if (tmpRef.current) {
       tmpRef.current.setAttribute("d", `M ${pos.x} ${pos.y} L ${pos.x} ${pos.y}`)
@@ -70,27 +64,15 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
     tmpRef.current.setAttribute("d", `M ${a.x} ${a.y} C ${midx} ${a.y} ${midx} ${y} ${x} ${y}`)
   }
 
-  const dropOnRight = (e: React.PointerEvent, rightId: string) => {
+  const dropOnRight = (_e: React.PointerEvent, rightId: string) => {
     if (!gameStarted) return // ❌ prevent dropping before start
-    if (!dragging || usedRight.has(rightId)) return cancelDrag(e)
+    if (!dragging || usedRight.has(rightId)) return cancelDrag()
     const correct = rmap[dragging.fromId] === rightId
     setPairs((p) => [...p, { l: dragging.fromId, r: rightId, correct }])
-    // try to release pointer capture on the source element
-    try {
-      const src = wrapRef.current?.querySelector(`.left-col .tile[data-id=\"${dragging.fromId}\"]`) as HTMLElement | null
-      if (src) src.releasePointerCapture?.(e.pointerId)
-    } catch (err) {}
-    cancelDrag(e)
+    cancelDrag()
   }
 
-  const cancelDrag = (e?: React.PointerEvent) => {
-    // try to release pointer capture from source tile if possible
-    if (dragging) {
-      try {
-        const src = wrapRef.current?.querySelector(`.left-col .tile[data-id=\"${dragging.fromId}\"]`) as HTMLElement | null
-        if (src && e?.pointerId !== undefined) src.releasePointerCapture?.(e.pointerId)
-      } catch (err) {}
-    }
+  const cancelDrag = () => {
     setDragging(null)
     if (tmpRef.current) {
       tmpRef.current.style.display = "none"
@@ -148,70 +130,29 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
   }
 
   return (
-    <div
-      className="game-surface"
-      ref={wrapRef}
-      onPointerMove={moveDrag}
-      onPointerUp={(e) => cancelDrag(e)}
-      style={{ position: "relative", touchAction: "none" }}
-    >
-      <svg
-        className="lines"
-        ref={svgRef}
-        style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none" }}
-      >
+    <div className="game-surface" ref={wrapRef} onPointerMove={moveDrag} onPointerUp={cancelDrag}>
+      <svg className="lines" ref={svgRef}>
         <g ref={permRef} />
         <path
           ref={tmpRef}
           d=""
           stroke="#0a84ff"
-          strokeWidth={4}
+          strokeWidth={3}
           fill="none"
           strokeLinecap="round"
           style={{ display: "none" }}
         />
       </svg>
 
-      <div
-        className="col-wrap"
-        style={{
-          display: "flex",
-          gap: "1rem",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          width: "100%",
-          flexWrap: "nowrap",
-        }}
-      >
+      <div className="col-wrap">
         {/* Left column */}
-        <div
-          className="left-col"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-            alignItems: "center",
-            minWidth: "fit-content",
-          }}
-        >
+        <div className="left-col" style={{ display: "grid", gap: "1rem" }}>
           {leftItems.map((it) => (
             <div
               key={it.id}
               data-id={it.id}
               className={`tile ${usedLeft.has(it.id) ? "disabled" : ""}`}
               onPointerDown={(e) => startDrag(e, it.id)}
-              style={{
-                width: "clamp(56px, 18vw, 96px)",
-                height: "clamp(56px, 18vw, 96px)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "clamp(1rem, 4vw, 2.2rem)",
-                touchAction: "none",
-                userSelect: "none",
-                opacity: usedLeft.has(it.id) ? 0.5 : 1,
-                pointerEvents: usedLeft.has(it.id) ? "none" : "auto",
-              }}
             >
               <span style={{ fontSize: "2.2rem" }}>{it.label}</span>
             </div>
@@ -220,46 +161,27 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
 
         {/* Right column + teacher animation */}
         <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
-          <div
-            className="right-col"
-            style={{ display: "flex", flexDirection: "column", gap: "1rem", alignItems: "center" }}
-          >
+          <div className="right-col" style={{ display: "grid", gap: "1rem", justifyItems: "start" }}>
             {rightItems.map((it) => (
               <div
                 key={it.id}
                 data-id={it.id}
                 className={`node tile ${usedRight.has(it.id) ? "disabled" : ""}`}
                 onPointerUp={(e) => dropOnRight(e, it.id)}
-                style={{
-                  width: "clamp(56px, 18vw, 96px)",
-                  height: "clamp(56px, 18vw, 96px)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "clamp(1rem, 4vw, 2.2rem)",
-                  touchAction: "none",
-                  userSelect: "none",
-                  opacity: usedRight.has(it.id) ? 0.5 : 1,
-                  pointerEvents: usedRight.has(it.id) ? "none" : "auto",
-                }}
               >
                 {mode === "images" ? (
                   <div className="imgbox">
-                    <img
-                      src={it.src}
-                      alt={it.label}
-                      style={{ width: "clamp(48px, 30vw, 140px)", height: "clamp(48px, 30vw, 140px)", objectFit: "contain" }}
-                    />
+                    <img src={it.src} alt={it.label} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
                   </div>
                 ) : (
-                  <span style={{ fontSize: "clamp(1rem, 4vw, 2.2rem)" }}>{it.label}</span>
+                  <span style={{ fontSize: "2.2rem" }}>{it.label}</span>
                 )}
               </div>
             ))}
           </div>
 
           {!showCongrats && !showFail && (
-            <Animation style={{ width: "min(40vw, 320px)", height: "min(40vw, 320px)", marginTop: "1rem" }} loop={true} />
+            <Animation style={{ width: 500, height: 500, marginTop: "1rem" }} loop={true} />
           )}
         </div>
       </div>
