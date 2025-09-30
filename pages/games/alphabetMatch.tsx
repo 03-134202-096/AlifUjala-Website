@@ -99,55 +99,60 @@ export default function AlphabetMatchPage() {
     <>
       <Navbar />
       <div className="container">
-        <h2 className="center" style={{ margin: "1rem 0" }}>Alphabet → Alphabet Match</h2>
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
+          <h2 style={{ margin: 0, fontWeight: 700, fontSize: '1.25rem' }}>Alphabet &nbsp;→&nbsp; Alphabet Match</h2>
+        </div>
 
         {/* Toolbar */}
         <div className="game-toolbar" style={{ gap: "1rem" }}>
-          <label>
-            Count:&nbsp;
-            <select value={count} onChange={(e) => setCount(Number(e.target.value))}>
-              {[5, 6, 7, 8].map((n) => (
-                <option key={n} value={n}>
-                  {n}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div className="toolbar-left">
+            <label>
+              Count:&nbsp;
+              <select value={count} onChange={(e) => setCount(Number(e.target.value))} className="bordered-select">
+                {[5, 6, 7, 8].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-          <label>
-            From:&nbsp;
-            <select value={startId} onChange={(e) => setStartId(e.target.value)}>
-              {allLetters.map((l: any) => (
-                <option key={l.id} value={l.id}>
-                  {l.char} ({l.name})
-                </option>
-              ))}
-            </select>
-          </label>
+            <label>
+              From:&nbsp;
+              <select value={startId} onChange={(e) => setStartId(e.target.value)} className="bordered-select">
+                {allLetters.map((l: any) => (
+                  <option key={l.id} value={l.id}>
+                    {l.char} ({l.name})
+                  </option>
+                ))}
+              </select>
+            </label>
 
-          <label>
-            To:&nbsp;
-            <select value={endId} onChange={(e) => setEndId(e.target.value)}>
-              {allLetters.map((l: any) => (
-                <option key={l.id} value={l.id}>
-                  {l.char} ({l.name})
-                </option>
-              ))}
-            </select>
-          </label>
+            <label>
+              To:&nbsp;
+              <select value={endId} onChange={(e) => setEndId(e.target.value)} className="bordered-select">
+                {allLetters.map((l: any) => (
+                  <option key={l.id} value={l.id}>
+                    {l.char} ({l.name})
+                  </option>
+                ))}
+              </select>
+            </label>
 
-          <button className="btn" onClick={() => setSeed(Date.now())}>
-            Load Letters
-          </button>
+            <button className="btn" onClick={() => setSeed(Date.now())}>
+              Load Letters
+            </button>
+          </div>
 
-          {/* ✅ Reusable Worksheet Download */}
-          <DownloadWorksheet
-            left={left}
-            right={right}
-            title="Alphabet Matching / حرف ملائیں"
-            filename="worksheet_alphabet_match.pdf"
-          />
-
+          <div className="toolbar-right">
+            {/* ✅ Reusable Worksheet Download (right-aligned) */}
+            <DownloadWorksheet
+              left={left}
+              right={right}
+              title="Alphabet Matching / حرف ملائیں"
+              filename="worksheet_alphabet_match.pdf"
+            />
+          </div>
 
         </div>
 

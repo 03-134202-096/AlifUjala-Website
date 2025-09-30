@@ -130,7 +130,7 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
   }
 
   return (
-    <div className="relative rounded-xl bg-[url('/images/game_bg.jpg')] bg-center bg-cover min-h-[520px] overflow-hidden p-4" ref={wrapRef} onPointerMove={moveDrag} onPointerUp={cancelDrag}>
+    <div className="relative rounded-xl bg-[url('/images/game_bg.PNG')] bg-center bg-cover min-h-[520px] overflow-hidden p-4" ref={wrapRef} onPointerMove={moveDrag} onPointerUp={cancelDrag}>
       <svg className="absolute inset-0 w-full h-full pointer-events-none" ref={svgRef}>
         <g ref={permRef} />
         <path
