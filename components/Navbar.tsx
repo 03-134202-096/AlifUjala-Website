@@ -34,64 +34,33 @@ export default function Navbar() {
   }
 
   return (
-    <nav style={styles.nav}>
-      <div style={styles.left}>
-        <Link href="/" style={styles.logo}>Alif Ujala</Link>
-      </div>
-      <div style={styles.right}>
-        <Link href="/" style={styles.link}>Home</Link>
-        <Link href="/games/alphabetMatch" style={styles.link}>Games</Link>
-        <Link href="/about" style={styles.link}>About</Link>
+    <nav className="bg-purple-800 text-white">
+      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
+        <div>
+          <Link href="/" className="font-bold text-lg">Alif Ujala</Link>
+        </div>
+        <div className="flex items-center gap-4">
+          <Link href="/" className="text-white text-base">Home</Link>
+          <Link href="/games/alphabetMatch" className="text-white text-base">Games</Link>
+          <Link href="/about" className="text-white text-base">About</Link>
 
-        {loading ? (
-          <span style={styles.link}>...</span>
-        ) : user ? (
-          <>
-            <Link href="/profile" style={styles.link}>Profile</Link>
-            <button onClick={handleLogout} style={styles.button}>Logout</button>
-          </>
-        ) : (
-          <>
-            <Link href="/login" style={styles.link}>Login</Link>
-            <Link href="/signup" style={styles.link}>Signup</Link>
-          </>
-        )}
+          {loading ? (
+            <span className="text-white">...</span>
+          ) : user ? (
+            <>
+              <Link href="/profile" className="text-white">Profile</Link>
+              <button onClick={handleLogout} className="bg-red-600 text-white px-3 py-1 rounded">Logout</button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" className="text-white">Login</Link>
+              <Link href="/signup" className="text-white">Signup</Link>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   )
 }
 
-const styles: { [k: string]: React.CSSProperties } = {
-  nav: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    background: "#4a148c",
-    padding: "0.75rem 2rem",
-    color: "#fff",
-  },
-  logo: {
-    fontWeight: "bold",
-    fontSize: "1.3rem",
-    color: "#fff",
-    textDecoration: "none",
-  },
-  right: {
-    display: "flex",
-    gap: "1rem",
-    alignItems: "center",
-  },
-  link: {
-    color: "#fff",
-    textDecoration: "none",
-    fontSize: "1rem",
-  },
-  button: {
-    background: "#d32f2f",
-    border: "none",
-    color: "#fff",
-    padding: "0.4rem 0.8rem",
-    borderRadius: "4px",
-    cursor: "pointer",
-  },
-}
+// Tailwind classes used inline in JSX above

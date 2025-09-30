@@ -190,31 +190,16 @@ export default function DownloadWorksheet({
   }
 
   return (
-    <div
-      style={{
-        display: "inline-flex",
-        gap: "0.5rem",
-        padding: "0.5rem 1rem",
-        border: "1px solid #ccc",
-        borderRadius: "8px",
-        background: "#f9f9f9",
-        alignItems: "center",
-      }}
-    >
+    <div className="inline-flex items-center gap-3 px-3 py-2 border rounded-lg bg-gray-100">
       <select
         value={bgType}
         onChange={(e) => setBgType(e.target.value as "color" | "bw")}
-        style={{
-          padding: "0.4rem",
-          borderRadius: "6px",
-          border: "1px solid #aaa",
-          fontSize: "14px",
-        }}
+        className="px-2 py-1 rounded-md border text-sm"
       >
         <option value="color">Color</option>
         <option value="bw">Black & White</option>
       </select>
-      <button onClick={handleDownload} className="btn">
+      <button onClick={handleDownload} className="bg-pink-500 text-white px-3 py-1 rounded-md font-bold">
         Download Worksheet
       </button>
     </div>

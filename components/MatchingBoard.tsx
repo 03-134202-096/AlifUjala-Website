@@ -130,8 +130,8 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
   }
 
   return (
-    <div className="game-surface" ref={wrapRef} onPointerMove={moveDrag} onPointerUp={cancelDrag}>
-      <svg className="lines" ref={svgRef}>
+    <div className="relative rounded-xl bg-[url('/images/game_bg.jpg')] bg-center bg-cover min-h-[520px] overflow-hidden p-4" ref={wrapRef} onPointerMove={moveDrag} onPointerUp={cancelDrag}>
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" ref={svgRef}>
         <g ref={permRef} />
         <path
           ref={tmpRef}
@@ -144,62 +144,58 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
         />
       </svg>
 
-      <div className="col-wrap">
+      <div className="max-w-4xl mx-auto flex gap-6 justify-between items-start w-full">
         {/* Left column */}
-        <div className="left-col" style={{ display: "grid", gap: "1rem" }}>
+        <div className="left-col grid gap-4 w-1/2">
           {leftItems.map((it) => (
             <div
               key={it.id}
               data-id={it.id}
-              className={`tile ${usedLeft.has(it.id) ? "disabled" : ""}`}
+              className={`tile ${usedLeft.has(it.id) ? "disabled" : ""} w-20 h-20 rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5`}
               onPointerDown={(e) => startDrag(e, it.id)}
             >
-              <span style={{ fontSize: "2.2rem" }}>{it.label}</span>
+              <span className="text-2xl">{it.label}</span>
             </div>
           ))}
         </div>
 
         {/* Right column + teacher animation */}
-        <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
-          <div className="right-col" style={{ display: "grid", gap: "1rem", justifyItems: "start" }}>
+        <div className="flex items-start gap-4 w-1/2">
+          <div className="right-col grid gap-4 justify-start w-full">
             {rightItems.map((it) => (
               <div
                 key={it.id}
                 data-id={it.id}
-                className={`node tile ${usedRight.has(it.id) ? "disabled" : ""}`}
+                className={`node tile ${usedRight.has(it.id) ? "disabled" : ""} w-20 h-20 rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5`}
                 onPointerUp={(e) => dropOnRight(e, it.id)}
               >
                 {mode === "images" ? (
                   <div className="imgbox">
-                    <img src={it.src} alt={it.label} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                    <img src={it.src} alt={it.label} className="w-full h-full object-contain" />
                   </div>
                 ) : (
-                  <span style={{ fontSize: "2.2rem" }}>{it.label}</span>
+                  <span className="text-2xl">{it.label}</span>
                 )}
               </div>
             ))}
           </div>
 
           {!showCongrats && !showFail && (
-            <Animation style={{ width: 500, height: 500, marginTop: "1rem" }} loop={true} />
+            <div className="hidden md:block">
+              <Animation style={{ width: 500, height: 500 }} loop={true} />
+            </div>
           )}
         </div>
       </div>
 
       {/* Scoreboard */}
-      <div className="center" style={{ marginTop: "1rem" }}>
-        <span className="score">
-          Score: {score} / {leftItems.length}
-        </span>
+      <div className="text-center mt-4">
+        <span className="font-extrabold">Score: {score} / {leftItems.length}</span>
       </div>
 
       {/* Start / Submit button */}
-      <div className="center" style={{ marginTop: "1rem" }}>
-        <button
-          className="btn btn-large"
-          onClick={handleButtonClick}
-          style={{ fontSize: "1.5rem", padding: "1rem 2rem" }}
-        >
+      <div className="text-center mt-4">
+        <button onClick={handleButtonClick} className="bg-pink-500 text-white px-6 py-3 text-lg rounded-full">
           {gameStarted ? "Submit" : "Start Game"}
         </button>
       </div>

@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* preserve custom font-face and a few critical variables from old globals */
+:root{
+  --pink:#ff1493;
+  --yellow:#ffd228;
+  --green:#16db65;
+  --dark:#2c2c2c;
+}
+@font-face {
+  font-family: "Noto Nastaliq Urdu";
+  src: url("/fonts/NotoNastaliqUrdu-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+html,body{@apply bg-white text-gray-900}
