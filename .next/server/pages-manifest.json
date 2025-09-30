@@ -2,8 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/login": "pages/login.js",
-  "/": "pages/index.js",
-  "/404": "pages/404.js",
-  "/api/profile": "pages/api/profile.js"
+  "/games/alphabetMatch": "pages/games/alphabetMatch.js",
+  "/": "pages/index.js"
 }
