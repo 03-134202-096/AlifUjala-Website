@@ -9,13 +9,27 @@ datasource db {
 }
 
 model User {
-  id           Int     @id @default(autoincrement())
-  username     String  @unique
-  email        String  @unique
+  id            Int      @id @default(autoincrement())
+  username      String   @unique
+  email         String   @unique
   password_hash String
-  lives        Int     @default(5)
-  isPremium    Boolean @default(false)
-  downloads_used Int   @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  lives         Int      @default(5)
+  isPremium     Boolean  @default(false)
+  downloads_used Int     @default(0)
+  isVerified    Boolean  @default(false) // New field to track email verification
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  otp           Otp?     @relation("UserOtp") // Define the relation without fields/references here
+}
+
+model Otp {
+  id            Int      @id @default(autoincrement())
+  userId        Int      @unique // Link to User
+  hashedOtp     String   // Hashed OTP for security
+  expiry        DateTime // Expiry time for the OTP
+  attempts      Int      @default(0) // Track verification attempts
+  createdAt     DateTime @default(now())
+
+  user          User     @relation("UserOtp", fields: [userId], references: [id], onDelete: Cascade)
 }

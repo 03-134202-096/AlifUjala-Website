@@ -3,9 +3,10 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/signup": "pages/signup.js",
-  "/api/signup": "pages/api/signup.js",
   "/": "pages/index.js",
   "/profile": "pages/profile.js",
+  "/api/signup": "pages/api/signup.js",
   "/api/profile": "pages/api/profile.js",
+  "/api/verify-otp": "pages/api/verify-otp.js",
   "/api/upgrade": "pages/api/upgrade.js"
 }

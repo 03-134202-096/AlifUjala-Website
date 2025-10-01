@@ -3,6 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import bcrypt from "bcryptjs"
 import prisma from '../../lib/prisma'
 import { withSession } from '../../lib/session'
+import crypto from 'crypto';
+import { sendOtpEmail } from '../../components/OtpEmail';
 
 function isValidEmail(email?: string) {
   return typeof email === 'string' && /\S+@\S+\.\S+/.test(email)
@@ -12,69 +14,56 @@ function isValidUsername(u?: string) {
 }
 
 export default withSession(async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') return res.status(405).end()
+  if (req.method !== 'POST') return res.status(405).end();
 
-  // accept either `username` or legacy `name`
-  const { username: rawUsername, name, email, password } = req.body || {}
-  const username = (rawUsername ?? name ?? '').trim()
+  const { username: rawUsername, name, email, password } = req.body || {};
+  const username = (rawUsername ?? name ?? '').trim();
 
   if (!isValidEmail(email) || !password) {
-    return res.status(400).json({ error: 'missing or invalid fields' })
+    return res.status(400).json({ error: 'missing or invalid fields' });
   }
   if (!isValidUsername(username)) {
-    return res.status(400).json({ error: 'username (3-100 chars) required' })
+    return res.status(400).json({ error: 'username (3-100 chars) required' });
   }
 
   try {
-    // check email and username uniqueness using Prisma
-    const existingByEmail = await prisma.user.findUnique({ where: { email: email.toLowerCase().trim() } })
-    if (existingByEmail) return res.status(409).json({ error: 'email exists' })
+    const existingByEmail = await prisma.user.findUnique({ where: { email: email.toLowerCase().trim() } });
+    if (existingByEmail) return res.status(409).json({ error: 'email exists' });
 
-    const existingByUsername = await prisma.user.findUnique({ where: { username } })
-    if (existingByUsername) return res.status(409).json({ error: 'username exists' })
+    const existingByUsername = await prisma.user.findUnique({ where: { username } });
+    if (existingByUsername) return res.status(409).json({ error: 'username exists' });
 
-    // hash password and create user
-    const hash = await bcrypt.hash(password, 10)
+    const hash = await bcrypt.hash(password, 10);
 
-    const created = await prisma.user.create({
+    const createdUser = await prisma.user.create({
       data: {
         username,
         email: email.toLowerCase().trim(),
         password_hash: hash,
-        // lives, isPremium, downloads_used use model defaults
+        isVerified: false, // Mark as unverified initially
       },
-    })
+    });
 
-    const insertId = created.id
+    const otp = crypto.randomInt(100000, 999999).toString(); // Generate a 6-digit OTP
+    const hashedOtp = crypto.createHash('sha256').update(otp).digest('hex');
+    const expiry = new Date(Date.now() + 15 * 60 * 1000); // OTP valid for 15 minutes
 
-    // set session (preserve your previous structure)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(req as any).session.user = {
-      id: insertId,
-      username,
-      email,
-      isPremium: created.isPremium,
-      lives: created.lives,
-    }
-    await (req as any).session.save()
+    await prisma.otp.create({
+      data: {
+        userId: createdUser.id,
+        hashedOtp,
+        expiry,
+      },
+    });
 
-    return res.status(201).json({ ok: true, id: insertId })
+    await sendOtpEmail(email, otp);
+
+    return res.status(201).json({ ok: true, message: 'OTP sent to email' });
   } catch (err: any) {
-    console.error('Signup error:', err?.code ?? err?.message ?? err)
-    // unique constraint error from Prisma
+    console.error('Signup error:', err);
     if (err?.code === 'P2002') {
-      return res.status(409).json({ error: 'duplicate entry' })
+      return res.status(409).json({ error: 'duplicate entry' });
     }
-
-    if (err?.message?.includes('Unknown column')) {
-      return res.status(500).json({ error: 'Database schema mismatch: ' + err.message })
-    }
-
-    // Opt-in debug output: set DEBUG_ERRORS=true in Vercel to include error details
-    if (process.env.DEBUG_ERRORS === 'true') {
-      return res.status(500).json({ error: 'Internal server error', detail: String(err?.message ?? err), stack: err?.stack })
-    }
-
-    return res.status(500).json({ error: 'Internal server error' })
+    return res.status(500).json({ error: 'Internal server error' });
   }
-})
+});
