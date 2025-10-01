@@ -13,9 +13,7 @@ export async function sendOtpEmail(email: string, otp: string) {
     const COMPANY_NAME = process.env.COMPANY_NAME || "Alif Ujala";
     const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || "support@alifujala.com";
 
-    // otp and email assumed defined earlier
-    // const otp = '123456';
-    // const email = 'user@example.com';
+
 
     await transporter.sendMail({
     from: `"${COMPANY_NAME}" <${process.env.SENDGRID_FROM_EMAIL}>`,
