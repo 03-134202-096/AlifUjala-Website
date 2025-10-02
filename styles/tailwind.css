@@ -1152,7 +1152,7 @@ svg.lines{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:n
   .cards{gap:1rem}
 }
 
-/* Touch-specific improvements for matching game */
+/* Touch-specific improvements for matching game - only when game is active */
 .touch-none {
   touch-action: none;
   -webkit-user-select: none;
@@ -1161,8 +1161,14 @@ svg.lines{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:n
   user-select: none;
 }
 
-/* Prevent default touch behaviors on game tiles */
+/* Base tile styles - default behavior when game is not active */
 .tile {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Touch prevention only when game is active */
+.touch-none .tile,
+.tile.touch-none {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -1170,7 +1176,16 @@ svg.lines{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:n
   -ms-user-select: none;
   user-select: none;
   touch-action: none;
-  -webkit-tap-highlight-color: transparent;
+}
+
+/* Visual indicator for game state */
+.game-active {
+  border: 2px solid rgba(16, 185, 129, 0.3); /* subtle green border when active */
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+}
+
+.game-inactive {
+  border: 2px solid rgba(156, 163, 175, 0.2); /* subtle gray border when inactive */
 }
 
 /* Improve touch responsiveness on mobile */

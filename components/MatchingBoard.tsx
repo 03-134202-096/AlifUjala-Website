@@ -83,7 +83,7 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
   }
 
   const moveDrag = (e: React.PointerEvent) => {
-    if (!dragging || !wrapRef.current || !tmpRef.current) return
+    if (!gameStarted || !dragging || !wrapRef.current || !tmpRef.current) return
     
     e.preventDefault() // Prevent scrolling and other touch behaviors
     
@@ -146,10 +146,10 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
     g.innerHTML = svgs
   }, [pairs])
 
-  // Global pointer event handlers for better touch support
+  // Global pointer event handlers for better touch support - only active when game is started
   useEffect(() => {
     const handleGlobalPointerMove = (e: PointerEvent) => {
-      if (!dragging || !wrapRef.current || !tmpRef.current) return
+      if (!gameStarted || !dragging || !wrapRef.current || !tmpRef.current) return
       
       e.preventDefault()
       
@@ -162,7 +162,7 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
     }
 
     const handleGlobalPointerUp = (e: PointerEvent) => {
-      if (!dragging || !wrapRef.current) return
+      if (!gameStarted || !dragging || !wrapRef.current) return
       
       e.preventDefault()
       
@@ -186,7 +186,8 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
       cancelDrag()
     }
 
-    if (dragging) {
+    // Only add event listeners when game is active and dragging
+    if (gameStarted && dragging) {
       document.addEventListener('pointermove', handleGlobalPointerMove, { passive: false })
       document.addEventListener('pointerup', handleGlobalPointerUp, { passive: false })
       
@@ -195,7 +196,7 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
         document.removeEventListener('pointerup', handleGlobalPointerUp)
       }
     }
-  }, [dragging, rmap, usedRight])
+  }, [gameStarted, dragging, rmap, usedRight])
 
   // Cleanup on unmount to ensure no dangling event listeners
   useEffect(() => {
@@ -221,11 +222,13 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
       }, 1000)
       setTimerInterval(interval)
     } else {
-      // Stop timer when game ends
+      // Stop timer when game ends and cancel any ongoing drag
       if (timerInterval) {
         clearInterval(timerInterval)
         setTimerInterval(null)
       }
+      // Cancel any ongoing drag operation when game ends
+      cancelDrag()
     }
 
     // Cleanup timer on unmount
@@ -261,9 +264,9 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
 
   return (
     <div 
-      className="relative rounded-xl min-h-[520px] overflow-hidden p-4 touch-none" 
+      className={`relative rounded-xl min-h-[520px] overflow-hidden p-4 ${gameStarted ? 'touch-none game-active' : 'game-inactive'}`}
       ref={wrapRef}
-      style={{ touchAction: 'none' }}
+      style={{ touchAction: gameStarted ? 'none' : 'auto' }}
     >
       {/* Score and Timer Display */}
       {gameStarted && (
@@ -299,16 +302,16 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
             <div
               key={it.id}
               data-id={it.id}
-              className={`tile ${usedLeft.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5 touch-none`}
+              className={`tile ${usedLeft.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5 ${gameStarted ? 'touch-none' : ''}`}
               style={{ 
                 width: tileSize.width, 
                 height: tileSize.height,
-                touchAction: 'none',
-                userSelect: 'none',
-                WebkitUserSelect: 'none'
+                touchAction: gameStarted ? 'none' : 'auto',
+                userSelect: gameStarted ? 'none' : 'auto',
+                WebkitUserSelect: gameStarted ? 'none' : 'auto'
               }}
-              onPointerDown={(e) => startDrag(e, it.id)}
-              onContextMenu={(e) => e.preventDefault()}
+              onPointerDown={gameStarted ? (e) => startDrag(e, it.id) : undefined}
+              onContextMenu={gameStarted ? (e) => e.preventDefault() : undefined}
             >
               <span className="text-2xl">{it.label}</span>
             </div>
@@ -322,15 +325,15 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
               <div
                 key={it.id}
                 data-id={it.id}
-                className={`node tile ${usedRight.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5 touch-none`}
+                className={`node tile ${usedRight.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5 ${gameStarted ? 'touch-none' : ''}`}
                 style={{ 
                   width: tileSize.width, 
                   height: tileSize.height,
-                  touchAction: 'none',
-                  userSelect: 'none',
-                  WebkitUserSelect: 'none'
+                  touchAction: gameStarted ? 'none' : 'auto',
+                  userSelect: gameStarted ? 'none' : 'auto',
+                  WebkitUserSelect: gameStarted ? 'none' : 'auto'
                 }}
-                onContextMenu={(e) => e.preventDefault()}
+                onContextMenu={gameStarted ? (e) => e.preventDefault() : undefined}
               >
                 {mode === "images" ? (
                   <div className="imgbox">
