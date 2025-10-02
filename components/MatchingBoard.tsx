@@ -11,13 +11,16 @@ type Props = {
   gameStarted?: boolean
   triggerSubmit?: boolean
   onComplete?: (score: number, total: number) => void
+  onGameButtonClick?: () => void
 }
 
-export default function MatchingBoard({ leftItems, rightItems, mode = "letters", gameStarted = false, triggerSubmit = false, onComplete }: Props) {
+export default function MatchingBoard({ leftItems, rightItems, mode = "letters", gameStarted = false, triggerSubmit = false, onComplete, onGameButtonClick }: Props) {
   const [pairs, setPairs] = useState<Array<{ l: string; r: string; correct: boolean }>>([])
   const [score, setScore] = useState(0)
   const [showCongrats, setShowCongrats] = useState(false)
   const [showFail, setShowFail] = useState(false)
+  const [timer, setTimer] = useState(0)
+  const [timerInterval, setTimerInterval] = useState<NodeJS.Timeout | null>(null)
 
   // Dynamic tile sizing based on number of items
   const getTileSize = () => {
@@ -95,6 +98,13 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
     }
   }
 
+  // Format timer display (MM:SS)
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins}:${secs.toString().padStart(2, '0')}`
+  }
+
   useEffect(() => {
     const g = permRef.current
     const wrap = wrapRef.current
@@ -127,12 +137,38 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
       setScore(0)
       setShowCongrats(false)
       setShowFail(false)
+      setTimer(0)
+      
+      // Start timer
+      const interval = setInterval(() => {
+        setTimer(prev => prev + 1)
+      }, 1000)
+      setTimerInterval(interval)
+    } else {
+      // Stop timer when game ends
+      if (timerInterval) {
+        clearInterval(timerInterval)
+        setTimerInterval(null)
+      }
+    }
+
+    // Cleanup timer on unmount
+    return () => {
+      if (timerInterval) {
+        clearInterval(timerInterval)
+      }
     }
   }, [gameStarted])
 
   // Handle game submission when submit is triggered from parent
   useEffect(() => {
     if (triggerSubmit) {
+      // Stop timer
+      if (timerInterval) {
+        clearInterval(timerInterval)
+        setTimerInterval(null)
+      }
+      
       const total = leftItems.length
       const correctCount = pairs.filter((p) => p.correct).length
       setScore(correctCount)
@@ -145,10 +181,24 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
         setShowFail(true)
       }
     }
-  }, [triggerSubmit, pairs, leftItems.length, onComplete])
+  }, [triggerSubmit, pairs, leftItems.length, onComplete, timerInterval])
 
   return (
     <div className="relative rounded-xl min-h-[520px] overflow-hidden p-4" ref={wrapRef} onPointerMove={moveDrag} onPointerUp={cancelDrag}>
+      {/* Score and Timer Display */}
+      {gameStarted && (
+        <div className="absolute top-4 right-4 z-10 score-timer-display">
+          <div className="score-display">
+            <div className="score-circle">
+              <span className="score-text">SCORE: {score} / {leftItems.length}</span>
+            </div>
+          </div>
+          <div className="timer-display">
+            <span className="timer-text">TIME: {formatTime(timer)}</span>
+          </div>
+        </div>
+      )}
+
       <svg className="absolute inset-0 w-full h-full pointer-events-none" ref={svgRef}>
         <g ref={permRef} />
         <path
@@ -208,11 +258,16 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
         </div>
       </div>
 
-      {/* Scoreboard */}
-      <div className="text-center mt-4">
-        <span className="font-extrabold">Score: {score} / {leftItems.length}</span>
+      {/* Bottom Game Button */}
+      <div className="bottom-game-button-container">
+        <button 
+          onClick={onGameButtonClick} 
+          className="bottom-game-button"
+          disabled={!onGameButtonClick}
+        >
+          <span className="btn-text">{gameStarted ? "Submit Game" : "Start Game"}</span>
+        </button>
       </div>
-
 
       {/*  Fullscreen Congrats */}
       {showCongrats && (
@@ -251,7 +306,23 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
             ✕
           </button>
           <Cong_Animation style={{ width: 400, height: 400 }} loop={false} />
-          <p style={{ color: "white", marginTop: "1rem", fontSize: "1.5rem" }}>شاباش! You did it!</p>
+          <div className="congrats-content">
+            <p className="congrats-title">شاباش! You did it!</p>
+            <div className="congrats-stats">
+              <div className="stat-item">
+                <span className="stat-label">Final Score:</span>
+                <span className="stat-value">{score} / {leftItems.length}</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-label">Completion Time:</span>
+                <span className="stat-value">{formatTime(timer)}</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-label">Accuracy:</span>
+                <span className="stat-value">{leftItems.length > 0 ? Math.round((score / leftItems.length) * 100) : 0}%</span>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
@@ -292,7 +363,24 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
           >
             ✕
           </button>
-          <p style={{ fontSize: "2rem" }}>😢 Better luck next time!</p>
+          <div className="fail-content">
+            <p className="fail-title">😢 Better luck next time!</p>
+            <div className="fail-stats">
+              <div className="stat-item">
+                <span className="stat-label">Your Score:</span>
+                <span className="stat-value">{score} / {leftItems.length}</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-label">Time Taken:</span>
+                <span className="stat-value">{formatTime(timer)}</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-label">Accuracy:</span>
+                <span className="stat-value">{leftItems.length > 0 ? Math.round((score / leftItems.length) * 100) : 0}%</span>
+              </div>
+              <p className="retry-message">You need 75% or higher to pass. Keep practicing!</p>
+            </div>
+          </div>
         </div>
       )}
     </div>

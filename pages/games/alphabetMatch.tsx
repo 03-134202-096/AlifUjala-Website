@@ -233,6 +233,7 @@ export default function AlphabetMatchPage() {
             mode="letters"
             gameStarted={gameStarted}
             triggerSubmit={triggerSubmit}
+            onGameButtonClick={handleGameButton}
             onComplete={(s, t) => {
               setGameScore({ score: s, total: t })
               setGameStarted(false)

@@ -157,6 +157,7 @@ export default function ImageMatchPage() {
             mode="images" 
             gameStarted={gameStarted}
             triggerSubmit={triggerSubmit}
+            onGameButtonClick={handleGameButton}
             onComplete={(s, t) => {
               setGameStarted(false)
               setTriggerSubmit(false)
