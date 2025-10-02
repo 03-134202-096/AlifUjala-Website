@@ -63,9 +63,19 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
   const startDrag = (e: React.PointerEvent, id: string) => {
     if (!gameStarted) return // ❌ prevent tracing before game starts
     if (usedLeft.has(id)) return
+    
+    e.preventDefault() // Prevent default touch behaviors
+    e.stopPropagation()
+    
     const el = e.currentTarget as Element
     const pos = getCenter(el)
     setDragging({ fromId: id, start: pos })
+    
+    // Capture pointer for consistent tracking across the entire screen
+    if (el instanceof HTMLElement) {
+      el.setPointerCapture(e.pointerId)
+    }
+    
     if (tmpRef.current) {
       tmpRef.current.setAttribute("d", `M ${pos.x} ${pos.y} L ${pos.x} ${pos.y}`)
       tmpRef.current.style.display = "block"
@@ -74,6 +84,9 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
 
   const moveDrag = (e: React.PointerEvent) => {
     if (!dragging || !wrapRef.current || !tmpRef.current) return
+    
+    e.preventDefault() // Prevent scrolling and other touch behaviors
+    
     const wb = wrapRef.current.getBoundingClientRect()
     const x = e.clientX - wb.left
     const y = e.clientY - wb.top
@@ -82,9 +95,13 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
     tmpRef.current.setAttribute("d", `M ${a.x} ${a.y} C ${midx} ${a.y} ${midx} ${y} ${x} ${y}`)
   }
 
-  const dropOnRight = (_e: React.PointerEvent, rightId: string) => {
+  const dropOnRight = (e: React.PointerEvent, rightId: string) => {
     if (!gameStarted) return // ❌ prevent dropping before start
     if (!dragging || usedRight.has(rightId)) return cancelDrag()
+    
+    e.preventDefault()
+    e.stopPropagation()
+    
     const correct = rmap[dragging.fromId] === rightId
     setPairs((p) => [...p, { l: dragging.fromId, r: rightId, correct }])
     cancelDrag()
@@ -128,6 +145,65 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
 
     g.innerHTML = svgs
   }, [pairs])
+
+  // Global pointer event handlers for better touch support
+  useEffect(() => {
+    const handleGlobalPointerMove = (e: PointerEvent) => {
+      if (!dragging || !wrapRef.current || !tmpRef.current) return
+      
+      e.preventDefault()
+      
+      const wb = wrapRef.current.getBoundingClientRect()
+      const x = e.clientX - wb.left
+      const y = e.clientY - wb.top
+      const a = dragging.start
+      const midx = (a.x + x) / 2
+      tmpRef.current.setAttribute("d", `M ${a.x} ${a.y} C ${midx} ${a.y} ${midx} ${y} ${x} ${y}`)
+    }
+
+    const handleGlobalPointerUp = (e: PointerEvent) => {
+      if (!dragging || !wrapRef.current) return
+      
+      e.preventDefault()
+      
+      // Check if we're dropping on a right item
+      const wb = wrapRef.current.getBoundingClientRect()
+      const x = e.clientX - wb.left
+      const y = e.clientY - wb.top
+      
+      // Find the element at the drop position
+      const elementAtPoint = document.elementFromPoint(e.clientX, e.clientY)
+      const rightTile = elementAtPoint?.closest('.right-col .node')
+      
+      if (rightTile) {
+        const rightId = rightTile.getAttribute('data-id')
+        if (rightId && !usedRight.has(rightId)) {
+          const correct = rmap[dragging.fromId] === rightId
+          setPairs((p) => [...p, { l: dragging.fromId, r: rightId, correct }])
+        }
+      }
+      
+      cancelDrag()
+    }
+
+    if (dragging) {
+      document.addEventListener('pointermove', handleGlobalPointerMove, { passive: false })
+      document.addEventListener('pointerup', handleGlobalPointerUp, { passive: false })
+      
+      return () => {
+        document.removeEventListener('pointermove', handleGlobalPointerMove)
+        document.removeEventListener('pointerup', handleGlobalPointerUp)
+      }
+    }
+  }, [dragging, rmap, usedRight])
+
+  // Cleanup on unmount to ensure no dangling event listeners
+  useEffect(() => {
+    return () => {
+      // Cancel any ongoing drag on unmount
+      cancelDrag()
+    }
+  }, [])
 
   // Handle game state changes
   useEffect(() => {
@@ -184,7 +260,11 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
   }, [triggerSubmit, pairs, leftItems.length, onComplete, timerInterval])
 
   return (
-    <div className="relative rounded-xl min-h-[520px] overflow-hidden p-4" ref={wrapRef} onPointerMove={moveDrag} onPointerUp={cancelDrag}>
+    <div 
+      className="relative rounded-xl min-h-[520px] overflow-hidden p-4 touch-none" 
+      ref={wrapRef}
+      style={{ touchAction: 'none' }}
+    >
       {/* Score and Timer Display */}
       {gameStarted && (
         <div className="absolute top-4 right-4 z-10 score-timer-display">
@@ -219,9 +299,16 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
             <div
               key={it.id}
               data-id={it.id}
-              className={`tile ${usedLeft.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5`}
-              style={{ width: tileSize.width, height: tileSize.height }}
+              className={`tile ${usedLeft.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5 touch-none`}
+              style={{ 
+                width: tileSize.width, 
+                height: tileSize.height,
+                touchAction: 'none',
+                userSelect: 'none',
+                WebkitUserSelect: 'none'
+              }}
               onPointerDown={(e) => startDrag(e, it.id)}
+              onContextMenu={(e) => e.preventDefault()}
             >
               <span className="text-2xl">{it.label}</span>
             </div>
@@ -235,9 +322,15 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
               <div
                 key={it.id}
                 data-id={it.id}
-                className={`node tile ${usedRight.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5`}
-                style={{ width: tileSize.width, height: tileSize.height }}
-                onPointerUp={(e) => dropOnRight(e, it.id)}
+                className={`node tile ${usedRight.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5 touch-none`}
+                style={{ 
+                  width: tileSize.width, 
+                  height: tileSize.height,
+                  touchAction: 'none',
+                  userSelect: 'none',
+                  WebkitUserSelect: 'none'
+                }}
+                onContextMenu={(e) => e.preventDefault()}
               >
                 {mode === "images" ? (
                   <div className="imgbox">
