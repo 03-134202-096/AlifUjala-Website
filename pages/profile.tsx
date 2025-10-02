@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import type { NextPage } from 'next'
+import LoadingIndicator from "@/components/LoadingIndicator"
 
 const ProfilePage: NextPage = () => {
   const [user, setUser] = useState<any>(null)
@@ -46,7 +47,13 @@ const ProfilePage: NextPage = () => {
     }
   }
 
-  if (loading) return <p>Loading...</p>
+  if (loading) {
+    return (
+      <div className="min-h-[50vh] flex items-center justify-center">
+        <LoadingIndicator message="Fetching your profile..." />
+      </div>
+    )
+  }
   if (error) return <p style={{ color: "red" }}>❌ {error}</p>
 
   return (
@@ -64,6 +71,11 @@ const ProfilePage: NextPage = () => {
         >
           {upgrading ? "Upgrading..." : "Upgrade to Premium"}
         </button>
+      )}
+      {upgrading && (
+        <div className="mt-6">
+          <LoadingIndicator size={96} message="Upgrading your account..." />
+        </div>
       )}
       {upgradeMsg && <p style={{ marginTop: 8, color: user.isPremium ? "#16db65" : "#fff" }}>{upgradeMsg}</p>}
     </div>

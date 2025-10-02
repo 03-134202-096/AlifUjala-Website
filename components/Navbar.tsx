@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react"
 import Link from "next/link"
+import LoadingIndicator from "./LoadingIndicator"
 
 type User = { id: number | string; username?: string; email?: string } | null
 
@@ -45,7 +46,12 @@ export default function Navbar() {
           <Link href="/about" className="text-white text-base">About</Link>
 
           {loading ? (
-            <span className="text-white">...</span>
+            <LoadingIndicator
+              size={36}
+              message=""
+              orientation="horizontal"
+              className="gap-0"
+            />
           ) : user ? (
             <>
               <Link href="/profile" className="text-white">Profile</Link>

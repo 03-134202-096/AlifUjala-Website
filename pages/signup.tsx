@@ -1,5 +1,6 @@
 import { useState, FormEvent } from "react"
 import type { NextPage } from 'next'
+import LoadingIndicator from "@/components/LoadingIndicator"
 
 const SignupPage: NextPage = () => {
   const [username, setUsername] = useState("")
@@ -8,42 +9,62 @@ const SignupPage: NextPage = () => {
   const [otp, setOtp] = useState("")
   const [message, setMessage] = useState("")
   const [step, setStep] = useState(1) // Track the current step
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [loadingMessage, setLoadingMessage] = useState("")
 
   async function handleSignup(e: FormEvent) {
     e.preventDefault()
-    setMessage("...loading")
+    setMessage("")
+    setLoadingMessage("Creating your account...")
+    setIsProcessing(true)
 
-    const res = await fetch("/api/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, email, password }),
-    })
+    try {
+      const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password }),
+      })
 
-    const data = await res.json()
-    if (res.ok) {
-      setMessage("✅ OTP sent to your email")
-      setStep(2) // Move to OTP verification step
-    } else {
-      setMessage("❌ " + data.error)
+      const data = await res.json()
+      if (res.ok) {
+        setMessage("✅ OTP sent to your email")
+        setStep(2) // Move to OTP verification step
+      } else {
+        setMessage("❌ " + data.error)
+      }
+    } catch (err) {
+      setMessage("❌ Unable to reach the server. Please try again.")
+    } finally {
+      setIsProcessing(false)
+      setLoadingMessage("")
     }
   }
 
   async function handleVerifyOtp(e: FormEvent) {
     e.preventDefault()
-    setMessage("...verifying OTP")
+    setMessage("")
+    setLoadingMessage("Verifying OTP...")
+    setIsProcessing(true)
 
-    const res = await fetch("/api/verify-otp", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, otp }),
-    })
+    try {
+      const res = await fetch("/api/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp }),
+      })
 
-    const data = await res.json()
-    if (res.ok) {
-      setMessage("✅ Signup successful")
-      setStep(3) // Signup complete
-    } else {
-      setMessage("❌ " + data.error)
+      const data = await res.json()
+      if (res.ok) {
+        setMessage("✅ Signup successful")
+        setStep(3) // Signup complete
+      } else {
+        setMessage("❌ " + data.error)
+      }
+    } catch (err) {
+      setMessage("❌ Unable to reach the server. Please try again.")
+    } finally {
+      setIsProcessing(false)
+      setLoadingMessage("")
     }
   }
 
@@ -58,6 +79,7 @@ const SignupPage: NextPage = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            disabled={isProcessing}
           />
           <br />
           <input
@@ -66,6 +88,7 @@ const SignupPage: NextPage = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled={isProcessing}
           />
           <br />
           <input
@@ -74,9 +97,12 @@ const SignupPage: NextPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            disabled={isProcessing}
           />
           <br />
-          <button type="submit">Signup</button>
+          <button type="submit" disabled={isProcessing}>
+            {isProcessing ? "Signing you up..." : "Signup"}
+          </button>
         </form>
       )}
 
@@ -88,13 +114,21 @@ const SignupPage: NextPage = () => {
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
             required
+            disabled={isProcessing}
           />
           <br />
-          <button type="submit">Verify OTP</button>
+          <button type="submit" disabled={isProcessing}>
+            {isProcessing ? "Checking code..." : "Verify OTP"}
+          </button>
         </form>
       )}
 
-      {message && <p>{message}</p>}
+      {isProcessing && (
+        <div style={{ marginTop: "1.5rem" }}>
+          <LoadingIndicator size={120} message={loadingMessage || "Processing..."} />
+        </div>
+      )}
+      {!isProcessing && message && <p>{message}</p>}
     </div>
   )
 }

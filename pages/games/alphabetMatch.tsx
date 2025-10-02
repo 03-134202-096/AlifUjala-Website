@@ -4,6 +4,7 @@ import Footer from "@/components/Footer"
 import MatchingBoard from "@/components/MatchingBoard"
 import lettersData from "@/data/alphabets.json"
 import DownloadWorksheet from "@/components/DownloadWorksheet"
+import LoadingIndicator from "@/components/LoadingIndicator"
 
 function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5)
@@ -81,7 +82,13 @@ export default function AlphabetMatchPage() {
     }
   }
 
-  if (status === "checking") return <p className="center" style={{ marginTop: 24 }}>Loading...</p>
+  if (status === "checking") {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <LoadingIndicator message="Loading game..." />
+      </div>
+    )
+  }
   if (status === "out") {
     return (
       <div className="container" style={{ textAlign: "center", marginTop: "2rem" }}>
