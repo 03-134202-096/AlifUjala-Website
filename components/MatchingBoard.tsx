@@ -212,7 +212,7 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
         />
       </svg>
 
-      <div className="max-w-4xl mx-auto flex gap-6 justify-between items-start gap-20 sm:gap-8 md:gap-10 w-full">
+      <div className="max-w-4xl mx-auto flex gap-6 justify-between items-start gap-20 sm:gap-20 md:gap-20 w-full">
         {/* Left column */}
         <div className="left-col grid gap-4 w-1/2">
           {leftItems.map((it) => (
