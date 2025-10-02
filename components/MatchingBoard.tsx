@@ -18,6 +18,20 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
   const [showCongrats, setShowCongrats] = useState(false)
   const [showFail, setShowFail] = useState(false)
 
+  // Dynamic tile sizing based on number of items
+  const getTileSize = () => {
+    const itemCount = leftItems.length
+    console.log("Item count:", itemCount) // Debug log
+    if (itemCount <= 5) return { width: '80px', height: '80px', className: 'w-20 h-20' }
+    if (itemCount === 6) return { width: '64px', height: '64px', className: 'w-16 h-16' }
+    if (itemCount === 7) return { width: '56px', height: '56px', className: 'w-14 h-14' }
+    if (itemCount >= 8) return { width: '48px', height: '48px', className: 'w-12 h-12' }
+    return { width: '80px', height: '80px', className: 'w-20 h-20' }
+  }
+
+  const tileSize = getTileSize()
+  console.log("Tile size:", tileSize) // Debug log
+
   const [dragging, setDragging] = useState<{ fromId: string; start: { x: number; y: number } } | null>(null)
 
   const wrapRef = useRef<HTMLDivElement | null>(null)
@@ -130,7 +144,7 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
   }
 
   return (
-    <div className="relative rounded-xl bg-[url('/images/game_bg.PNG')] bg-center bg-cover min-h-[520px] overflow-hidden p-4" ref={wrapRef} onPointerMove={moveDrag} onPointerUp={cancelDrag}>
+    <div className="relative rounded-xl min-h-[520px] overflow-hidden p-4" ref={wrapRef} onPointerMove={moveDrag} onPointerUp={cancelDrag}>
       <svg className="absolute inset-0 w-full h-full pointer-events-none" ref={svgRef}>
         <g ref={permRef} />
         <path
@@ -151,7 +165,8 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
             <div
               key={it.id}
               data-id={it.id}
-              className={`tile ${usedLeft.has(it.id) ? "disabled" : ""} w-20 h-20 rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5`}
+              className={`tile ${usedLeft.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5`}
+              style={{ width: tileSize.width, height: tileSize.height }}
               onPointerDown={(e) => startDrag(e, it.id)}
             >
               <span className="text-2xl">{it.label}</span>
@@ -166,7 +181,8 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
               <div
                 key={it.id}
                 data-id={it.id}
-                className={`node tile ${usedRight.has(it.id) ? "disabled" : ""} w-20 h-20 rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5`}
+                className={`node tile ${usedRight.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5`}
+                style={{ width: tileSize.width, height: tileSize.height }}
                 onPointerUp={(e) => dropOnRight(e, it.id)}
               >
                 {mode === "images" ? (

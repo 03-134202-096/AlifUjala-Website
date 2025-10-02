@@ -12,7 +12,7 @@ function shuffle<T>(arr: T[]): T[] {
 
 export default function AlphabetMatchPage() {
   const [status, setStatus] = useState<"checking" | "playing" | "out" | "error">("checking")
-  const [count, setCount] = useState(6)
+  const [count, setCount] = useState(5)
   const [startId, setStartId] = useState("alif")
   const [endId, setEndId] = useState("bari-yaa")
   const [seed, setSeed] = useState(Date.now())
@@ -110,49 +110,73 @@ export default function AlphabetMatchPage() {
           <h2 style={{ margin: 0, fontWeight: 700, fontSize: '1.25rem' }}>Alphabet &nbsp;→&nbsp; Alphabet Match</h2>
         </div>
 
-        {/* Toolbar */}
-        <div className="game-toolbar" style={{ gap: "1rem" }}>
-          <div className="toolbar-left">
-            <label>
-              Count:&nbsp;
-              <select value={count} onChange={(e) => setCount(Number(e.target.value))} className="bordered-select">
-                {[5, 6, 7, 8].map((n) => (
-                  <option key={n} value={n}>
-                    {n}
-                  </option>
-                ))}
-              </select>
-            </label>
+        {/* Responsive Toolbar */}
+        <div className="responsive-game-toolbar">
+          <div className="toolbar-controls">
+            {/* Count Control */}
+            <div className="control-group">
+              <label className="control-label">
+                <span className="label-text">Count:</span>
+                <select 
+                  value={count} 
+                  onChange={(e) => setCount(Number(e.target.value))} 
+                  className="responsive-select"
+                >
+                  {[5, 6, 7, 8].map((n) => (
+                    <option key={n} value={n}>
+                      {n}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
 
-            <label>
-              From:&nbsp;
-              <select value={startId} onChange={(e) => setStartId(e.target.value)} className="bordered-select">
-                {allLetters.map((l: any) => (
-                  <option key={l.id} value={l.id}>
-                    {l.char} ({l.name})
-                  </option>
-                ))}
-              </select>
-            </label>
+            {/* From Control */}
+            <div className="control-group">
+              <label className="control-label">
+                <span className="label-text">From:</span>
+                <select 
+                  value={startId} 
+                  onChange={(e) => setStartId(e.target.value)} 
+                  className="responsive-select"
+                >
+                  {allLetters.map((l: any) => (
+                    <option key={l.id} value={l.id}>
+                      {l.char} ({l.name})
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
 
-            <label>
-              To:&nbsp;
-              <select value={endId} onChange={(e) => setEndId(e.target.value)} className="bordered-select">
-                {allLetters.map((l: any) => (
-                  <option key={l.id} value={l.id}>
-                    {l.char} ({l.name})
-                  </option>
-                ))}
-              </select>
-            </label>
+            {/* To Control */}
+            <div className="control-group">
+              <label className="control-label">
+                <span className="label-text">To:</span>
+                <select 
+                  value={endId} 
+                  onChange={(e) => setEndId(e.target.value)} 
+                  className="responsive-select"
+                >
+                  {allLetters.map((l: any) => (
+                    <option key={l.id} value={l.id}>
+                      {l.char} ({l.name})
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
 
-            <button className="btn" onClick={() => setSeed(Date.now())}>
-              Load Letters
-            </button>
+            {/* Load Button */}
+            <div className="control-group">
+              <button className="responsive-btn load-btn" onClick={() => setSeed(Date.now())}>
+                <span className="btn-text">Load Letters</span>
+              </button>
+            </div>
           </div>
 
-          <div className="toolbar-right">
-            {/* ✅ Reusable Worksheet Download (right-aligned) */}
+          {/* Download Section */}
+          <div className="toolbar-actions">
             <DownloadWorksheet
               left={left}
               right={right}

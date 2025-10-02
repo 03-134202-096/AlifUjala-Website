@@ -78,31 +78,44 @@ export default function ImageMatchPage() {
       <div className="container">
         <h2 className="center" style={{ margin: "1rem 0" }}>Image → Image Match</h2>
 
-        <div className="game-toolbar" style={{ gap: "1rem" }}>
-          <label>
-            Count:&nbsp;
-            <select value={count} onChange={(e) => setCount(Number(e.target.value))}>
-              {[5, 6, 7, 8].map((n) => (
-                <option key={n} value={n}>
-                  {n}
-                </option>
-              ))}
-            </select>
-          </label>
+        {/* Responsive Toolbar */}
+        <div className="responsive-game-toolbar">
+          <div className="toolbar-controls">
+            {/* Count Control */}
+            <div className="control-group">
+              <label className="control-label">
+                <span className="label-text">Count:</span>
+                <select 
+                  value={count} 
+                  onChange={(e) => setCount(Number(e.target.value))} 
+                  className="responsive-select"
+                >
+                  {[5, 6, 7, 8].map((n) => (
+                    <option key={n} value={n}>
+                      {n}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
 
-          <button className="btn" onClick={() => setSeed(Date.now())}>
-            Load Images
-          </button>
+            {/* Load Button */}
+            <div className="control-group">
+              <button className="responsive-btn load-btn" onClick={() => setSeed(Date.now())}>
+                <span className="btn-text">Load Images</span>
+              </button>
+            </div>
+          </div>
 
-          {/* ✅ Worksheet Download */}
-          <DownloadWorksheet
-            left={left}
-            right={right}
-            title="Match each image to its pair"
-            filename="worksheet_image_match.pdf"
-          />
-
-
+          {/* Download Section */}
+          <div className="toolbar-actions">
+            <DownloadWorksheet
+              left={left}
+              right={right}
+              title="Match each image to its pair"
+              filename="worksheet_image_match.pdf"
+            />
+          </div>
         </div>
 
         <MatchingBoard leftItems={left} rightItems={right} mode="images" onComplete={() => {}} />

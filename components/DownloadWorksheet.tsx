@@ -190,17 +190,19 @@ export default function DownloadWorksheet({
   }
 
   return (
-    <div className="inline-flex items-center gap-3 px-3 py-2 border rounded-lg bg-transparent download-control">
-      <select
-        value={bgType}
-        onChange={(e) => setBgType(e.target.value as "color" | "bw")}
-        className="bordered-select px-2 py-1 rounded-md text-sm download-select"
-      >
-        <option value="color">Color</option>
-        <option value="bw">Black & White</option>
-      </select>
-      <button onClick={handleDownload} className="bg-pink-500 text-white px-3 py-1 rounded-md font-bold">
-        Download Worksheet
+    <div className="responsive-download-control">
+      <div className="download-bg-selector">
+        <select
+          value={bgType}
+          onChange={(e) => setBgType(e.target.value as "color" | "bw")}
+          className="responsive-select download-select"
+        >
+          <option value="color">Color</option>
+          <option value="bw">Black & White</option>
+        </select>
+      </div>
+      <button onClick={handleDownload} className="responsive-btn download-btn">
+        <span className="btn-text">Download Worksheet</span>
       </button>
     </div>
   )

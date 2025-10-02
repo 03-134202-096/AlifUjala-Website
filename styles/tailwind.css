@@ -30,7 +30,7 @@ html,body{
 
 @media (max-width: 768px){
   html,body{
-    background-image: linear-gradient(rgba(12,12,20,0.45), rgba(12,12,20,0.45)), url('/images/hero.jpg');
+    background-image: linear-gradient(rgba(12,12,20,0.45), rgba(12,12,20,0.45)), url('/images/Background_website.jpg');
     background-attachment: scroll;
   }
 }
@@ -174,52 +174,474 @@ a{text-decoration:none;color:inherit}
 .ribbon-area{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:2rem auto;max-width:1000px}
 .ribbon{background:url('/images/wood.png') center/cover no-repeat;filter:brightness(.9);color:#fff;padding:1rem 1.25rem;border-radius:10px;box-shadow:inset 0 -10px 0 rgba(255,255,255,.05),0 8px 18px rgba(0,0,0,.25)}
 .ribbon .candle{float:right;opacity:.95}
-.game-toolbar{
-  display:flex;
-  flex-wrap:nowrap; /* keep toolbar in single row */
-  gap:.5rem;
-  align-items:center;
-  justify-content:flex-start;
-  margin:1rem 0;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-}
-
-/* Left group can shrink if needed */
-.game-toolbar > .toolbar-left{
-  display:flex;
-  gap:.5rem;
-  align-items:center;
-  flex: 1 1 auto; /* allow shrinking */
-  min-width: 0; /* enable proper flex shrinking */
-}
-
-/* Right group stays its size and is pushed to the right */
-.game-toolbar .toolbar-right{
+/* Professional Responsive Game Toolbar - Glass Effect */
+.responsive-game-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  padding: 0.875rem;
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.25) 0%, 
+    rgba(255,255,255,0.18) 50%, 
+    rgba(255,255,255,0.12) 100%);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 16px;
+  box-shadow: 
+    0 8px 32px rgba(31,38,135,0.15),
+    0 2px 16px rgba(31,38,135,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    inset 0 -1px 0 rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  max-width: 900px;
   margin-left: auto;
-  display:flex;
-  align-items:center;
-  flex: 0 0 auto;
-  white-space:nowrap;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Make sure direct children inside toolbar-right don't become full-width blocks */
-.game-toolbar .toolbar-right > *{ display:inline-flex; align-items:center }
-
-.game-toolbar .btn{ white-space:nowrap }
-.game-toolbar{ position: relative; padding-right: 260px; }
-
-/* Place the right group absolutely on larger screens so it stays on the same row */
-.game-toolbar .toolbar-right{
+.responsive-game-toolbar::before {
+  content: '';
   position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255,255,255,0.6) 50%, 
+    transparent 100%);
+  pointer-events: none;
 }
 
-@media (max-width: 768px){
-  .game-toolbar{ padding-right: 0; }
-  .game-toolbar .toolbar-right{ position: static; margin-left: auto; transform: none; }
+.toolbar-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.toolbar-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 100px;
+  flex: 1 1 auto;
+}
+
+.control-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  font-weight: 500;
+  color: white;
+}
+
+.label-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.responsive-select {
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 10px;
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.4) 0%, 
+    rgba(255,255,255,0.25) 100%);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 14px 10px;
+  appearance: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  min-height: 36px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 
+    0 2px 8px rgba(31,38,135,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+}
+
+.responsive-select option {
+  background: rgba(0,0,0,0.9);
+  color: white;
+  padding: 0.5rem;
+}
+
+.download-select option {
+  background: rgba(0,0,0,0.9);
+  color: white;
+  padding: 0.375rem;
+}
+
+.responsive-select:hover {
+  border-color: rgba(255,255,255,0.5);
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.5) 0%, 
+    rgba(255,255,255,0.35) 100%);
+  box-shadow: 
+    0 4px 12px rgba(31,38,135,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  transform: translateY(-1px);
+}
+
+.responsive-select:focus {
+  outline: none;
+  border-color: rgba(59,130,246,0.6);
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.5) 0%, 
+    rgba(255,255,255,0.35) 100%);
+  box-shadow: 
+    0 0 0 3px rgba(59,130,246,0.15),
+    0 4px 16px rgba(31,38,135,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+}
+
+.responsive-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 36px;
+  white-space: nowrap;
+}
+
+.load-btn {
+  background: linear-gradient(135deg, 
+    rgba(236,72,153,0.9) 0%, 
+    rgba(190,24,93,0.9) 100%);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 
+    0 4px 16px rgba(236,72,153,0.3),
+    0 2px 8px rgba(236,72,153,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    inset 0 -1px 0 rgba(255,255,255,0.1);
+}
+
+.load-btn:hover {
+  background: linear-gradient(135deg, 
+    rgba(219,39,119,0.95) 0%, 
+    rgba(163,24,93,0.95) 100%);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px rgba(236,72,153,0.4),
+    0 4px 12px rgba(236,72,153,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.5),
+    inset 0 -1px 0 rgba(255,255,255,0.15);
+}
+
+.load-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(236,72,153,0.35),
+    0 2px 6px rgba(236,72,153,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.btn-text {
+  position: relative;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  font-weight: 600;
+}
+
+/* Tablet Styles */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .responsive-game-toolbar {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+  }
+  
+  .toolbar-controls {
+    flex: 1;
+    max-width: 70%;
+    gap: 0.625rem;
+  }
+  
+  .toolbar-actions {
+    flex: 0 0 auto;
+    margin-left: 0.75rem;
+  }
+  
+  .control-group {
+    min-width: 85px;
+    max-width: 120px;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .responsive-game-toolbar {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+  }
+  
+  .toolbar-controls {
+    flex: 1;
+    gap: 1rem;
+    max-width: 65%;
+  }
+  
+  .toolbar-actions {
+    flex: 0 0 auto;
+    margin-left: 1.5rem;
+  }
+  
+  .control-group {
+    min-width: 110px;
+    max-width: 140px;
+  }
+  
+  .responsive-select {
+    padding: 0.625rem 2.25rem 0.625rem 0.875rem;
+    font-size: 0.9rem;
+    min-height: 40px;
+  }
+  
+  .responsive-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    min-height: 40px;
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+  .responsive-game-toolbar {
+    margin: 0.75rem 0;
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+  
+  .toolbar-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  
+  .control-group:last-child {
+    grid-column: 1 / -1;
+  }
+  
+  .control-group {
+    min-width: unset;
+  }
+  
+  .responsive-select {
+    font-size: 0.8rem;
+    padding: 0.5rem 1.75rem 0.5rem 0.625rem;
+    min-height: 32px;
+  }
+  
+  .responsive-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.8rem;
+    min-height: 32px;
+  }
+  
+  .toolbar-actions {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* High-resolution screens */
+@media (min-width: 1440px) {
+  .responsive-game-toolbar {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Responsive Download Control Styles - Glass Effect */
+.responsive-download-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem;
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.35) 0%, 
+    rgba(255,255,255,0.25) 100%);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 12px;
+  box-shadow: 
+    0 4px 16px rgba(31,38,135,0.12),
+    0 1px 8px rgba(31,38,135,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+.download-bg-selector {
+  min-width: 80px;
+}
+
+.download-select {
+  font-size: 0.8rem;
+  padding: 0.375rem 1.75rem 0.375rem 0.625rem;
+  min-height: 32px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.4) 0%, 
+    rgba(255,255,255,0.25) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 
+    0 1px 4px rgba(31,38,135,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+  color: white;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 12px 8px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.download-select:focus {
+  border-color: rgba(59,130,246,0.6);
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.5) 0%, 
+    rgba(255,255,255,0.35) 100%);
+  box-shadow: 
+    0 0 0 2px rgba(59,130,246,0.15),
+    0 2px 8px rgba(31,38,135,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+.download-btn {
+  background: linear-gradient(135deg, 
+    rgba(16,185,129,0.9) 0%, 
+    rgba(5,150,105,0.9) 100%);
+  color: white;
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  min-height: 32px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 
+    0 2px 8px rgba(16,185,129,0.25),
+    0 1px 4px rgba(16,185,129,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    inset 0 -1px 0 rgba(255,255,255,0.1);
+}
+
+.download-btn:hover {
+  background: linear-gradient(135deg, 
+    rgba(5,150,105,0.95) 0%, 
+    rgba(4,120,87,0.95) 100%);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 16px rgba(16,185,129,0.35),
+    0 2px 8px rgba(16,185,129,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.5),
+    inset 0 -1px 0 rgba(255,255,255,0.15);
+}
+
+.download-btn:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 2px 8px rgba(16,185,129,0.3),
+    0 1px 4px rgba(16,185,129,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+/* Mobile Responsive Download Control */
+@media (max-width: 640px) {
+  .responsive-download-control {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    width: 100%;
+  }
+  
+  .download-bg-selector {
+    width: 100%;
+    min-width: unset;
+  }
+  
+  .download-select {
+    width: 100%;
+  }
+  
+  .download-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet Responsive Download Control */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .download-btn {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* Desktop Responsive Download Control */
+@media (min-width: 1024px) {
+  .responsive-download-control {
+    gap: 0.75rem;
+    padding: 0.5rem;
+  }
+  
+  .download-btn {
+    font-size: 0.875rem;
+    padding: 0.625rem 1.25rem;
+    min-height: 36px;
+  }
+  
+  .download-select {
+    font-size: 0.875rem;
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    min-height: 36px;
+  }
+  
+  .download-bg-selector {
+    min-width: 90px;
+  }
 }
 .game-surface{position:relative;border-radius:18px;background:url('/images/jungle.jpg') center/cover no-repeat;min-height:520px;overflow:hidden;border:2px solid #0002}
 .col-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:2rem}
