@@ -82,7 +82,7 @@ export default function DownloadWorksheet({
     ctx.fillStyle = "rgba(255,255,255,0.9)"
     ctx.fillRect(40, 30, W - 80, 60)
     ctx.fillStyle = "#000"
-    ctx.font = "28px 'Noto Nastaliq Urdu', serif"
+    ctx.font = "28px serif"
 
     // Name
     ctx.textAlign = "right"
@@ -105,11 +105,11 @@ export default function DownloadWorksheet({
     ctx.fillRect(W / 2 - 300, 100, 600, 50)
     ctx.fillStyle = "#000"
     ctx.textAlign = "center"
-    ctx.font = "36px 'Noto Nastaliq Urdu', serif"
+    ctx.font = "36px serif"
     ctx.fillText(title, W / 2, 135)
 
     // ✅ Rows
-    ctx.font = "72px 'Noto Nastaliq Urdu', serif"
+    ctx.font = "72px serif"
     ctx.textAlign = "center"
     for (let i = 0; i < rows; i++) {
       const y = 200 + i * 180
@@ -155,7 +155,7 @@ export default function DownloadWorksheet({
     ctx.fillRect(W / 2 - 250, H - 80, 500, 60)
     const today = new Date().toLocaleDateString("ur-PK")
     ctx.fillStyle = "#000"
-    ctx.font = "14px 'Noto Nastaliq Urdu', serif"
+    ctx.font = "14px serif"
     ctx.textAlign = "center"
     ctx.fillText(`تیاری کی تاریخ: ${today}`, W / 2, H - 50)
     ctx.font = "10px Arial"

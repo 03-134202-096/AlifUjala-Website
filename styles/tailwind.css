@@ -9,13 +9,6 @@
   --green:#16db65;
   --dark:#2c2c2c;
 }
-@font-face {
-  font-family: "Noto Nastaliq Urdu";
-  src: url("/fonts/NotoNastaliqUrdu-VariableFont_wght.ttf") format("truetype");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
 
 /* Global site background: large desktop uses Background_website.jpg, with a semi-opaque overlay for readability.
    On small screens we fall back to hero.jpg and disable fixed attachment for performance on mobile. */
