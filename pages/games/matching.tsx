@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import MatchingBoard from "@/components/MatchingBoard"
@@ -14,11 +14,36 @@ export default function MatchingPage() {
   const [status, setStatus] = useState<"checking" | "playing" | "out" | "error">("checking")
   const [count, setCount] = useState(6)
   const [seed, setSeed] = useState(Date.now())
+  const [gameStarted, setGameStarted] = useState(false)
+  const [triggerSubmit, setTriggerSubmit] = useState(false)
+  const matchingBoardRef = useRef<HTMLDivElement>(null)
 
   const allImages = (imagesData as any).images || []
 
   const [left, setLeft] = useState<Array<{ id: string; src: string }>>([])
   const [right, setRight] = useState<Array<{ id: string; src: string }>>([])
+
+  // Game button handler
+  const handleGameButton = () => {
+    if (!gameStarted) {
+      // Start Game
+      setGameStarted(true)
+      
+      // Smooth scroll to matching board after a short delay
+      setTimeout(() => {
+        if (matchingBoardRef.current) {
+          matchingBoardRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+          })
+        }
+      }, 200)
+    } else {
+      // Submit
+      setTriggerSubmit(true)
+    }
+  }
 
   useEffect(() => {
     if (status !== "playing") return
@@ -105,6 +130,13 @@ export default function MatchingPage() {
                 <span className="btn-text">Load Images</span>
               </button>
             </div>
+
+            {/* Start/Submit Game Button */}
+            <div className="control-group">
+              <button className="responsive-btn game-btn" onClick={handleGameButton}>
+                <span className="btn-text">{gameStarted ? "Submit" : "Start Game"}</span>
+              </button>
+            </div>
           </div>
 
           {/* Download Section */}
@@ -118,7 +150,19 @@ export default function MatchingPage() {
           </div>
         </div>
 
-        <MatchingBoard leftItems={left} rightItems={right} mode="images" onComplete={() => {}} />
+        <div ref={matchingBoardRef} className="matching-board-container">
+          <MatchingBoard 
+            leftItems={left} 
+            rightItems={right} 
+            mode="images" 
+            gameStarted={gameStarted}
+            triggerSubmit={triggerSubmit}
+            onComplete={(s, t) => {
+              setGameStarted(false)
+              setTriggerSubmit(false)
+            }} 
+          />
+        </div>
       </div>
       <Footer />
     </>

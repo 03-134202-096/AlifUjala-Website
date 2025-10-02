@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState, useRef } from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import MatchingBoard from "@/components/MatchingBoard"
@@ -16,6 +16,10 @@ export default function AlphabetMatchPage() {
   const [startId, setStartId] = useState("alif")
   const [endId, setEndId] = useState("bari-yaa")
   const [seed, setSeed] = useState(Date.now())
+  const [gameStarted, setGameStarted] = useState(false)
+  const [gameScore, setGameScore] = useState({ score: 0, total: 0 })
+  const [triggerSubmit, setTriggerSubmit] = useState(false)
+  const matchingBoardRef = useRef<HTMLDivElement>(null)
 
   const allLetters = (lettersData as any).letters || []
 
@@ -30,6 +34,29 @@ export default function AlphabetMatchPage() {
 
   const [left, setLeft] = useState<Array<{ id: string; label: string }>>([])
   const [right, setRight] = useState<Array<{ id: string; label: string }>>([])
+
+  // Game button handler
+  const handleGameButton = () => {
+    if (!gameStarted) {
+      // Start Game
+      setGameStarted(true)
+      setGameScore({ score: 0, total: 0 })
+      
+      // Smooth scroll to matching board after a short delay
+      setTimeout(() => {
+        if (matchingBoardRef.current) {
+          matchingBoardRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+          })
+        }
+      }, 200) // Small delay to ensure state update
+    } else {
+      // Submit - Trigger submit in MatchingBoard
+      setTriggerSubmit(true)
+    }
+  }
 
   // Generate left/right sets
   useEffect(() => {
@@ -173,6 +200,13 @@ export default function AlphabetMatchPage() {
                 <span className="btn-text">Load Letters</span>
               </button>
             </div>
+
+            {/* Start/Submit Game Button */}
+            <div className="control-group">
+              <button className="responsive-btn game-btn" onClick={handleGameButton}>
+                <span className="btn-text">{gameStarted ? "Submit" : "Start Game"}</span>
+              </button>
+            </div>
           </div>
 
           {/* Download Section */}
@@ -192,17 +226,24 @@ export default function AlphabetMatchPage() {
           {Math.min(Math.max(count, 5), Math.min(8, slice.length))}.
         </p>
 
-        <MatchingBoard
-          leftItems={left}
-          rightItems={right}
-          mode="letters"
-          onComplete={(s, t) => {
-            localStorage.setItem(
-              "alphabet_match_score",
-              JSON.stringify({ s, t, ts: Date.now() })
-            )
-          }}
-        />
+        <div ref={matchingBoardRef} className="matching-board-container">
+          <MatchingBoard
+            leftItems={left}
+            rightItems={right}
+            mode="letters"
+            gameStarted={gameStarted}
+            triggerSubmit={triggerSubmit}
+            onComplete={(s, t) => {
+              setGameScore({ score: s, total: t })
+              setGameStarted(false)
+              setTriggerSubmit(false)
+              localStorage.setItem(
+                "alphabet_match_score",
+                JSON.stringify({ s, t, ts: Date.now() })
+              )
+            }}
+          />
+        </div>
       </div>
       <Footer />
     </>

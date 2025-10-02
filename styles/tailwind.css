@@ -366,6 +366,41 @@ a{text-decoration:none;color:inherit}
     inset 0 1px 0 rgba(255,255,255,0.4);
 }
 
+.game-btn {
+  background: linear-gradient(135deg, 
+    rgba(99,102,241,0.9) 0%, 
+    rgba(79,70,229,0.9) 100%);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 
+    0 4px 16px rgba(99,102,241,0.3),
+    0 2px 8px rgba(99,102,241,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    inset 0 -1px 0 rgba(255,255,255,0.1);
+}
+
+.game-btn:hover {
+  background: linear-gradient(135deg, 
+    rgba(79,70,229,0.95) 0%, 
+    rgba(67,56,202,0.95) 100%);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px rgba(99,102,241,0.4),
+    0 4px 12px rgba(99,102,241,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.5),
+    inset 0 -1px 0 rgba(255,255,255,0.15);
+}
+
+.game-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(99,102,241,0.35),
+    0 2px 6px rgba(99,102,241,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
 .btn-text {
   position: relative;
   color: white;
@@ -486,6 +521,24 @@ a{text-decoration:none;color:inherit}
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+/* Smooth scrolling container */
+.matching-board-container {
+  scroll-margin-top: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Ensure smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus indicator for accessibility when scrolled to */
+.matching-board-container:target {
+  outline: 2px solid rgba(59,130,246,0.3);
+  outline-offset: 4px;
+  border-radius: 12px;
 }
 
 /* Responsive Download Control Styles - Glass Effect */

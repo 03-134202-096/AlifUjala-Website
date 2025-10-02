@@ -8,13 +8,14 @@ type Props = {
   leftItems: Item[]
   rightItems: Item[]
   mode?: "letters" | "images"
+  gameStarted?: boolean
+  triggerSubmit?: boolean
   onComplete?: (score: number, total: number) => void
 }
 
-export default function MatchingBoard({ leftItems, rightItems, mode = "letters", onComplete }: Props) {
+export default function MatchingBoard({ leftItems, rightItems, mode = "letters", gameStarted = false, triggerSubmit = false, onComplete }: Props) {
   const [pairs, setPairs] = useState<Array<{ l: string; r: string; correct: boolean }>>([])
   const [score, setScore] = useState(0)
-  const [gameStarted, setGameStarted] = useState(false)
   const [showCongrats, setShowCongrats] = useState(false)
   const [showFail, setShowFail] = useState(false)
 
@@ -118,16 +119,20 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
     g.innerHTML = svgs
   }, [pairs])
 
-  const handleButtonClick = () => {
-    if (!gameStarted) {
-      // Start Game
+  // Handle game state changes
+  useEffect(() => {
+    if (gameStarted) {
+      // Reset game when started
       setPairs([])
       setScore(0)
-      setGameStarted(true)
       setShowCongrats(false)
       setShowFail(false)
-    } else {
-      // Submit
+    }
+  }, [gameStarted])
+
+  // Handle game submission when submit is triggered from parent
+  useEffect(() => {
+    if (triggerSubmit) {
       const total = leftItems.length
       const correctCount = pairs.filter((p) => p.correct).length
       setScore(correctCount)
@@ -139,9 +144,8 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
       } else {
         setShowFail(true)
       }
-      setGameStarted(false) // reset button to "Start Game"
     }
-  }
+  }, [triggerSubmit, pairs, leftItems.length, onComplete])
 
   return (
     <div className="relative rounded-xl min-h-[520px] overflow-hidden p-4" ref={wrapRef} onPointerMove={moveDrag} onPointerUp={cancelDrag}>
@@ -207,13 +211,6 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
       {/* Scoreboard */}
       <div className="text-center mt-4">
         <span className="font-extrabold">Score: {score} / {leftItems.length}</span>
-      </div>
-
-      {/* Start / Submit button */}
-      <div className="text-center mt-4">
-        <button onClick={handleButtonClick} className="bg-pink-500 text-white px-6 py-3 text-lg rounded-full">
-          {gameStarted ? "Submit" : "Start Game"}
-        </button>
       </div>
 
 
