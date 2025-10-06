@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import type { NextPage } from 'next'
 import LoadingIndicator from "@/components/LoadingIndicator"
+import Navbar from "@/components/Navbar"
+import Footer from "@/components/Footer"
 
 const ProfilePage: NextPage = () => {
   const [user, setUser] = useState<any>(null)
@@ -49,36 +51,61 @@ const ProfilePage: NextPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[50vh] flex items-center justify-center">
-        <LoadingIndicator message="Fetching your profile..." />
-      </div>
+      <>
+        <Navbar />
+        <main className="min-h-screen py-8">
+          <div className="min-h-[50vh] flex items-center justify-center">
+            <LoadingIndicator message="Fetching your profile..." />
+          </div>
+        </main>
+        <Footer />
+      </>
     )
   }
-  if (error) return <p style={{ color: "red" }}>❌ {error}</p>
+  
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <main className="min-h-screen py-8">
+          <div style={{ maxWidth: "400px", margin: "2rem auto" }}>
+            <p style={{ color: "red" }}>❌ {error}</p>
+          </div>
+        </main>
+        <Footer />
+      </>
+    )
+  }
 
   return (
-    <div style={{ maxWidth: "400px", margin: "2rem auto" }}>
-      <h2>Profile</h2>
-      <p><strong>ID:</strong> {user.id}</p>
-      <p><strong>Username:</strong> {user.username}</p>
-      <p><strong>Email:</strong> {user.email}</p>
-      <p><strong>Status:</strong> {user.isPremium ? "Premium" : "Free"}</p>
-      {!user.isPremium && (
-        <button
-          onClick={handleUpgrade}
-          disabled={upgrading}
-          className={"btn-upgrade mt-4 px-6 py-2 rounded-full font-bold border border-white text-white bg-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-300 transition " + (upgrading ? "opacity-60 cursor-not-allowed" : "hover:bg-pink-600 cursor-pointer")}
-        >
-          {upgrading ? "Upgrading..." : "Upgrade to Premium"}
-        </button>
-      )}
-      {upgrading && (
-        <div className="mt-6">
-          <LoadingIndicator size={96} message="Upgrading your account..." />
+    <>
+      <Navbar />
+      <main className="min-h-screen py-8">
+        <div style={{ maxWidth: "400px", margin: "2rem auto" }}>
+          <h2>Profile</h2>
+          <p><strong>ID:</strong> {user.id}</p>
+          <p><strong>Username:</strong> {user.username}</p>
+          <p><strong>Email:</strong> {user.email}</p>
+          <p><strong>Status:</strong> {user.isPremium ? "Premium" : "Free"}</p>
+          {!user.isPremium && (
+            <button
+              onClick={handleUpgrade}
+              disabled={upgrading}
+              className={"btn-upgrade mt-4 px-6 py-2 rounded-full font-bold border border-white text-white bg-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-300 transition " + (upgrading ? "opacity-60 cursor-not-allowed" : "hover:bg-pink-600 cursor-pointer")}
+            >
+              {upgrading ? "Upgrading..." : "Upgrade to Premium"}
+            </button>
+          )}
+          {upgrading && (
+            <div className="mt-6">
+              <LoadingIndicator size={96} message="Upgrading your account..." />
+            </div>
+          )}
+          {upgradeMsg && <p style={{ marginTop: 8, color: user.isPremium ? "#16db65" : "#fff" }}>{upgradeMsg}</p>}
         </div>
-      )}
-      {upgradeMsg && <p style={{ marginTop: 8, color: user.isPremium ? "#16db65" : "#fff" }}>{upgradeMsg}</p>}
-    </div>
+      </main>
+      <Footer />
+    </>
   )
 }
 
