@@ -2,14 +2,14 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/": "pages/index.js",
+  "/profile": "pages/profile.js",
   "/api/profile": "pages/api/profile.js",
   "/api/upgrade": "pages/api/upgrade.js",
-  "/profile": "pages/profile.js",
-  "/about": "pages/about.js",
+  "/games/alphabetMatch": "pages/games/alphabetMatch.js",
+  "/api/play": "pages/api/play.js",
   "/api/logout": "pages/api/logout.js",
   "/signup": "pages/signup.js",
-  "/games/alphabetMatch": "pages/games/alphabetMatch.js",
-  "/": "pages/index.js",
-  "/api/play": "pages/api/play.js",
-  "/login": "pages/login.js"
+  "/login": "pages/login.js",
+  "/api/login": "pages/api/login.js"
 }

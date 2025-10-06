@@ -53,9 +53,11 @@ const ProfilePage: NextPage = () => {
     return (
       <>
         <Navbar />
-        <main className="min-h-screen py-8">
-          <div className="min-h-[50vh] flex items-center justify-center">
-            <LoadingIndicator message="Fetching your profile..." />
+        <main className="min-h-screen py-8 flex items-center justify-center px-4">
+          <div className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8">
+            <div className="flex flex-col items-center space-y-4">
+              <LoadingIndicator size={60} message="Fetching your profile..." />
+            </div>
           </div>
         </main>
         <Footer />
@@ -67,9 +69,12 @@ const ProfilePage: NextPage = () => {
     return (
       <>
         <Navbar />
-        <main className="min-h-screen py-8">
-          <div style={{ maxWidth: "400px", margin: "2rem auto" }}>
-            <p style={{ color: "red" }}>❌ {error}</p>
+        <main className="min-h-screen py-8 flex items-center justify-center px-4">
+          <div className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8">
+            <div className="text-center">
+              <div className="text-6xl mb-4">❌</div>
+              <p className="text-red-300 text-lg">{error}</p>
+            </div>
           </div>
         </main>
         <Footer />
@@ -80,28 +85,63 @@ const ProfilePage: NextPage = () => {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen py-8">
-        <div style={{ maxWidth: "400px", margin: "2rem auto" }}>
-          <h2>Profile</h2>
-          <p><strong>ID:</strong> {user.id}</p>
-          <p><strong>Username:</strong> {user.username}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Status:</strong> {user.isPremium ? "Premium" : "Free"}</p>
+      <main className="min-h-screen py-8 flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8">
+          <div className="text-center mb-8">
+            <div className="w-20 h-20 bg-gradient-to-r from-purple-500/80 to-pink-500/80 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-3xl text-white">👤</span>
+            </div>
+            <h2 className="text-3xl font-bold text-white mb-2">My Profile</h2>
+            <div className={`inline-flex px-3 py-1 rounded-full text-sm font-medium ${
+              user.isPremium 
+                ? 'bg-gradient-to-r from-yellow-500/80 to-orange-500/80 text-white' 
+                : 'bg-white/20 text-white/80'
+            }`}>
+              {user.isPremium ? "✨ Premium Member" : "Free Member"}
+            </div>
+          </div>
+          
+          <div className="space-y-4 mb-8">
+            <div className="bg-white/5 rounded-lg p-4 border border-white/10">
+              <label className="text-white/60 text-sm">User ID</label>
+              <p className="text-white font-medium">{user.id}</p>
+            </div>
+            
+            <div className="bg-white/5 rounded-lg p-4 border border-white/10">
+              <label className="text-white/60 text-sm">Username</label>
+              <p className="text-white font-medium">{user.username}</p>
+            </div>
+            
+            <div className="bg-white/5 rounded-lg p-4 border border-white/10">
+              <label className="text-white/60 text-sm">Email</label>
+              <p className="text-white font-medium">{user.email}</p>
+            </div>
+          </div>
+          
           {!user.isPremium && (
             <button
               onClick={handleUpgrade}
               disabled={upgrading}
-              className={"btn-upgrade mt-4 px-6 py-2 rounded-full font-bold border border-white text-white bg-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-300 transition " + (upgrading ? "opacity-60 cursor-not-allowed" : "hover:bg-pink-600 cursor-pointer")}
+              className="w-full py-3 bg-gradient-to-r from-yellow-500/80 to-orange-500/80 hover:from-yellow-600/90 hover:to-orange-600/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all duration-300 backdrop-blur-sm border border-white/20 flex items-center justify-center space-x-2"
             >
-              {upgrading ? "Upgrading..." : "Upgrade to Premium"}
+              <span>✨</span>
+              <span>{upgrading ? "Upgrading..." : "Upgrade to Premium"}</span>
             </button>
           )}
+          
           {upgrading && (
-            <div className="mt-6">
-              <LoadingIndicator size={96} message="Upgrading your account..." />
+            <div className="mt-6 flex justify-center">
+              <LoadingIndicator size={60} message="Upgrading your account..." />
             </div>
           )}
-          {upgradeMsg && <p style={{ marginTop: 8, color: user.isPremium ? "#16db65" : "#fff" }}>{upgradeMsg}</p>}
+          
+          {upgradeMsg && (
+            <div className="mt-4 p-3 bg-white/10 border border-white/20 rounded-lg">
+              <p className="text-center text-sm" style={{ color: user.isPremium ? "#16db65" : "#fff" }}>
+                {upgradeMsg}
+              </p>
+            </div>
+          )}
         </div>
       </main>
       <Footer />
