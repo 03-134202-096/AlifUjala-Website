@@ -2,8 +2,10 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/profile": "pages/profile.js",
-  "/games/alphabetMatch": "pages/games/alphabetMatch.js",
+  "/signup": "pages/signup.js",
   "/api/profile": "pages/api/profile.js",
-  "/404": "pages/404.js"
+  "/profile": "pages/profile.js",
+  "/api/upgrade": "pages/api/upgrade.js",
+  "/games/alphabetMatch": "pages/games/alphabetMatch.js",
+  "/api/play": "pages/api/play.js"
 }
