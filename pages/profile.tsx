@@ -37,7 +37,14 @@ const ProfilePage: NextPage = () => {
       const res = await fetch("/api/upgrade", { method: "POST" })
       const data = await res.json()
       if (res.ok && data.ok) {
-        setUser((u: any) => ({ ...u, isPremium: true }))
+        // Fetch fresh profile data after upgrade
+        const profileRes = await fetch("/api/profile")
+        const profileData = await profileRes.json()
+        if (profileRes.ok && profileData.user) {
+          setUser(profileData.user)
+        } else {
+          setUser((u: any) => ({ ...u, isPremium: true }))
+        }
         setUpgradeMsg("You are now a premium user!")
       } else {
         setUpgradeMsg(data.error || "Upgrade failed.")
@@ -54,8 +61,8 @@ const ProfilePage: NextPage = () => {
       <>
         <Navbar />
         <main className="min-h-screen py-8 flex items-center justify-center px-4">
-          <div className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8">
-            <div className="flex flex-col items-center space-y-4">
+          <div className="w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl px-3 py-2">
+            <div className="flex flex-col items-center space-y-1">
               <LoadingIndicator size={60} message="Fetching your profile..." />
             </div>
           </div>
@@ -70,9 +77,9 @@ const ProfilePage: NextPage = () => {
       <>
         <Navbar />
         <main className="min-h-screen py-8 flex items-center justify-center px-4">
-          <div className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8">
+          <div className="w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl px-3 py-2">
             <div className="text-center">
-              <div className="text-6xl mb-4">❌</div>
+              <div className="text-6xl mb-1">❌</div>
               <p className="text-red-300 text-lg">{error}</p>
             </div>
           </div>
@@ -86,9 +93,9 @@ const ProfilePage: NextPage = () => {
     <>
       <Navbar />
       <main className="min-h-screen py-8 flex items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8">
-          <div className="text-center mb-8">
-            <div className="w-20 h-20 bg-gradient-to-r from-purple-500/80 to-pink-500/80 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl px-3 py-2">
+          <div className="text-center mb-3">
+            <div className="w-20 h-20 bg-gradient-to-r from-purple-500/80 to-pink-500/80 rounded-full flex items-center justify-center mx-auto mb-1">
               <span className="text-3xl text-white">👤</span>
             </div>
             <h2 className="text-3xl font-bold text-white mb-2">My Profile</h2>

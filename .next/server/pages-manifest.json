@@ -2,8 +2,11 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
   "/profile": "pages/profile.js",
   "/api/profile": "pages/api/profile.js",
+  "/404": "pages/404.js",
+  "/api/logout": "pages/api/logout.js",
+  "/": "pages/index.js",
+  "/api/login": "pages/api/login.js",
   "/login": "pages/login.js"
 }

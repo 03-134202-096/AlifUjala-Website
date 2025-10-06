@@ -78,7 +78,7 @@ const SignupPage: NextPage = () => {
     <>
       <Navbar />
       <main className="min-h-screen py-8 flex items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8">
+        <div className="w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-white mb-2">
               {step === 1 ? "Create Account" : step === 2 ? "Verify Email" : "Welcome!"}

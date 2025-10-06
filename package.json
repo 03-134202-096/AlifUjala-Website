@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@prisma/client": "^5.9.0",
+    "@types/formidable": "^3.4.5",
     "bcryptjs": "^2.4.3",
+    "formidable": "^3.5.4",
     "iron-session": "^8.0.4",
     "jspdf": "^3.0.3",
     "lottie-react": "^2.4.1",
