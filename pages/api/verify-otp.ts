@@ -13,44 +13,48 @@ export default withSession(async function handler(req: NextApiRequest, res: Next
   }
 
   try {
-    const user = await prisma.user.findUnique({ where: { email: email.toLowerCase().trim() } });
-    if (!user) return res.status(404).json({ error: 'user not found' });
+    // Find pending signup by email
+    const pending = await prisma.pendingSignup.findUnique({ where: { email: email.toLowerCase().trim() } });
+    if (!pending) return res.status(404).json({ error: 'pending signup not found' });
 
-    const otpRecord = await prisma.otp.findUnique({ where: { userId: user.id } });
-    if (!otpRecord) return res.status(404).json({ error: 'OTP not found' });
-
-    if (otpRecord.attempts >= 5) {
+    if (pending.attempts >= 5) {
       return res.status(429).json({ error: 'Too many attempts. Please request a new OTP.' });
     }
 
     const hashedOtp = crypto.createHash('sha256').update(otp).digest('hex');
 
-    if (hashedOtp !== otpRecord.hashedOtp) {
-      await prisma.otp.update({
-        where: { userId: user.id },
+    if (hashedOtp !== pending.hashedOtp) {
+      await prisma.pendingSignup.update({
+        where: { email: email.toLowerCase().trim() },
         data: { attempts: { increment: 1 } },
       });
       return res.status(401).json({ error: 'Invalid OTP' });
     }
 
-    if (new Date() > otpRecord.expiry) {
+    if (new Date() > pending.expiry) {
       return res.status(410).json({ error: 'OTP expired' });
     }
 
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { isVerified: true },
+    // Create user from pending signup
+    const createdUser = await prisma.user.create({
+      data: {
+        username: pending.username,
+        email: pending.email,
+        password_hash: pending.password_hash,
+        isVerified: true,
+      },
     });
 
-    await prisma.otp.delete({ where: { userId: user.id } });
+    // Delete pending signup
+    await prisma.pendingSignup.delete({ where: { email: email.toLowerCase().trim() } });
 
     // Set session for the user
     (req as any).session.user = {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      isPremium: user.isPremium,
-      lives: user.lives,
+      id: createdUser.id,
+      username: createdUser.username,
+      email: createdUser.email,
+      isPremium: createdUser.isPremium,
+      lives: createdUser.lives,
     };
     await (req as any).session.save();
 
