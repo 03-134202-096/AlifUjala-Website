@@ -69,7 +69,7 @@ export default function Navbar() {
             <>
               <Link href="/profile" className="text-white">Profile</Link>
               <button onClick={handleLogout} className="bg-red-600 text-white px-3 py-1 rounded">Logout</button>
-              <Link href="/profile" className="ml-2">
+              <Link href="/profile" className="ml-2 hidden sm:inline-block">
                 {typeof user.profileImgId === 'number' && profileImages[user.profileImgId] ? (
                   <img
                     src={profileImages[user.profileImgId].src}
