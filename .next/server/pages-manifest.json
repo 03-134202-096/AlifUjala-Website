@@ -3,10 +3,6 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/profile": "pages/profile.js",
-  "/api/profile": "pages/api/profile.js",
-  "/404": "pages/404.js",
-  "/api/logout": "pages/api/logout.js",
-  "/": "pages/index.js",
-  "/api/login": "pages/api/login.js",
-  "/login": "pages/login.js"
+  "/games/alphabetMatch": "pages/games/alphabetMatch.js",
+  "/api/profile": "pages/api/profile.js"
 }
