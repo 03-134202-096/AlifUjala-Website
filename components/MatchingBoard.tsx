@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import Animation from "@/components/AnimationTeacher"
 import Cong_Animation from "@/components/AnimationCongrats"
+import CurtainAnimation from "@/components/CurtainAnimation"
 
 type Item = { id: string; label?: string; src?: string }
 
@@ -15,8 +16,12 @@ type Props = {
 }
 
 export default function MatchingBoard({ leftItems, rightItems, mode = "letters", gameStarted = false, triggerSubmit = false, onComplete, onGameButtonClick }: Props) {
+  const curtainRef = useRef(null);
+  const [showCurtain, setShowCurtain] = useState(true);
+  const [curtainPlay, setCurtainPlay] = useState(false);
   const [pairs, setPairs] = useState<Array<{ l: string; r: string; correct: boolean }>>([])
   const [score, setScore] = useState(0)
+  const [teacherPlay, setTeacherPlay] = useState(false)
   const [showCongrats, setShowCongrats] = useState(false)
   const [showFail, setShowFail] = useState(false)
   const [timer, setTimer] = useState(0)
@@ -215,7 +220,10 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
       setShowCongrats(false)
       setShowFail(false)
       setTimer(0)
-      
+      // Curtain: play and hide after animation
+      setShowCurtain(true);
+      setCurtainPlay(true);
+      setTeacherPlay(true);
       // Start timer
       const interval = setInterval(() => {
         setTimer(prev => prev + 1)
@@ -229,6 +237,11 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
       }
       // Cancel any ongoing drag operation when game ends
       cancelDrag()
+      // Curtain: show and stop at start
+      setShowCurtain(true);
+      setCurtainPlay(false);
+      curtainRef.current?.goToAndStop(0);
+      setTeacherPlay(false);
     }
 
     // Cleanup timer on unmount
@@ -247,20 +260,34 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
         clearInterval(timerInterval)
         setTimerInterval(null)
       }
-      
       const total = leftItems.length
       const correctCount = pairs.filter((p) => p.correct).length
       setScore(correctCount)
       if (onComplete) onComplete(correctCount, total)
-
       const percentage = (correctCount / total) * 100
       if (percentage >= 75) {
         setShowCongrats(true)
       } else {
         setShowFail(true)
       }
+      // Curtain: show and stop at start
+      setShowCurtain(true);
+      setCurtainPlay(false);
+      curtainRef.current?.goToAndStop(0);
+      setTeacherPlay(false);
     }
   }, [triggerSubmit, pairs, leftItems.length, onComplete, timerInterval])
+
+  // Hide curtain after animation finishes (assume 2s duration, adjust as needed)
+  useEffect(() => {
+    if (curtainPlay) {
+      const timeout = setTimeout(() => {
+        setShowCurtain(false);
+        setCurtainPlay(false);
+      }, 2000); // Adjust duration to match animation
+      return () => clearTimeout(timeout);
+    }
+  }, [curtainPlay]);
 
   return (
     <div 
@@ -294,6 +321,24 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
           style={{ display: "none" }}
         />
       </svg>
+
+      {/* Curtain Animation Overlay */}
+      {showCurtain && (
+        <div style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 50,
+          background: "transparent",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}>
+          <CurtainAnimation ref={curtainRef} play={curtainPlay} style={{ width: 800, height: 500, marginTop: -400, marginLeft: -360 }} />
+        </div>
+      )}
 
       <div className="max-w-4xl mx-auto flex gap-6 justify-between items-start gap-20 sm:gap-20 md:gap-20 w-full">
         {/* Left column */}
@@ -348,7 +393,7 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
 
           {!showCongrats && !showFail && (
             <div className="hidden md:block">
-              <Animation style={{ width: 500, height: 500 }} loop={true} />
+              <Animation style={{ width: 500, height: 500 }} loop={true} play={teacherPlay} />
             </div>
           )}
         </div>

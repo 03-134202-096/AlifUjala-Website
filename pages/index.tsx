@@ -19,8 +19,8 @@ const Home: NextPage = () => {
         <div className="text-2xl text-pink-500 text-center">خوش آمدید!</div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-6">
           <GameCard color="yellow" href="/games/matching" img="/images/lion.png" />
-          <GameCard color="pink" href="/games/imageMatch" img="/images/camel.png" />
-          <GameCard color="green" href="/students" img="/images/croc.png" />
+          <GameCard color="pink" href="https://youtu.be/pYX6GiCFrfs?feature=shared" img="/images/camel.png" />
+          <GameCard color="green" href="https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala" img="/images/croc.png" />
           <GameCard color="green" href="/games/alphabetMatch" img="/images/placeholder-animal.png" />
         </div>
       </div>
