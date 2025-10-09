@@ -1,4 +1,10 @@
 
+/* Tablet and Mobile: Hide hanging wooden boxes grid */
+@media (max-width: 900px) {
+  .hideOnMobile {
+    display: none !important;
+  }
+}
   /* full‑viewport hero (under navbar) */
   @font-face {
     font-family: "FireFont";

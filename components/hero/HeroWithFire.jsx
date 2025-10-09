@@ -62,7 +62,7 @@ export default function HeroWithFire() {
       <span className={styles.roofLine} />
 
       {/* BOARD GRID ------------------------------------------------------ */}
-      <div className={styles.grid}>
+  <div className={clsx(styles.grid, styles.hideOnMobile)}>
         {/* map two rows */}
         {ROWS.map((row, rIdx) => (
           <div key={rIdx} className={styles.row}>
