@@ -4,5 +4,5 @@
   "/_document": "pages/_document.js",
   "/profile": "pages/profile.js",
   "/": "pages/index.js",
-  "/api/profile": "pages/api/profile.js"
+  "/games/alphabetMatch": "pages/games/alphabetMatch.js"
 }

@@ -348,7 +348,7 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
 
           {!showCongrats && !showFail && (
             <div className="hidden md:block">
-              <Animation style={{ width: 500, height: 500 }} loop={true} />
+              <Animation style={{ width: 500, height: 500 }} loop={true} isPlaying={gameStarted && !triggerSubmit} />
             </div>
           )}
         </div>
