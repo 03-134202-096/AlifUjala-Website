@@ -50,7 +50,11 @@ export default function Navbar() {
   return (
     <nav className="bg-purple-800 text-white">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
-        <div>
+        <div className="flex items-center">
+          {/* Logo: hidden on screens <sm, shown on sm+ */}
+          <Link href="/" className="mr-3 hidden sm:block">
+            <img src="/images/Logo.png" alt="Alif Ujala Logo" className="h-10 w-auto" />
+          </Link>
           <Link href="/" className="font-bold text-lg">Alif Ujala</Link>
         </div>
         <div className="flex items-center gap-4">
