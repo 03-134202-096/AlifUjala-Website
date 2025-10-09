@@ -123,25 +123,31 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
         onClick={() => setMenuOpen(false)}
       >
         <div
-          className="absolute top-0 right-0 w-3/4 max-w-xs h-full bg-purple-900 shadow-lg flex flex-col pt-16 px-6 gap-6 animate-slidein"
+          className="absolute top-0 right-0 w-3/4 max-w-xs h-full bg-purple-900 shadow-lg flex flex-col pt-8 px-6 gap-6 animate-slidein"
           onClick={e => e.stopPropagation()}
         >
+          {/* Profile image centered at top */}
+          <div className="flex flex-col items-center justify-center mb-4">
+            {loading ? (
+              <LoadingIndicator size={36} message="" orientation="horizontal" className="gap-0" />
+            ) : user ? (
+              <Link href="/profile">
+                {typeof user.profileImgId === 'number' && profileImages[user.profileImgId] ? (
+                  <img src={profileImages[user.profileImgId].src} alt="Profile" className="w-16 h-16 rounded-full object-cover border-2 border-white shadow" />
+                ) : (
+                  <span className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-purple-500/80 to-pink-500/80 text-white text-3xl font-bold border-2 border-white shadow">👤</span>
+                )}
+              </Link>
+            ) : null}
+          </div>
+          {/* Navigation links */}
           <Link href="/" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Home</Link>
           <Link href="/games/alphabetMatch" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Games</Link>
           <Link href="/about" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>About</Link>
-          {loading ? (
-            <LoadingIndicator size={36} message="" orientation="horizontal" className="gap-0" />
-          ) : user ? (
+          {user ? (
             <>
               <Link href="/profile" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Profile</Link>
               <button onClick={() => { handleLogout(); setMenuOpen(false); }} className="bg-red-600 text-white px-3 py-1 rounded">Logout</button>
-              <Link href="/profile" className="mt-2">
-                {typeof user.profileImgId === 'number' && profileImages[user.profileImgId] ? (
-                  <img src={profileImages[user.profileImgId].src} alt="Profile" className="w-12 h-12 rounded-full object-cover border-2 border-white shadow" />
-                ) : (
-                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-purple-500/80 to-pink-500/80 text-white text-2xl font-bold border-2 border-white shadow">👤</span>
-                )}
-              </Link>
             </>
           ) : (
             <>
