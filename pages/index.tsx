@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar'
+import Stories from '@/components/Stories'
 import Footer from '@/components/Footer'
 import GameCard from '@/components/GameCard'
 import Link from 'next/link'
@@ -35,11 +36,7 @@ const Home: NextPage = () => {
       </section>
 
       <section className="max-w-4xl mx-auto px-4">
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between border rounded-md p-3"><span>خرگوش اور چھیپا!</span> <Link className="bg-pink-500 text-white px-3 py-1 rounded" href="/games/matching">پڑھیں</Link></div>
-          <div className="flex items-center justify-between border rounded-md p-3"><span>شیر اور چلاک لومڑی</span> <Link className="bg-pink-500 text-white px-3 py-1 rounded" href="/games/imageMatch">پڑھیں</Link></div>
-          <div className="flex items-center justify-between border rounded-md p-3"><span>کوا اور پانی</span> <Link className="bg-pink-500 text-white px-3 py-1 rounded" href="/games/matching">پڑھیں</Link></div>
-        </div>
+        <Stories />
       </section>
       <Footer />
     </>
