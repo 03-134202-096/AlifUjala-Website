@@ -5,7 +5,7 @@ import LoadingIndicator from "./LoadingIndicator"
 
 type User = { id: number | string; username?: string; email?: string; profileImgId?: number } | null
 
-export default function Navbar() {
+export default function Navbar({ className = "" }: { className?: string } = {}) {
   const [user, setUser] = useState<User>(null)
   const [loading, setLoading] = useState(true)
 
@@ -48,7 +48,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-purple-800 text-white">
+    <nav className={className || "bg-purple-800 text-white"}>
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
         <div className="flex items-center">
           {/* Logo: hidden on screens <sm, shown on sm+ */}
