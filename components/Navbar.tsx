@@ -54,7 +54,7 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
         <div className="flex items-center">
           {/* Logo: always visible */}
           <Link href="/" className="mr-3">
-            <img src="/images/Logo.png" alt="Alif Ujala Logo" className="h-10 w-auto" />
+          <img src="/images/Logo.jpg" alt="Alif Ujala Logo" className="h-10 w-10 rounded-full object-cover border-2 border-white shadow" />
           </Link>
           <Link href="/" className="font-bold text-lg">Alif Ujala</Link>
         </div>
