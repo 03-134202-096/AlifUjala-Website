@@ -160,6 +160,64 @@
   .soundBtn:hover {
     background: rgba(34,34,34,0.85);
   }
+
+/* Mobile slider (glass window) */
+.mobileSliderWrap {
+  display: none; /* shown only on small screens */
+}
+
+@media (max-width: 600px) {
+  .mobileSliderWrap {
+    display: block;
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 86%;
+    max-width: 420px;
+    z-index: 60;
+    pointer-events: auto;
+  }
+  .mobileSlider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.28);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.55);
+    backdrop-filter: blur(6px) saturate(110%);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .sliderBtn {
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    color: #fff;
+    border: none;
+    padding: 0.5rem 0.6rem;
+    border-radius: 10px;
+    min-width: 24%;
+    max-width: 34%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 3.4vw;
+    opacity: 0.78;
+    transition: transform 220ms cubic-bezier(.22,.9,.34,1), opacity 220ms ease;
+  }
+  .sliderBtn.center {
+    transform: scale(1.08);
+    opacity: 1;
+    background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+    font-size: 4.6vw;
+    min-width: 40%;
+    max-width: 52%;
+  }
+  .sliderBtn.left, .sliderBtn.right {
+    transform: scale(0.92);
+  }
+}
   
 
 

@@ -56,6 +56,41 @@ export default function HeroWithFire() {
     setMute(next);
   };
 
+  // Flattened items for slider (order: Fun Learning, Interactive Worksheets, Personalized Learning, Educational videos, Customized Worksheets)
+  const ITEMS = [
+    ROWS[0][0], // Fun Learning
+    ROWS[0][1], // Interactive Worksheets
+    ROWS[1][0], // Personalized Learning
+    ROWS[1][1], // Educational videos
+    ROWS[1][2], // Customized Worksheets
+  ];
+
+  // slider state
+  const [index, setIndex] = useState(0); // center index in ITEMS
+  const startX = useRef(null);
+
+  const prev = () => setIndex((i) => (i - 1 + ITEMS.length) % ITEMS.length);
+  const nextItem = () => setIndex((i) => (i + 1) % ITEMS.length);
+
+  const onTouchStart = (e) => {
+    startX.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = (e) => {
+    if (startX.current === null) return;
+    const endX = e.changedTouches[0].clientX;
+    const dx = endX - startX.current;
+    const threshold = 30; // px
+    if (dx > threshold) {
+      // swipe right -> previous
+      prev();
+    } else if (dx < -threshold) {
+      // swipe left -> next
+      nextItem();
+    }
+    startX.current = null;
+  };
+
   return (
     <section className={styles.hero}>
       {/* top “roof” line that boards hang from */}
@@ -122,6 +157,40 @@ export default function HeroWithFire() {
       >
         {mute ? "🔇" : "🔊"}
       </button>
+      {/* Mobile slider: glass window with three buttons (left, center, right) */}
+      <div
+        className={styles.mobileSliderWrap}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
+        <div className={styles.mobileSlider}>
+          {/* left */}
+          <button
+            className={styles.sliderBtn + " " + styles.left}
+            onClick={prev}
+            aria-label="previous"
+          >
+            {ITEMS[(index - 1 + ITEMS.length) % ITEMS.length].label}
+          </button>
+
+          {/* center */}
+          <button
+            className={styles.sliderBtn + " " + styles.center}
+            aria-label="current"
+          >
+            {ITEMS[index].label}
+          </button>
+
+          {/* right */}
+          <button
+            className={styles.sliderBtn + " " + styles.right}
+            onClick={nextItem}
+            aria-label="next"
+          >
+            {ITEMS[(index + 1) % ITEMS.length].label}
+          </button>
+        </div>
+      </div>
     </section>
   );
 }
