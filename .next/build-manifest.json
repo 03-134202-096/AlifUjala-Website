@@ -31,6 +31,26 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
+    ],
+    "/games": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/games.js"
+    ],
+    "/games/adhiAshkalMatch": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/games/adhiAshkalMatch.js"
+    ],
+    "/games/alphabetMatch": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/games/alphabetMatch.js"
+    ],
+    "/games/matching": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/games/matching.js"
     ]
   },
   "ampFirstPages": []

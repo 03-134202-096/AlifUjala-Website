@@ -82,7 +82,7 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
         {/* Desktop menu */}
         <div className="hidden sm:flex items-center gap-4">
           <Link href="/" className="text-white text-base">Home</Link>
-          <Link href="/games/alphabetMatch" className="text-white text-base">Games</Link>
+          <Link href="/games" className="text-white text-base">Games</Link>
           <Link href="/about" className="text-white text-base">About</Link>
 
           {loading ? (
@@ -142,7 +142,7 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
           </div>
           {/* Navigation links */}
           <Link href="/" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Home</Link>
-          <Link href="/games/alphabetMatch" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Games</Link>
+          <Link href="/games" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Games</Link>
           <Link href="/about" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>About</Link>
           {user ? (
             <>

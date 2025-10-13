@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import MatchingBoard from "@/components/MatchingBoard"
 import imagesData from "@/data/images.json"
+import alphabetsData from "@/data/alphabets.json"
 import DownloadWorksheet from "@/components/DownloadWorksheet"
 import LoadingIndicator from "@/components/LoadingIndicator"
 
@@ -14,14 +15,30 @@ export default function MatchingPage() {
   const [status, setStatus] = useState<"checking" | "playing" | "out" | "error">("checking")
   const [count, setCount] = useState(6)
   const [seed, setSeed] = useState(Date.now())
+  const [filterRange, setFilterRange] = useState<string>('all')
   const [gameStarted, setGameStarted] = useState(false)
   const [triggerSubmit, setTriggerSubmit] = useState(false)
   const matchingBoardRef = useRef<HTMLDivElement>(null)
 
   const allImages = (imagesData as any).images || []
 
-  const [left, setLeft] = useState<Array<{ id: string; src: string }>>([])
-  const [right, setRight] = useState<Array<{ id: string; src: string }>>([])
+  const letters = (alphabetsData as any).letters || []
+
+  const [left, setLeft] = useState<Array<{ id: string; label?: string; char?: string }>>([])
+  const [right, setRight] = useState<Array<{ id: string; src?: string; label?: string }>>([])
+
+  // Ref to prevent duplicated/rapid fetch loops
+  const lastFetchKeyRef = React.useRef<string | null>(null)
+  const isMountedRef = React.useRef(true)
+  const isFetchingRef = React.useRef(false)
+  const [isFetching, setIsFetching] = useState(false)
+
+  useEffect(() => {
+    isMountedRef.current = true
+    return () => {
+      isMountedRef.current = false
+    }
+  }, [])
 
   // Game button handler
   const handleGameButton = () => {
@@ -47,14 +64,79 @@ export default function MatchingPage() {
 
   useEffect(() => {
     if (status !== "playing") return
-    const pool = [...allImages]
-    const take = Math.max(5, Math.min(8, Math.min(count, pool.length)))
-    const chosen = shuffle(pool).slice(0, take)
-    const L = chosen.map((x: any) => ({ id: x.id, src: x.src }))
-    const R = shuffle(chosen).map((x: any) => ({ id: x.id, src: x.src }))
-    setLeft(L)
-    setRight(R)
-  }, [status, allImages, count, seed])
+
+    const controller = new AbortController()
+    const signal = controller.signal
+
+    const fetchKey = `${status}:${count}:${seed}:${filterRange}`
+    if (lastFetchKeyRef.current === fetchKey) {
+      // We've already fetched for this combination, skip
+      return
+    }
+    if (isFetchingRef.current) {
+      // already fetching, skip
+      return
+    }
+    lastFetchKeyRef.current = fetchKey
+    isFetchingRef.current = true
+    setIsFetching(true)
+
+    // Fetch images for random letters from server-side folders
+    ;(async () => {
+      try {
+        // If a filter range is set, compute ids to request (comma-separated)
+        let idsParam = ''
+        if (filterRange !== 'all') {
+          if (filterRange === 'first10') idsParam = letters.slice(0, 10).map((l: any) => l.id).join(',')
+          else if (filterRange === 'next10') idsParam = letters.slice(10, 20).map((l: any) => l.id).join(',')
+          else if (filterRange === 'last') idsParam = letters.slice(20).map((l: any) => l.id).join(',')
+        }
+
+        const q = new URLSearchParams({ count: String(count), seed: String(seed) })
+        if (idsParam) q.set('ids', idsParam)
+        const res = await fetch(`/api/letter-images?${q.toString()}`, { signal })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const data = await res.json()
+
+        if (!data?.ok) throw new Error('no-data')
+
+        const images = data.images as Array<{ id: string; src: string }>
+
+        // Build left (letters) from alphabets.json using folder ids
+        const chosenLetters = images
+          .map((img) => {
+            const letter = letters.find((l: any) => l.id === img.id || l.id === img.id.replace(/\s+/g, '-'))
+            return { id: img.id, label: letter?.name || img.id, char: letter?.char }
+          })
+
+        const L = chosenLetters.map((c: any) => ({ id: c.id, label: c.char || c.label, char: c.char }))
+        const R = shuffle(images).map((x) => ({ id: x.id, src: x.src }))
+
+        if (!isMountedRef.current) return
+        setLeft(L)
+        setRight(R)
+      } catch (err) {
+        if ((err as any)?.name === 'AbortError') return
+        console.warn('letter-images fetch failed, falling back', err)
+        const pool = [...allImages]
+        const take = Math.max(5, Math.min(8, Math.min(count, pool.length)))
+        const chosen = shuffle(pool).slice(0, take)
+        const L = chosen.map((x: any) => ({ id: x.id, label: x.label }))
+        const R = shuffle(chosen).map((x: any) => ({ id: x.id, src: x.src }))
+        if (!isMountedRef.current) return
+        setLeft(L)
+        setRight(R)
+      }
+    })()
+      .finally(() => {
+        isFetchingRef.current = false
+        if (isMountedRef.current) setIsFetching(false)
+      })
+
+    return () => {
+      controller.abort()
+    }
+  }, [status, count, seed, filterRange])
 
   useEffect(() => {
     ;(async () => {
@@ -126,9 +208,22 @@ export default function MatchingPage() {
 
             {/* Load Button */}
             <div className="control-group">
-              <button className="responsive-btn load-btn" onClick={() => setSeed(Date.now())}>
-                <span className="btn-text">Load Images</span>
+              <button className="responsive-btn load-btn" onClick={() => setSeed(Date.now())} disabled={isFetching}>
+                <span className="btn-text">{isFetching ? 'Loading...' : 'Load Images'}</span>
               </button>
+            </div>
+
+            {/* Alphabet Filter */}
+            <div className="control-group">
+              <label className="control-label">
+                <span className="label-text">Filter:</span>
+                <select value={filterRange} onChange={(e) => setFilterRange(e.target.value)} className="responsive-select">
+                  <option value="all">All</option>
+                  <option value="first10">First 10</option>
+                  <option value="next10">Next 10</option>
+                  <option value="last">Last</option>
+                </select>
+              </label>
             </div>
 
             {/* Start/Submit Game Button */}

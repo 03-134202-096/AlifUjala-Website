@@ -111,6 +111,22 @@ export default function DownloadWorksheet({
     // ✅ Rows
     ctx.font = "72px serif"
     ctx.textAlign = "center"
+    // helper: detect small-alphabets images and draw rounded rects
+    const isSmallAlphabet = (src?: string) => !!src && src.indexOf('/images/small-alphabets/') !== -1
+    const drawRoundedRect = (ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) => {
+      ctx.beginPath()
+      ctx.moveTo(x + r, y)
+      ctx.lineTo(x + w - r, y)
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r)
+      ctx.lineTo(x + w, y + h - r)
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h)
+      ctx.lineTo(x + r, y + h)
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r)
+      ctx.lineTo(x, y + r)
+      ctx.quadraticCurveTo(x, y, x + r, y)
+      ctx.closePath()
+      ctx.fill()
+    }
     for (let i = 0; i < rows; i++) {
       const y = 200 + i * 180
       ctx.fillStyle = "rgba(255,255,255,0.95)"
@@ -121,11 +137,8 @@ export default function DownloadWorksheet({
       ctx.strokeRect(60, y, 160, 160)
       ctx.strokeRect(780, y, 160, 160)
 
-      if (left[i].label && right[i].label) {
-        ctx.fillStyle = "#000"
-        ctx.fillText(left[i].label, 140, y + 100)
-        ctx.fillText(right[i].label, 860, y + 100)
-      } else if (left[i].src && right[i].src) {
+      // Prefer images when src exists on either side. Handle image/image, label/image, image/label first.
+      if (left[i].src && right[i].src) {
         try {
           const imgL = await new Promise<HTMLImageElement>((resolve, reject) => {
             const img = new Image()
@@ -134,7 +147,14 @@ export default function DownloadWorksheet({
             img.onerror = reject
             img.src = left[i].src!
           })
-          ctx.drawImage(imgL, 60, y, 160, 160)
+          // If small-alphabet image, draw a black rounded background and inset the image
+          if (isSmallAlphabet(left[i].src)) {
+            ctx.fillStyle = '#000'
+            drawRoundedRect(ctx, 60 + 6, y + 6, 160 - 12, 160 - 12, 12)
+            ctx.drawImage(imgL, 60 + 6, y + 6, 160 - 12, 160 - 12)
+          } else {
+            ctx.drawImage(imgL, 60, y, 160, 160)
+          }
 
           const imgR = await new Promise<HTMLImageElement>((resolve, reject) => {
             const img = new Image()
@@ -143,10 +163,65 @@ export default function DownloadWorksheet({
             img.onerror = reject
             img.src = right[i].src!
           })
-          ctx.drawImage(imgR, 780, y, 160, 160)
+          if (isSmallAlphabet(right[i].src)) {
+            ctx.fillStyle = '#000'
+            drawRoundedRect(ctx, 780 + 6, y + 6, 160 - 12, 160 - 12, 12)
+            ctx.drawImage(imgR, 780 + 6, y + 6, 160 - 12, 160 - 12)
+          } else {
+            ctx.drawImage(imgR, 780, y, 160, 160)
+          }
         } catch (err) {
           console.error("Error loading game images:", err)
         }
+      } else if (left[i].label && right[i].src) {
+        // Left is text label, right is image
+        ctx.fillStyle = "#000"
+        ctx.fillText(left[i].label!, 140, y + 100)
+        try {
+          const imgR = await new Promise<HTMLImageElement>((resolve, reject) => {
+            const img = new Image()
+            img.crossOrigin = "anonymous"
+            img.onload = () => resolve(img)
+            img.onerror = reject
+            img.src = right[i].src!
+          })
+          if (isSmallAlphabet(right[i].src)) {
+            ctx.fillStyle = '#000'
+            drawRoundedRect(ctx, 780 + 6, y + 6, 160 - 12, 160 - 12, 12)
+            ctx.drawImage(imgR, 780 + 6, y + 6, 160 - 12, 160 - 12)
+          } else {
+            ctx.drawImage(imgR, 780, y, 160, 160)
+          }
+        } catch (err) {
+          console.error("Error loading right image for worksheet:", err)
+        }
+      } else if (left[i].src && right[i].label) {
+        // Left is image, right is text label
+        try {
+          const imgL = await new Promise<HTMLImageElement>((resolve, reject) => {
+            const img = new Image()
+            img.crossOrigin = "anonymous"
+            img.onload = () => resolve(img)
+            img.onerror = reject
+            img.src = left[i].src!
+          })
+          if (isSmallAlphabet(left[i].src)) {
+            ctx.fillStyle = '#000'
+            drawRoundedRect(ctx, 60 + 6, y + 6, 160 - 12, 160 - 12, 12)
+            ctx.drawImage(imgL, 60 + 6, y + 6, 160 - 12, 160 - 12)
+          } else {
+            ctx.drawImage(imgL, 60, y, 160, 160)
+          }
+        } catch (err) {
+          console.error("Error loading left image for worksheet:", err)
+        }
+        ctx.fillStyle = "#000"
+        ctx.fillText(right[i].label!, 860, y + 100)
+      } else if (left[i].label && right[i].label) {
+        // Both are labels (no images)
+        ctx.fillStyle = "#000"
+        ctx.fillText(left[i].label, 140, y + 100)
+        ctx.fillText(right[i].label, 860, y + 100)
       }
     }
 

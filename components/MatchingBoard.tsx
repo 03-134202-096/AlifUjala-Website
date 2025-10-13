@@ -336,8 +336,29 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
                 onContextMenu={gameStarted ? (e) => e.preventDefault() : undefined}
               >
                 {mode === "images" ? (
-                  <div className="imgbox">
-                    <img src={it.src} alt={it.label} className="w-full h-full object-contain" />
+                  <div className="imgbox w-full h-full flex items-center justify-center" style={{ background: '#000', padding: 6, borderRadius: 8 }}>
+                    {it.src ? (
+                      <img
+                        src={it.src}
+                        alt={it.label}
+                        className="w-full h-full object-contain"
+                        style={{ background: '#000' }}
+                        onError={(e) => {
+                          const el = e.currentTarget as HTMLImageElement
+                          el.style.display = 'none'
+                          const parent = el.parentElement
+                          if (parent) {
+                            const placeholder = document.createElement('div')
+                            placeholder.textContent = '🖼️'
+                            placeholder.style.fontSize = '20px'
+                            placeholder.style.color = '#fff'
+                            parent.appendChild(placeholder)
+                          }
+                        }}
+                      />
+                    ) : (
+                      <div style={{ color: '#fff' }}>🖼️</div>
+                    )}
                   </div>
                 ) : (
                   <span className="text-2xl">{it.label}</span>
