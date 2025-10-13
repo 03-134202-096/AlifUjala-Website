@@ -171,6 +171,7 @@ export default function HeroWithFire() {
             aria-label="previous"
           >
             {ITEMS[(index - 1 + ITEMS.length) % ITEMS.length].label}
+            <img src="/flame.gif" alt="flame" className={styles.sliderFlame} aria-hidden="true" />
           </button>
 
           {/* center */}
@@ -179,6 +180,7 @@ export default function HeroWithFire() {
             aria-label="current"
           >
             {ITEMS[index].label}
+            <img src="/flame.gif" alt="flame" className={styles.sliderFlame} aria-hidden="true" />
           </button>
 
           {/* right */}
@@ -188,6 +190,7 @@ export default function HeroWithFire() {
             aria-label="next"
           >
             {ITEMS[(index + 1) % ITEMS.length].label}
+            <img src="/flame.gif" alt="flame" className={styles.sliderFlame} aria-hidden="true" />
           </button>
         </div>
       </div>
