@@ -50,18 +50,61 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
 
   return (
     <nav className={className || "bg-purple-800 text-white"}>
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
-        <div className="flex items-center">
-          {/* Logo: always visible */}
+      <div className="max-w-6xl mx-auto relative flex items-center px-6 py-3">
+        {/* Logo absolute left */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center flex-shrink-0">
           <Link href="/" className="mr-3">
-          <img src="/images/Logo.jpg" alt="Alif Ujala Logo" className="h-10 w-10 rounded-full object-cover border-2 border-white shadow" />
+            <img src="/images/Logo.jpg" alt="Alif Ujala Logo" className="h-10 w-10 rounded-full object-cover border-2 border-white shadow" />
           </Link>
           <Link href="/" className="font-bold text-lg">Alif Ujala</Link>
         </div>
 
+        {/* Centered menu links */}
+        <div className="hidden sm:flex items-center gap-6 mx-auto">
+          <Link href="/" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Home</Link>
+          <Link href="/games" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Games</Link>
+          <Link href="/stories" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Stories</Link>
+          <Link href="/about" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">About</Link>
+          {user ? (
+            <Link href="/profile" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Profile</Link>
+          ) : (
+            <>
+              <Link href="/login" className="text-white transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Login</Link>
+              <Link href="/signup" className="text-white transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Signup</Link>
+            </>
+          )}
+        </div>
+
+        {/* Profile image and logout absolute right */}
+        <div className="hidden sm:flex items-center gap-4 absolute right-0 top-1/2 -translate-y-1/2">
+          {loading ? (
+            <LoadingIndicator
+              size={36}
+              message=""
+              orientation="horizontal"
+              className="gap-0"
+            />
+          ) : user ? (
+            <>
+              <button onClick={handleLogout} className="bg-red-600 text-white px-3 py-1 rounded transition duration-200 hover:bg-red-400 hover:drop-shadow-lg">Logout</button>
+              <Link href="/profile" className="ml-2">
+                {typeof user.profileImgId === 'number' && profileImages[user.profileImgId] ? (
+                  <img
+                    src={profileImages[user.profileImgId].src}
+                    alt="Profile"
+                    className="w-9 h-9 rounded-full object-cover border-2 border-white shadow"
+                  />
+                ) : (
+                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-purple-500/80 to-pink-500/80 text-white text-xl font-bold border-2 border-white shadow">👤</span>
+                )}
+              </Link>
+            </>
+          ) : null}
+        </div>
+
         {/* Hamburger for mobile */}
         <button
-          className="sm:hidden flex flex-col justify-center items-center w-10 h-10 rounded focus:outline-none group"
+          className="sm:hidden flex flex-col justify-center items-center w-10 h-10 rounded focus:outline-none group ml-auto"
           aria-label="Toggle menu"
           onClick={() => setMenuOpen((open) => !open)}
         >
@@ -78,44 +121,6 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
             (menuOpen ? '-rotate-45 -translate-y-2' : '')
           }></span>
         </button>
-
-        {/* Desktop menu */}
-        <div className="hidden sm:flex items-center gap-4 group">
-          <Link href="/" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Home</Link>
-          <Link href="/games" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Games</Link>
-          <Link href="/stories" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Stories</Link>
-          <Link href="/about" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">About</Link>
-
-          {loading ? (
-            <LoadingIndicator
-              size={36}
-              message=""
-              orientation="horizontal"
-              className="gap-0"
-            />
-          ) : user ? (
-            <>
-              <Link href="/profile" className="text-white transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Profile</Link>
-              <button onClick={handleLogout} className="bg-red-600 text-white px-3 py-1 rounded transition duration-200 hover:bg-red-400 hover:drop-shadow-lg">Logout</button>
-              <Link href="/profile" className="ml-2 hidden sm:inline-block">
-                {typeof user.profileImgId === 'number' && profileImages[user.profileImgId] ? (
-                  <img
-                    src={profileImages[user.profileImgId].src}
-                    alt="Profile"
-                    className="w-9 h-9 rounded-full object-cover border-2 border-white shadow"
-                  />
-                ) : (
-                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-purple-500/80 to-pink-500/80 text-white text-xl font-bold border-2 border-white shadow">👤</span>
-                )}
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link href="/login" className="text-white transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Login</Link>
-              <Link href="/signup" className="text-white transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Signup</Link>
-            </>
-          )}
-        </div>
       </div>
 
       {/* Mobile menu overlay */}
