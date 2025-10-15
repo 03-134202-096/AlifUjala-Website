@@ -22,7 +22,7 @@ export default function Home() {
         <WelcomeHeader />
         <SleepingCards />
         <VideoEmbed
-          src="https://www.youtube.com/embed/NrX9To4bjFk?autoplay=1&mute=1&controls=1&rel=0"
+          src="https://www.youtube.com/embed/HKTHE_jDd60?autoplay=1&mute=1&controls=1&rel=0"
           title="Child Learning"
         />
         <UrduStories />

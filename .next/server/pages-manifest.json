@@ -2,12 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/games": "pages/games.js",
-  "/games/matching": "pages/games/matching.js",
-  "/api/letter-images": "pages/api/letter-images.js",
   "/": "pages/index.js",
-  "/404": "pages/404.js",
+  "/games": "pages/games.js",
+  "/about": "pages/about.js",
   "/api/profile": "pages/api/profile.js",
-  "/api/play": "pages/api/play.js",
-  "/games/alphabetMatch": "pages/games/alphabetMatch.js"
+  "/profile": "pages/profile.js"
 }
