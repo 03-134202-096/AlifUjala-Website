@@ -170,7 +170,7 @@
   .mobileSliderWrap {
     display: block;
     position: absolute;
-    bottom: 10%;
+    bottom: 18%; /* moved higher on the screen */
     left: 50%;
     transform: translateX(-50%);
     width: 86%;

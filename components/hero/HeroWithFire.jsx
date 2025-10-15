@@ -72,6 +72,14 @@ export default function HeroWithFire() {
   const prev = () => setIndex((i) => (i - 1 + ITEMS.length) % ITEMS.length);
   const nextItem = () => setIndex((i) => (i + 1) % ITEMS.length);
 
+  // Auto-slide effect for mobile slider
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextItem(); // move right to left
+    }, 1500); // every 1.5 seconds
+    return () => clearInterval(interval);
+  }, []);
+
   const onTouchStart = (e) => {
     startX.current = e.touches[0].clientX;
   };
