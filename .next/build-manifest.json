@@ -32,10 +32,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/games": [
+    "/profile": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/games.js"
+      "static/chunks/pages/profile.js"
+    ],
+    "/stories": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/stories.js"
     ]
   },
   "ampFirstPages": []

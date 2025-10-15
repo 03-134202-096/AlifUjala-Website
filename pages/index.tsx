@@ -25,7 +25,6 @@ export default function Home() {
           src="https://www.youtube.com/embed/HKTHE_jDd60?autoplay=1&mute=1&controls=1&rel=0"
           title="Child Learning"
         />
-        <UrduStories />
       </main>
       <Footer />
     </div>

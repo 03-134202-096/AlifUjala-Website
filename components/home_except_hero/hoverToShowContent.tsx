@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import lion from "public/images/lion_worksheet.png";
 import camel from "public/images/camel_youtube.png";
 import croco from "public/images/croco_app.png";
+import catStories from "public/images/cat_stories.png";
 
 const CARDS = [
   {
@@ -38,6 +39,16 @@ const CARDS = [
       "🗣️ Voice Support",
     ],
   },
+  {
+    title: "🐱 Stories",
+    img: catStories,
+    color: "bg-blue-500",
+    list: [
+      "📖 Fun Stories",
+      "😺 Cute Illustrations",
+      "🌟 Imaginative Reading",
+    ],
+  },
 ];
 
 const frontVariants = {
@@ -52,12 +63,12 @@ const backVariants = {
 
 export default function FeatureCards() {
   return (
-    <div className="mt-0 mb-16 flex justify-center gap-8 flex-wrap">
+  <div className="mt-0 mb-16 flex justify-center gap-8 flex-wrap lg:flex-nowrap flex-row">
       {CARDS.map((c, i) => {
         const card = (
           <motion.div
             key={i}
-            className="relative w-72 h-96"
+            className="relative w-72 h-96 flex-shrink-0"
             initial="rest"
             animate="rest"
             whileHover="hover"
@@ -108,6 +119,15 @@ export default function FeatureCards() {
         if (c.title && c.title.includes("Worksheets")) {
           return (
             <Link key={"link-" + i} href="/games" className="block" aria-label="Open games section">
+              {card}
+            </Link>
+          );
+        }
+
+        // Internal navigation: Stories -> /stories
+        if (c.title && c.title.includes("Stories")) {
+          return (
+            <Link key={"link-" + i} href="/stories" className="block" aria-label="Open stories section">
               {card}
             </Link>
           );
