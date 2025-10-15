@@ -75,6 +75,10 @@ export default function FeatureCards() {
                 width={150}
                 height={150}
               />
+              {/* Show card title below image on mobile screens */}
+              <span className="block sm:hidden mt-4 text-white text-center drop-shadow-sm text-2xl">
+                {c.title}
+              </span>
             </motion.div>
 
             {/* Back Content Panel */}

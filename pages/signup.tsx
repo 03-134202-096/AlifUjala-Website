@@ -138,6 +138,9 @@ const SignupPage: NextPage = () => {
 
           {step === 2 && (
             <form onSubmit={handleVerifyOtp} className="space-y-6">
+                <div className="text-yellow-200 bg-yellow-700/30 rounded-lg p-3 text-sm text-center mb-2">
+                  <strong>Note:</strong> If you don't see the OTP email in your inbox, please check your Gmail spam box. Sometimes the OTP email may go there.
+                </div>
               <div>
                 <input
                   type="text"
