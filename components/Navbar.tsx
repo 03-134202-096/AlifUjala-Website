@@ -83,6 +83,7 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
         <div className="hidden sm:flex items-center gap-4 group">
           <Link href="/" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Home</Link>
           <Link href="/games" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Games</Link>
+          <Link href="/stories" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Stories</Link>
           <Link href="/about" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">About</Link>
 
           {loading ? (
@@ -143,6 +144,7 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
           {/* Navigation links */}
           <Link href="/" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Home</Link>
           <Link href="/games" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Games</Link>
+          <Link href="/stories" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Stories</Link>
           <Link href="/about" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>About</Link>
           {user ? (
             <>
