@@ -80,10 +80,10 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
         </button>
 
         {/* Desktop menu */}
-        <div className="hidden sm:flex items-center gap-4">
-          <Link href="/" className="text-white text-base">Home</Link>
-          <Link href="/games" className="text-white text-base">Games</Link>
-          <Link href="/about" className="text-white text-base">About</Link>
+        <div className="hidden sm:flex items-center gap-4 group">
+          <Link href="/" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Home</Link>
+          <Link href="/games" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Games</Link>
+          <Link href="/about" className="text-white text-base transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">About</Link>
 
           {loading ? (
             <LoadingIndicator
@@ -94,8 +94,8 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
             />
           ) : user ? (
             <>
-              <Link href="/profile" className="text-white">Profile</Link>
-              <button onClick={handleLogout} className="bg-red-600 text-white px-3 py-1 rounded">Logout</button>
+              <Link href="/profile" className="text-white transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Profile</Link>
+              <button onClick={handleLogout} className="bg-red-600 text-white px-3 py-1 rounded transition duration-200 hover:bg-red-400 hover:drop-shadow-lg">Logout</button>
               <Link href="/profile" className="ml-2 hidden sm:inline-block">
                 {typeof user.profileImgId === 'number' && profileImages[user.profileImgId] ? (
                   <img
@@ -110,8 +110,8 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
             </>
           ) : (
             <>
-              <Link href="/login" className="text-white">Login</Link>
-              <Link href="/signup" className="text-white">Signup</Link>
+              <Link href="/login" className="text-white transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Login</Link>
+              <Link href="/signup" className="text-white transition duration-200 hover:text-yellow-300 hover:font-bold hover:drop-shadow-lg">Signup</Link>
             </>
           )}
         </div>
