@@ -76,7 +76,7 @@ export default function FeatureCards() {
                 height={150}
               />
               {/* Show card title below image on mobile screens */}
-              <span className="block sm:hidden mt-4 text-white text-center drop-shadow-sm text-2xl">
+              <span className="block sm:hidden mt-4 text-white text-center drop-shadow-sm text-xl font-bold">
                 {c.title}
               </span>
             </motion.div>
