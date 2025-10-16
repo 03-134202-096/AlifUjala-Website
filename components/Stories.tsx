@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
+import VisualStory from "./VisualStory";
 
 const stories = [
   {
@@ -41,8 +42,11 @@ const Stories: React.FC = () => {
         </motion.div>
       ))}
 
-      {/* Glassmorphism Popup */}
-      {openStory && (
+      {/* Glassmorphism Popup: VisualStory for first card, old popup for others */}
+      {openStory === 'rabbit-turtle' && (
+        <VisualStory onClose={() => setOpenStory(null)} />
+      )}
+      {openStory && openStory !== 'rabbit-turtle' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
