@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import VisualStory from "./VisualStory";
+import { rabbitTurtleScenes } from "@/data/rabbitTurtleScenes";
+import { lionFoxScenes } from "@/data/lionFoxScenes";
 
 const stories = [
   {
@@ -42,11 +44,14 @@ const Stories: React.FC = () => {
         </motion.div>
       ))}
 
-      {/* Glassmorphism Popup: VisualStory for first card, old popup for others */}
+      {/* Glassmorphism Popup: VisualStory for first and second cards, old popup for others */}
       {openStory === 'rabbit-turtle' && (
-        <VisualStory onClose={() => setOpenStory(null)} />
+        <VisualStory onClose={() => setOpenStory(null)} title="خرگوش اور کچھوا" scenes={rabbitTurtleScenes} />
       )}
-      {openStory && openStory !== 'rabbit-turtle' && (
+      {openStory === 'lion-fox' && (
+        <VisualStory onClose={() => setOpenStory(null)} title="شیر اور چلاک لومڑی" scenes={lionFoxScenes} />
+      )}
+      {openStory && openStory !== 'rabbit-turtle' && openStory !== 'lion-fox' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
