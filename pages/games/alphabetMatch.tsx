@@ -197,7 +197,7 @@ export default function AlphabetMatchPage() {
             {/* Load Button */}
             <div className="control-group">
               <button className="responsive-btn load-btn" onClick={() => setSeed(Date.now())}>
-                <span className="btn-text">Load Letters</span>
+                <span className="btn-text">Shuffle Letters</span>
               </button>
             </div>
 

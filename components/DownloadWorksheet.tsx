@@ -16,7 +16,7 @@ export default function DownloadWorksheet({
   title = "ہر حرف کو اس کے جوڑے کے ساتھ ملاؤ!",
   filename = "worksheet.pdf",
 }: DownloadWorksheetProps) {
-  const [bgType, setBgType] = useState<"color" | "bw">("color")
+  const [bgType, setBgType] = useState<"color" | "bw">("bw")
 
   const handleDownload = async () => {
     // 🔹 Step 1: Check with backend if user can download
@@ -237,17 +237,16 @@ export default function DownloadWorksheet({
     ctx.fillStyle = "#444"
     ctx.fillText("AlifUjala.ai", W / 2, H - 30)
 
-    // ✅ Watermark
-    if (bgType === "color") {
-      ctx.save()
-      ctx.translate(W / 2, H / 2)
-      ctx.rotate((-45 * Math.PI) / 180)
-      ctx.font = "bold 100px serif"
-      ctx.fillStyle = "rgba(150,150,150,0.3)"
-      ctx.textAlign = "center"
-      ctx.fillText("الف اجالا", 0, 0)
-      ctx.restore()
-    }
+    // ✅ Watermark (always show on both color and B&W)
+    ctx.save()
+    ctx.translate(W / 2, H / 2)
+    ctx.rotate((-45 * Math.PI) / 180)
+    ctx.font = "bold 100px serif"
+    // Use slightly darker watermark for B&W to ensure visibility
+    ctx.fillStyle = bgType === "bw" ? "rgba(100,100,100,0.2)" : "rgba(150,150,150,0.3)"
+    ctx.textAlign = "center"
+    ctx.fillText("الف اجالا", 0, 0)
+    ctx.restore()
 
     // ✅ Canvas → PDF
     const imgData = cvs.toDataURL("image/png")
