@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import VisualStory from "./VisualStory";
 import { rabbitTurtleScenes } from "@/data/rabbitTurtleScenes";
 import { lionFoxScenes } from "@/data/lionFoxScenes";
+import { crowWaterScenes } from "@/data/crowWaterScenes";
 
 const stories = [
   {
@@ -44,31 +45,15 @@ const Stories: React.FC = () => {
         </motion.div>
       ))}
 
-      {/* Glassmorphism Popup: VisualStory for first and second cards, old popup for others */}
+      {/* Glassmorphism Popup: VisualStory for all stories */}
       {openStory === 'rabbit-turtle' && (
         <VisualStory onClose={() => setOpenStory(null)} title="خرگوش اور کچھوا" scenes={rabbitTurtleScenes} />
       )}
       {openStory === 'lion-fox' && (
         <VisualStory onClose={() => setOpenStory(null)} title="شیر اور چلاک لومڑی" scenes={lionFoxScenes} />
       )}
-      {openStory && openStory !== 'rabbit-turtle' && openStory !== 'lion-fox' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            className="backdrop-blur-lg bg-white/70 rounded-2xl shadow-2xl p-8 max-w-lg w-full text-right relative border border-pink-200"
-          >
-            <button
-              className="absolute left-4 top-4 bg-pink-500 text-white px-3 py-1 rounded-full text-sm"
-              onClick={() => setOpenStory(null)}
-            >بند کریں</button>
-            <h2 className="font-extrabold text-2xl text-pink-700 mb-4">{stories.find(s => s.id === openStory)?.title}</h2>
-            <div className="text-gray-800 leading-relaxed whitespace-pre-line">
-              {stories.find(s => s.id === openStory)?.text}
-            </div>
-          </motion.div>
-        </div>
+      {openStory === 'crow-water' && (
+        <VisualStory onClose={() => setOpenStory(null)} title="کوا اور پانی" scenes={crowWaterScenes} />
       )}
     </div>
   );

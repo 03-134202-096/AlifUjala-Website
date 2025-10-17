@@ -1,0 +1,35 @@
+// کوا اور پانی: Visual scenes for the story 3
+export const crowWaterScenes = [
+  {
+    text: "گرمی کے دنوں میں ایک کوّا پانی کی تلاش میں بھٹکتا رہا۔",
+    img: "/images/stories/story 3/scene 1.png"
+  },
+  {
+    text: "وہ ایک باغ میں پہنچا اور ایک گھڑا پایا جس میں تھوڑا سا ہی پانی تھا۔",
+    img: "/images/stories/story 3/scene 2.png"
+  },
+  {
+    text: "پانی اتنا کم تھا کہ کوے کی چونچ تک نہیں پہنچ رہا تھا۔",
+    img: "/images/stories/story 3/scene 3.png"
+  },
+  {
+    text: "کوئے نے پھرتی سے آس پاس چھوٹے کنکر جمع کیے۔",
+    img: "/images/stories/story 3/scene 4.png"
+  },
+  {
+    text: "اس نے کنکروں کو گھڑے میں ڈالنا شروع کر دیا۔",
+    img: "/images/stories/story 3/scene 5.png"
+  },
+  {
+    text: "جیسے جیسے کنکر گھڑے میں پڑتے گئے، پانی اوپر اٹھنے لگا۔ آخر کار پانی اتنا اوپر آ گیا کہ کوے نے پی لیا اور پیاس بجھائی۔",
+    img: "/images/stories/story 3/scene 6.png"
+  },
+  {
+    text: "اُس نے اللہ کا شکر ادا کیا اور خوشی خوشی اڑ گیا۔",
+    img: "/images/stories/story 3/scene 7.png"
+  },
+  {
+      text: 'سبق: عقل و ہوشیاری اور ایجادِ حل سے مشکلات کا حل نکل آتا ہے — "ضرورت ایجاد کی ماں ہے"۔',
+    ending: true
+  }
+];

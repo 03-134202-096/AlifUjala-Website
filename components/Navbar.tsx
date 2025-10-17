@@ -75,7 +75,7 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
           )}
         </div>
 
-        {/* Profile image and logout absolute right */}
+        {/* Profile image absolute right */}
         <div className="hidden sm:flex items-center gap-4 absolute right-0 top-1/2 -translate-y-1/2">
           {loading ? (
             <LoadingIndicator
@@ -85,20 +85,17 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
               className="gap-0"
             />
           ) : user ? (
-            <>
-              <button onClick={handleLogout} className="bg-red-600 text-white px-3 py-1 rounded transition duration-200 hover:bg-red-400 hover:drop-shadow-lg">Logout</button>
-              <Link href="/profile" className="ml-2">
-                {typeof user.profileImgId === 'number' && profileImages[user.profileImgId] ? (
-                  <img
-                    src={profileImages[user.profileImgId].src}
-                    alt="Profile"
-                    className="w-9 h-9 rounded-full object-cover border-2 border-white shadow"
-                  />
-                ) : (
-                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-purple-500/80 to-pink-500/80 text-white text-xl font-bold border-2 border-white shadow">👤</span>
-                )}
-              </Link>
-            </>
+            <Link href="/profile">
+              {typeof user.profileImgId === 'number' && profileImages[user.profileImgId] ? (
+                <img
+                  src={profileImages[user.profileImgId].src}
+                  alt="Profile"
+                  className="w-9 h-9 rounded-full object-cover border-2 border-white shadow"
+                />
+              ) : (
+                <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-purple-500/80 to-pink-500/80 text-white text-xl font-bold border-2 border-white shadow">👤</span>
+              )}
+            </Link>
           ) : null}
         </div>
 
@@ -152,10 +149,7 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
           <Link href="/stories" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Stories</Link>
           <Link href="/about" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>About</Link>
           {user ? (
-            <>
-              <Link href="/profile" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Profile</Link>
-              <button onClick={() => { handleLogout(); setMenuOpen(false); }} className="bg-red-600 text-white px-3 py-1 rounded">Logout</button>
-            </>
+            <Link href="/profile" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Profile</Link>
           ) : (
             <>
               <Link href="/login" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Login</Link>
