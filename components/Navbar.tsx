@@ -149,7 +149,10 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
           <Link href="/stories" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Stories</Link>
           <Link href="/about" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>About</Link>
           {user ? (
-            <Link href="/profile" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Profile</Link>
+            <>
+              <Link href="/profile" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Profile</Link>
+              <button onClick={() => { handleLogout(); setMenuOpen(false); }} className="bg-red-600 text-white px-3 py-1 rounded">Logout</button>
+            </>
           ) : (
             <>
               <Link href="/login" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Login</Link>

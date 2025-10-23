@@ -52,7 +52,7 @@ export default function DownloadWorksheet({
 
     const rows = left.length
     // High resolution for logged-in users (PDF), low resolution for non-logged-in (PNG)
-    const scaleFactor = resolution === "high" ? 2 : 0.5
+    const scaleFactor = resolution === "high" ? 2 : 0.3
     const baseW = 1000
     const baseH = 340 + rows * 180
     const W = baseW * scaleFactor
