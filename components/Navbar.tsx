@@ -56,7 +56,7 @@ export default function Navbar({ className = "" }: { className?: string } = {}) 
           <Link href="/" className="mr-3">
             <img src="/images/Logo.jpg" alt="Alif Ujala Logo" className="h-10 w-10 rounded-full object-cover border-2 border-white shadow" />
           </Link>
-          <Link href="/" className="font-bold text-lg">Alif Ujala</Link>
+          <Link href="/" className="font-bold text-lg">Alif Ujala check</Link>
         </div>
 
         {/* Centered menu links */}
