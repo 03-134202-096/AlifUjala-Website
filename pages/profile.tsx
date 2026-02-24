@@ -14,8 +14,8 @@ const ProfilePage: NextPage = () => {
   const [showImgPicker, setShowImgPicker] = useState(false)
   const [selectedProfileImgId, setSelectedProfileImgId] = useState<number | null>(null)
   const profileImages = [
-    { id: 0, src: "/images/Kids/Female.png", label: "Female" },
-    { id: 1, src: "/images/Kids/Male.png", label: "Male" },
+    { id: 0, src: "/images/Kids/Female.webp", label: "Girl" },
+    { id: 1, src: "/images/Kids/Male.webp", label: "Boy" },
   ]
 
   useEffect(() => {
@@ -50,12 +50,10 @@ const ProfilePage: NextPage = () => {
         body: JSON.stringify({ profileImgId: imgId }),
       })
       setUser((u: any) => ({ ...u, profileImgId: imgId }))
-      // Trigger navbar update via localStorage (cross-tab)
       localStorage.setItem('profile-image-updated', Date.now().toString())
-      // Also dispatch a storage event for same-tab update
       window.dispatchEvent(new StorageEvent('storage', { key: 'profile-image-updated' }))
     } catch (err) {
-      // handle error if needed
+      // silently handle error
     }
   }
 
@@ -67,12 +65,12 @@ const ProfilePage: NextPage = () => {
       const data = await res.json()
       if (res.ok && data.ok) {
         setUser((u: any) => ({ ...u, isPremium: true }))
-        setUpgradeMsg("You are now a premium user!")
+        setUpgradeMsg("🎉 You are now a premium member!")
       } else {
-        setUpgradeMsg(data.error || "Upgrade failed.")
+        setUpgradeMsg("😕 " + (data.error || "Upgrade failed."))
       }
     } catch (err) {
-      setUpgradeMsg("Upgrade failed.")
+      setUpgradeMsg("😕 Upgrade failed.")
     } finally {
       setUpgrading(false)
     }
@@ -80,172 +78,207 @@ const ProfilePage: NextPage = () => {
 
   if (loading) {
     return (
-      <>
+      <div className="kids-page-bg min-h-screen flex flex-col">
         <Navbar />
-        <main className="min-h-screen py-8 flex items-center justify-center px-4">
-          <div className="w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl px-3 py-2">
-            <div className="flex flex-col items-center space-y-1">
-              <LoadingIndicator size={60} message="Fetching your profile..." />
-            </div>
+        <main className="flex-1 flex items-center justify-center px-4 py-8">
+          <div className="bg-white/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 p-8">
+            <LoadingIndicator size={60} message="Loading your profile..." />
           </div>
         </main>
         <Footer />
-      </>
+      </div>
     )
   }
-  
+
   if (error) {
     return (
-      <>
+      <div className="kids-page-bg min-h-screen flex flex-col">
         <Navbar />
-        <main className="min-h-screen py-8 flex items-center justify-center px-4">
-          <div className="w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl px-3 py-2">
-            <div className="text-center">
-              <div className="text-6xl mb-1">❌</div>
-              <p className="text-red-300 text-lg">{error}</p>
-            </div>
+        <main className="flex-1 flex items-center justify-center px-4 py-8">
+          <div className="bg-white/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 p-8 text-center max-w-sm w-full">
+            <div className="text-6xl mb-4">😕</div>
+            <p className="text-purple-600 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{error}</p>
+            <a href="/login" className="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold rounded-full border-3 border-white shadow-candy hover:scale-105 transition-all"
+              style={{fontFamily: "'Bubblegum Sans', cursive"}}>
+              Go to Login 🔑
+            </a>
           </div>
         </main>
         <Footer />
-      </>
+      </div>
     )
   }
 
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen py-8 flex items-center justify-center px-4">
-        <div className="w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl px-3 py-2">
-          <div className="text-center mb-3">
-            <div className="relative w-28 h-28 bg-gradient-to-r from-purple-500/80 to-pink-500/80 rounded-full flex items-center justify-center mx-auto mb-2 group" style={{overflow: 'visible'}}>
-              {typeof selectedProfileImgId === 'number' && profileImages[selectedProfileImgId] ? (
-                <Image
-                  src={profileImages[selectedProfileImgId].src}
-                  alt="Profile"
-                  width={112}
-                  height={112}
-                  className="object-cover w-28 h-28 rounded-full"
-                />
-              ) : (
-                <span className="text-4xl text-white">👤</span>
-              )}
-              <button
-                type="button"
-                className="absolute inset-0 w-full h-full flex items-center justify-center bg-black transition-all z-50 opacity-0 group-hover:opacity-75"
-                onClick={e => { e.stopPropagation(); setShowImgPicker((v) => !v); }}
-                aria-label="Change profile image"
-                style={{ borderRadius: '9999px' }}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-12 h-12 drop-shadow-lg">
-                  <path d="M12 8.5A3.5 3.5 0 1 0 12 15.5A3.5 3.5 0 1 0 12 8.5Z"/>
-                  <path d="M4 7V19C4 20.1046 4.89543 21 6 21H18C19.1046 21 20 20.1046 20 19V7C20 5.89543 19.1046 5 18 5H16.382L15.276 3.44721C15.1054 3.18439 14.8197 3 14.5 3H9.5C9.1803 3 8.8946 3.18439 8.724 3.44721L7.618 5H6C4.89543 5 4 5.89543 4 7ZM12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12C17 14.7614 14.7614 17 12 17Z"/>
-                </svg>
-              </button>
-              {showImgPicker && (
-                <>
-                  {/* Backdrop */}
-                  <div
-                    className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
-                    onClick={() => setShowImgPicker(false)}
-                  />
-                  {/* Picker Card */}
-                  <div className="fixed z-50 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 px-6 py-5 flex flex-col items-center min-w-[220px]">
-                      <div className="mb-3 text-lg font-semibold text-gray-700">Choose Profile Image</div>
-                      <div className="flex gap-6 mb-2">
-                        {profileImages.map((img) => (
-                          <button
-                            key={img.id}
-                            onClick={() => handleProfileImgChange(img.id)}
-                            className={`border-4 rounded-full p-1 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 ${selectedProfileImgId === img.id ? 'border-pink-500 ring-2 ring-pink-300' : 'border-gray-200'} bg-white hover:border-purple-400`}
-                            aria-label={`Select ${img.label}`}
-                          >
-                            <Image
-                              src={img.src}
-                              alt={img.label}
-                              width={64}
-                              height={64}
-                              className="object-cover rounded-full"
-                            />
-                          </button>
-                        ))}
-                      </div>
-                      <button
-                        className="mt-2 px-4 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg shadow hover:from-purple-600 hover:to-pink-600 transition-all text-sm font-medium"
-                        onClick={() => setShowImgPicker(false)}
-                      >Cancel</button>
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-            <h2 className="text-3xl font-bold text-white mb-2">My Profile</h2>
-            <div className={`inline-flex px-3 py-1 rounded-full text-sm font-medium ${
-              user.isPremium 
-                ? 'bg-gradient-to-r from-yellow-500/80 to-orange-500/80 text-white' 
-                : 'bg-white/20 text-white/80'
-            }`}>
-              {user.isPremium ? " Premium Member" : "Free Member"}
-            </div>
-          </div>
-          
-          <div className="space-y-4 mb-8">
-            <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-              <label className="text-white/60 text-sm">User ID</label>
-              <p className="text-white font-medium">{user.id}</p>
-            </div>
-            
-            <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-              <label className="text-white/60 text-sm">Username</label>
-              <p className="text-white font-medium">{user.username}</p>
-            </div>
-            
-            <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-              <label className="text-white/60 text-sm">Email</label>
-              <p className="text-white font-medium">{user.email}</p>
-            </div>
-          </div>
-          
-          {!user.isPremium && (
-            <button
-              onClick={handleUpgrade}
-              disabled={upgrading}
-              className="w-full py-3 bg-gradient-to-r from-yellow-500/80 to-orange-500/80 hover:from-yellow-600/90 hover:to-orange-600/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all duration-300 backdrop-blur-sm border border-white/20 flex items-center justify-center space-x-2"
-            >
-              <span>{upgrading ? "Upgrading..." : "Upgrade to Premium"}</span>
-            </button>
-          )}
-          
-          {upgrading && (
-            <div className="mt-6 flex justify-center">
-              <LoadingIndicator size={60} message="Upgrading your account..." />
-            </div>
-          )}
-          
-          {upgradeMsg && (
-            <div className="mt-4 p-3 bg-white/10 border border-white/20 rounded-lg">
-              <p className="text-center text-sm" style={{ color: user.isPremium ? "#16db65" : "#fff" }}>
-                {upgradeMsg}
-              </p>
-            </div>
-          )}
+    <div className="kids-page-bg min-h-screen flex flex-col relative">
+      {/* Floating decorations */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-24 left-[10%] text-5xl animate-float opacity-15">⭐</div>
+        <div className="absolute top-44 right-[12%] text-4xl animate-float-delay opacity-15">🎨</div>
+        <div className="absolute bottom-32 left-[8%] text-4xl animate-bounce-slow opacity-10">🏆</div>
+        <div className="absolute bottom-24 right-[10%] text-3xl animate-float opacity-15">🌈</div>
+      </div>
 
-          {/* Logout button at the bottom center */}
-          <div className="mt-6 flex justify-center">
+      <Navbar />
+      <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
+        <div className="w-full max-w-md">
+          {/* Profile Card */}
+          <div className="bg-white/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 p-6 sm:p-8">
+            {/* Profile Image & Header */}
+            <div className="text-center mb-6">
+              <div className="relative w-32 h-32 mx-auto mb-4 group">
+                <div className="w-32 h-32 rounded-full border-4 border-indigo-300 shadow-candy bg-gradient-to-br from-purple-200 to-indigo-200 flex items-center justify-center overflow-hidden">
+                  {typeof selectedProfileImgId === 'number' && profileImages[selectedProfileImgId] ? (
+                    <Image
+                      src={profileImages[selectedProfileImgId].src}
+                      alt="Profile"
+                      width={128}
+                      height={128}
+                      className="object-cover w-32 h-32 rounded-full"
+                    />
+                  ) : (
+                    <span className="text-5xl">👤</span>
+                  )}
+                </div>
+                {/* Change photo button */}
+                <button
+                  type="button"
+                  onClick={() => setShowImgPicker(true)}
+                  className="absolute -bottom-1 -right-1 w-10 h-10 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full border-3 border-white shadow-candy flex items-center justify-center text-white hover:scale-110 transition-all"
+                  aria-label="Change profile image"
+                >
+                  <span className="text-lg">📷</span>
+                </button>
+              </div>
+
+              <h2 className="text-3xl font-bold mb-1" style={{fontFamily: "'Bubblegum Sans', cursive", color: '#6366f1'}}>
+                My Profile
+              </h2>
+
+              <div className={`inline-flex px-4 py-1.5 rounded-full text-sm font-bold border-3 ${
+                user.isPremium
+                  ? 'bg-gradient-to-r from-yellow-400 to-orange-400 text-white border-yellow-300 shadow-candy'
+                  : 'bg-gray-100 text-gray-500 border-gray-200'
+              }`} style={{fontFamily: "'Comic Neue', cursive"}}>
+                {user.isPremium ? "⭐ Premium Member" : "🆓 Free Member"}
+              </div>
+            </div>
+
+            {/* User Info Cards */}
+            <div className="space-y-3 mb-6">
+              <div className="bg-purple-50 rounded-2xl p-4 border-2 border-purple-100">
+                <label className="text-xs font-bold text-purple-400 uppercase tracking-wide" style={{fontFamily: "'Comic Neue', cursive"}}>🆔 User ID</label>
+                <p className="text-gray-700 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{user.id}</p>
+              </div>
+              <div className="bg-indigo-50 rounded-2xl p-4 border-2 border-indigo-100">
+                <label className="text-xs font-bold text-indigo-400 uppercase tracking-wide" style={{fontFamily: "'Comic Neue', cursive"}}>👤 Username</label>
+                <p className="text-gray-700 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{user.username}</p>
+              </div>
+              <div className="bg-blue-50 rounded-2xl p-4 border-2 border-blue-100">
+                <label className="text-xs font-bold text-blue-400 uppercase tracking-wide" style={{fontFamily: "'Comic Neue', cursive"}}>📧 Email</label>
+                <p className="text-gray-700 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{user.email}</p>
+              </div>
+            </div>
+
+            {/* Upgrade Button */}
+            {!user.isPremium && (
+              <button
+                onClick={handleUpgrade}
+                disabled={upgrading}
+                className="w-full py-3 bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-full transition-all duration-300 border-3 border-white shadow-candy hover:scale-[1.02] text-lg mb-4"
+                style={{fontFamily: "'Bubblegum Sans', cursive"}}
+              >
+                {upgrading ? "Upgrading... 🔄" : "⭐ Upgrade to Premium!"}
+              </button>
+            )}
+
+            {upgrading && (
+              <div className="mb-4 flex justify-center">
+                <LoadingIndicator size={50} message="Upgrading your account..." />
+              </div>
+            )}
+
+            {upgradeMsg && (
+              <div className={`mb-4 p-4 rounded-2xl border-3 text-center font-bold ${
+                upgradeMsg.includes('🎉')
+                  ? 'bg-green-50 border-green-300 text-green-700'
+                  : 'bg-purple-50 border-purple-300 text-purple-700'
+              }`} style={{fontFamily: "'Comic Neue', cursive"}}>
+                {upgradeMsg}
+              </div>
+            )}
+
+            {/* Logout Button */}
             <button
               onClick={async () => {
                 await fetch("/api/logout", { method: "POST" })
                 window.location.href = "/"
               }}
-              className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="w-full py-3 bg-gradient-to-r from-red-400 to-orange-400 hover:from-red-500 hover:to-orange-500 text-white font-bold rounded-full transition-all duration-300 border-3 border-white shadow-candy hover:scale-[1.02] text-lg"
+              style={{fontFamily: "'Bubblegum Sans', cursive"}}
             >
-              Logout
+              Logout 👋
             </button>
+          </div>
+
+          {/* Fun decoration */}
+          <div className="text-center mt-6">
+            <div className="flex justify-center gap-3 text-3xl">
+              <span className="animate-bounce-slow">🎮</span>
+              <span className="animate-bounce-slow" style={{animationDelay: '0.3s'}}>📖</span>
+              <span className="animate-bounce-slow" style={{animationDelay: '0.6s'}}>⭐</span>
+            </div>
           </div>
         </div>
       </main>
+
+      {/* Image Picker Modal */}
+      {showImgPicker && (
+        <>
+          <div className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm" onClick={() => setShowImgPicker(false)} />
+          <div className="fixed z-50 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="bg-white/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 px-8 py-6 flex flex-col items-center min-w-[260px]">
+              <div className="text-4xl mb-3">📸</div>
+              <h3 className="text-xl font-bold text-purple-600 mb-4" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
+                Choose Avatar
+              </h3>
+              <div className="flex gap-6 mb-4">
+                {profileImages.map((img) => (
+                  <button
+                    key={img.id}
+                    onClick={() => handleProfileImgChange(img.id)}
+                    className={`rounded-full p-1 transition-all duration-300 focus:outline-none hover:scale-110 ${
+                      selectedProfileImgId === img.id
+                        ? 'border-4 border-indigo-500 ring-4 ring-indigo-200 shadow-candy'
+                        : 'border-4 border-gray-200 hover:border-purple-300'
+                    }`}
+                    aria-label={`Select ${img.label}`}
+                  >
+                    <Image
+                      src={img.src}
+                      alt={img.label}
+                      width={72}
+                      height={72}
+                      className="object-cover rounded-full"
+                    />
+                    <p className="text-xs font-bold text-gray-500 mt-1" style={{fontFamily: "'Comic Neue', cursive"}}>{img.label}</p>
+                  </button>
+                ))}
+              </div>
+              <button
+                className="px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold rounded-full border-3 border-white shadow-candy hover:scale-105 transition-all"
+                style={{fontFamily: "'Bubblegum Sans', cursive"}}
+                onClick={() => setShowImgPicker(false)}
+              >
+                Close ✖
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
       <Footer />
-    </>
+    </div>
   )
 }
 

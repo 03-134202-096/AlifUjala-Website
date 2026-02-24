@@ -100,7 +100,7 @@ export default function HeroWithFire() {
   };
 
   return (
-    <section className={styles.hero}>
+    <section className={`${styles.hero} hidden sm:block`}>
       {/* top “roof” line that boards hang from */}
       <span className={styles.roofLine} />
 

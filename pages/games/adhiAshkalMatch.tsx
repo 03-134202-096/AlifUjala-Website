@@ -16,29 +16,29 @@ function shuffle<T>(arr: T[]): T[] {
 // character as text on the right.
 const SMALL_ALPHABETS_MAP: Record<string, string> = {
   // common mappings (approximate filenames present in the repo)
-  "ain": "aain-smalla.png",
-  "bay": "be-small.png",
-  "pay": "pe-small-1.png",
-  "chay": "che-small.png",
-  "fay": "fay-small.png",
-  "gaaf": "gaaf-small.png",
-  "ghain": "ghain-small.png",
-  "hay": "hay-small.png",
-  "jeem": "jeem-small.png",
-  "kaf": "kaaf-small.png",
-  "kaaf": "kaaf-small.png",
-  "khay": "khay-small.png",
-  "laam": "laam-small.png",
-  "meem": "meem-small.png",
-  "noon": "noon-small.png",
-  "qaf": "qaaf-small.png",
-  "seen": "seen-small.png",
-  "sheen": "sheen-small.png",
-  "swad": "swaad-small.png",
-  "zwad": "zwaad-small.png",
-  "tay": "te-small-1.png",
-  "toay": "tte-small-1.png",
-  "choti-yaa": "yay-small.png",
+  "ain": "aain-smalla.webp",
+  "bay": "be-small.webp",
+  "pay": "pe-small-1.webp",
+  "chay": "che-small.webp",
+  "fay": "fay-small.webp",
+  "gaaf": "gaaf-small.webp",
+  "ghain": "ghain-small.webp",
+  "hay": "hay-small.webp",
+  "jeem": "jeem-small.webp",
+  "kaf": "kaaf-small.webp",
+  "kaaf": "kaaf-small.webp",
+  "khay": "khay-small.webp",
+  "laam": "laam-small.webp",
+  "meem": "meem-small.webp",
+  "noon": "noon-small.webp",
+  "qaf": "qaaf-small.webp",
+  "seen": "seen-small.webp",
+  "sheen": "sheen-small.webp",
+  "swad": "swaad-small.webp",
+  "zwad": "zwaad-small.webp",
+  "tay": "te-small-1.webp",
+  "toay": "tte-small-1.webp",
+  "choti-yaa": "yay-small.webp",
 }
 
 export default function AdhiAshkalMatchPage() {
@@ -217,7 +217,7 @@ export default function AdhiAshkalMatchPage() {
                 >
                   {availableLetters.map((l: any) => (
                     <option key={l.id} value={l.id}>
-                      {l.char} ({l.name})
+                      {l.char}
                     </option>
                   ))}
                 </select>
@@ -235,7 +235,7 @@ export default function AdhiAshkalMatchPage() {
                 >
                   {availableLetters.map((l: any) => (
                     <option key={l.id} value={l.id}>
-                      {l.char} ({l.name})
+                      {l.char}
                     </option>
                   ))}
                 </select>
@@ -245,7 +245,7 @@ export default function AdhiAshkalMatchPage() {
             {/* Load Button */}
             <div className="control-group">
               <button className="responsive-btn load-btn" onClick={() => setSeed(Date.now())}>
-                <span className="btn-text">Shuffle Letters</span>
+                <span className="btn-text">🔀 حروف بدلیں</span>
               </button>
             </div>
 

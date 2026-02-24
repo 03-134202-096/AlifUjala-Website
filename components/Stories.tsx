@@ -5,23 +5,31 @@ import { rabbitTurtleScenes } from "@/data/rabbitTurtleScenes";
 import { lionFoxScenes } from "@/data/lionFoxScenes";
 import { crowWaterScenes } from "@/data/crowWaterScenes";
 
+const storyColors = [
+  'from-indigo-200 to-violet-100 border-indigo-300',
+  'from-blue-200 to-cyan-100 border-blue-300',
+  'from-green-200 to-emerald-100 border-green-300',
+];
+
+const storyEmojis = ['🐇🐢', '🦁🦊', '🐦💧'];
+
 const stories = [
   {
     id: 'rabbit-turtle',
     title: 'خرگوش اور کچھوا!',
-    text: `ایک جنگل میں ایک بہت چالاک اور تیز رفتار خرگوش رہتا تھا۔ وہ ہمیشہ کچھوے کی سست رفتاری پر ہنستا اور اس کا مذاق اڑاتا۔ کچھوا خاموشی سے اپنے راستے چلتا رہتا۔ ایک دن دونوں میں دوڑ کا مقابلہ ہوا۔ شروع ہوتے ہی خرگوش بہت آگے نکل گیا اور راستے میں ایک سایہ دار درخت کے نیچے آرام کر لیا — سوچا کچھوا ابھی بہت پیچھے ہے۔ کیوں کہ وہ خود پر بھروسہ کرتا تھا، اس کی آنکھ لگ گئی۔ کچھوا آہستگی سے مگر لگاتار چلتا رہا، اور جب خرگوش نیند سے جاگا تو دیکھا کہ کچھوا ہی پہلے منزل پر پہنچ چکا تھا۔ نتیجہ: غرور اور خود پر حد سے زیادہ اعتماد نقصان کا باعث بنتا ہے؛ مستقل مزاجی اکثر تیز رفتاری پر غالب آتی ہے۔`,
+    text: `ایک جنگل میں ایک بہت چالاک اور تیز رفتار خرگوش رہتا تھا۔`,
     img: '/images/stories/sroty 1.png'
   },
   {
     id: "lion-fox",
     title: "شیر اور چلاک لومڑی",
-    text: "ایک جنگل کا شیر طاقتور اور شرارتی تھا۔ وہ ہر روز شکار جاتا اور جانور ڈر کر رہتے۔ آخرکار جانوروں نے طے کیا کہ ہر روز ایک جانور خود شیر کے پاس جائے گا، تاکہ وہ جنگل میں نہ آئے۔ شیر نے اتفاق کیا۔ جب باری لومڑی کی آئی تو اس نے ایک چال چل دی۔ وہ شیر کے پاس دیر سے پہنچی اور کہنے لگی کہ راستے میں ایک اور شیر نے روک رکھا تھا۔ شیر نے اسے دکھانے کو کہا کہ وہ کہاں ہے۔ لومڑی اسے ایک کنویں پر لے گئی اور بولی، “وہی اندر ہے!” شیر نے پانی میں جھانکا، اپنا عکس دیکھا، دھاڑا، اور سمجھا کہ وہی “دوسرا شیر” ہے۔ وہ غصے میں کنویں میں چھلانگ لگا بیٹھا۔ پانی میں گر کر وہ نہیں بچا۔ لومڑی خوش ہوئی اور سب جانوروں نے جشن منایا کہ ظلم کا انجام برا ہوا۔ سب نے سیکھا کہ طاقت سے پہلے عقل کام آتی ہے۔",
+    text: "ایک جنگل کا شیر طاقتور اور شرارتی تھا۔",
     img: "/images/stories/sroty 2.png"
   },
   {
     id: "crow-water",
     title: "کوا اور پانی",
-    text: `گرمی کے دنوں میں ایک کوّا پانی کی تلاش میں بھٹکتا رہا۔ وہ ایک باغ میں پہنچا اور ایک گھڑا پایا جس میں تھوڑا سا ہی پانی تھا — اتنا کم کہ کوے کی چونچ تک نہیں پہنچ رہا تھا۔ کوئے نے پھرتی سے آس پاس چھوٹے کنکر جمع کیے اور انہیں گھڑے میں ڈالنا شروع کر دیا۔ جیسے جیسے کنکر گھڑے میں پڑتے گئے، پانی اوپر اٹھنے لگا اور آخر کار پانی اتنا اوپر آ گیا کہ کوے نے پی لیا اور پیاس بجھائی۔ سبق: عقل و ہوشیاری اور ایجادِ حل سے مشکلات کا حل نکل آتا ہے — "ضرورت ایجاد کی ماں ہے"۔`,
+    text: `گرمی کے دنوں میں ایک کوّا پانی کی تلاش میں بھٹکتا رہا۔`,
     img: '/images/stories/story 3.png'
   }
 ];
@@ -30,22 +38,34 @@ const Stories: React.FC = () => {
   const [openStory, setOpenStory] = useState<string | null>(null);
 
   return (
-    <div className="flex flex-row flex-wrap gap-8 justify-center mt-8">
+    <div className="flex flex-row flex-wrap gap-8 justify-center mt-4">
       {stories.map((story, i) => (
         <motion.div
           key={story.id}
-          className={`relative w-72 h-96 flex-shrink-0 rounded-2xl shadow-xl flex flex-col items-center justify-center p-5 bg-gradient-to-br from-blue-100 to-white cursor-pointer`}
-          whileHover={{ y: -10, scale: 1.04 }}
+          className={`relative w-72 sm:w-80 flex-shrink-0 rounded-3xl shadow-candy flex flex-col items-center justify-center p-5 bg-gradient-to-br ${storyColors[i]} cursor-pointer border-4 overflow-hidden group`}
+          whileHover={{ y: -8, scale: 1.03 }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => setOpenStory(story.id)}
         >
-          <img src={story.img} alt={story.title} className="rounded-md drop-shadow-lg w-90 h-90 object-contain mb-4" />
-          <span className="block mt-2 font-bold text-xl text-pink-700 text-center drop-shadow-sm">
+          {/* Emoji decoration */}
+          <div className="absolute top-3 right-3 text-2xl opacity-40 group-hover:opacity-80 transition-opacity">
+            {storyEmojis[i]}
+          </div>
+          
+          <img src={story.img} alt={story.title} className="rounded-2xl drop-shadow-lg w-full h-52 object-contain mb-4 bg-white/50 p-2" />
+          
+          <span className="block mt-2 font-bold text-xl text-center drop-shadow-sm" style={{fontFamily: "'Bubblegum Sans', cursive", color: '#6366f1'}}>
             {story.title}
           </span>
+          
+          {/* Click prompt */}
+          <div className="mt-3 bg-white/80 rounded-full px-4 py-1.5 text-sm font-bold text-purple-600 group-hover:bg-purple-100 transition-colors" style={{fontFamily: "'Comic Neue', cursive"}}>
+            📖 Click to Read!
+          </div>
         </motion.div>
       ))}
 
-      {/* Glassmorphism Popup: VisualStory for all stories */}
+      {/* Story Viewers */}
       {openStory === 'rabbit-turtle' && (
         <VisualStory onClose={() => setOpenStory(null)} title="خرگوش اور کچھوا" scenes={rabbitTurtleScenes} />
       )}

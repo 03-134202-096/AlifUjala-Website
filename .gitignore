@@ -5,18 +5,69 @@ npm-debug.log
 yarn-debug.log*
 yarn-error.log*
 
+# Ignore swc binaries (fixes GitHub file size error)
+node_modules/@next/swc-*/
+
+# Ignore all large binaries
+*.exe
+*.dll
+*.so
+*.bin
+*.node
+
 # Next.js
 .next/
 out/
+
+# Next.js serverless traces
+.next/serverless/
+.next/cache/
 
 # Env files
 .env
 .env.local
 .env.*.local
 
+# Ignore lock files if not used
+# package-lock.json
+yarn.lock
+
 # Prisma
-#/prisma/migrations/
+
+prisma/dev.db
+prisma/dev.db-journal
+
+# TypeScript build info
+tsconfig.tsbuildinfo
 
 # Misc
 .DS_Store
 .vscode/
+
+# OS
+Thumbs.db
+Icon?
+
+# IDE
+.idea/
+
+# Coverage
+coverage/
+
+# Storybook
+storybook-static/
+
+# Vercel
+.vercel/
+
+# Temp/backup
+*.tmp
+*.temp
+*~
+*.bak
+
+# Public export
+out/
+
+# Images/animations cache
+public/animations/*.cache

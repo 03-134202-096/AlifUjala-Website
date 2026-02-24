@@ -15,18 +15,29 @@ interface VisualStoryProps {
 
 const VisualStory: React.FC<VisualStoryProps> = ({ onClose, title, scenes }) => {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-      <div className="backdrop-blur-lg bg-white/70 rounded-2xl shadow-2xl p-8 max-w-2xl w-full relative border border-pink-200 overflow-y-auto" style={{ maxHeight: '90vh' }}>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8 max-w-2xl w-full relative border border-purple-200 dark:border-purple-700 overflow-y-auto"
+        style={{ maxHeight: '90vh' }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Sticky close button */}
         <button
-          className="absolute left-4 top-4 bg-pink-500 text-white px-3 py-1 rounded-full text-sm"
+          className="sticky top-0 float-right z-10 w-9 h-9 rounded-full bg-indigo-600 text-white flex items-center justify-center text-lg font-bold hover:bg-indigo-700 hover:scale-110 transition-all shadow-lg"
           onClick={onClose}
-        >بند کریں</button>
-        <h2 className="font-extrabold text-2xl text-pink-700 mb-4 text-center">{title}</h2>
+          aria-label="Close"
+        >
+          ✕
+        </button>
+        <h2 className="font-extrabold text-2xl text-indigo-700 dark:text-purple-300 mb-4 text-center">{title}</h2>
         <div className="space-y-10">
           {scenes.map((scene, idx) => (
             scene.ending ? (
               <div key={idx} className="flex items-center justify-center">
-                <div className="w-full text-center text-lg text-blue-900 font-bold bg-blue-100/60 backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-blue-300">
+                <div className="w-full text-center text-lg text-indigo-900 dark:text-indigo-200 font-bold bg-indigo-100/60 dark:bg-indigo-900/40 backdrop-blur-lg rounded-2xl p-6 shadow-lg border border-indigo-300 dark:border-indigo-600">
                   {scene.text}
                 </div>
               </div>

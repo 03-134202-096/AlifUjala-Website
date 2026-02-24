@@ -169,7 +169,7 @@ export default function AlphabetMatchPage() {
                 >
                   {allLetters.map((l: any) => (
                     <option key={l.id} value={l.id}>
-                      {l.char} ({l.name})
+                      {l.char}
                     </option>
                   ))}
                 </select>
@@ -187,7 +187,7 @@ export default function AlphabetMatchPage() {
                 >
                   {allLetters.map((l: any) => (
                     <option key={l.id} value={l.id}>
-                      {l.char} ({l.name})
+                      {l.char}
                     </option>
                   ))}
                 </select>
@@ -197,7 +197,7 @@ export default function AlphabetMatchPage() {
             {/* Load Button */}
             <div className="control-group">
               <button className="responsive-btn load-btn" onClick={() => setSeed(Date.now())}>
-                <span className="btn-text">Shuffle Letters</span>
+                <span className="btn-text">🔀 حروف بدلیں</span>
               </button>
             </div>
 

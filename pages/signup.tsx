@@ -10,7 +10,7 @@ const SignupPage: NextPage = () => {
   const [password, setPassword] = useState("")
   const [otp, setOtp] = useState("")
   const [message, setMessage] = useState("")
-  const [step, setStep] = useState(1) // Track the current step
+  const [step, setStep] = useState(1)
   const [isProcessing, setIsProcessing] = useState(false)
   const [loadingMessage, setLoadingMessage] = useState("")
 
@@ -30,12 +30,12 @@ const SignupPage: NextPage = () => {
       const data = await res.json()
       if (res.ok) {
         setMessage("✅ OTP sent to your email")
-        setStep(2) // Move to OTP verification step
+        setStep(2)
       } else {
-        setMessage("❌ " + data.error)
+        setMessage("😕 " + data.error)
       }
     } catch (err) {
-      setMessage("❌ Unable to reach the server. Please try again.")
+      setMessage("😕 Unable to reach the server. Please try again.")
     } finally {
       setIsProcessing(false)
       setLoadingMessage("")
@@ -57,151 +57,216 @@ const SignupPage: NextPage = () => {
 
       const data = await res.json()
       if (res.ok) {
-        setMessage("✅ Signup successful")
-        setStep(3) // Signup complete
-        // Redirect to home page after successful signup
+        setMessage("🎉 Signup successful!")
+        setStep(3)
         setTimeout(() => {
           window.location.href = "/"
         }, 3000)
       } else {
-        setMessage("❌ " + data.error)
+        setMessage("😕 " + data.error)
       }
     } catch (err) {
-      setMessage("❌ Unable to reach the server. Please try again.")
+      setMessage("😕 Unable to reach the server. Please try again.")
     } finally {
       setIsProcessing(false)
       setLoadingMessage("")
     }
   }
 
+  const stepEmojis = ["📝", "📧", "🎉"]
+  const stepLabels = ["Create Account", "Verify Email", "All Done!"]
+
   return (
-    <>
+    <div className="kids-page-bg min-h-screen flex flex-col relative">
+      {/* Floating decorations */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-20 left-[10%] text-5xl animate-float opacity-15">🌟</div>
+        <div className="absolute top-40 right-[15%] text-4xl animate-float-delay opacity-15">🎨</div>
+        <div className="absolute bottom-40 left-[8%] text-4xl animate-bounce-slow opacity-10">📚</div>
+        <div className="absolute bottom-20 right-[10%] text-3xl animate-float opacity-15">🦋</div>
+      </div>
+
       <Navbar />
-      <main className="min-h-screen py-8 flex items-center justify-center px-4">
-        <div className="w-full max-w-sm bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-2">
-              {step === 1 ? "Create Account" : step === 2 ? "Verify Email" : "Welcome!"}
-            </h2>
-            <p className="text-white/70">
-              {step === 1 ? "Join our learning community" : step === 2 ? "Enter the code sent to your email" : "Account created successfully"}
-            </p>
-          </div>
-          
-          {step === 1 && (
-            <form onSubmit={handleSignup} className="space-y-6">
-              <div>
-                <input
-                  type="text"
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                  disabled={isProcessing}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all duration-300 disabled:opacity-50"
-                />
-              </div>
-              
-              <div>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  disabled={isProcessing}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all duration-300 disabled:opacity-50"
-                />
-              </div>
-              
-              <div>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  disabled={isProcessing}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all duration-300 disabled:opacity-50"
-                />
-              </div>
-              
-              <button 
-                type="submit" 
-                disabled={isProcessing}
-                className="w-full py-3 bg-gradient-to-r from-purple-500/80 to-pink-500/80 hover:from-purple-600/90 hover:to-pink-600/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all duration-300 backdrop-blur-sm border border-white/20"
-              >
-                {isProcessing ? "Creating Account..." : "Sign Up"}
-              </button>
-            </form>
-          )}
-
-          {step === 2 && (
-            <form onSubmit={handleVerifyOtp} className="space-y-6">
-                <div className="text-yellow-200 bg-yellow-700/30 rounded-lg p-3 text-sm text-center mb-2">
-                  <strong>Note:</strong> If you don't see the OTP email in your inbox, please check your Gmail spam box. Sometimes the OTP email may go there.
+      <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
+        <div className="w-full max-w-md">
+          {/* Progress steps */}
+          <div className="flex items-center justify-center gap-2 mb-6">
+            {[1, 2, 3].map((s) => (
+              <div key={s} className="flex items-center gap-2">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg border-3 transition-all duration-500 ${
+                  step >= s
+                    ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white border-white shadow-candy'
+                    : 'bg-white/80 text-gray-400 border-gray-200'
+                }`}>
+                  {step > s ? '✓' : stepEmojis[s - 1]}
                 </div>
-              <div>
-                <input
-                  type="text"
-                  placeholder="Enter 6-digit OTP"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  required
-                  disabled={isProcessing}
-                  maxLength={6}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 text-center text-2xl tracking-widest focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all duration-300 disabled:opacity-50"
-                />
+                {s < 3 && (
+                  <div className={`w-8 h-1 rounded-full transition-all duration-500 ${step > s ? 'bg-indigo-400' : 'bg-gray-200'}`} />
+                )}
               </div>
-              
-              <button 
-                type="submit" 
-                disabled={isProcessing}
-                className="w-full py-3 bg-gradient-to-r from-green-500/80 to-blue-500/80 hover:from-green-600/90 hover:to-blue-600/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all duration-300 backdrop-blur-sm border border-white/20"
-              >
-                {isProcessing ? "Verifying..." : "Verify OTP"}
-              </button>
-            </form>
-          )}
+            ))}
+          </div>
 
-          {step === 3 && (
-            <div className="text-center space-y-6">
-              <div className="text-6xl">🎉</div>
-              <p className="text-white/90">Your account has been created successfully!</p>
-              <p className="text-white/60 text-sm">Redirecting to home page...</p>
-              <div className="w-full py-3 bg-gradient-to-r from-purple-500/80 to-pink-500/80 text-white font-semibold rounded-lg backdrop-blur-sm border border-white/20 flex items-center justify-center space-x-2">
-                <LoadingIndicator size={20} message="" />
-                <span>Taking you home</span>
-              </div>
-            </div>
-          )}
-
-          {isProcessing && (
-            <div className="mt-6 flex justify-center">
-              <LoadingIndicator size={60} message={loadingMessage || "Processing..."} />
-            </div>
-          )}
-          
-          {!isProcessing && message && (
-            <div className="mt-4 p-3 bg-white/10 border border-white/20 rounded-lg">
-              <p className="text-white text-center text-sm">{message}</p>
-            </div>
-          )}
-          
-          {step === 1 && (
-            <div className="mt-6 text-center">
-              <p className="text-white/70 text-sm">
-                Already have an account? 
-                <a href="/login" className="text-white hover:text-pink-300 ml-1 font-medium transition-colors">
-                  Sign in
-                </a>
+          {/* Signup card */}
+          <div className="bg-white/95 rounded-3xl shadow-candy-lg border-4 border-indigo-200 p-6 sm:p-8">
+            {/* Header */}
+            <div className="text-center mb-6">
+              <div className="text-6xl mb-3">{step === 1 ? '🎒' : step === 2 ? '📬' : '🎊'}</div>
+              <h2 className="text-3xl font-bold mb-2" style={{fontFamily: "'Bubblegum Sans', cursive", color: '#EC4899'}}>
+                {stepLabels[step - 1]}
+              </h2>
+              <p className="text-gray-500 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>
+                {step === 1 ? "Join us and start learning Urdu! 🌈" : step === 2 ? "Check your email for the code! 📩" : "Your account is ready! 🎉"}
               </p>
             </div>
-          )}
+
+            {step === 1 && (
+              <form onSubmit={handleSignup} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-bold text-purple-500 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>👤 Username</label>
+                  <input
+                    type="text"
+                    placeholder="Pick a fun name!"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                    disabled={isProcessing}
+                    className="w-full px-4 py-3 bg-indigo-50 border-3 border-indigo-200 rounded-2xl text-gray-700 placeholder-gray-400 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300 font-bold disabled:opacity-50"
+                    style={{fontFamily: "'Comic Neue', cursive"}}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-purple-500 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>📧 Email</label>
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={isProcessing}
+                    className="w-full px-4 py-3 bg-indigo-50 border-3 border-indigo-200 rounded-2xl text-gray-700 placeholder-gray-400 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300 font-bold disabled:opacity-50"
+                    style={{fontFamily: "'Comic Neue', cursive"}}
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-purple-500 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>🔒 Password</label>
+                  <input
+                    type="password"
+                    placeholder="Your secret password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    disabled={isProcessing}
+                    className="w-full px-4 py-3 bg-indigo-50 border-3 border-indigo-200 rounded-2xl text-gray-700 placeholder-gray-400 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300 font-bold disabled:opacity-50"
+                    style={{fontFamily: "'Comic Neue', cursive"}}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isProcessing}
+                  className="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-full transition-all duration-300 border-3 border-white shadow-candy hover:scale-[1.02] text-lg"
+                  style={{fontFamily: "'Bubblegum Sans', cursive"}}
+                >
+                  {isProcessing ? "Creating Account... 🔄" : "Sign Up! 🚀"}
+                </button>
+              </form>
+            )}
+
+            {step === 2 && (
+              <form onSubmit={handleVerifyOtp} className="space-y-4">
+                <div className="bg-yellow-50 border-3 border-yellow-200 rounded-2xl p-4 text-center">
+                  <p className="text-yellow-700 font-bold text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>
+                    📌 <strong>Tip:</strong> If you don&apos;t see the OTP email in your inbox, check your spam folder!
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-green-500 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>🔢 Enter OTP Code</label>
+                  <input
+                    type="text"
+                    placeholder="Enter 6-digit code"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    required
+                    disabled={isProcessing}
+                    maxLength={6}
+                    className="w-full px-4 py-4 bg-green-50 border-3 border-green-200 rounded-2xl text-gray-700 placeholder-gray-400 text-center text-2xl tracking-[0.5em] focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 font-bold disabled:opacity-50"
+                    style={{fontFamily: "'Comic Neue', cursive"}}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isProcessing}
+                  className="w-full py-3 bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-full transition-all duration-300 border-3 border-white shadow-candy hover:scale-[1.02] text-lg"
+                  style={{fontFamily: "'Bubblegum Sans', cursive"}}
+                >
+                  {isProcessing ? "Verifying... 🔄" : "Verify! ✅"}
+                </button>
+              </form>
+            )}
+
+            {step === 3 && (
+              <div className="text-center space-y-4">
+                <div className="text-7xl animate-bounce-slow">🎉</div>
+                <p className="text-gray-700 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>
+                  Your account has been created! Welcome aboard!
+                </p>
+                <p className="text-gray-400 font-bold text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>
+                  Taking you to the homepage...
+                </p>
+                <div className="w-full py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold rounded-full border-3 border-white shadow-candy flex items-center justify-center space-x-2"
+                  style={{fontFamily: "'Bubblegum Sans', cursive"}}
+                >
+                  <LoadingIndicator size={20} message="" />
+                  <span>Going home! 🏠</span>
+                </div>
+              </div>
+            )}
+
+            {isProcessing && (
+              <div className="mt-6 flex justify-center">
+                <LoadingIndicator size={60} message={loadingMessage || "Processing..."} />
+              </div>
+            )}
+
+            {!isProcessing && message && (
+              <div className={`mt-4 p-4 rounded-2xl border-3 text-center font-bold ${
+                message.includes('✅') || message.includes('🎉')
+                  ? 'bg-green-50 border-green-300 text-green-700'
+                  : 'bg-purple-50 border-purple-300 text-purple-700'
+              }`} style={{fontFamily: "'Comic Neue', cursive"}}>
+                {message}
+              </div>
+            )}
+
+            {step === 1 && (
+              <div className="mt-6 text-center">
+                <p className="text-gray-500 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>
+                  Already have an account?{' '}
+                  <a href="/login" className="text-indigo-500 hover:text-purple-500 font-bold transition-colors">
+                    Sign in here! 🔑
+                  </a>
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Fun bottom decoration */}
+          <div className="text-center mt-6">
+            <div className="flex justify-center gap-3 text-3xl">
+              <span className="animate-bounce-slow">🎮</span>
+              <span className="animate-bounce-slow" style={{animationDelay: '0.3s'}}>📖</span>
+              <span className="animate-bounce-slow" style={{animationDelay: '0.6s'}}>🌟</span>
+            </div>
+          </div>
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   )
 }
 

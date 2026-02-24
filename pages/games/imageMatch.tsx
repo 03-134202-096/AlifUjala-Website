@@ -127,7 +127,7 @@ export default function ImageMatchPage() {
             {/* Load Button */}
             <div className="control-group">
               <button className="responsive-btn load-btn" onClick={() => setSeed(Date.now())}>
-                <span className="btn-text">Shuffle Letters</span>
+                <span className="btn-text">🔀 حروف بدلیں</span>
               </button>
             </div>
 
