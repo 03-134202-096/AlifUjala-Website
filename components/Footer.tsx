@@ -65,7 +65,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
+        {}
         <div className="h-px bg-white/15 mb-4" />
 
         {/* Copyright */}
