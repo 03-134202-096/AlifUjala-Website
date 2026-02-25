@@ -125,7 +125,7 @@ export default function FeatureCards() {
         // Internal navigation: Worksheets -> /games
         if (c.title && c.title.includes("Worksheets")) {
           return (
-            <Link key={"link-" + i} href="/games" className="block w-full sm:w-72 flex-shrink-0" aria-label="Open games section">
+            <Link key={"link-" + i} href="/activity" className="block w-full sm:w-72 flex-shrink-0" aria-label="Open activities section">
               {card}
             </Link>
           );

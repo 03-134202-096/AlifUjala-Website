@@ -1,10 +1,17 @@
 import Stories from "../components/Stories";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 export default function StoriesPage() {
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
+      <SEO
+        title="Urdu Stories for Kids — Fun Animated Stories with Morals"
+        description="Read beautiful Urdu stories for children! Animated picture stories in simple Urdu about lions, crows, rabbits and more. Free online Urdu storybooks for kids."
+        ogUrl="https://www.alifujala.com/stories"
+        keywords="Urdu stories for kids, Urdu kahani, Urdu storybook online, اردو کہانیاں, children Urdu stories"
+      />
       {/* Floating decorations */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-20 left-[5%] text-4xl animate-float opacity-15">📚</div>

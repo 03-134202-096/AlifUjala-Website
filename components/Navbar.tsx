@@ -64,10 +64,11 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
   }
 
   const navLinks = [
-    { href: "/", label: "Home", emoji: "🏠" },
-    { href: "/games", label: "Games", emoji: "🎮" },
-    { href: "/stories", label: "Stories", emoji: "📖" },
-    { href: "/about", label: "About", emoji: "💡" },
+    { href: "/activity", label: "Activities" },
+    { href: "/games", label: "Games" },
+    { href: "/stories", label: "Stories" },
+    { href: "/blog", label: "Blog" },
+    { href: "/about", label: "About" },
   ]
 
   return (
@@ -82,11 +83,11 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
       <div className="max-w-6xl mx-auto relative flex items-center px-4 sm:px-6 py-2 sm:py-3">
         {/* Logo */}
         <div className="flex items-center flex-shrink-0 z-10">
-          <Link href="/" className="mr-2 sm:mr-3 transition-transform duration-300 hover:scale-110 hover:rotate-6">
-            <img src="/images/Logo.jpg" alt="Alif Ujala Logo" className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover border-[3px] border-white shadow-lg" />
+          <Link href="/" className="mr-2 sm:mr-3 transition-transform duration-300 hover:scale-110">
+            <img src="/images/Logo.jpg" alt="Alif Ujala Logo" className="h-10 w-10 sm:h-12 sm:w-12 object-contain" style={{mixBlendMode:'multiply'}} />
           </Link>
           <Link href="/" className="font-bold text-lg sm:text-xl" style={{fontFamily: "'Bubblegum Sans', cursive", textShadow: '2px 2px 4px rgba(0,0,0,0.15)'}}>
-            Alif Ujala ✨
+            Alif Ujala
           </Link>
         </div>
 
@@ -96,27 +97,23 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
             <Link
               key={link.href}
               href={link.href}
-              className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105 hover:-rotate-1 flex items-center gap-1"
+              className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105"
               style={{fontFamily: "'Comic Neue', cursive"}}
             >
-              <span className="text-lg">{link.emoji}</span>
-              <span>{link.label}</span>
+              {link.label}
             </Link>
           ))}
           {user ? (
-            <Link href="/profile" className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105 flex items-center gap-1" style={{fontFamily: "'Comic Neue', cursive"}}>
-              <span className="text-lg">👤</span>
-              <span>Profile</span>
+            <Link href="/profile" className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105" style={{fontFamily: "'Comic Neue', cursive"}}>
+              Profile
             </Link>
           ) : (
             <>
-              <Link href="/login" className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105 flex items-center gap-1" style={{fontFamily: "'Comic Neue', cursive"}}>
-                <span className="text-lg">🔑</span>
-                <span>Login</span>
+              <Link href="/login" className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105" style={{fontFamily: "'Comic Neue', cursive"}}>
+                Login
               </Link>
-              <Link href="/signup" className="bg-white/25 text-white text-base font-bold px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/40 hover:scale-105 border-2 border-white/50 flex items-center gap-1" style={{fontFamily: "'Comic Neue', cursive"}}>
-                <span className="text-lg">🌟</span>
-                <span>Sign Up</span>
+              <Link href="/signup" className="bg-white/25 text-white text-base font-bold px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/40 hover:scale-105 border-2 border-white/50" style={{fontFamily: "'Comic Neue', cursive"}}>
+                Sign Up
               </Link>
             </>
           )}
@@ -196,8 +193,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
           <div className="h-0.5 rounded-full bg-white/20 mx-4 mb-2" />
 
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="text-white text-lg font-bold py-3 px-4 rounded-2xl hover:bg-white/20 transition-all flex items-center gap-3" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
-              <span className="text-2xl">{link.emoji}</span>
+            <Link key={link.href} href={link.href} className="text-white text-lg font-bold py-3 px-4 rounded-2xl hover:bg-white/20 transition-all" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
               {link.label}
             </Link>
           ))}
@@ -206,20 +202,20 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
 
           {user ? (
             <>
-              <Link href="/profile" className="text-white text-lg font-bold py-3 px-4 rounded-2xl hover:bg-white/20 transition-all flex items-center gap-3" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
-                <span className="text-2xl">👤</span> Profile
+              <Link href="/profile" className="text-white text-lg font-bold py-3 px-4 rounded-2xl hover:bg-white/20 transition-all" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
+                Profile
               </Link>
-              <button onClick={() => { handleLogout(); setMenuOpen(false); }} className="mt-2 bg-white/20 text-white px-4 py-3 rounded-2xl font-bold text-lg flex items-center gap-3 hover:bg-red-400/40 transition-all border-0" style={{fontFamily: "'Comic Neue', cursive"}}>
-                <span className="text-2xl">👋</span> Logout
+              <button onClick={() => { handleLogout(); setMenuOpen(false); }} className="mt-2 bg-white/20 text-white px-4 py-3 rounded-2xl font-bold text-lg hover:bg-red-400/40 transition-all border-0" style={{fontFamily: "'Comic Neue', cursive"}}>
+                Logout
               </button>
             </>
           ) : (
             <>
-              <Link href="/login" className="text-white text-lg font-bold py-3 px-4 rounded-2xl hover:bg-white/20 transition-all flex items-center gap-3" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
-                <span className="text-2xl">🔑</span> Login
+              <Link href="/login" className="text-white text-lg font-bold py-3 px-4 rounded-2xl hover:bg-white/20 transition-all" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
+                Login
               </Link>
-              <Link href="/signup" className="bg-white/25 text-white text-lg font-bold py-3 px-4 rounded-2xl border-2 border-white/50 hover:bg-white/35 transition-all flex items-center gap-3 justify-center" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
-                <span className="text-2xl">🌟</span> Sign Up Free!
+              <Link href="/signup" className="bg-white/25 text-white text-lg font-bold py-3 px-4 rounded-2xl border-2 border-white/50 hover:bg-white/35 transition-all text-center" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
+                Sign Up
               </Link>
             </>
           )}

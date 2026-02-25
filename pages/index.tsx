@@ -3,6 +3,7 @@ import HeroWithFire from "@/components/hero/HeroWithFire";
 import WelcomeHeader from "@/components/home_except_hero/WelcomeHeader";
 import SleepingCards from "@/components/home_except_hero/hoverToShowContent";
 import VideoEmbed    from "@/components/home_except_hero/VideoEmbed";
+import SEO from "@/components/SEO";
 
 export const dynamic = "force-static";
 
@@ -26,9 +27,9 @@ function FloatingDecorations() {
 /* Quick access section for kids */
 function QuickAccess() {
   const items = [
-    { href: "/games", emoji: "🎮", label: "Play Games!", bg: "from-indigo-500 to-purple-500", shadow: "shadow-lg" },
-    { href: "/stories", emoji: "📖", label: "Read Stories!", bg: "from-violet-500 to-purple-500", shadow: "shadow-lg" },
-    { href: "/games/matching", emoji: "🧩", label: "Match Letters!", bg: "from-purple-500 to-indigo-500", shadow: "shadow-lg" },
+    { href: "/activity", emoji: "✨", label: "Activities!", bg: "from-indigo-500 to-purple-500", shadow: "shadow-lg" },
+    { href: "/games", emoji: "🎮", label: "Play Games!", bg: "from-violet-500 to-purple-500", shadow: "shadow-lg" },
+    { href: "/stories", emoji: "📖", label: "Read Stories!", bg: "from-purple-500 to-indigo-500", shadow: "shadow-lg" },
   ];
   return (
     <section className="py-10 px-4">
@@ -75,8 +76,37 @@ function FunFacts() {
 }
 
 export default function Home() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Alif Ujala",
+    "url": "https://www.alifujala.com",
+    "description": "Alif Ujala is a fun, interactive platform for children to learn Urdu alphabets through games, stories, and activities.",
+    "inLanguage": ["en", "ur"],
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.alifujala.com/blog?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Alif Ujala",
+      "url": "https://www.alifujala.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.alifujala.com/images/Logo.jpg"
+      }
+    }
+  }
+
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
+      <SEO
+        title="Learn Urdu Alphabets for Kids — Fun Games & Stories"
+        description="Alif Ujala is a free, interactive Urdu learning platform for children. Play matching games, watch stories, and learn all 39 Urdu letters — اردو سیکھیں!"
+        ogUrl="https://www.alifujala.com"
+        structuredData={structuredData}
+      />
       <FloatingDecorations />
       <Navbar />
       <HeroWithFire />

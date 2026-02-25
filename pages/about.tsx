@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import SEO from '@/components/SEO'
 import type { NextPage } from 'next'
 import { useState } from 'react'
 import Link from 'next/link'
@@ -50,6 +51,11 @@ const About: NextPage = () => {
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col">
+      <SEO
+        title="About Alif Ujala — Our Mission to Make Urdu Learning Fun"
+        description="Learn about Alif Ujala — a free interactive Urdu learning platform for children. Our mission is to celebrate and preserve the Urdu language through play."
+        ogUrl="https://www.alifujala.com/about"
+      />
       <Navbar />
 
       <main className="container mx-auto px-4 py-8 flex-1 relative z-10">
@@ -183,7 +189,7 @@ const About: NextPage = () => {
                 </div>
               </div>
               <div className="mt-6">
-                <Link href="/games" className="block w-full text-center px-6 py-3 bg-gradient-to-r from-green-400 to-emerald-400 text-white rounded-full font-bold text-lg border-3 border-white hover:scale-105 transition-all duration-300 shadow-candy" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
+                <Link href="/activity" className="block w-full text-center px-6 py-3 bg-gradient-to-r from-green-400 to-emerald-400 text-white rounded-full font-bold text-lg border-3 border-white hover:scale-105 transition-all duration-300 shadow-candy" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                   {c.playCTA}
                 </Link>
               </div>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="50%" style="stop-color:#8b5cf6"/>
+      <stop offset="100%" style="stop-color:#ec4899"/>
+    </linearGradient>
+    <radialGradient id="bubble1" cx="50%" cy="40%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.6)"/>
+      <stop offset="60%" style="stop-color:#FF6B9D;stop-opacity:0.85"/>
+      <stop offset="100%" style="stop-color:#FF6B9D;stop-opacity:0.6"/>
+    </radialGradient>
+    <radialGradient id="bubble2" cx="40%" cy="35%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.55)"/>
+      <stop offset="60%" style="stop-color:#60A5FA;stop-opacity:0.9"/>
+      <stop offset="100%" style="stop-color:#60A5FA;stop-opacity:0.6"/>
+    </radialGradient>
+    <radialGradient id="bubble3" cx="40%" cy="35%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.55)"/>
+      <stop offset="60%" style="stop-color:#4ADE80;stop-opacity:0.9"/>
+      <stop offset="100%" style="stop-color:#4ADE80;stop-opacity:0.6"/>
+    </radialGradient>
+    <radialGradient id="bubble4" cx="40%" cy="35%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.55)"/>
+      <stop offset="60%" style="stop-color:#FACC15;stop-opacity:0.9"/>
+      <stop offset="100%" style="stop-color:#FACC15;stop-opacity:0.6"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bg)"/>
+
+  <!-- Stars -->
+  <circle cx="30" cy="30" r="2" fill="rgba(255,255,255,0.5)"/>
+  <circle cx="80" cy="15" r="1.5" fill="rgba(255,255,255,0.4)"/>
+  <circle cx="350" cy="25" r="2" fill="rgba(255,255,255,0.5)"/>
+  <circle cx="370" cy="60" r="1.5" fill="rgba(255,255,255,0.35)"/>
+  <circle cx="15" cy="150" r="1.5" fill="rgba(255,255,255,0.4)"/>
+  <circle cx="385" cy="180" r="2" fill="rgba(255,255,255,0.45)"/>
+
+  <!-- Bubbles -->
+  <circle cx="80" cy="70" r="40" fill="url(#bubble2)" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+  <text x="80" y="85" font-family="serif" font-size="32" fill="white" text-anchor="middle" direction="rtl">ب</text>
+
+  <circle cx="200" cy="50" r="50" fill="url(#bubble1)" stroke="rgba(255,255,255,0.7)" stroke-width="3"/>
+  <text x="200" y="68" font-family="serif" font-size="40" fill="white" text-anchor="middle" direction="rtl">ا</text>
+  <!-- Golden glow for target -->
+  <circle cx="200" cy="50" r="53" fill="none" stroke="rgba(250,204,21,0.7)" stroke-width="3"/>
+
+  <circle cx="330" cy="80" r="36" fill="url(#bubble3)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+  <text x="330" y="93" font-family="serif" font-size="28" fill="white" text-anchor="middle" direction="rtl">ج</text>
+
+  <circle cx="140" cy="160" r="32" fill="url(#bubble4)" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+  <text x="140" y="172" font-family="serif" font-size="26" fill="white" text-anchor="middle" direction="rtl">د</text>
+
+  <circle cx="290" cy="170" r="38" fill="url(#bubble2)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+  <text x="290" y="185" font-family="serif" font-size="30" fill="white" text-anchor="middle" direction="rtl">ر</text>
+
+  <!-- Target card at bottom -->
+  <rect x="110" y="225" width="180" height="55" rx="12" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+  <text x="200" y="247" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.7)" text-anchor="middle">Find this letter:</text>
+  <text x="200" y="270" font-family="serif" font-size="22" fill="white" text-anchor="middle" direction="rtl">ا</text>
+
+  <!-- Title -->
+  <text x="200" y="298" font-family="Arial Black, Arial, sans-serif" font-size="13" font-weight="bold" fill="rgba(255,255,255,0.9)" text-anchor="middle" letter-spacing="1">Urdu Alphabet Hunter</text>
+</svg>

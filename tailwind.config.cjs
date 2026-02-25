@@ -48,6 +48,7 @@ module.exports = {
         'pop': 'pop 0.3s ease-out',
         'slide-up': 'slideUp 0.5s ease-out',
         'slide-in-right': 'slideInRight 0.4s ease-out',
+        'shake-x': 'shakeX 0.5s ease-in-out',
       },
       keyframes: {
         wiggle: {
@@ -78,6 +79,13 @@ module.exports = {
         slideInRight: {
           '0%': { transform: 'translateX(100%)', opacity: '0' },
           '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        shakeX: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '20%': { transform: 'translateX(-8px)' },
+          '40%': { transform: 'translateX(8px)' },
+          '60%': { transform: 'translateX(-5px)' },
+          '80%': { transform: 'translateX(5px)' },
         },
       },
     },

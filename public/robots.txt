@@ -1,2 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /administration
+
+Sitemap: https://www.alifujala.com/api/sitemap

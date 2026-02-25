@@ -13,7 +13,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="text-center sm:text-left">
             <h3 className="text-2xl font-bold mb-2" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
-              Alif Ujala ✨
+              Alif Ujala
             </h3>
             <p className="text-white/70 text-sm leading-relaxed" style={{fontFamily: "'Comic Neue', cursive"}}>
               Making Urdu learning fun &amp; engaging for little ones!
@@ -24,9 +24,11 @@ export default function Footer() {
           <div className="text-center">
             <h4 className="font-bold text-lg mb-3" style={{fontFamily: "'Comic Neue', cursive"}}>Quick Links</h4>
             <div className="flex flex-col gap-1.5">
-              <Link href="/games" className="text-white/75 hover:text-white transition-colors text-sm hover:translate-x-1 inline-block" style={{fontFamily: "'Comic Neue', cursive"}}>🎮 Games</Link>
-              <Link href="/stories" className="text-white/75 hover:text-white transition-colors text-sm hover:translate-x-1 inline-block" style={{fontFamily: "'Comic Neue', cursive"}}>📖 Stories</Link>
-              <Link href="/about" className="text-white/75 hover:text-white transition-colors text-sm hover:translate-x-1 inline-block" style={{fontFamily: "'Comic Neue', cursive"}}>💡 About Us</Link>
+              <Link href="/activity" className="text-white/75 hover:text-white transition-colors text-sm hover:translate-x-1 inline-block" style={{fontFamily: "'Comic Neue', cursive"}}>Activities</Link>
+              <Link href="/games" className="text-white/75 hover:text-white transition-colors text-sm hover:translate-x-1 inline-block" style={{fontFamily: "'Comic Neue', cursive"}}>Games</Link>
+              <Link href="/blog" className="text-white/75 hover:text-white transition-colors text-sm hover:translate-x-1 inline-block" style={{fontFamily: "'Comic Neue', cursive"}}>Blog</Link>
+              <Link href="/stories" className="text-white/75 hover:text-white transition-colors text-sm hover:translate-x-1 inline-block" style={{fontFamily: "'Comic Neue', cursive"}}>Stories</Link>
+              <Link href="/about" className="text-white/75 hover:text-white transition-colors text-sm hover:translate-x-1 inline-block" style={{fontFamily: "'Comic Neue', cursive"}}>About Us</Link>
             </div>
           </div>
 

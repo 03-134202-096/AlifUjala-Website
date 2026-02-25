@@ -313,7 +313,7 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
               onPointerDown={gameStarted ? (e) => startDrag(e, it.id) : undefined}
               onContextMenu={gameStarted ? (e) => e.preventDefault() : undefined}
             >
-              <span className="text-2xl">{it.label}</span>
+              <span style={{fontFamily: "'Noto Nastaliq Urdu', serif", direction: 'rtl', fontSize: '1.8rem', lineHeight: '1.2'}}>{it.label}</span>
             </div>
           ))}
         </div>
@@ -361,7 +361,7 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
                     )}
                   </div>
                 ) : (
-                  <span className="text-2xl">{it.label}</span>
+                  <span style={{fontFamily: "'Noto Nastaliq Urdu', serif", direction: 'rtl', fontSize: '1.8rem', lineHeight: '1.2'}}>{it.label}</span>
                 )}
               </div>
             ))}

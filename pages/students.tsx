@@ -106,7 +106,7 @@ const StudentsPage: NextPage = () => {
                 </div>
               </div>
 
-              <a href="/games"
+              <a href="/activity"
                 className="inline-block px-8 py-3 bg-gradient-to-r from-green-400 to-cyan-400 text-white font-bold rounded-full border-3 border-white shadow-candy hover:scale-105 transition-all text-lg"
                 style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                 Go Play Games! 🎮

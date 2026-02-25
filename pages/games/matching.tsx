@@ -11,6 +11,19 @@ function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5)
 }
 
+// Mapping from UrduLetterMatchingImages folder names → Urdu character
+// This ensures we always show the correct Urdu script even if folder name doesn't match alphabets.json id
+const FOLDER_TO_URDU: Record<string, string> = {
+  ain: "ع", alif: "ا", bay: "ب", che: "چ", daad: "ض",
+  daal: "د", ddaal: "ڈ", dohe: "ڈو", fe: "ف", gaaf: "گ",
+  ghain: "غ", haa: "ہ", hamza: "ء", hha: "ح", jeem: "ج",
+  kaaf: "ک", khaa: "خ", laam: "ل", meem: "م", noon: "ن",
+  noongh: "ں", pay: "پ", qaaf: "ق", ray: "ر", rray: "ڑ",
+  saad: "ص", say: "ث", seen: "س", sheen: "ش", tay: "ت",
+  toein: "ط", tte: "ٹ", wao: "و", yay: "ی", zaal: "ذ",
+  zaay: "ز", zhay: "ژ", zoein: "ظ",
+}
+
 export default function MatchingPage() {
   const [status, setStatus] = useState<"checking" | "playing" | "out" | "error">("checking")
   const [count, setCount] = useState(6)
@@ -102,14 +115,16 @@ export default function MatchingPage() {
 
         const images = data.images as Array<{ id: string; src: string }>
 
-        // Build left (letters) from alphabets.json using folder ids
+        // Build left (letters) from folder mapping → Urdu char
         const chosenLetters = images
           .map((img) => {
+            // Prefer FOLDER_TO_URDU direct mapping, then fall back to alphabets.json char
+            const urduChar = FOLDER_TO_URDU[img.id]
             const letter = letters.find((l: any) => l.id === img.id || l.id === img.id.replace(/\s+/g, '-'))
-            return { id: img.id, label: letter?.name || img.id, char: letter?.char }
+            return { id: img.id, char: urduChar || letter?.char || img.id }
           })
 
-        const L = chosenLetters.map((c: any) => ({ id: c.id, label: c.char || c.label, char: c.char }))
+        const L = chosenLetters.map((c: any) => ({ id: c.id, label: c.char, char: c.char }))
         const R = shuffle(images).map((x) => ({ id: x.id, src: x.src }))
 
         if (!isMountedRef.current) return
