@@ -224,7 +224,7 @@ export default function MatchingPage() {
             {/* Load Button */}
             <div className="control-group">
               <button className="responsive-btn load-btn" onClick={() => setSeed(Date.now())} disabled={isFetching}>
-                <span className="btn-text">{isFetching ? 'Loading...' : '🔀 حروف بدلیں'}</span>
+                <span className="btn-text" lang="ur">{isFetching ? 'Loading...' : '🔀 حروف بدلیں'}</span>
               </button>
             </div>
 

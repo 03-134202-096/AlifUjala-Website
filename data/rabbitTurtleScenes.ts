@@ -2,35 +2,35 @@
 export const rabbitTurtleScenes = [
   {
     text: "ایک جنگل میں ایک بہت چالاک اور تیز رفتار خرگوش رہتا تھا۔ وہ ہمیشہ کچھوے کی سست رفتاری پر ہنستا اور اس کا مذاق اڑاتا۔",
-    img: "/images/stories/story 1/scene 1.png"
+    img: "/images/stories/story 1/scene 1.webp"
   },
   {
     text: "کچھوا خاموشی سے اپنے راستے چلتا رہتا۔ ایک دن دونوں میں دوڑ کا مقابلہ ہوا۔",
-    img: "/images/stories/story 1/scene 2.png"
+    img: "/images/stories/story 1/scene 2.webp"
   },
   {
     text: "شروع ہوتے ہی خرگوش بہت آگے نکل گیا۔",
-    img: "/images/stories/story 1/scene 3.png"
+    img: "/images/stories/story 1/scene 3.webp"
   },
   {
     text: " وہ جب مُڑ کر دیکھنے لگا، تو اسے کچھوے کا کہیں نام و نشان نہ ملا۔راستے میں خرگوش نے ایک سایہ دار درخت دیکھا۔",
-    img: "/images/stories/story 1/scene 4.png"
+    img: "/images/stories/story 1/scene 4.webp"
   },
   {
-    text: "پھر خرگوش نے سوچا کہ اگر وہ تھوڑی دیر آرام کرے، تو بعد میں آسانی سے مقابلے جیت جائے گا۔ وہ ایک سایہ دار درخت کے نیچے لیٹ گیا اور وہیں سو گیا۔",
-    img: "/images/stories/story 1/scene 5.png"
+    text: "پھر خرگوش نے سوچا کہ اگر وہ تھوڑی دیر آرام کرے، تو بعد میں آسانی سے مقابلہ جیت جائے گا۔ وہ ایک سایہ دار درخت کے نیچے لیٹ گیا اور وہیں سو گیا۔",
+    img: "/images/stories/story 1/scene 5.webp"
   },
   {
     text: "اسی دوران، کچھوا آہستہ آہستہ مگر مسلسل چلتا رہا، کبھی رکا نہیں، اُدھر وہ درخت کے نیچے سوئے ہوئے خرگوش سے آگے نکل گیا۔",
-    img: "/images/stories/story 1/scene 6.png"
+    img: "/images/stories/story 1/scene 6.webp"
   },
   {
-    text: "آخرکار وہ منزل کی لائن پر پہنچ گیا،۔",
-    img: "/images/stories/story 1/scene 7.png"
+    text: "آخرکار وہ منزل کی لائن پر پہنچ گیا۔",
+    img: "/images/stories/story 1/scene 7.webp"
   },
   {
     text: "جب خرگوش کی نیند کھلی اور وہ دوڑ لگا کر آیا، تو وہاں اس کو دیکھ کر حیرت ہوئی کہ کچھوا پہلے سے موجود ہے۔ خرگوش بہت شرمندہ ہوا۔",
-    img: "/images/stories/story 1/scene 8.png"
+    img: "/images/stories/story 1/scene 8.webp"
   },
   {
     text: "نتیجہ یہ نکلا کہ آہستہ مگر مسلسل کوشش کرنے والا آخرکار کامیاب ہوتا ہے۔",

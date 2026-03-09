@@ -6,7 +6,7 @@
    ALIF UJALA — CHILDREN'S PLAYFUL THEME (LIGHT + DARK)
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Bubblegum+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Bubblegum+Sans&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
 
 /* ── Bubble Hunter: pure-CSS falling animation ── */
 @keyframes bubble-fall {
@@ -99,6 +99,38 @@ html,body{
 ::selection {
   background: #818cf8;
   color: #fff;
+}
+
+/* ── Global Urdu / Nastaliq font utility ── */
+/* Apply Nastaliq font to explicit Urdu-marked elements */
+[lang="ur"],
+span[lang="ur"],
+p[lang="ur"],
+h1[lang="ur"], h2[lang="ur"], h3[lang="ur"], h4[lang="ur"], h5[lang="ur"], h6[lang="ur"] {
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif !important;
+  direction: rtl;
+  line-height: 2.2;
+}
+
+/* When a container div has lang="ur", make all text descendants Nastaliq */
+div[lang="ur"] p,
+div[lang="ur"] h1,
+div[lang="ur"] h2,
+div[lang="ur"] h3,
+div[lang="ur"] h4,
+div[lang="ur"] span,
+div[lang="ur"] li,
+div[lang="ur"] label {
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif !important;
+  direction: rtl;
+  line-height: 2.2;
+}
+
+/* Utility class for explicit Urdu font usage */
+.urdu-font {
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif !important;
+  direction: rtl;
+  line-height: 2.2;
 }
 
 button, input, textarea, select, .btn, .game-toolbar .btn, .bordered-select {
@@ -712,7 +744,7 @@ html {
   font-size: 1.875rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  font-family: 'Bubblegum Sans', cursive;
+  font-family: 'Noto Nastaliq Urdu', 'Bubblegum Sans', cursive;
 }
 
 .fail-title {
@@ -720,7 +752,7 @@ html {
   font-size: 1.875rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  font-family: 'Bubblegum Sans', cursive;
+  font-family: 'Noto Nastaliq Urdu', 'Bubblegum Sans', cursive;
 }
 
 .congrats-stats, .fail-stats {

@@ -48,6 +48,10 @@ const About: NextPage = () => {
   }
 
   const c = content[lang]
+  const urduStyle = lang === 'ur' 
+    ? { fontFamily: "'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif", direction: 'rtl' as const, lineHeight: '2.2' }
+    : {}
+  const urduLang = lang === 'ur' ? 'ur' : undefined
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col">
@@ -59,7 +63,7 @@ const About: NextPage = () => {
       <Navbar />
 
       <main className="container mx-auto px-4 py-8 flex-1 relative z-10">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto" lang={urduLang}>
           {/* Header card */}
           <div className="bg-white/90 rounded-3xl shadow-candy-lg p-6 sm:p-8 border-4 border-purple-200 mb-6">
             <div className="flex flex-col sm:flex-row items-start justify-between gap-4">

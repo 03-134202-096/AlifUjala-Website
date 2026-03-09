@@ -25,16 +25,15 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
   // Dynamic tile sizing based on number of items
   const getTileSize = () => {
     const itemCount = leftItems.length
-    console.log("Item count:", itemCount) // Debug log
-    if (itemCount <= 5) return { width: '80px', height: '80px', className: 'w-20 h-20' }
-    if (itemCount === 6) return { width: '64px', height: '64px', className: 'w-16 h-16' }
-    if (itemCount === 7) return { width: '56px', height: '56px', className: 'w-14 h-14' }
-    if (itemCount >= 8) return { width: '48px', height: '48px', className: 'w-12 h-12' }
-    return { width: '80px', height: '80px', className: 'w-20 h-20' }
+    if (itemCount <= 4) return { width: '88px', height: '88px' }
+    if (itemCount === 5) return { width: '80px', height: '80px' }
+    if (itemCount === 6) return { width: '72px', height: '72px' }
+    if (itemCount === 7) return { width: '68px', height: '68px' }
+    if (itemCount >= 8) return { width: '64px', height: '64px' }
+    return { width: '80px', height: '80px' }
   }
 
   const tileSize = getTileSize()
-  console.log("Tile size:", tileSize) // Debug log
 
   const [dragging, setDragging] = useState<{ fromId: string; start: { x: number; y: number } } | null>(null)
 
@@ -264,7 +263,7 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
 
   return (
     <div 
-      className={`relative rounded-xl min-h-[520px] overflow-hidden p-4 ${gameStarted ? 'touch-none game-active' : 'game-inactive'}`}
+      className={`relative rounded-xl overflow-hidden p-4 sm:p-6 ${gameStarted ? 'touch-none game-active' : 'game-inactive'}`}
       ref={wrapRef}
       style={{ touchAction: gameStarted ? 'none' : 'auto' }}
     >
@@ -295,14 +294,14 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
         />
       </svg>
 
-      <div className="max-w-4xl mx-auto flex gap-6 justify-between items-start gap-20 sm:gap-20 md:gap-20 w-full">
+      <div className="flex gap-6 sm:gap-10 items-start justify-center w-full overflow-x-auto">
         {/* Left column */}
-        <div className="left-col grid gap-4 w-1/2">
+        <div className="left-col flex flex-col gap-3 flex-shrink-0">
           {leftItems.map((it) => (
             <div
               key={it.id}
               data-id={it.id}
-              className={`tile ${usedLeft.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5 ${gameStarted ? 'touch-none' : ''}`}
+              className={`tile ${usedLeft.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center select-none cursor-pointer border border-black/5 ${gameStarted ? 'touch-none' : ''}`}
               style={{ 
                 width: tileSize.width, 
                 height: tileSize.height,
@@ -318,61 +317,59 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
           ))}
         </div>
 
-        {/* Right column + teacher animation */}
-        <div className="flex items-start gap-4 w-1/2">
-          <div className="right-col grid gap-4 justify-start w-full">
-            {rightItems.map((it) => (
-              <div
-                key={it.id}
-                data-id={it.id}
-                className={`node tile ${usedRight.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center text-2xl select-none cursor-pointer border border-black/5 ${gameStarted ? 'touch-none' : ''}`}
-                style={{ 
-                  width: tileSize.width, 
-                  height: tileSize.height,
-                  touchAction: gameStarted ? 'none' : 'auto',
-                  userSelect: gameStarted ? 'none' : 'auto',
-                  WebkitUserSelect: gameStarted ? 'none' : 'auto'
-                }}
-                onContextMenu={gameStarted ? (e) => e.preventDefault() : undefined}
-              >
-                {mode === "images" ? (
-                  <div className="imgbox w-full h-full flex items-center justify-center" style={{ background: '#000', padding: 6, borderRadius: 8 }}>
-                    {it.src ? (
-                      <img
-                        src={it.src}
-                        alt={it.label}
-                        className="w-full h-full object-contain"
-                        style={{ background: '#000' }}
-                        onError={(e) => {
-                          const el = e.currentTarget as HTMLImageElement
-                          el.style.display = 'none'
-                          const parent = el.parentElement
-                          if (parent) {
-                            const placeholder = document.createElement('div')
-                            placeholder.textContent = '🖼️'
-                            placeholder.style.fontSize = '20px'
-                            placeholder.style.color = '#fff'
-                            parent.appendChild(placeholder)
-                          }
-                        }}
-                      />
-                    ) : (
-                      <div style={{ color: '#fff' }}>🖼️</div>
-                    )}
-                  </div>
-                ) : (
-                  <span style={{fontFamily: "'Noto Nastaliq Urdu', serif", direction: 'rtl', fontSize: '1.8rem', lineHeight: '1.2'}}>{it.label}</span>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {!showCongrats && !showFail && (
-            <div className="hidden md:block">
-              <Animation style={{ width: 500, height: 500 }} loop={true} isPlaying={gameStarted && !triggerSubmit} />
+        {/* Right column */}
+        <div className="right-col flex flex-col gap-3 flex-shrink-0">
+          {rightItems.map((it) => (
+            <div
+              key={it.id}
+              data-id={it.id}
+              className={`node tile ${usedRight.has(it.id) ? "disabled" : ""} rounded-lg bg-blue-100 flex items-center justify-center select-none cursor-pointer border border-black/5 ${gameStarted ? 'touch-none' : ''}`}
+              style={{ 
+                width: tileSize.width, 
+                height: tileSize.height,
+                touchAction: gameStarted ? 'none' : 'auto',
+                userSelect: gameStarted ? 'none' : 'auto',
+                WebkitUserSelect: gameStarted ? 'none' : 'auto'
+              }}
+              onContextMenu={gameStarted ? (e) => e.preventDefault() : undefined}
+            >
+              {mode === "images" ? (
+                <div className="imgbox w-full h-full flex items-center justify-center" style={{ background: '#1a1a2e', padding: 4, borderRadius: 8 }}>
+                  {it.src ? (
+                    <img
+                      src={it.src}
+                      alt={it.label}
+                      className="w-full h-full object-contain"
+                      onError={(e) => {
+                        const el = e.currentTarget as HTMLImageElement
+                        el.style.display = 'none'
+                        const parent = el.parentElement
+                        if (parent) {
+                          const placeholder = document.createElement('div')
+                          placeholder.textContent = '🖼️'
+                          placeholder.style.fontSize = '20px'
+                          placeholder.style.color = '#fff'
+                          parent.appendChild(placeholder)
+                        }
+                      }}
+                    />
+                  ) : (
+                    <div style={{ color: '#fff' }}>🖼️</div>
+                  )}
+                </div>
+              ) : (
+                <span style={{fontFamily: "'Noto Nastaliq Urdu', serif", direction: 'rtl', fontSize: '1.8rem', lineHeight: '1.2'}}>{it.label}</span>
+              )}
             </div>
-          )}
+          ))}
         </div>
+
+        {/* Teacher animation — separate column, hidden on small screens */}
+        {!showCongrats && !showFail && (
+          <div className="hidden md:flex flex-shrink-0 items-center self-center">
+            <Animation style={{ width: 220, height: 220 }} loop={true} isPlaying={gameStarted && !triggerSubmit} />
+          </div>
+        )}
       </div>
 
       {/* Bottom Game Button */}

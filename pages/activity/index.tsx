@@ -66,7 +66,8 @@ export default function ActivityIndex() {
             ✨ Activities ✨
           </h1>
           <p className="text-lg sm:text-xl text-indigo-600 dark:text-purple-300 font-bold max-w-lg mx-auto" style={{fontFamily: "'Comic Neue', cursive"}}>
-            سیکھیں، ملائیں اور حروف پہچانیں! Choose an activity to learn Urdu letters! 🌟
+            <span lang="ur" className="block">سیکھیں، ملائیں اور حروف پہچانیں!</span>
+            Choose an activity to learn Urdu letters! 🌟
           </p>
         </div>
 
