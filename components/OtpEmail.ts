@@ -11,7 +11,7 @@ export async function sendOtpEmail(email: string, otp: string) {
 
     // set these env vars (optional fallbacks provided)
     const COMPANY_NAME = process.env.COMPANY_NAME || "Alif Ujala";
-    const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || "support@alifujala.com";
+    const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || "support@alifujala.ai";
 
 
 

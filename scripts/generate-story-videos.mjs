@@ -500,7 +500,7 @@ function outroHTML() {
     <div class="outro-brand">✨ Alif Ujala ✨</div>
     <div class="outro-tagline">سبق سیکھیں، کہانیاں سنیں</div>
     <div class="outro-divider"></div>
-    <div class="outro-url">www.alifujala.com</div>
+    <div class="outro-url">https://alifujala.ai/</div>
   </div>
 </div>
 </body></html>`;

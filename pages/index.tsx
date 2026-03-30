@@ -80,21 +80,21 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Alif Ujala",
-    "url": "https://www.alifujala.com",
+    "url": "https://alifujala.ai",
     "description": "Alif Ujala is a fun, interactive platform for children to learn Urdu alphabets through games, stories, and activities.",
     "inLanguage": ["en", "ur"],
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://www.alifujala.com/blog?q={search_term_string}",
+      "target": "https://alifujala.ai/blog?q={search_term_string}",
       "query-input": "required name=search_term_string"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Alif Ujala",
-      "url": "https://www.alifujala.com",
+      "url": "https://alifujala.ai",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.alifujala.com/images/Logo.jpg"
+        "url": "https://alifujala.ai/images/Logo.jpg"
       }
     }
   }
@@ -104,7 +104,7 @@ export default function Home() {
       <SEO
         title="Learn Urdu Alphabets for Kids — Fun Games & Stories"
         description="Alif Ujala is a free, interactive Urdu learning platform for children. Play matching games, watch stories, and learn all 39 Urdu letters — اردو سیکھیں!"
-        ogUrl="https://www.alifujala.com"
+        ogUrl="https://alifujala.ai"
         structuredData={structuredData}
       />
       <FloatingDecorations />

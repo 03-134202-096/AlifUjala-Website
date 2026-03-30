@@ -13,7 +13,7 @@ interface SEOProps {
   canonical?: string
 }
 
-const BASE_URL = 'https://www.alifujala.com'
+const BASE_URL = 'https://alifujala.ai'
 const SITE_NAME = 'Alif Ujala - Urdu Learning for Kids'
 const DEFAULT_DESCRIPTION =
   'Alif Ujala is a fun, interactive platform for children to learn Urdu alphabets through games, stories, and activities. Perfect for kids aged 3–10!'

@@ -65,7 +65,7 @@ export const blogPosts: BlogPost[] = [
 
 <h3>1. 🎮 Use Interactive Games (The Most Effective Method!)</h3>
 <p>
-  Children learn best through play. Interactive matching games — where kids drag and connect letters, images, or half-letter shapes — create strong associative memory. On <a href="https://www.alifujala.com/activity" target="_blank" rel="noopener"><strong>Alif Ujala's Activities page</strong></a>, children can:
+  Children learn best through play. Interactive matching games — where kids drag and connect letters, images, or half-letter shapes — create strong associative memory. On <a href="https://alifujala.ai/activity" target="_blank" rel="noopener"><strong>Alif Ujala's Activities page</strong></a>, children can:
 </p>
 <ul>
   <li>Match Urdu letters with their identical pairs (<em>حرف ملاؤ سرگرمی</em>)</li>
@@ -74,7 +74,7 @@ export const blogPosts: BlogPost[] = [
   <li>Play the <strong>Urdu Alphabet Hunter Game</strong> — catching falling letters for real fun!</li>
 </ul>
 <p>
-  ✅ <strong>Recommended:</strong> Start with <a href="https://www.alifujala.com/games/alphabetMatch" target="_blank" rel="noopener">Letter-to-Letter matching</a> for recognition, then progress to image matching for comprehension.
+  ✅ <strong>Recommended:</strong> Start with <a href="https://alifujala.ai/games/alphabetMatch" target="_blank" rel="noopener">Letter-to-Letter matching</a> for recognition, then progress to image matching for comprehension.
 </p>
 
 <h3>2. 📖 Storytelling with Each Letter</h3>
@@ -87,7 +87,7 @@ export const blogPosts: BlogPost[] = [
   <li><strong>پ (Pay)</strong> → پانی (Water/Paani) — splash splash!</li>
 </ul>
 <p>
-  Alif Ujala's <a href="https://www.alifujala.com/games/urduAlphabetStories" target="_blank" rel="noopener">Urdu Alphabets Stories</a> section provides animated mini-stories for every letter — perfect for this approach.
+  Alif Ujala's <a href="https://alifujala.ai/games/urduAlphabetStories" target="_blank" rel="noopener">Urdu Alphabets Stories</a> section provides animated mini-stories for every letter — perfect for this approach.
 </p>
 
 <h3>3. ✍️ Trace Before You Write</h3>
@@ -163,7 +163,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2>Resources We Recommend</h2>
 <ul>
-  <li>🌐 <a href="https://www.alifujala.com" target="_blank" rel="noopener"><strong>Alif Ujala</strong></a> — Free games, activities, and stories for all 39 Urdu letters</li>
+  <li>🌐 <a href="https://alifujala.ai" target="_blank" rel="noopener"><strong>Alif Ujala</strong></a> — Free games, activities, and stories for all 39 Urdu letters</li>
   <li>🌐 <a href="https://www.urdupoint.com" target="_blank" rel="noopener">UrduPoint</a> — Urdu news and language resources</li>
   <li>📚 "Alif Bay Pay" — Classic Pakistani primer used in schools for decades</li>
   <li>🎬 <a href="https://www.youtube.com/@AlifUjala" target="_blank" rel="noopener">Alif Ujala YouTube Channel</a> — Animated Urdu letter stories</li>
@@ -177,7 +177,7 @@ export const blogPosts: BlogPost[] = [
   Start today. Even 10 minutes a day with an engaged parent or teacher makes all the difference. And remember: <em>الف (Alif) comes first</em> — every journey begins with a single step!
 </p>
 <p>
-  🌟 <strong>Try Alif Ujala's free activities now at <a href="https://www.alifujala.com/activity" target="_blank" rel="noopener">alifujala.com/activity</a></strong> — no signup required!
+  🌟 <strong>Try Alif Ujala's free activities now at <a href="https://alifujala.ai/activity" target="_blank" rel="noopener">alifujala.ai/activity</a></strong> — no signup required!
 </p>
     `,
   },

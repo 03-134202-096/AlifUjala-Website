@@ -53,7 +53,7 @@ export default function ActivityIndex() {
       <SEO
         title="Activities — Learn Urdu Alphabets Through Fun Activities"
         description="Choose a fun Urdu learning activity! Match letters, pictures and half-shapes, or watch alphabet stories. Free interactive activities for kids."
-        ogUrl="https://www.alifujala.com/activity"
+        ogUrl="https://alifujala.ai/activity"
         keywords="Urdu activities for kids, match Urdu letters, Urdu alphabet activities, learn Urdu online free"
       />
       <ActivityDecorations />

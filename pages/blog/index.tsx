@@ -11,7 +11,7 @@ export default function BlogIndex() {
       <SEO
         title="Blog — Urdu Learning Tips, Activities & Parenting Advice"
         description="Read expert articles on teaching Urdu to children, language learning tips, activity ideas, and cultural stories. Free resources for parents and teachers."
-        ogUrl="https://www.alifujala.com/blog"
+        ogUrl="https://alifujala.ai/blog"
         ogType="website"
         keywords="Urdu learning blog, teach Urdu kids, Urdu alphabet tips, Urdu parenting, اردو تعلیم"
       />

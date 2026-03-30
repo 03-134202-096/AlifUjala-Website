@@ -43,7 +43,7 @@ export default function GamesIndex() {
       <SEO
         title="Urdu Games — Fun Arcade Games to Learn Urdu Alphabets"
         description="Play exciting arcade games to learn Urdu letters! Pop bubbles, catch falling letters, and test your memory. Free interactive games for kids."
-        ogUrl="https://www.alifujala.com/games"
+        ogUrl="https://alifujala.ai/games"
         keywords="Urdu games for kids, Urdu alphabet games, learn Urdu online free, Urdu arcade games"
       />
       <Navbar />

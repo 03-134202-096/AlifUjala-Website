@@ -58,7 +58,7 @@ const About: NextPage = () => {
       <SEO
         title="About Alif Ujala — Our Mission to Make Urdu Learning Fun"
         description="Learn about Alif Ujala — a free interactive Urdu learning platform for children. Our mission is to celebrate and preserve the Urdu language through play."
-        ogUrl="https://www.alifujala.com/about"
+        ogUrl="https://alifujala.ai/about"
       />
       <Navbar />
 

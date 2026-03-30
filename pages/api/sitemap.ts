@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const BASE_URL = 'https://www.alifujala.com'
+const BASE_URL = 'https://alifujala.ai'
 
 const STATIC_PAGES = [
   { url: '/', changefreq: 'weekly', priority: '1.0' },

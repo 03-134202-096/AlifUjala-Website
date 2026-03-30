@@ -18,26 +18,26 @@ export default function BlogPostPage({ post }: Props) {
     '@type': 'Article',
     headline: post.title,
     description: post.excerpt,
-    image: `https://www.alifujala.com${post.coverImage}`,
+    image: `https://alifujala.ai${post.coverImage}`,
     datePublished: post.date,
     dateModified: post.date,
     author: {
       '@type': 'Organization',
       name: post.author,
-      url: 'https://www.alifujala.com',
+      url: 'https://alifujala.ai',
     },
     publisher: {
       '@type': 'Organization',
       name: 'Alif Ujala',
-      url: 'https://www.alifujala.com',
+      url: 'https://alifujala.ai',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.alifujala.com/images/Logo.jpg',
+        url: 'https://alifujala.ai/images/Logo.jpg',
       },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://www.alifujala.com/blog/${post.slug}`,
+      '@id': `https://alifujala.ai/blog/${post.slug}`,
     },
     keywords: post.tags.join(', '),
     inLanguage: 'en',
@@ -48,8 +48,8 @@ export default function BlogPostPage({ post }: Props) {
       <SEO
         title={post.title}
         description={post.excerpt}
-        ogUrl={`https://www.alifujala.com/blog/${post.slug}`}
-        ogImage={`https://www.alifujala.com${post.coverImage}`}
+        ogUrl={`https://alifujala.ai/blog/${post.slug}`}
+        ogImage={`https://alifujala.ai${post.coverImage}`}
         ogType="article"
         keywords={post.tags.join(', ')}
         structuredData={structuredData}

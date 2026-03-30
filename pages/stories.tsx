@@ -9,7 +9,7 @@ export default function StoriesPage() {
       <SEO
         title="Urdu Stories for Kids — Fun Animated Stories with Morals"
         description="Read beautiful Urdu stories for children! Animated picture stories in simple Urdu about lions, crows, rabbits and more. Free online Urdu storybooks for kids."
-        ogUrl="https://www.alifujala.com/stories"
+        ogUrl="https://alifujala.ai/stories"
         keywords="Urdu stories for kids, Urdu kahani, Urdu storybook online, اردو کہانیاں, children Urdu stories"
       />
       {/* Floating decorations */}
