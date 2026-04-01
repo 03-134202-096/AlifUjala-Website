@@ -188,7 +188,9 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
                 )}
               </Link>
             ) : (
-              <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center text-4xl border-4 border-white/50">🌈</div>
+              <Link href="/" onClick={() => setMenuOpen(false)}>
+                <img src="/images/logo.png" alt="Alif Ujala" className="w-20 h-20 rounded-full object-cover border-4 border-white/50 shadow-lg bg-white/20" />
+              </Link>
             )}
             {user && <p className="mt-2 text-white font-bold text-lg" style={{fontFamily: "'Bubblegum Sans', cursive"}}>{user.username || 'Friend'}</p>}
           </div>
