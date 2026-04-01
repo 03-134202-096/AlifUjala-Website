@@ -15,6 +15,7 @@ export default function Footer() {
         { href: '/', label: 'Home' },
         { href: '/activity', label: 'Activities' },
         { href: '/games', label: 'Games Hub' },
+        { href: '/edu-videos', label: 'Edu Videos' },
         { href: '/stories', label: 'Stories' },
         { href: '/blog', label: 'Blog' },
         { href: '/about', label: 'About Us' },
@@ -28,7 +29,7 @@ export default function Footer() {
         { href: '/games/memoryMatch', label: 'Memory Match' },
         { href: '/games/urduHunter', label: 'Urdu Hunter' },
         { href: '/games/urduBasketCatch', label: 'Basket Catch' },
-        { href: '/games/urduAlphabetStories', label: 'Story Videos' },
+        { href: '/edu-videos', label: 'Story Videos' },
       ],
     },
     {

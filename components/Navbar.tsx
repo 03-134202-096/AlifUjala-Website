@@ -66,6 +66,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
   const navLinks = [
     { href: "/activity", label: "Activities" },
     { href: "/games", label: "Games" },
+    { href: "/edu-videos", label: "Edu Videos" },
     { href: "/stories", label: "Stories" },
     { href: "/blog", label: "Blog" },
     { href: "/about", label: "About" },

@@ -36,12 +36,6 @@ export default function ActivityIndex() {
       title: "Adhi Ashkal",
       description: "Match half letter shapes!",
     },
-    {
-      href: "/games/urduAlphabetStories",
-      img: "/images/urduAlphabetStories.svg",
-      title: "Urdu Alphabets Stories",
-      description: "Watch fun stories for every Urdu letter!",
-    },
   ]
 
   return (

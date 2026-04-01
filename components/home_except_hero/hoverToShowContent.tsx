@@ -122,10 +122,19 @@ export default function FeatureCards() {
           </motion.div>
         );
 
-        // Internal navigation: Worksheets -> /games
+        // Internal navigation: Worksheets -> /activity
         if (c.title && c.title.includes("Worksheets")) {
           return (
             <Link key={"link-" + i} href="/activity" className="block w-full sm:w-72 flex-shrink-0" aria-label="Open activities section">
+              {card}
+            </Link>
+          );
+        }
+
+        // Internal navigation: Educational Videos -> /edu-videos
+        if (c.title && c.title.includes("Educational Videos")) {
+          return (
+            <Link key={"link-" + i} href="/edu-videos" className="block w-full sm:w-72 flex-shrink-0" aria-label="Open educational videos section">
               {card}
             </Link>
           );
@@ -146,26 +155,6 @@ export default function FeatureCards() {
             <div key={"link-" + i} className="block w-full sm:w-72 flex-shrink-0 cursor-pointer" onClick={() => setShowAppPopup(true)}>
               {card}
             </div>
-          );
-        }
-        
-        let linkUrl: string | null = null;
-        if (c.title && c.title.includes("Educational Videos")) {
-          linkUrl = "https://youtube.com/@urdukayrung?si=_TST10F6NnsMKIbr";
-        }
-
-        if (linkUrl) {
-          return (
-            <a
-              key={"link-" + i}
-              href={linkUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full sm:w-72 flex-shrink-0"
-              aria-label={c.title ? `Open ${c.title}` : 'Open external link'}
-            >
-              {card}
-            </a>
           );
         }
 
