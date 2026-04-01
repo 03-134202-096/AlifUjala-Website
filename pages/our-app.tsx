@@ -78,7 +78,7 @@ export default function OurAppPage() {
             className="text-base sm:text-lg text-gray-600 dark:text-gray-300 font-bold max-w-xl mx-auto"
             style={{ fontFamily: "'Comic Neue', cursive" }}
           >
-            Learn Urdu on the go! Download our free app and start your learning adventure! 🌟
+            Learn Urdu on the go! Download our free app and start your learning adventure!
           </p>
         </div>
 
@@ -195,7 +195,7 @@ export default function OurAppPage() {
             className="text-2xl sm:text-3xl font-bold text-center mb-8"
             style={{ fontFamily: "'Bubblegum Sans', cursive", color: "#7C3AED" }}
           >
-            ✨ App Features ✨
+             App Features 
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {APP_FEATURES.map((feature, i) => (

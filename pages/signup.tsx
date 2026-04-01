@@ -111,7 +111,7 @@ const SignupPage: NextPage = () => {
           <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-indigo-200 dark:border-indigo-800 p-6 sm:p-8">
             {/* Header */}
             <div className="text-center mb-6">
-              <div className="text-6xl mb-3">{step === 1 ? '🎒' : step === 2 ? '📬' : '🎊'}</div>
+              <div className="text-6xl mb-3">{step === 1 ? '' : step === 2 ? '📬' : '🎊'}</div>
               <h2 className="text-3xl font-bold mb-2" style={{fontFamily: "'Bubblegum Sans', cursive", color: '#EC4899'}}>
                 {stepLabels[step - 1]}
               </h2>
@@ -170,7 +170,7 @@ const SignupPage: NextPage = () => {
                   className="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-full transition-all duration-300 border-3 border-white shadow-candy hover:scale-[1.02] text-lg"
                   style={{fontFamily: "'Bubblegum Sans', cursive"}}
                 >
-                  {isProcessing ? "Creating Account... 🔄" : "Sign Up! 🚀"}
+                  {isProcessing ? "Creating Account... 🔄" : "Sign Up!"}
                 </button>
               </form>
             )}

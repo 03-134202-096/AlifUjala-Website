@@ -31,7 +31,7 @@ export default function WelcomeHeader() {
         className="text-lg sm:text-xl text-indigo-600 dark:text-purple-300 font-bold max-w-md mx-auto"
         style={{ fontFamily: "'Comic Neue', cursive" }}
       >
-        Let&apos;s have fun learning Urdu together! 🌈✨
+        Let&apos;s have fun learning Urdu together!
       </motion.p>
     </div>
   );
