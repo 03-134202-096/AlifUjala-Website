@@ -15,10 +15,10 @@ function shuffle<T>(arr: T[]): T[] {
 // This ensures we always show the correct Urdu script even if folder name doesn't match alphabets.json id
 const FOLDER_TO_URDU: Record<string, string> = {
   ain: "ع", alif: "ا", bay: "ب", che: "چ", daad: "ض",
-  daal: "د", ddaal: "ڈ", dohe: "ڈو", fe: "ف", gaaf: "گ",
+  daal: "د", ddaal: "ڈ" , fe: "ف", gaaf: "گ",
   ghain: "غ", haa: "ہ", hamza: "ء", hha: "ح", jeem: "ج",
   kaaf: "ک", khaa: "خ", laam: "ل", meem: "م", noon: "ن",
-  noongh: "ں", pay: "پ", qaaf: "ق", ray: "ر", rray: "ڑ",
+   pay: "پ", qaaf: "ق", ray: "ر", rray: "ڑ",
   saad: "ص", say: "ث", seen: "س", sheen: "ش", tay: "ت",
   toein: "ط", tte: "ٹ", wao: "و", yay: "ی", zaal: "ذ",
   zaay: "ز", zhay: "ژ", zoein: "ظ",

@@ -39,6 +39,7 @@ const SMALL_ALPHABETS_MAP: Record<string, string> = {
   "tay": "te-small-1.webp",
   "toay": "tte-small-1.webp",
   "choti-yaa": "yay-small.webp",
+  "Khay": "khay-small.webp", 
 }
 
 export default function AdhiAshkalMatchPage() {
@@ -279,6 +280,7 @@ export default function AdhiAshkalMatchPage() {
             leftItems={left}
             rightItems={right}
             mode="images"
+            imageBoxBackground="#000"
             gameStarted={gameStarted}
             triggerSubmit={triggerSubmit}
             onGameButtonClick={handleGameButton}
