@@ -22,28 +22,24 @@ export default function ActivityIndex() {
       href: "/games/alphabetMatch",
       img: "/images/matchLetter.webp",
       title: "Letter to Letter",
-      emoji: "🔤",
       description: "Match Urdu letters together!",
     },
     {
       href: "/games/matching",
       img: "/images/letterImg.webp",
       title: "Letter to Image",
-      emoji: "🖼️",
       description: "Match letters with pictures!",
     },
     {
       href: "/games/adhiAshkalMatch",
       img: "/images/halfLetters.webp",
       title: "Adhi Ashkal",
-      emoji: "✂️",
       description: "Match half letter shapes!",
     },
     {
       href: "/games/urduAlphabetStories",
       img: "/images/urduAlphabetStories.svg",
       title: "Urdu Alphabets Stories",
-      emoji: "📚",
       description: "Watch fun stories for every Urdu letter!",
     },
   ]
@@ -123,12 +119,7 @@ export default function ActivityIndex() {
             <p className="text-gray-600 text-lg mb-4" style={{fontFamily: "'Comic Neue', cursive"}}>
               We&apos;re making exciting new learning activities for you! Stay tuned! 🚀
             </p>
-            <div className="flex gap-4 justify-center text-4xl">
-              <span className="animate-bounce-slow">🎨</span>
-              <span className="animate-bounce-slow" style={{animationDelay: '0.3s'}}>🎵</span>
-              <span className="animate-bounce-slow" style={{animationDelay: '0.6s'}}>📝</span>
-              <span className="animate-bounce-slow" style={{animationDelay: '0.9s'}}>🌈</span>
-            </div>
+
           </div>
         </div>
       </main>

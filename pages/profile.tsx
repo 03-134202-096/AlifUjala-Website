@@ -81,7 +81,7 @@ const ProfilePage: NextPage = () => {
       <div className="kids-page-bg min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 flex items-center justify-center px-4 py-8">
-          <div className="bg-white/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 p-8">
+          <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 dark:border-purple-800 p-8">
             <LoadingIndicator size={60} message="Loading your profile..." />
           </div>
         </main>
@@ -95,9 +95,9 @@ const ProfilePage: NextPage = () => {
       <div className="kids-page-bg min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1 flex items-center justify-center px-4 py-8">
-          <div className="bg-white/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 p-8 text-center max-w-sm w-full">
+          <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 dark:border-purple-800 p-8 text-center max-w-sm w-full">
             <div className="text-6xl mb-4">😕</div>
-            <p className="text-purple-600 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{error}</p>
+            <p className="text-purple-600 dark:text-purple-400 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{error}</p>
             <a href="/login" className="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold rounded-full border-3 border-white shadow-candy hover:scale-105 transition-all"
               style={{fontFamily: "'Bubblegum Sans', cursive"}}>
               Go to Login 🔑
@@ -123,11 +123,11 @@ const ProfilePage: NextPage = () => {
       <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
         <div className="w-full max-w-md">
           {/* Profile Card */}
-          <div className="bg-white/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 p-6 sm:p-8">
+          <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 dark:border-purple-800 p-6 sm:p-8">
             {/* Profile Image & Header */}
             <div className="text-center mb-6">
               <div className="relative w-32 h-32 mx-auto mb-4 group">
-                <div className="w-32 h-32 rounded-full border-4 border-indigo-300 shadow-candy bg-gradient-to-br from-purple-200 to-indigo-200 flex items-center justify-center overflow-hidden">
+                <div className="w-32 h-32 rounded-full border-4 border-indigo-300 dark:border-indigo-600 shadow-candy bg-gradient-to-br from-purple-200 to-indigo-200 dark:from-purple-900 dark:to-indigo-900 flex items-center justify-center overflow-hidden">
                   {typeof selectedProfileImgId === 'number' && profileImages[selectedProfileImgId] ? (
                     <Image
                       src={profileImages[selectedProfileImgId].src}
@@ -158,7 +158,7 @@ const ProfilePage: NextPage = () => {
               <div className={`inline-flex px-4 py-1.5 rounded-full text-sm font-bold border-3 ${
                 user.isPremium
                   ? 'bg-gradient-to-r from-yellow-400 to-orange-400 text-white border-yellow-300 shadow-candy'
-                  : 'bg-gray-100 text-gray-500 border-gray-200'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700'
               }`} style={{fontFamily: "'Comic Neue', cursive"}}>
                 {user.isPremium ? "⭐ Premium Member" : "🆓 Free Member"}
               </div>
@@ -166,17 +166,17 @@ const ProfilePage: NextPage = () => {
 
             {/* User Info Cards */}
             <div className="space-y-3 mb-6">
-              <div className="bg-purple-50 rounded-2xl p-4 border-2 border-purple-100">
+              <div className="bg-purple-50 dark:bg-purple-900/30 rounded-2xl p-4 border-2 border-purple-100 dark:border-purple-800">
                 <label className="text-xs font-bold text-purple-400 uppercase tracking-wide" style={{fontFamily: "'Comic Neue', cursive"}}>🆔 User ID</label>
-                <p className="text-gray-700 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{user.id}</p>
+                <p className="text-gray-700 dark:text-gray-200 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{user.id}</p>
               </div>
-              <div className="bg-indigo-50 rounded-2xl p-4 border-2 border-indigo-100">
+              <div className="bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl p-4 border-2 border-indigo-100 dark:border-indigo-800">
                 <label className="text-xs font-bold text-indigo-400 uppercase tracking-wide" style={{fontFamily: "'Comic Neue', cursive"}}>👤 Username</label>
-                <p className="text-gray-700 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{user.username}</p>
+                <p className="text-gray-700 dark:text-gray-200 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{user.username}</p>
               </div>
-              <div className="bg-blue-50 rounded-2xl p-4 border-2 border-blue-100">
+              <div className="bg-blue-50 dark:bg-blue-900/30 rounded-2xl p-4 border-2 border-blue-100 dark:border-blue-800">
                 <label className="text-xs font-bold text-blue-400 uppercase tracking-wide" style={{fontFamily: "'Comic Neue', cursive"}}>📧 Email</label>
-                <p className="text-gray-700 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{user.email}</p>
+                <p className="text-gray-700 dark:text-gray-200 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{user.email}</p>
               </div>
             </div>
 
@@ -201,8 +201,8 @@ const ProfilePage: NextPage = () => {
             {upgradeMsg && (
               <div className={`mb-4 p-4 rounded-2xl border-3 text-center font-bold ${
                 upgradeMsg.includes('🎉')
-                  ? 'bg-green-50 border-green-300 text-green-700'
-                  : 'bg-purple-50 border-purple-300 text-purple-700'
+                  ? 'bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-700 text-green-700 dark:text-green-400'
+                  : 'bg-purple-50 dark:bg-purple-900/30 border-purple-300 dark:border-purple-700 text-purple-700 dark:text-purple-400'
               }`} style={{fontFamily: "'Comic Neue', cursive"}}>
                 {upgradeMsg}
               </div>
@@ -237,9 +237,9 @@ const ProfilePage: NextPage = () => {
         <>
           <div className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm" onClick={() => setShowImgPicker(false)} />
           <div className="fixed z-50 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div className="bg-white/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 px-8 py-6 flex flex-col items-center min-w-[260px]">
+            <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 dark:border-purple-800 px-8 py-6 flex flex-col items-center min-w-[260px]">
               <div className="text-4xl mb-3">📸</div>
-              <h3 className="text-xl font-bold text-purple-600 mb-4" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
+              <h3 className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-4" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                 Choose Avatar
               </h3>
               <div className="flex gap-6 mb-4">
@@ -249,8 +249,8 @@ const ProfilePage: NextPage = () => {
                     onClick={() => handleProfileImgChange(img.id)}
                     className={`rounded-full p-1 transition-all duration-300 focus:outline-none hover:scale-110 ${
                       selectedProfileImgId === img.id
-                        ? 'border-4 border-indigo-500 ring-4 ring-indigo-200 shadow-candy'
-                        : 'border-4 border-gray-200 hover:border-purple-300'
+                        ? 'border-4 border-indigo-500 ring-4 ring-indigo-200 dark:ring-indigo-800 shadow-candy'
+                        : 'border-4 border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600'
                     }`}
                     aria-label={`Select ${img.label}`}
                   >
@@ -261,7 +261,7 @@ const ProfilePage: NextPage = () => {
                       height={72}
                       className="object-cover rounded-full"
                     />
-                    <p className="text-xs font-bold text-gray-500 mt-1" style={{fontFamily: "'Comic Neue', cursive"}}>{img.label}</p>
+                    <p className="text-xs font-bold text-gray-500 dark:text-gray-400 mt-1" style={{fontFamily: "'Comic Neue', cursive"}}>{img.label}</p>
                   </button>
                 ))}
               </div>

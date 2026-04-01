@@ -33,12 +33,12 @@ const NotFoundPage: NextPage = () => {
           <div className="text-7xl mb-4 animate-wiggle">🙈</div>
 
           {/* Message card */}
-          <div className="bg-white/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 p-6 sm:p-8 mb-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-purple-600 mb-3"
+          <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 dark:border-purple-800 p-6 sm:p-8 mb-6">
+            <h2 className="text-2xl sm:text-3xl font-bold text-purple-600 dark:text-purple-400 mb-3"
               style={{fontFamily: "'Bubblegum Sans', cursive"}}>
               Oops! Page Not Found!
             </h2>
-            <p className="text-gray-500 font-bold mb-6" style={{fontFamily: "'Comic Neue', cursive"}}>
+            <p className="text-gray-500 dark:text-gray-400 font-bold mb-6" style={{fontFamily: "'Comic Neue', cursive"}}>
               Looks like this page went on an adventure! 🌍<br/>
               Let&apos;s go back to somewhere fun!
             </p>

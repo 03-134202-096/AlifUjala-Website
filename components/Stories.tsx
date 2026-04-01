@@ -12,14 +12,14 @@ import { sheepWolfScenes } from "@/data/sheepWolfScenes";
 import { hardworkingFarmerScenes } from "@/data/hardworkingFarmerScenes";
 
 const storyColors = [
-  'from-indigo-200 to-violet-100 border-indigo-300',
-  'from-blue-200 to-cyan-100 border-blue-300',
-  'from-green-200 to-emerald-100 border-green-300',
-  'from-yellow-200 to-orange-100 border-yellow-300',
-  'from-pink-200 to-rose-100 border-pink-300',
-  'from-teal-200 to-cyan-100 border-teal-300',
-  'from-purple-200 to-violet-100 border-purple-300',
-  'from-lime-200 to-green-100 border-lime-300',
+  'from-indigo-200 to-violet-100 dark:from-indigo-900/50 dark:to-violet-900/50 border-indigo-300 dark:border-indigo-700',
+  'from-blue-200 to-cyan-100 dark:from-blue-900/50 dark:to-cyan-900/50 border-blue-300 dark:border-blue-700',
+  'from-green-200 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 border-green-300 dark:border-green-700',
+  'from-yellow-200 to-orange-100 dark:from-yellow-900/50 dark:to-orange-900/50 border-yellow-300 dark:border-yellow-700',
+  'from-pink-200 to-rose-100 dark:from-pink-900/50 dark:to-rose-900/50 border-pink-300 dark:border-pink-700',
+  'from-teal-200 to-cyan-100 dark:from-teal-900/50 dark:to-cyan-900/50 border-teal-300 dark:border-teal-700',
+  'from-purple-200 to-violet-100 dark:from-purple-900/50 dark:to-violet-900/50 border-purple-300 dark:border-purple-700',
+  'from-lime-200 to-green-100 dark:from-lime-900/50 dark:to-green-900/50 border-lime-300 dark:border-lime-700',
 ];
 
 const storyEmojis = ['🐇🐢', '🦁🦊', '🐦💧', '🐕🦴', '🐜🦗', '🦊🍇', '🐑🐺', '👨‍🌾🌾'];
@@ -107,7 +107,7 @@ const Stories: React.FC = () => {
 
           {(story as any).img ? (
             <div className="relative w-full">
-              <img src={(story as any).img} alt={story.title} className="rounded-2xl drop-shadow-lg w-full h-52 object-cover mb-4 bg-white/50" />
+              <img src={(story as any).img} alt={story.title} className="rounded-2xl drop-shadow-lg w-full h-52 object-cover mb-4 bg-white/50 dark:bg-gray-800/50" />
               {/* Video play icon overlay */}
               <button
                 onClick={(e) => { e.stopPropagation(); setVideoStory(story.id); }}
@@ -120,7 +120,7 @@ const Stories: React.FC = () => {
               </button>
             </div>
           ) : (
-            <div className="rounded-2xl w-full h-52 mb-4 bg-white/50 flex items-center justify-center text-8xl">
+            <div className="rounded-2xl w-full h-52 mb-4 bg-white/50 dark:bg-gray-800/50 flex items-center justify-center text-8xl">
               {storyEmojis[i % storyEmojis.length]}
             </div>
           )}
@@ -130,7 +130,7 @@ const Stories: React.FC = () => {
           </span>
 
           {/* Click prompt */}
-          <div className="mt-3 bg-white/80 rounded-full px-4 py-1.5 text-sm font-bold text-purple-600 group-hover:bg-purple-100 transition-colors" style={{fontFamily: "'Comic Neue', cursive"}}>
+          <div className="mt-3 bg-white/80 dark:bg-gray-800/80 rounded-full px-4 py-1.5 text-sm font-bold text-purple-600 dark:text-purple-400 group-hover:bg-purple-100 dark:group-hover:bg-purple-900/50 transition-colors" style={{fontFamily: "'Comic Neue', cursive"}}>
             📖 Click to Read!
           </div>
         </motion.div>

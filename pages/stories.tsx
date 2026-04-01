@@ -35,8 +35,8 @@ export default function StoriesPage() {
 
         {/* Bottom encouragement */}
         <div className="mt-10 text-center">
-          <div className="inline-block bg-gradient-to-r from-indigo-50 to-purple-100 border-4 border-indigo-200 rounded-3xl px-8 py-4">
-            <p className="text-lg font-bold text-purple-600" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
+          <div className="inline-block bg-gradient-to-r from-indigo-50 to-purple-100 dark:from-indigo-900/40 dark:to-purple-900/40 border-4 border-indigo-200 dark:border-indigo-800 rounded-3xl px-8 py-4">
+            <p className="text-lg font-bold text-purple-600 dark:text-purple-400" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
               🌟 More stories coming soon! Keep reading! 🌟
             </p>
           </div>

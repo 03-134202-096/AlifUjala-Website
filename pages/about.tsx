@@ -65,21 +65,21 @@ const About: NextPage = () => {
       <main className="container mx-auto px-4 py-8 flex-1 relative z-10">
         <div className="max-w-4xl mx-auto" lang={urduLang}>
           {/* Header card */}
-          <div className="bg-white/90 rounded-3xl shadow-candy-lg p-6 sm:p-8 border-4 border-purple-200 mb-6">
+          <div className="bg-white/90 dark:bg-gray-900/90 rounded-3xl shadow-candy-lg p-6 sm:p-8 border-4 border-purple-200 dark:border-purple-800 mb-6">
             <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
               <div>
                 <h1 className="text-3xl sm:text-4xl font-bold" style={{fontFamily: "'Bubblegum Sans', cursive", color: '#6366f1'}}>
                   {c.title} ✨
                 </h1>
-                <p className="mt-2 text-lg text-blue-600 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>{c.tagline}</p>
+                <p className="mt-2 text-lg text-blue-600 dark:text-blue-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>{c.tagline}</p>
               </div>
               <div className="flex flex-col items-end gap-2">
-                <div className="text-sm text-indigo-500 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>Language / زبان 🌍</div>
+                <div className="text-sm text-indigo-500 dark:text-indigo-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>Language / زبان 🌍</div>
                 <div className="flex gap-2">
                   <button
                     aria-pressed={lang === 'en'}
                     onClick={() => setLang('en')}
-                    className={`px-4 py-2 rounded-full font-bold transition-all duration-300 border-2 ${lang === 'en' ? 'bg-gradient-to-r from-blue-400 to-cyan-400 text-white border-white scale-105' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300'}`}
+                    className={`px-4 py-2 rounded-full font-bold transition-all duration-300 border-2 ${lang === 'en' ? 'bg-gradient-to-r from-blue-400 to-cyan-400 text-white border-white scale-105' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-blue-300'}`}
                     style={{fontFamily: "'Comic Neue', cursive"}}
                   >
                     English
@@ -87,7 +87,7 @@ const About: NextPage = () => {
                   <button
                     aria-pressed={lang === 'ur'}
                     onClick={() => setLang('ur')}
-                    className={`px-4 py-2 rounded-full font-bold transition-all duration-300 border-2 ${lang === 'ur' ? 'bg-gradient-to-r from-indigo-400 to-purple-400 text-white border-white scale-105' : 'bg-white text-gray-600 border-gray-200 hover:border-indigo-300'}`}
+                    className={`px-4 py-2 rounded-full font-bold transition-all duration-300 border-2 ${lang === 'ur' ? 'bg-gradient-to-r from-indigo-400 to-purple-400 text-white border-white scale-105' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-indigo-300'}`}
                     style={{fontFamily: "'Comic Neue', cursive"}}
                   >
                     اردو
@@ -98,28 +98,28 @@ const About: NextPage = () => {
           </div>
 
           {/* Mission section */}
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl shadow-candy p-6 sm:p-8 border-4 border-green-200 mb-6">
-            <h2 className="text-2xl font-bold text-green-700 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>{c.missionTitle}</h2>
-            <p className="text-gray-700 leading-relaxed text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{c.mission}</p>
+          <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 rounded-3xl shadow-candy p-6 sm:p-8 border-4 border-green-200 dark:border-green-800 mb-6">
+            <h2 className="text-2xl font-bold text-green-700 dark:text-green-400 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>{c.missionTitle}</h2>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{c.mission}</p>
           </div>
 
           {/* Features accordion */}
-          <div className="bg-gradient-to-br from-indigo-50 to-violet-50 rounded-3xl shadow-candy p-6 sm:p-8 border-4 border-indigo-200 mb-6">
-            <h3 className="text-2xl font-bold text-indigo-600 mb-4" style={{fontFamily: "'Bubblegum Sans', cursive"}}>{c.featuresTitle}</h3>
+          <div className="bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-900/30 dark:to-violet-900/30 rounded-3xl shadow-candy p-6 sm:p-8 border-4 border-indigo-200 dark:border-indigo-800 mb-6">
+            <h3 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-4" style={{fontFamily: "'Bubblegum Sans', cursive"}}>{c.featuresTitle}</h3>
             <div className="space-y-3">
               {c.features.map((f, i) => (
-                <div key={i} className="bg-white/80 border-3 border-indigo-100 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md">
+                <div key={i} className="bg-white/80 dark:bg-gray-800/80 border-3 border-indigo-100 dark:border-indigo-700 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md">
                   <button
                     onClick={() => toggle(i)}
                     className="w-full text-left px-5 py-4 flex justify-between items-center border-0 bg-transparent"
                   >
-                    <span className="font-bold text-lg text-gray-700" style={{fontFamily: "'Comic Neue', cursive"}}>{f.title}</span>
+                    <span className="font-bold text-lg text-gray-700 dark:text-gray-200" style={{fontFamily: "'Comic Neue', cursive"}}>{f.title}</span>
                     <span className={`text-2xl transition-transform duration-300 ${open === i ? 'rotate-45' : ''}`}>
                       {open === i ? '✕' : '➕'}
                     </span>
                   </button>
                   {open === i && (
-                    <div className="px-5 pb-4 text-gray-600 text-lg border-t-2 border-indigo-100 pt-3" style={{fontFamily: "'Comic Neue', cursive"}}>
+                    <div className="px-5 pb-4 text-gray-600 dark:text-gray-300 text-lg border-t-2 border-indigo-100 dark:border-indigo-700 pt-3" style={{fontFamily: "'Comic Neue', cursive"}}>
                       {f.body}
                     </div>
                   )}
@@ -131,17 +131,17 @@ const About: NextPage = () => {
           {/* Quiz & Game section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             {/* Quiz */}
-            <div className="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-3xl shadow-candy p-6 border-4 border-yellow-200">
-              <h4 className="font-bold text-xl text-purple-600 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>🧠 Quick Quiz!</h4>
+            <div className="bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/30 dark:to-amber-900/30 rounded-3xl shadow-candy p-6 border-4 border-yellow-200 dark:border-yellow-800">
+              <h4 className="font-bold text-xl text-purple-600 dark:text-purple-400 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>🧠 Quick Quiz!</h4>
               {!quizState.answered ? (
                 <div>
-                  <p className="text-gray-700 font-bold mb-3" style={{fontFamily: "'Comic Neue', cursive"}}>{c.quizQ}</p>
+                  <p className="text-gray-700 dark:text-gray-300 font-bold mb-3" style={{fontFamily: "'Comic Neue', cursive"}}>{c.quizQ}</p>
                   <div className="space-y-2">
                     {c.quizOptions.map((opt, idx) => (
                       <button
                         key={idx}
                         onClick={() => setQuizState({ answered: true, correct: idx === 0 })}
-                        className="block w-full text-left px-4 py-3 bg-white border-3 border-purple-200 rounded-2xl hover:border-purple-400 hover:bg-purple-50 hover:scale-[1.02] transition-all duration-300 font-bold text-gray-700"
+                        className="block w-full text-left px-4 py-3 bg-white dark:bg-gray-800 border-3 border-purple-200 dark:border-purple-700 rounded-2xl hover:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:scale-[1.02] transition-all duration-300 font-bold text-gray-700 dark:text-gray-200"
                         style={{fontFamily: "'Comic Neue', cursive"}}
                       >
                         {opt}
@@ -154,14 +154,14 @@ const About: NextPage = () => {
                   {quizState.correct ? (
                     <>
                       <div className="text-6xl mb-3">🎉</div>
-                      <p className="text-green-600 font-bold text-xl" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
+                      <p className="text-green-600 dark:text-green-400 font-bold text-xl" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                         {lang === 'en' ? 'Correct — amazing job!' : 'صحیح — شاباش!'}
                       </p>
                     </>
                   ) : (
                     <>
                       <div className="text-6xl mb-3">🤔</div>
-                      <p className="text-purple-600 font-bold text-lg mb-3" style={{fontFamily: "'Comic Neue', cursive"}}>
+                      <p className="text-purple-600 dark:text-purple-400 font-bold text-lg mb-3" style={{fontFamily: "'Comic Neue', cursive"}}>
                         {lang === 'en' ? 'Not quite — the correct answer is ا (Alif)!' : 'درست نہیں — درست جواب ا (الف) ہے!'}
                       </p>
                       <button
@@ -178,12 +178,12 @@ const About: NextPage = () => {
             </div>
 
             {/* Try a game */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl shadow-candy p-6 border-4 border-blue-200 flex flex-col justify-between">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-3xl shadow-candy p-6 border-4 border-blue-200 dark:border-blue-800 flex flex-col justify-between">
               <div>
-                <h4 className="font-bold text-xl text-blue-600 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
+                <h4 className="font-bold text-xl text-blue-600 dark:text-blue-400 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                   🎮 {lang === 'en' ? 'Ready to Play?' : 'کھیلنے کے لیے تیار؟'}
                 </h4>
-                <p className="text-gray-600 text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>
+                <p className="text-gray-600 dark:text-gray-300 text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>
                   {lang === 'en' ? 'Jump in and play a fun matching game! Match Urdu letters and have a blast!' : 'ایک مزیدار میچنگ گیم کھیلیں اور اردو حروف سیکھیں!'}
                 </p>
                 <div className="flex gap-3 mt-4 text-4xl justify-center">
@@ -201,11 +201,11 @@ const About: NextPage = () => {
           </div>
 
           {/* Get involved & Contact */}
-          <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-3xl shadow-candy p-6 sm:p-8 border-4 border-purple-200 mb-6">
-            <h4 className="font-bold text-xl text-purple-600 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
+          <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/30 dark:to-violet-900/30 rounded-3xl shadow-candy p-6 sm:p-8 border-4 border-purple-200 dark:border-purple-800 mb-6">
+            <h4 className="font-bold text-xl text-purple-600 dark:text-purple-400 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
               🤝 {lang === 'en' ? 'Get Involved!' : 'شمولیت اختیار کریں!'}
             </h4>
-            <p className="text-gray-600 text-lg mb-4" style={{fontFamily: "'Comic Neue', cursive"}}>{c.contribute}</p>
+            <p className="text-gray-600 dark:text-gray-300 text-lg mb-4" style={{fontFamily: "'Comic Neue', cursive"}}>{c.contribute}</p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
               <a href="https://www.instagram.com/alifujala.ai/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-400 to-purple-400 text-white rounded-full font-bold hover:scale-105 transition-all text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>

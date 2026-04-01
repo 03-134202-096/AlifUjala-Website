@@ -96,26 +96,26 @@ const SignupPage: NextPage = () => {
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg border-3 transition-all duration-500 ${
                   step >= s
                     ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white border-white shadow-candy'
-                    : 'bg-white/80 text-gray-400 border-gray-200'
+                    : 'bg-white/80 dark:bg-gray-800/80 text-gray-400 dark:text-gray-500 border-gray-200 dark:border-gray-700'
                 }`}>
                   {step > s ? '✓' : stepEmojis[s - 1]}
                 </div>
                 {s < 3 && (
-                  <div className={`w-8 h-1 rounded-full transition-all duration-500 ${step > s ? 'bg-indigo-400' : 'bg-gray-200'}`} />
+                  <div className={`w-8 h-1 rounded-full transition-all duration-500 ${step > s ? 'bg-indigo-400' : 'bg-gray-200 dark:bg-gray-700'}`} />
                 )}
               </div>
             ))}
           </div>
 
           {/* Signup card */}
-          <div className="bg-white/95 rounded-3xl shadow-candy-lg border-4 border-indigo-200 p-6 sm:p-8">
+          <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-indigo-200 dark:border-indigo-800 p-6 sm:p-8">
             {/* Header */}
             <div className="text-center mb-6">
               <div className="text-6xl mb-3">{step === 1 ? '🎒' : step === 2 ? '📬' : '🎊'}</div>
               <h2 className="text-3xl font-bold mb-2" style={{fontFamily: "'Bubblegum Sans', cursive", color: '#EC4899'}}>
                 {stepLabels[step - 1]}
               </h2>
-              <p className="text-gray-500 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>
+              <p className="text-gray-500 dark:text-gray-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>
                 {step === 1 ? "Join us and start learning Urdu! 🌈" : step === 2 ? "Check your email for the code! 📩" : "Your account is ready! 🎉"}
               </p>
             </div>
@@ -123,7 +123,7 @@ const SignupPage: NextPage = () => {
             {step === 1 && (
               <form onSubmit={handleSignup} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-bold text-purple-500 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>👤 Username</label>
+                  <label className="block text-sm font-bold text-purple-500 dark:text-purple-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>👤 Username</label>
                   <input
                     type="text"
                     placeholder="Pick a fun name!"
@@ -131,13 +131,13 @@ const SignupPage: NextPage = () => {
                     onChange={(e) => setUsername(e.target.value)}
                     required
                     disabled={isProcessing}
-                    className="w-full px-4 py-3 bg-indigo-50 border-3 border-indigo-200 rounded-2xl text-gray-700 placeholder-gray-400 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300 font-bold disabled:opacity-50"
+                    className="w-full px-4 py-3 bg-indigo-50 dark:bg-gray-800 border-3 border-indigo-200 dark:border-indigo-700 rounded-2xl text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 dark:focus:ring-purple-900 transition-all duration-300 font-bold disabled:opacity-50"
                     style={{fontFamily: "'Comic Neue', cursive"}}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-purple-500 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>📧 Email</label>
+                  <label className="block text-sm font-bold text-purple-500 dark:text-purple-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>📧 Email</label>
                   <input
                     type="email"
                     placeholder="your@email.com"
@@ -145,13 +145,13 @@ const SignupPage: NextPage = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     disabled={isProcessing}
-                    className="w-full px-4 py-3 bg-indigo-50 border-3 border-indigo-200 rounded-2xl text-gray-700 placeholder-gray-400 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300 font-bold disabled:opacity-50"
+                    className="w-full px-4 py-3 bg-indigo-50 dark:bg-gray-800 border-3 border-indigo-200 dark:border-indigo-700 rounded-2xl text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 dark:focus:ring-purple-900 transition-all duration-300 font-bold disabled:opacity-50"
                     style={{fontFamily: "'Comic Neue', cursive"}}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-purple-500 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>🔒 Password</label>
+                  <label className="block text-sm font-bold text-purple-500 dark:text-purple-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>🔒 Password</label>
                   <input
                     type="password"
                     placeholder="Your secret password"
@@ -159,7 +159,7 @@ const SignupPage: NextPage = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     disabled={isProcessing}
-                    className="w-full px-4 py-3 bg-indigo-50 border-3 border-indigo-200 rounded-2xl text-gray-700 placeholder-gray-400 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300 font-bold disabled:opacity-50"
+                    className="w-full px-4 py-3 bg-indigo-50 dark:bg-gray-800 border-3 border-indigo-200 dark:border-indigo-700 rounded-2xl text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:border-purple-400 focus:ring-4 focus:ring-purple-100 dark:focus:ring-purple-900 transition-all duration-300 font-bold disabled:opacity-50"
                     style={{fontFamily: "'Comic Neue', cursive"}}
                   />
                 </div>
@@ -177,14 +177,14 @@ const SignupPage: NextPage = () => {
 
             {step === 2 && (
               <form onSubmit={handleVerifyOtp} className="space-y-4">
-                <div className="bg-yellow-50 border-3 border-yellow-200 rounded-2xl p-4 text-center">
-                  <p className="text-yellow-700 font-bold text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>
+                <div className="bg-yellow-50 dark:bg-yellow-900/30 border-3 border-yellow-200 dark:border-yellow-700 rounded-2xl p-4 text-center">
+                  <p className="text-yellow-700 dark:text-yellow-400 font-bold text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>
                     📌 <strong>Tip:</strong> If you don&apos;t see the OTP email in your inbox, check your spam folder!
                   </p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-green-500 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>🔢 Enter OTP Code</label>
+                  <label className="block text-sm font-bold text-green-500 dark:text-green-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>🔢 Enter OTP Code</label>
                   <input
                     type="text"
                     placeholder="Enter 6-digit code"
@@ -193,7 +193,7 @@ const SignupPage: NextPage = () => {
                     required
                     disabled={isProcessing}
                     maxLength={6}
-                    className="w-full px-4 py-4 bg-green-50 border-3 border-green-200 rounded-2xl text-gray-700 placeholder-gray-400 text-center text-2xl tracking-[0.5em] focus:border-green-400 focus:ring-4 focus:ring-green-100 transition-all duration-300 font-bold disabled:opacity-50"
+                    className="w-full px-4 py-4 bg-green-50 dark:bg-gray-800 border-3 border-green-200 dark:border-green-700 rounded-2xl text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 text-center text-2xl tracking-[0.5em] focus:border-green-400 focus:ring-4 focus:ring-green-100 dark:focus:ring-green-900 transition-all duration-300 font-bold disabled:opacity-50"
                     style={{fontFamily: "'Comic Neue', cursive"}}
                   />
                 </div>
@@ -212,7 +212,7 @@ const SignupPage: NextPage = () => {
             {step === 3 && (
               <div className="text-center space-y-4">
                 <div className="text-7xl animate-bounce-slow">🎉</div>
-                <p className="text-gray-700 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>
+                <p className="text-gray-700 dark:text-gray-300 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>
                   Your account has been created! Welcome aboard!
                 </p>
                 <p className="text-gray-400 font-bold text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>
@@ -236,8 +236,8 @@ const SignupPage: NextPage = () => {
             {!isProcessing && message && (
               <div className={`mt-4 p-4 rounded-2xl border-3 text-center font-bold ${
                 message.includes('✅') || message.includes('🎉')
-                  ? 'bg-green-50 border-green-300 text-green-700'
-                  : 'bg-purple-50 border-purple-300 text-purple-700'
+                  ? 'bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-700 text-green-700 dark:text-green-400'
+                  : 'bg-purple-50 dark:bg-purple-900/30 border-purple-300 dark:border-purple-700 text-purple-700 dark:text-purple-400'
               }`} style={{fontFamily: "'Comic Neue', cursive"}}>
                 {message}
               </div>
@@ -245,9 +245,9 @@ const SignupPage: NextPage = () => {
 
             {step === 1 && (
               <div className="mt-6 text-center">
-                <p className="text-gray-500 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>
+                <p className="text-gray-500 dark:text-gray-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>
                   Already have an account?{' '}
-                  <a href="/login" className="text-indigo-500 hover:text-purple-500 font-bold transition-colors">
+                  <a href="/login" className="text-indigo-500 dark:text-indigo-400 hover:text-purple-500 font-bold transition-colors">
                     Sign in here! 🔑
                   </a>
                 </p>

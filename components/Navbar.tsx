@@ -72,7 +72,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
   ]
 
   return (
-    <nav className={className || "relative bg-gradient-to-r from-indigo-600 via-purple-500 to-violet-500 text-white shadow-lg"} style={{ zIndex: 70 }}>
+    <nav className={className || "relative text-white shadow-lg"} style={{ zIndex: 70, background: 'var(--navbar-bg)' }}>
       {/* Decorative dots */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-1 left-8 w-8 h-8 rounded-full bg-white/10 animate-float" />
@@ -165,7 +165,8 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
         onClick={() => setMenuOpen(false)}
       >
         <div
-          className="absolute top-0 right-0 w-4/5 max-w-xs h-full bg-gradient-to-b from-indigo-600 via-purple-500 to-violet-500 shadow-2xl flex flex-col pt-6 px-5 gap-2 animate-slidein"
+          className="absolute top-0 right-0 w-4/5 max-w-xs h-full shadow-2xl flex flex-col pt-6 px-5 gap-2 animate-slidein"
+          style={{ background: 'var(--navbar-bg)' }}
           onClick={e => e.stopPropagation()}
         >
           <button onClick={() => setMenuOpen(false)} className="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white text-2xl font-bold hover:bg-white/30 transition-all">
