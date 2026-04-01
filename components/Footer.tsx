@@ -16,6 +16,7 @@ export default function Footer() {
         { href: '/activity', label: 'Activities' },
         { href: '/games', label: 'Games Hub' },
         { href: '/edu-videos', label: 'Edu Videos' },
+        { href: '/our-app', label: 'Our App' },
         { href: '/stories', label: 'Stories' },
         { href: '/blog', label: 'Blog' },
         { href: '/about', label: 'About Us' },

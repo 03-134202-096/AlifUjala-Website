@@ -68,6 +68,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
     { href: "/games", label: "Games" },
     { href: "/edu-videos", label: "Edu Videos" },
     { href: "/stories", label: "Stories" },
+    { href: "/our-app", label: "Our App" },
     { href: "/blog", label: "Blog" },
     { href: "/about", label: "About" },
   ]
