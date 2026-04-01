@@ -94,7 +94,7 @@ export default function Home() {
       "url": "https://alifujala.ai",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://alifujala.ai/images/Logo.jpg"
+        "url": "https://alifujala.ai/images/logo.png"
       }
     }
   }

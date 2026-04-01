@@ -72,9 +72,9 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
   ]
 
   return (
-    <nav className={className || "relative bg-gradient-to-r from-indigo-600 via-purple-500 to-violet-500 text-white shadow-lg"} style={{borderRadius: '0 0 1.5rem 1.5rem', zIndex: 70}}>
+    <nav className={className || "relative bg-gradient-to-r from-indigo-600 via-purple-500 to-violet-500 text-white shadow-lg"} style={{ zIndex: 70 }}>
       {/* Decorative dots */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{borderRadius: '0 0 1.5rem 1.5rem'}}>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-1 left-8 w-8 h-8 rounded-full bg-white/10 animate-float" />
         <div className="absolute -bottom-2 right-24 w-6 h-6 rounded-full bg-purple-200/20 animate-float-delay" />
         <div className="absolute top-2 right-44 text-base animate-bounce-slow opacity-40 hidden lg:block">⭐</div>
@@ -84,9 +84,9 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
         {/* Logo */}
         <div className="flex items-center flex-shrink-0 z-10">
           <Link href="/" className="mr-2 sm:mr-3 transition-transform duration-300 hover:scale-110">
-            <img src="/images/Logo.jpg" alt="Alif Ujala Logo" className="h-10 w-10 sm:h-12 sm:w-12 object-contain" style={{mixBlendMode:'multiply'}} />
+            <img src="/images/logo.png" alt="Alif Ujala Logo" className="h-10 w-10 sm:h-12 sm:w-12 object-contain" style={{mixBlendMode:'multiply'}} />
           </Link>
-          <Link href="/" className="font-bold text-lg sm:text-xl" style={{fontFamily: "'Bubblegum Sans', cursive", textShadow: '2px 2px 4px rgba(0,0,0,0.15)'}}>
+          <Link href="/" className="font-bold text-lg sm:text-xl" style={{fontFamily: "'Fredoka One', 'Bubblegum Sans', cursive", textShadow: '2px 2px 4px rgba(0,0,0,0.15)'}}>
             Alif Ujala
           </Link>
         </div>
@@ -98,21 +98,21 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
               key={link.href}
               href={link.href}
               className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105"
-              style={{fontFamily: "'Comic Neue', cursive"}}
+              style={{fontFamily: "'Baloo 2', 'Comic Neue', cursive"}}
             >
               {link.label}
             </Link>
           ))}
           {user ? (
-            <Link href="/profile" className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105" style={{fontFamily: "'Comic Neue', cursive"}}>
+            <Link href="/profile" className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105" style={{fontFamily: "'Baloo 2', 'Comic Neue', cursive"}}>
               Profile
             </Link>
           ) : (
             <>
-              <Link href="/login" className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105" style={{fontFamily: "'Comic Neue', cursive"}}>
+              <Link href="/login" className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105" style={{fontFamily: "'Baloo 2', 'Comic Neue', cursive"}}>
                 Login
               </Link>
-              <Link href="/signup" className="bg-white/25 text-white text-base font-bold px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/40 hover:scale-105 border-2 border-white/50" style={{fontFamily: "'Comic Neue', cursive"}}>
+              <Link href="/signup" className="bg-white/25 text-white text-base font-bold px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/40 hover:scale-105 border-2 border-white/50" style={{fontFamily: "'Baloo 2', 'Comic Neue', cursive"}}>
                 Sign Up
               </Link>
             </>

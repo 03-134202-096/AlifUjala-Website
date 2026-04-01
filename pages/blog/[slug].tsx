@@ -32,7 +32,7 @@ export default function BlogPostPage({ post }: Props) {
       url: 'https://alifujala.ai',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://alifujala.ai/images/Logo.jpg',
+        url: 'https://alifujala.ai/images/logo.png',
       },
     },
     mainEntityOfPage: {
@@ -132,7 +132,7 @@ export default function BlogPostPage({ post }: Props) {
 
             {/* Author */}
             <div className="mt-6 flex items-center gap-4 bg-indigo-50 dark:bg-indigo-950/50 rounded-2xl p-4">
-              <img src="/images/Logo.jpg" alt="Alif Ujala" className="h-12 w-12 rounded-xl object-cover shadow" />
+              <img src="/images/logo.png" alt="Alif Ujala" className="h-12 w-12 rounded-xl object-cover shadow" />
               <div>
                 <p className="font-bold text-gray-800 dark:text-white" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
                   {post.author}

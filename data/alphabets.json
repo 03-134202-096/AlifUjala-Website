@@ -35,6 +35,7 @@
     { "id": "he",          "char": "ہ", "name": "He" },
     { "id": "hamzah",      "char": "ء", "name": "Hamzah" },
     { "id": "choti-yaa",   "char": "ی", "name": "Choti Yaa" },
-    { "id": "bari-yaa",    "char": "ے", "name": "Bari Yaa" }
+    { "id": "bari-yaa",    "char": "ے", "name": "Bari Yaa" },
+    { "id": "tte",         "char": "ٹ", "name": "Tte" }
   ]
 }

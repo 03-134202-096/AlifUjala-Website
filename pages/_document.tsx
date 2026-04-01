@@ -5,8 +5,8 @@ export default function Document() {
     <Html lang="en">
       <Head>
         {/* Favicon */}
-        <link rel="icon" href="/images/Logo.jpg" type="image/jpeg" />
-        <link rel="apple-touch-icon" href="/images/Logo.jpg" />
+        <link rel="icon" href="/images/Logo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/images/Logo.png" />
         <meta name="application-name" content="Alif Ujala" />
         <meta name="apple-mobile-web-app-title" content="Alif Ujala" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
