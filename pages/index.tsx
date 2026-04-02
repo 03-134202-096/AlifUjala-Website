@@ -1,11 +1,9 @@
-
+
 import HeroWithFire from "@/components/hero/HeroWithFire";
 import WelcomeHeader from "@/components/home_except_hero/WelcomeHeader";
 import SleepingCards from "@/components/home_except_hero/hoverToShowContent";
 import VideoEmbed    from "@/components/home_except_hero/VideoEmbed";
 import SEO from "@/components/SEO";
-
-export const dynamic = "force-static";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";

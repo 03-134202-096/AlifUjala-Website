@@ -23,18 +23,21 @@ export default function ActivityIndex() {
       img: "/images/matchLetter.webp",
       title: "Letter to Letter",
       description: "Match Urdu letters together!",
+      emoji: "🔤",
     },
     {
       href: "/games/matching",
       img: "/images/letterImg.webp",
       title: "Letter to Image",
       description: "Match letters with pictures!",
+      emoji: "🖼️",
     },
     {
       href: "/games/adhiAshkalMatch",
       img: "/images/halfLetters.webp",
       title: "Adhi Ashkal",
       description: "Match half letter shapes!",
+      emoji: "✂️",
     },
   ]
 
