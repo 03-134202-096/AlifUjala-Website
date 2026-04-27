@@ -214,12 +214,12 @@ export default function EduVideosPage() {
             >
               🎥 Videos by{" "}
               <a
-                href="https://www.youtube.com/@UrdukayRung"
+                href="https://www.youtube.com/@alifujala"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-purple-600 dark:text-purple-400 underline hover:text-purple-800 dark:hover:text-purple-300 transition-colors"
               >
-                Urdu kay Rung
+                Alif Ujala
               </a>{" "}
               — Subscribe for more! 🌈
             </p>

@@ -108,6 +108,12 @@ export default function Footer() {
                     <polyline points="22,6 12,13 2,6" />
                   </svg>
                 </a>
+                <a href="https://www.youtube.com/@alifujala" target="_blank" rel="noopener noreferrer" className="social-icon group" aria-label="YouTube">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="6" width="20" height="12" rx="3" ry="3" />
+                    <polygon points="10 9 16 12 10 15 10 9" />
+                  </svg>
+                </a>
                 <a href="https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala" target="_blank" rel="noopener noreferrer" className="social-icon group" aria-label="Google Play">
                   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <polygon points="5 3 19 12 5 21 5 3" />
