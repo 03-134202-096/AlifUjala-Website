@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300" role="img" aria-label="Memory Match thumbnail">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#12b981" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <linearGradient id="cardFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#e5f6f1" />
+    </linearGradient>
+    <linearGradient id="cardBack" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f3f39" />
+      <stop offset="100%" stop-color="#0a2925" />
+    </linearGradient>
+  </defs>
+
+  <rect width="400" height="300" fill="url(#bg)" />
+  <circle cx="80" cy="60" r="48" fill="#ffffff" opacity="0.1" />
+  <circle cx="340" cy="230" r="64" fill="#ffffff" opacity="0.08" />
+
+  <g transform="translate(72 72)">
+    <rect x="0" y="0" width="96" height="132" rx="16" fill="url(#cardFace)" stroke="#d4ede6" stroke-width="3" />
+    <rect x="24" y="24" width="48" height="84" rx="8" fill="#ecfdf7" />
+    <text x="48" y="77" text-anchor="middle" font-size="36" font-weight="700" fill="#0f766e" font-family="Arial, sans-serif">A</text>
+
+    <rect x="112" y="10" width="96" height="132" rx="16" fill="url(#cardBack)" stroke="#1f6a60" stroke-width="3" />
+    <g transform="translate(160 76)">
+      <circle r="18" fill="#34d399" opacity="0.35" />
+      <circle r="9" fill="#a7f3d0" opacity="0.8" />
+    </g>
+
+    <rect x="224" y="0" width="96" height="132" rx="16" fill="url(#cardFace)" stroke="#d4ede6" stroke-width="3" />
+    <rect x="248" y="24" width="48" height="84" rx="8" fill="#ecfdf7" />
+    <text x="272" y="77" text-anchor="middle" font-size="36" font-weight="700" fill="#0f766e" font-family="Arial, sans-serif">A</text>
+  </g>
+
+  <text x="200" y="252" text-anchor="middle" font-size="30" font-weight="700" fill="#ffffff" font-family="Arial, sans-serif">Memory Match</text>
+  <text x="200" y="276" text-anchor="middle" font-size="14" fill="#d1fae5" font-family="Arial, sans-serif">Find the matching pair</text>
+</svg>
