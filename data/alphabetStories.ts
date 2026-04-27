@@ -1,5 +1,5 @@
 export interface AlphabetStory {
-  /** YouTube video ID */
+  /** YouTube video ID  */
   videoId: string
   /** Display title */
   title: string
