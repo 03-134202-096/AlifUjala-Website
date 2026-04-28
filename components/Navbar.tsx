@@ -111,12 +111,15 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
             </Link>
           ) : (
             <>
+              {/* Login/Sign Up hidden temporarily */}
+              {/*
               <Link href="/login" className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105" style={{fontFamily: "'Baloo 2', 'Comic Neue', cursive"}}>
                 Login
               </Link>
               <Link href="/signup" className="bg-white/25 text-white text-base font-bold px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/40 hover:scale-105 border-2 border-white/50" style={{fontFamily: "'Baloo 2', 'Comic Neue', cursive"}}>
                 Sign Up
               </Link>
+              */}
             </>
           )}
         </div>
@@ -216,12 +219,15 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
             </>
           ) : (
             <>
+              {/* Login/Sign Up hidden temporarily */}
+              {/*
               <Link href="/login" className="text-white text-lg font-bold py-3 px-4 rounded-2xl hover:bg-white/20 transition-all" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
                 Login
               </Link>
               <Link href="/signup" className="bg-white/25 text-white text-lg font-bold py-3 px-4 rounded-2xl border-2 border-white/50 hover:bg-white/35 transition-all text-center" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
                 Sign Up
               </Link>
+              */}
             </>
           )}
 

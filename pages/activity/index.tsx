@@ -542,19 +542,19 @@ export default function ActivityIndex() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-indigo-200 dark:border-indigo-700 bg-slate-100 dark:bg-indigo-950/60 p-3 sm:p-4 max-h-[72vh] overflow-auto">
+              <div className="mx-auto max-w-[640px] rounded-2xl border border-indigo-200 dark:border-indigo-700 bg-slate-50/90 dark:bg-indigo-950/60 p-4 sm:p-5 max-h-[60vh] overflow-auto flex justify-center">
                 {isPreviewLoading ? (
-                  <div className="h-[240px] flex items-center justify-center text-indigo-700 dark:text-indigo-200 font-bold" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                  <div className="h-[220px] sm:h-[260px] flex items-center justify-center text-indigo-700 dark:text-indigo-200 font-bold" style={{ fontFamily: "'Comic Neue', cursive" }}>
                     Rendering preview...
                   </div>
                 ) : previewSrc ? (
                   <img
                     src={previewSrc}
                     alt="Worksheet preview"
-                    className="w-full h-auto rounded-xl shadow-lg border border-indigo-200"
+                    className="w-full h-auto max-w-[360px] sm:max-w-[420px] md:max-w-[520px] rounded-xl shadow-lg border border-indigo-200 mx-auto"
                   />
                 ) : (
-                  <div className="h-[240px] flex items-center justify-center text-indigo-700 dark:text-indigo-200 font-bold text-center px-4" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                  <div className="h-[220px] sm:h-[260px] flex items-center justify-center text-indigo-700 dark:text-indigo-200 font-bold text-center px-4" style={{ fontFamily: "'Comic Neue', cursive" }}>
                     Select worksheet settings to generate preview.
                   </div>
                 )}
