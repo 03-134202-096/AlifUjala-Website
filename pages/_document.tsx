@@ -5,12 +5,17 @@ export default function Document() {
     <Html lang="en">
       <Head>
         {/* Favicon */}
-        <link rel="icon" href="/images/Logo.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/images/Logo.png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/images/logo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/images/logo.png" />
+        <link rel="manifest" href="/site.webmanifest" />
         <meta name="application-name" content="Alif Ujala" />
         <meta name="apple-mobile-web-app-title" content="Alif Ujala" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="msapplication-TileColor" content="#6366f1" />
+        <meta name="msapplication-TileImage" content="/images/logo.png" />
+        <meta name="theme-color" content="#6366f1" />
 
         {/* Fonts */}
         <link

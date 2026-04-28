@@ -17,7 +17,7 @@ const About: NextPage = () => {
       title: 'About AlifUjala',
       tagline: 'A playful platform to learn Urdu through games, stories and activities! 🎉',
       missionTitle: '🎯 Our Mission',
-      mission: 'AlifUjala was created to celebrate, preserve and promote the Urdu language by making learning fun for children and beginners. We combine interactive games, visual aids, and culturally relevant content to build confidence and joy while learning Urdu.',
+      mission: 'Alif Ujala is the first-ever comprehensive AI-powered Urdu learning platform designed especially for young learners. It combines an interactive web app featuring engaging games, interactive and printable worksheets, a YouTube channel filled with fun educational videos, and an AI-assisted learning app that personalizes the learning experience for every child. By blending technology, creativity, and native-language education, Alif Ujala is making Urdu learning smarter, more engaging, and accessible for the next generation.',
       featuresTitle: '🌟 What you can do here',
       features: [
         { title: '🎮 Play & Learn', body: 'Match letters, pictures and sounds. Our games are designed to make repetition feel like play!', emoji: '🎮' },

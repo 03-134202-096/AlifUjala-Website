@@ -34,8 +34,8 @@ const APP_FEATURES = [
   },
   {
     emoji: "🌟",
-    title: "Rewards & Badges",
-    description: "Earn fun rewards to stay motivated while learning!",
+    title: "AI Assistive Writing",
+    description: "Get smart writing suggestions and guided practice while learning Urdu!",
   },
 ]
 
