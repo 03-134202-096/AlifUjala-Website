@@ -5,6 +5,7 @@
     { "id": "bay",         "char": "ب", "name": "Bay" },
     { "id": "pay",         "char": "پ", "name": "Pay" },
     { "id": "tay",         "char": "ت", "name": "Tay" },
+    { "id": "tte",         "char": "ٹ", "name": "Tte" },
     { "id": "say",         "char": "ث", "name": "Say" },
     { "id": "jeem",        "char": "ج", "name": "Jeem" },
     { "id": "chay",        "char": "چ", "name": "Chay" },
@@ -35,7 +36,6 @@
     { "id": "he",          "char": "ہ", "name": "He" },
     { "id": "hamzah",      "char": "ء", "name": "Hamzah" },
     { "id": "choti-yaa",   "char": "ی", "name": "Choti Yaa" },
-    { "id": "bari-yaa",    "char": "ے", "name": "Bari Yaa" },
-    { "id": "tte",         "char": "ٹ", "name": "Tte" }
+    { "id": "bari-yaa",    "char": "ے", "name": "Bari Yaa" }
   ]
 }

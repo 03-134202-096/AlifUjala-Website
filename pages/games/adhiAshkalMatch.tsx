@@ -37,6 +37,7 @@ const SMALL_ALPHABETS_MAP: Record<string, string> = {
   "swad": "swaad-small.webp",
   "zwad": "zwaad-small.webp",
   "tay": "te-small-1.webp",
+  "say": "se-small-1.webp",
   "tte": "tte-small-1.webp",
   "choti-yaa": "yay-small.webp",
   "Khay": "khay-small.webp", 
