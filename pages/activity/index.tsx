@@ -350,6 +350,13 @@ export default function ActivityIndex() {
       description: "Match half letter shapes!",
       emoji: "✂️",
     },
+    {
+      href: "/games/urduDottedMatch",
+      img: "/images/alphabat-to-alphabat.webp",
+      title: "Dotted Letter Match",
+      description: "Match dotted letters with the full form.",
+      emoji: "✏️",
+    },
   ]
 
   return (

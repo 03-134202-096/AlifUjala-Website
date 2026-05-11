@@ -1,10 +1,9 @@
-import React, { useState } from "react"
+import React from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import SEO from "@/components/SEO"
-import Image from "next/image"
 
-const APP_SAMPLE_IMAGES = Array.from({ length: 7 }, (_, i) => `/images/AppSampleImages/${i + 1}.jpeg`)
+const APP_SAMPLE_IMAGES = Array.from({ length: 11 }, (_, i) => `/images/AppSampleImages/${i + 1}.jpeg`)
 
 const APP_FEATURES = [
   {
@@ -51,7 +50,8 @@ function PageDecorations() {
 }
 
 export default function OurAppPage() {
-  const [activeImg, setActiveImg] = useState(0)
+  // Duplicate the list so the marquee can loop seamlessly
+  const marqueeImages = [...APP_SAMPLE_IMAGES, ...APP_SAMPLE_IMAGES]
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
@@ -82,112 +82,103 @@ export default function OurAppPage() {
           </p>
         </div>
 
-        {/* Main content - Screenshots & Download */}
-        <div className="max-w-5xl mx-auto mb-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            {/* Screenshot Gallery */}
-            <div className="order-2 lg:order-1">
-              <div className="bg-white/90 dark:bg-gray-900/90 rounded-3xl shadow-candy-lg border-4 border-green-200 dark:border-green-800 p-6 overflow-hidden">
-                {/* Main image */}
-                <div className="relative w-full aspect-[9/16] max-h-[450px] bg-gray-100 dark:bg-gray-800 rounded-2xl flex items-center justify-center overflow-hidden mb-4">
-                  <img
-                    src={APP_SAMPLE_IMAGES[activeImg]}
-                    alt={`App Screenshot ${activeImg + 1}`}
-                    className="w-full h-full object-contain"
-                  />
-                  {/* Navigation arrows */}
-                  <button
-                    onClick={() => setActiveImg((p) => (p - 1 + APP_SAMPLE_IMAGES.length) % APP_SAMPLE_IMAGES.length)}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition-all text-xl"
-                    aria-label="Previous screenshot"
-                  >
-                    ‹
-                  </button>
-                  <button
-                    onClick={() => setActiveImg((p) => (p + 1) % APP_SAMPLE_IMAGES.length)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition-all text-xl"
-                    aria-label="Next screenshot"
-                  >
-                    ›
-                  </button>
-                </div>
+        {/* Download CTA */}
+        <div className="max-w-3xl mx-auto mb-10">
+          <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 rounded-3xl shadow-candy p-6 sm:p-8 border-4 border-green-200 dark:border-green-800 text-center">
+            <h2
+              className="text-2xl sm:text-3xl font-bold text-green-700 dark:text-green-400 mb-3"
+              style={{ fontFamily: "'Bubblegum Sans', cursive" }}
+            >
+              🎉 Download Free!
+            </h2>
+            <p
+              className="text-gray-600 dark:text-gray-300 mb-5 text-base sm:text-lg"
+              style={{ fontFamily: "'Comic Neue', cursive" }}
+            >
+              Get the AlifUjala app on your phone and let your child learn Urdu anywhere, anytime!
+            </p>
 
-                {/* Thumbnails */}
-                <div className="flex gap-2 overflow-x-auto pb-1 justify-center">
-                  {APP_SAMPLE_IMAGES.map((src, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveImg(idx)}
-                      className={`flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden border-3 transition-all ${
-                        idx === activeImg 
-                          ? 'border-green-500 scale-110 shadow-lg' 
-                          : 'border-transparent opacity-60 hover:opacity-100'
-                      }`}
-                      aria-label={`View screenshot ${idx + 1}`}
-                    >
-                      <img src={src} alt={`Thumb ${idx + 1}`} className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold px-8 py-4 rounded-full text-lg shadow-candy hover:scale-105 hover:shadow-xl transition-all duration-300 border-3 border-white"
+              style={{ fontFamily: "'Bubblegum Sans', cursive" }}
+            >
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+              </svg>
+              <span>Get on Google Play</span>
+            </a>
+
+            <p
+              className="text-gray-400 dark:text-gray-500 text-sm mt-4 font-bold"
+              style={{ fontFamily: "'Comic Neue', cursive" }}
+            >
+              📲 Available for Android devices
+            </p>
+
+            <div className="grid grid-cols-3 gap-3 mt-6 max-w-md mx-auto">
+              <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl p-3 text-center border-2 border-purple-100 dark:border-purple-800">
+                <div className="text-2xl mb-1">🆓</div>
+                <p className="text-sm font-bold text-gray-600 dark:text-gray-300" style={{ fontFamily: "'Comic Neue', cursive" }}>Free</p>
               </div>
-            </div>
-
-            {/* Download Section */}
-            <div className="order-1 lg:order-2 text-center lg:text-left">
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 rounded-3xl shadow-candy p-6 sm:p-8 border-4 border-green-200 dark:border-green-800">
-                <h2 
-                  className="text-2xl sm:text-3xl font-bold text-green-700 dark:text-green-400 mb-4"
-                  style={{ fontFamily: "'Bubblegum Sans', cursive" }}
-                >
-                  🎉 Download Free!
-                </h2>
-                <p 
-                  className="text-gray-600 dark:text-gray-300 mb-6 text-lg"
-                  style={{ fontFamily: "'Comic Neue', cursive" }}
-                >
-                  Get the AlifUjala app on your phone and let your child learn Urdu anywhere, anytime!
-                </p>
-
-                {/* Google Play Button */}
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold px-8 py-4 rounded-full text-lg shadow-candy hover:scale-105 hover:shadow-xl transition-all duration-300 border-3 border-white"
-                  style={{ fontFamily: "'Bubblegum Sans', cursive" }}
-                >
-                  <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
-                  </svg>
-                  <span>Get on Google Play</span>
-                </a>
-
-                <p 
-                  className="text-gray-400 dark:text-gray-500 text-sm mt-4 font-bold"
-                  style={{ fontFamily: "'Comic Neue', cursive" }}
-                >
-                  📲 Available for Android devices
-                </p>
+              <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl p-3 text-center border-2 border-indigo-100 dark:border-indigo-800">
+                <div className="text-2xl mb-1">👶</div>
+                <p className="text-sm font-bold text-gray-600 dark:text-gray-300" style={{ fontFamily: "'Comic Neue', cursive" }}>Ages 3+</p>
               </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-3 mt-6">
-                <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl p-4 text-center border-2 border-purple-100 dark:border-purple-800">
-                  <div className="text-2xl mb-1">🆓</div>
-                  <p className="text-sm font-bold text-gray-600 dark:text-gray-300" style={{ fontFamily: "'Comic Neue', cursive" }}>Free</p>
-                </div>
-                <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl p-4 text-center border-2 border-indigo-100 dark:border-indigo-800">
-                  <div className="text-2xl mb-1">👶</div>
-                  <p className="text-sm font-bold text-gray-600 dark:text-gray-300" style={{ fontFamily: "'Comic Neue', cursive" }}>Ages 3+</p>
-                </div>
-                <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl p-4 text-center border-2 border-blue-100 dark:border-blue-800">
-                  <div className="text-2xl mb-1">🎓</div>
-                  <p className="text-sm font-bold text-gray-600 dark:text-gray-300" style={{ fontFamily: "'Comic Neue', cursive" }}>Educational</p>
-                </div>
+              <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl p-3 text-center border-2 border-blue-100 dark:border-blue-800">
+                <div className="text-2xl mb-1">🎓</div>
+                <p className="text-sm font-bold text-gray-600 dark:text-gray-300" style={{ fontFamily: "'Comic Neue', cursive" }}>Educational</p>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Screenshots Showcase — 3D auto-scrolling phone coverflow */}
+        <section className="mb-14" aria-label="App Screenshots Showcase">
+          <h2
+            className="text-2xl sm:text-3xl font-bold text-center mb-2"
+            style={{ fontFamily: "'Bubblegum Sans', cursive", color: "#10B981" }}
+          >
+            ✨ A Peek Inside the App
+          </h2>
+          <p
+            className="text-center text-gray-600 dark:text-gray-300 mb-6 text-sm sm:text-base font-bold"
+            style={{ fontFamily: "'Comic Neue', cursive" }}
+          >
+            Swipe-free tour — see all the magic at once!
+          </p>
+
+          <div className="phone-marquee-wrapper">
+            {/* Side fades */}
+            <div className="phone-marquee-fade phone-marquee-fade-left" />
+            <div className="phone-marquee-fade phone-marquee-fade-right" />
+
+            <div className="phone-marquee-track">
+              {marqueeImages.map((src, idx) => (
+                <div
+                  key={idx}
+                  className="phone-card"
+                  style={{ ['--i' as any]: idx % APP_SAMPLE_IMAGES.length }}
+                >
+                  <div className="phone-frame">
+                    <div className="phone-notch" />
+                    <div className="phone-screen">
+                      <img
+                        src={src}
+                        alt={`AlifUjala app screenshot ${(idx % APP_SAMPLE_IMAGES.length) + 1}`}
+                        loading="lazy"
+                        draggable={false}
+                      />
+                    </div>
+                    <div className="phone-shine" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Features Section */}
         <div className="max-w-5xl mx-auto mb-10">
@@ -250,6 +241,164 @@ export default function OurAppPage() {
       </main>
 
       <Footer />
+
+      <style jsx>{`
+        .phone-marquee-wrapper {
+          position: relative;
+          width: 100%;
+          padding: 32px 0 24px;
+          overflow: hidden;
+          perspective: 1400px;
+          mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            #000 8%,
+            #000 92%,
+            transparent 100%
+          );
+          -webkit-mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            #000 8%,
+            #000 92%,
+            transparent 100%
+          );
+        }
+
+        .phone-marquee-fade {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 80px;
+          z-index: 5;
+          pointer-events: none;
+        }
+        .phone-marquee-fade-left {
+          left: 0;
+          background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.6),
+            transparent
+          );
+        }
+        .phone-marquee-fade-right {
+          right: 0;
+          background: linear-gradient(
+            to left,
+            rgba(255, 255, 255, 0.6),
+            transparent
+          );
+        }
+        :global(.dark) .phone-marquee-fade-left {
+          background: linear-gradient(to right, rgba(17, 24, 39, 0.7), transparent);
+        }
+        :global(.dark) .phone-marquee-fade-right {
+          background: linear-gradient(to left, rgba(17, 24, 39, 0.7), transparent);
+        }
+
+        .phone-marquee-track {
+          display: flex;
+          gap: 28px;
+          width: max-content;
+          animation: phoneMarquee 50s linear infinite;
+          transform-style: preserve-3d;
+          will-change: transform;
+          padding: 24px 16px;
+        }
+        .phone-marquee-wrapper:hover .phone-marquee-track {
+          animation-play-state: paused;
+        }
+
+        @keyframes phoneMarquee {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+
+        .phone-card {
+          flex: 0 0 auto;
+          width: 360px;
+          transform: translateY(calc((var(--i, 0) % 2) * -14px));
+          transition: transform 0.5s ease, filter 0.5s ease;
+          filter: drop-shadow(0 18px 28px rgba(16, 185, 129, 0.25))
+            drop-shadow(0 8px 12px rgba(124, 58, 237, 0.18));
+        }
+        .phone-card:hover {
+          transform: translateY(-10px) scale(1.05);
+          filter: drop-shadow(0 24px 36px rgba(16, 185, 129, 0.45))
+            drop-shadow(0 10px 16px rgba(124, 58, 237, 0.3));
+          z-index: 10;
+        }
+
+        @media (min-width: 640px) {
+          .phone-card { width: 420px; }
+        }
+        @media (min-width: 1024px) {
+          .phone-card { width: 480px; }
+        }
+
+        .phone-frame {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          background: linear-gradient(145deg, #1f2937, #0b1220 60%, #111827);
+          border-radius: 32px;
+          padding: 10px;
+          box-shadow:
+            inset 0 0 0 2px rgba(255, 255, 255, 0.08),
+            inset 0 0 0 4px rgba(255, 255, 255, 0.04),
+            0 6px 20px rgba(0, 0, 0, 0.35);
+          overflow: hidden;
+        }
+
+        .phone-notch {
+          position: absolute;
+          top: 50%;
+          left: 8px;
+          transform: translateY(-50%);
+          width: 14px;
+          height: 38%;
+          background: #000;
+          border-radius: 0 14px 14px 0;
+          z-index: 3;
+        }
+
+        .phone-screen {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          border-radius: 22px;
+          overflow: hidden;
+          background: #0f172a;
+        }
+        .phone-screen img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+          user-select: none;
+          background: #0f172a;
+        }
+
+        .phone-shine {
+          position: absolute;
+          inset: 0;
+          border-radius: 32px;
+          background: linear-gradient(
+            115deg,
+            transparent 0%,
+            transparent 38%,
+            rgba(255, 255, 255, 0.18) 50%,
+            transparent 62%,
+            transparent 100%
+          );
+          pointer-events: none;
+          mix-blend-mode: screen;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .phone-marquee-track { animation: none; }
+        }
+      `}</style>
     </div>
   )
 }

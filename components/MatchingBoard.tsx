@@ -13,9 +13,22 @@ type Props = {
   onComplete?: (score: number, total: number) => void
   onGameButtonClick?: () => void
   imageBoxBackground?: string
+  renderLeftItem?: (item: Item) => React.ReactNode
+  renderRightItem?: (item: Item) => React.ReactNode
 }
 
-export default function MatchingBoard({ leftItems, rightItems, mode = "letters", gameStarted = false, triggerSubmit = false, onComplete, onGameButtonClick, imageBoxBackground = "transparent" }: Props) {
+export default function MatchingBoard({
+  leftItems,
+  rightItems,
+  mode = "letters",
+  gameStarted = false,
+  triggerSubmit = false,
+  onComplete,
+  onGameButtonClick,
+  imageBoxBackground = "transparent",
+  renderLeftItem,
+  renderRightItem,
+}: Props) {
   const [pairs, setPairs] = useState<Array<{ l: string; r: string; correct: boolean }>>([])
   const [score, setScore] = useState(0)
   const [showCongrats, setShowCongrats] = useState(false)
@@ -314,7 +327,11 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
                 onPointerDown={gameStarted ? (e) => startDrag(e, it.id) : undefined}
                 onContextMenu={gameStarted ? (e) => e.preventDefault() : undefined}
               >
-                <span style={{fontFamily: "'Noto Nastaliq Urdu', serif", direction: 'rtl', fontSize: '1.8rem', lineHeight: '1.2'}}>{it.label}</span>
+                {renderLeftItem ? (
+                  renderLeftItem(it)
+                ) : (
+                  <span style={{fontFamily: "'Noto Nastaliq Urdu', serif", direction: 'rtl', fontSize: '1.8rem', lineHeight: '1.2'}}>{it.label}</span>
+                )}
               </div>
             ))}
           </div>
@@ -335,7 +352,9 @@ export default function MatchingBoard({ leftItems, rightItems, mode = "letters",
                 }}
                 onContextMenu={gameStarted ? (e) => e.preventDefault() : undefined}
               >
-                {mode === "images" ? (
+                {renderRightItem ? (
+                  renderRightItem(it)
+                ) : mode === "images" ? (
                   <div className="imgbox w-full h-full flex items-center justify-center" style={{ background: imageBoxBackground, padding: 4, borderRadius: 8 }}>
                     {it.src ? (
                       <img
