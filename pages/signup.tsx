@@ -3,6 +3,8 @@ import type { NextPage } from 'next'
 import LoadingIndicator from "@/components/LoadingIndicator"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import SEO from "@/components/SEO"
+import { KidsButton, DecorativeBlobs } from "@/components/ui"
 
 const SignupPage: NextPage = () => {
   const [username, setUsername] = useState("")
@@ -78,14 +80,8 @@ const SignupPage: NextPage = () => {
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
-      {/* Floating decorations */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-20 left-[10%] text-5xl animate-float opacity-15">🌟</div>
-        <div className="absolute top-40 right-[15%] text-4xl animate-float-delay opacity-15">🎨</div>
-        <div className="absolute bottom-40 left-[8%] text-4xl animate-bounce-slow opacity-10">📚</div>
-        <div className="absolute bottom-20 right-[10%] text-3xl animate-float opacity-15">🦋</div>
-      </div>
-
+      <SEO title="Sign Up — AlifUjala" description="Create a free AlifUjala account to start your child's Urdu learning journey." />
+      <DecorativeBlobs variant="soft" emojis={["🌟", "🎨", "📚", "🦋", "✨"]} />
       <Navbar />
       <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
         <div className="w-full max-w-md">
@@ -108,11 +104,13 @@ const SignupPage: NextPage = () => {
           </div>
 
           {/* Signup card */}
-          <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-indigo-200 dark:border-indigo-800 p-6 sm:p-8">
+          <div className="glass-card relative rounded-[2rem] shadow-candy-lg border-[3px] border-indigo-200/70 dark:border-indigo-700/40 p-6 sm:p-8 overflow-hidden">
+            <span className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-fuchsia-300/30 blur-3xl" aria-hidden />
+            <span className="pointer-events-none absolute -bottom-20 -left-20 h-44 w-44 rounded-full bg-indigo-300/30 blur-3xl" aria-hidden />
             {/* Header */}
             <div className="text-center mb-6">
-              <div className="text-6xl mb-3">{step === 1 ? '' : step === 2 ? '📬' : '🎊'}</div>
-              <h2 className="text-3xl font-bold mb-2" style={{fontFamily: "'Bubblegum Sans', cursive", color: '#EC4899'}}>
+              <div className="text-6xl mb-3 animate-bounce-slow">{step === 1 ? '📝' : step === 2 ? '📬' : '🎊'}</div>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-2 text-gradient-warm" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                 {stepLabels[step - 1]}
               </h2>
               <p className="text-gray-500 dark:text-gray-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>
@@ -164,14 +162,9 @@ const SignupPage: NextPage = () => {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={isProcessing}
-                  className="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-full transition-all duration-300 border-3 border-white shadow-candy hover:scale-[1.02] text-lg"
-                  style={{fontFamily: "'Bubblegum Sans', cursive"}}
-                >
-                  {isProcessing ? "Creating Account... 🔄" : "Sign Up!"}
-                </button>
+                <KidsButton type="submit" disabled={isProcessing} variant="primary" size="lg" fullWidth>
+                  {isProcessing ? "Creating Account… 🔄" : "Sign Up!"}
+                </KidsButton>
               </form>
             )}
 
@@ -198,14 +191,9 @@ const SignupPage: NextPage = () => {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={isProcessing}
-                  className="w-full py-3 bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-full transition-all duration-300 border-3 border-white shadow-candy hover:scale-[1.02] text-lg"
-                  style={{fontFamily: "'Bubblegum Sans', cursive"}}
-                >
-                  {isProcessing ? "Verifying... 🔄" : "Verify! ✅"}
-                </button>
+                <KidsButton type="submit" disabled={isProcessing} variant="success" size="lg" fullWidth>
+                  {isProcessing ? "Verifying… 🔄" : "Verify! ✅"}
+                </KidsButton>
               </form>
             )}
 

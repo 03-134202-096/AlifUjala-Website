@@ -136,7 +136,7 @@ export default function UrduTileTap() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans" style={{ background: "var(--bg-gradient)" }}>
+    <div className="kids-page-bg min-h-screen flex flex-col font-sans relative">
       <Head>
         <title>Tile Tap | Urdu Games</title>
       </Head>

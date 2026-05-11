@@ -3,216 +3,88 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
 import SEO from '@/components/SEO'
+import { KidsCard, KidsButton, SectionHeader, DecorativeBlobs } from '@/components/ui'
 
-const GAMES = [
-  {
-    href: "/games/urduHunter",
-    title: "Alphabet Hunter",
-    emoji: "🎯",
-    description: "Bubbles with Urdu letters fall from the sky — pop the correct one before it escapes!",
-    gradient: "from-purple-600 to-pink-500",
-    border: "border-purple-400/50",
-    shadow: "shadow-purple-500/20",
-    img: "/images/urduHunter.svg",
-  },
-  {
-    href: "/games/urduBasketCatch",
-    title: "Basket Catch",
-    emoji: "🧺",
-    description: "Move your basket left and right to catch the target Urdu letter falling from above!",
-    gradient: "from-sky-500 to-indigo-600",
-    border: "border-sky-400/50",
-    shadow: "shadow-sky-500/20",
-    img: "/images/urduBasketCatch.svg",
-  },
-  {
-    href: "/games/memoryMatch",
-    title: "Memory Match",
-    emoji: "🧠",
-    description: "Flip the cards and find matching pairs of Urdu letters — train your memory!",
-    gradient: "from-emerald-500 to-teal-600",
-    border: "border-emerald-400/50",
-    shadow: "shadow-emerald-500/20",
-    img: "/images/games/memoryMatch.svg",
-  },
-  {
-    href: "/games/whackALetter",
-    title: "Whack-a-Letter",
-    emoji: "🔨",
-    description: "Whack the mole holding the correct Urdu letter! Fast and fun.",
-    gradient: "from-orange-500 to-red-600",
-    border: "border-orange-400/50",
-    shadow: "shadow-orange-500/20",
-    img: "/images/games/whackALetter.svg",
-  },
-  {
-    href: "/games/urduBalloonPop",
-    title: "Balloon Pop",
-    emoji: "🎈",
-    description: "Colorful balloons are floating away! Pop the correct Urdu letter balloon.",
-    gradient: "from-pink-500 to-rose-600",
-    border: "border-pink-400/50",
-    shadow: "shadow-pink-500/20",
-    img: "/images/games/urduBalloonPop.svg",
-  },
-  {
-    href: "/games/urduTrainPuzzle",
-    title: "Train Puzzle",
-    emoji: "🚂",
-    description: "Complete the alphabet sequence to make the train go choo-choo!",
-    gradient: "from-blue-500 to-cyan-600",
-    border: "border-blue-400/50",
-    shadow: "shadow-blue-500/20",
-    img: "/images/games/urduTrainPuzzle.svg",
-  },
-  {
-    href: "/games/urduGridFind",
-    title: "Grid Find",
-    emoji: "🔍",
-    description: "Scan the 4x4 grid quickly to find all instances of the hidden target letter!",
-    gradient: "from-violet-500 to-indigo-600",
-    border: "border-violet-400/50",
-    shadow: "shadow-violet-500/20",
-    img: "/images/games/urduGridFind.svg",
-  },
-  {
-    href: "/games/urduNuqtaSort",
-    title: "Nuqta Sorter",
-    emoji: "⚖️",
-    description: "Does the letter have dots (Nuqtas)? Sort them into bins before the time runs out!",
-    gradient: "from-emerald-500 to-green-600",
-    border: "border-emerald-400/50",
-    shadow: "shadow-emerald-500/20",
-    img: "/images/games/urduNuqtaSort.svg",
-  },
-  {
-    href: "/games/urduTileTap",
-    title: "Tile Tap",
-    emoji: "🎹",
-    description: "Piano-style tiles fall from the sky. Tap the ones containing the target letter!",
-    gradient: "from-amber-400 to-orange-600",
-    border: "border-amber-400/50",
-    shadow: "shadow-amber-500/20",
-    img: "/images/games/urduTileTap.svg",
-  },
+type Tone = 'purple' | 'green' | 'pink' | 'blue' | 'amber' | 'indigo'
+
+const GAMES: { href: string; title: string; emoji: string; description: string; img: string; tone: Tone }[] = [
+  { href: "/games/urduHunter",       title: "Alphabet Hunter", emoji: "🎯", description: "Bubbles with Urdu letters fall from the sky — pop the correct one before it escapes!", img: "/images/urduHunter.svg",            tone: 'purple' },
+  { href: "/games/urduBasketCatch",  title: "Basket Catch",    emoji: "🧺", description: "Move your basket left and right to catch the target Urdu letter falling from above!", img: "/images/urduBasketCatch.svg",     tone: 'blue' },
+  { href: "/games/memoryMatch",      title: "Memory Match",    emoji: "🧠", description: "Flip the cards and find matching pairs of Urdu letters — train your memory!",          img: "/images/games/memoryMatch.svg",   tone: 'green' },
+  { href: "/games/whackALetter",     title: "Whack-a-Letter",  emoji: "🔨", description: "Whack the mole holding the correct Urdu letter! Fast and fun.",                          img: "/images/games/whackALetter.svg",  tone: 'amber' },
+  { href: "/games/urduBalloonPop",   title: "Balloon Pop",     emoji: "🎈", description: "Colorful balloons are floating away! Pop the correct Urdu letter balloon.",              img: "/images/games/urduBalloonPop.svg", tone: 'pink' },
+  { href: "/games/urduTrainPuzzle",  title: "Train Puzzle",    emoji: "🚂", description: "Complete the alphabet sequence to make the train go choo-choo!",                          img: "/images/games/urduTrainPuzzle.svg", tone: 'blue' },
+  { href: "/games/urduGridFind",     title: "Grid Find",       emoji: "🔍", description: "Scan the 4x4 grid quickly to find all instances of the hidden target letter!",          img: "/images/games/urduGridFind.svg",   tone: 'indigo' },
+  { href: "/games/urduNuqtaSort",    title: "Nuqta Sorter",    emoji: "⚖️", description: "Does the letter have dots (Nuqtas)? Sort them into bins before time runs out!",         img: "/images/games/urduNuqtaSort.svg",  tone: 'green' },
+  { href: "/games/urduTileTap",      title: "Tile Tap",        emoji: "🎹", description: "Piano-style tiles fall from the sky. Tap the ones containing the target letter!",       img: "/images/games/urduTileTap.svg",    tone: 'amber' },
 ]
 
 export default function GamesIndex() {
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "var(--bg-gradient)" }}>
+    <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO
         title="Urdu Games — Fun Arcade Games to Learn Urdu Alphabets"
         description="Play exciting arcade games to learn Urdu letters! Pop bubbles, catch falling letters, and test your memory. Free interactive games for kids."
         ogUrl="https://alifujala.ai/games"
         keywords="Urdu games for kids, Urdu alphabet games, learn Urdu online free, Urdu arcade games"
       />
+      <DecorativeBlobs variant="rich" emojis={["🕹️", "🎮", "🎯", "🎲", "✨"]} />
       <Navbar />
 
-      <main style={{ flex: 1, paddingTop: "100px", paddingBottom: "60px", paddingLeft: "16px", paddingRight: "16px" }}>
-        {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "48px" }}>
-          <p style={{ fontSize: "3rem", marginBottom: "10px" }}>🕹️</p>
-          <h1 className="text-white dark:text-white" style={{
-            fontFamily: "'Bubblegum Sans', cursive",
-            fontSize: "clamp(2rem, 5vw, 3rem)",
-            textShadow: "0 3px 18px rgba(139,92,246,0.9)",
-            margin: "0 0 12px",
-          }}>
-            Urdu Letter Games
-          </h1>
-          <p style={{
-            fontFamily: "'Comic Neue', cursive",
-            color: "var(--text-secondary)",
-            fontSize: "1.05rem",
-            maxWidth: "460px",
-            margin: "0 auto",
-          }}>
-            Fast-paced arcade fun while learning Urdu letters! 🚀
-          </p>
-        </div>
+      <main className="container mx-auto flex-1 px-4 py-8 relative z-10">
+        <SectionHeader
+          eyebrow="🕹️ Arcade"
+          emoji="🎮"
+          title="Urdu Letter Games"
+          subtitle="Fast-paced arcade fun while learning Urdu letters! Pick a game and start playing."
+          tone="rainbow"
+        />
 
-        {/* Game cards */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-          gap: "28px",
-          maxWidth: "960px",
-          margin: "0 auto 48px",
-        }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
           {GAMES.map((game) => (
-            <Link key={game.href} href={game.href} style={{ textDecoration: "none" }}>
-              <div
-                className="bg-white/10 dark:bg-white/7 border-2 border-purple-400/35 dark:border-purple-400/35 rounded-3xl overflow-hidden backdrop-blur-sm cursor-pointer transition-all duration-200 hover:-translate-y-1.5 hover:shadow-[0_20px_48px_rgba(139,92,246,0.3)]"
-              >
-                {/* Image preview */}
-                <div style={{
-                  width: "100%",
-                  height: "180px",
-                  overflow: "hidden",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "rgba(0,0,0,0.2)",
-                }}>
-                  <img src={game.img} alt={game.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <Link key={game.href} href={game.href} className="group focus:outline-none">
+              <KidsCard variant="glass" tone={game.tone} padding="none" hoverable className="overflow-hidden h-full flex flex-col">
+                <div className="relative h-44 w-full overflow-hidden bg-gradient-to-br from-black/10 to-black/5 dark:from-white/5 dark:to-black/30">
+                  <img
+                    src={game.img}
+                    alt={game.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <span className="absolute top-3 left-3 inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/90 dark:bg-gray-900/80 backdrop-blur shadow-md text-2xl">
+                    {game.emoji}
+                  </span>
                 </div>
-
-                {/* Info */}
-                <div style={{ padding: "24px 20px 28px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
-                    <span style={{ fontSize: "1.8rem" }}>{game.emoji}</span>
-                    <h2 className="text-white" style={{
-                      fontFamily: "'Bubblegum Sans', cursive",
-                      fontSize: "1.4rem",
-                      margin: 0,
-                    }}>
-                      {game.title}
-                    </h2>
-                  </div>
-                  <p style={{
-                    fontFamily: "'Comic Neue', cursive",
-                    color: "var(--text-secondary)",
-                    fontSize: "0.92rem",
-                    lineHeight: "1.6",
-                    margin: "0 0 20px",
-                  }}>
+                <div className="p-5 flex-1 flex flex-col">
+                  <h2 className="text-xl font-bold mb-2 text-purple-700 dark:text-purple-300" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
+                    {game.title}
+                  </h2>
+                  <p className="text-gray-700 dark:text-gray-200 text-sm leading-snug mb-4 flex-1" style={{ fontFamily: "'Comic Neue', cursive" }}>
                     {game.description}
                   </p>
-                  <div style={{
-                    display: "inline-block",
-                    background: "linear-gradient(135deg,#A78BFA,#EC4899)",
-                    color: "white",
-                    fontFamily: "'Bubblegum Sans', cursive",
-                    fontSize: "0.95rem",
-                    padding: "9px 26px",
-                    borderRadius: "40px",
-                    boxShadow: "0 4px 14px rgba(167,139,250,0.35)",
-                  }}>
-                    Play Now!
-                  </div>
+                  <span className="inline-flex items-center gap-1 self-start rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-fuchsia-500 text-white text-sm font-bold px-5 py-2 shadow-candy group-hover:-translate-y-0.5 transition-transform" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
+                    Play Now <span aria-hidden>→</span>
+                  </span>
                 </div>
-              </div>
+              </KidsCard>
             </Link>
           ))}
         </div>
 
         {/* Activities CTA */}
-        <div style={{ maxWidth: "620px", margin: "0 auto", textAlign: "center" }}>
-          <div className="bg-white/10 dark:bg-white/6 border border-white/15 rounded-2xl p-7 backdrop-blur-sm">
-            <p className="text-white" style={{ fontFamily: "'Bubblegum Sans', cursive", fontSize: "1.3rem", margin: "0 0 8px" }}>
+        <div className="max-w-3xl mx-auto mb-8">
+          <KidsCard variant="gradient" tone="purple" padding="lg" className="text-center relative overflow-hidden">
+            <span className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-fuchsia-300/30 blur-3xl" aria-hidden />
+            <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-purple-700 dark:text-purple-300" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
               📚 Want Learning Activities?
-            </p>
-            <p style={{ fontFamily: "'Comic Neue', cursive", color: "var(--text-secondary)", fontSize: "0.9rem", margin: "0 0 18px" }}>
+            </h2>
+            <p className="text-gray-700 dark:text-gray-200 mb-5" style={{ fontFamily: "'Comic Neue', cursive" }}>
               Try our Urdu letter matching activities and alphabet stories!
             </p>
-            <Link href="/activity" className="inline-block bg-white/12 text-white border border-white/30 rounded-full px-7 py-2.5 font-bold hover:bg-white/20 transition-all" style={{
-              fontFamily: "'Bubblegum Sans', cursive",
-              fontSize: "0.95rem",
-              textDecoration: "none",
-            }}>
-              View Activities →
-            </Link>
-          </div>
+            <KidsButton href="/activity" variant="primary" size="lg" iconRight={<span>→</span>}>
+              View Activities
+            </KidsButton>
+          </KidsCard>
         </div>
       </main>
 

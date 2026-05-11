@@ -6,6 +6,7 @@ import SEO from '@/components/SEO'
 import DownloadWorksheet from '@/components/DownloadWorksheet'
 import alphabetsData from '@/data/alphabets.json'
 import { buildWorksheetCanvas, type WorksheetBgType } from '@/lib/worksheetRenderer'
+import { SectionHeader, DecorativeBlobs } from '@/components/ui'
 
 type Letter = { id: string; char: string; name: string }
 type WorksheetItem = { id: string; label?: string; src?: string }
@@ -119,14 +120,7 @@ const WORKSHEET_STRUCTURED_DATA = {
 
 /* Animated floating shapes */
 function ActivityDecorations() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute top-10 left-[5%] text-5xl animate-float opacity-20">✨</div>
-      <div className="absolute top-20 right-[8%] text-4xl animate-float-delay opacity-15">📚</div>
-      <div className="absolute bottom-20 left-[10%] text-4xl animate-bounce-slow opacity-15">🌟</div>
-      <div className="absolute bottom-40 right-[12%] text-3xl animate-float opacity-20">🎨</div>
-    </div>
-  )
+  return <DecorativeBlobs variant="soft" emojis={["✨", "📚", "🌟", "🎨", "💫"]} />
 }
 
 export default function ActivityIndex() {
@@ -372,20 +366,17 @@ export default function ActivityIndex() {
       <Navbar />
 
       <main className="container mx-auto flex-1 px-4 py-6 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3" style={{fontFamily: "'Bubblegum Sans', cursive", color: '#6366f1'}}>
-            ✨ Activities ✨
-          </h1>
-          <p className="text-lg sm:text-xl text-indigo-600 dark:text-purple-300 font-bold max-w-lg mx-auto" style={{fontFamily: "'Comic Neue', cursive"}}>
-            <span lang="ur" className="block">سیکھیں، ملائیں اور حروف پہچانیں!</span>
-            Choose interactive sheets or printable worksheets! 🌟
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="✨ Activities"
+          emoji="🎯"
+          title="Learn, match & recognize letters"
+          subtitle="Choose interactive sheets or printable worksheets — سیکھیں، ملائیں اور حروف پہچانیں!"
+          tone="rainbow"
+        />
 
         {/* Section switcher */}
         <div className="max-w-5xl mx-auto mb-8">
-          <div className="bg-white/70 dark:bg-indigo-900/45 backdrop-blur-md rounded-full p-1.5 flex gap-2 border border-indigo-200 dark:border-indigo-700 shadow-lg">
+          <div className="bg-white/70 dark:bg-indigo-900/70 backdrop-blur-md rounded-full p-1.5 flex gap-2 border border-indigo-200 dark:border-indigo-700 shadow-lg">
             <button
               onClick={() => setActiveSection('interactive')}
               className={`flex-1 rounded-full px-4 py-2.5 text-sm sm:text-base font-bold transition-all ${
@@ -472,21 +463,21 @@ export default function ActivityIndex() {
 
         {activeSection === 'printable' && (
           <div className="max-w-6xl mx-auto mb-10 space-y-6">
-            <div className="bg-white/80 dark:bg-indigo-950/55 backdrop-blur-md rounded-3xl p-5 sm:p-6 border-2 border-purple-200/70 dark:border-purple-700/60 shadow-xl">
+            <div className="bg-white/80 dark:bg-indigo-950/85 backdrop-blur-md rounded-3xl p-5 sm:p-6 border-2 border-purple-200/70 dark:border-purple-700/60 shadow-xl">
               <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-indigo-700 dark:text-indigo-100" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
                 🖨️ Printable Worksheets
               </h2>
-              <p className="text-sm sm:text-base text-indigo-700/90 dark:text-indigo-200 mb-5" style={{ fontFamily: "'Comic Neue', cursive" }}>
+              <p className="text-sm sm:text-base text-indigo-700 dark:text-indigo-50 mb-5" style={{ fontFamily: "'Comic Neue', cursive" }}>
                 Select worksheet type and letter range. The preview below matches the downloadable worksheet layout.
               </p>
 
               <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-4">
                 <label className="flex flex-col gap-1.5">
-                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-200 uppercase tracking-wider">Worksheet</span>
+                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-50 uppercase tracking-wider">Worksheet</span>
                   <select
                     value={worksheetType}
                     onChange={(e) => setWorksheetType(e.target.value as WorksheetType)}
-                    className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/60 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
+                    className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/75 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
                   >
                     <option value="alphabet">Letter to Letter</option>
                     <option value="image">Letter to Image</option>
@@ -495,11 +486,11 @@ export default function ActivityIndex() {
                 </label>
 
                 <label className="flex flex-col gap-1.5">
-                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-200 uppercase tracking-wider">Count</span>
+                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-50 uppercase tracking-wider">Count</span>
                   <select
                     value={worksheetCount}
                     onChange={(e) => setWorksheetCount(Number(e.target.value))}
-                    className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/60 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
+                    className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/75 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
                   >
                     {[5, 6, 7, 8].map((n) => (
                       <option key={n} value={n}>{n}</option>
@@ -508,11 +499,11 @@ export default function ActivityIndex() {
                 </label>
 
                 <label className="flex flex-col gap-1.5">
-                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-200 uppercase tracking-wider">From</span>
+                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-50 uppercase tracking-wider">From</span>
                   <select
                     value={startId}
                     onChange={(e) => setStartId(e.target.value)}
-                    className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/60 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
+                    className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/75 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
                   >
                     {activePool.map((letter) => (
                       <option key={letter.id} value={letter.id}>{letter.char}</option>
@@ -521,11 +512,11 @@ export default function ActivityIndex() {
                 </label>
 
                 <label className="flex flex-col gap-1.5">
-                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-200 uppercase tracking-wider">To</span>
+                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-50 uppercase tracking-wider">To</span>
                   <select
                     value={endId}
                     onChange={(e) => setEndId(e.target.value)}
-                    className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/60 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
+                    className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/75 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
                   >
                     {activePool.map((letter) => (
                       <option key={letter.id} value={letter.id}>{letter.char}</option>
@@ -544,12 +535,12 @@ export default function ActivityIndex() {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 rounded-2xl border border-indigo-200/70 dark:border-indigo-700/70 bg-indigo-50/70 dark:bg-indigo-900/40 p-4">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 rounded-2xl border border-indigo-200/70 dark:border-indigo-700/70 bg-indigo-50/70 dark:bg-indigo-900/75 p-4">
                 <div>
                   <p className="font-bold text-indigo-700 dark:text-indigo-100" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
                     {worksheetMeta.title}
                   </p>
-                  <p className="text-sm text-indigo-700/90 dark:text-indigo-200" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                  <p className="text-sm text-indigo-700 dark:text-indigo-50" style={{ fontFamily: "'Comic Neue', cursive" }}>
                     {worksheetMeta.helper}
                   </p>
                 </div>
@@ -568,7 +559,7 @@ export default function ActivityIndex() {
               {(isSheetLoading || sheetError) && (
                 <div className="mt-4">
                   {isSheetLoading && (
-                    <p className="text-sm font-bold text-indigo-700 dark:text-indigo-200" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                    <p className="text-sm font-bold text-indigo-700 dark:text-indigo-50" style={{ fontFamily: "'Comic Neue', cursive" }}>
                       Building worksheet set...
                     </p>
                   )}
@@ -581,24 +572,24 @@ export default function ActivityIndex() {
               )}
             </div>
 
-            <div className="bg-white/80 dark:bg-indigo-950/55 backdrop-blur-md rounded-3xl p-5 sm:p-6 border-2 border-purple-200/70 dark:border-purple-700/60 shadow-xl">
+            <div className="bg-white/80 dark:bg-indigo-950/85 backdrop-blur-md rounded-3xl p-5 sm:p-6 border-2 border-purple-200/70 dark:border-purple-700/60 shadow-xl">
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-4">
                 <div>
                   <h3 className="text-2xl font-bold text-indigo-700 dark:text-indigo-100" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
                     👀 Live Preview
                   </h3>
-                  <p className="text-sm text-indigo-700/90 dark:text-indigo-200" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                  <p className="text-sm text-indigo-700 dark:text-indigo-50" style={{ fontFamily: "'Comic Neue', cursive" }}>
                     This preview mirrors the worksheet look before download.
                   </p>
                 </div>
-                <p className="text-xs font-semibold text-indigo-700/80 dark:text-indigo-300 uppercase tracking-wider">
+                <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-100 uppercase tracking-wider">
                   Range size: {selectedSlice.length || activePool.length} letters
                 </p>
               </div>
 
               <div className="mx-auto max-w-[640px] rounded-2xl border border-indigo-200 dark:border-indigo-700 bg-slate-50/90 dark:bg-indigo-950/60 p-4 sm:p-5 max-h-[60vh] overflow-auto flex justify-center">
                 {isPreviewLoading ? (
-                  <div className="h-[220px] sm:h-[260px] flex items-center justify-center text-indigo-700 dark:text-indigo-200 font-bold" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                  <div className="h-[220px] sm:h-[260px] flex items-center justify-center text-indigo-700 dark:text-indigo-50 font-bold" style={{ fontFamily: "'Comic Neue', cursive" }}>
                     Rendering preview...
                   </div>
                 ) : previewSrc ? (
@@ -608,24 +599,24 @@ export default function ActivityIndex() {
                     className="w-full h-auto max-w-[360px] sm:max-w-[420px] md:max-w-[520px] rounded-xl shadow-lg border border-indigo-200 mx-auto"
                   />
                 ) : (
-                  <div className="h-[220px] sm:h-[260px] flex items-center justify-center text-indigo-700 dark:text-indigo-200 font-bold text-center px-4" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                  <div className="h-[220px] sm:h-[260px] flex items-center justify-center text-indigo-700 dark:text-indigo-50 font-bold text-center px-4" style={{ fontFamily: "'Comic Neue', cursive" }}>
                     Select worksheet settings to generate preview.
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="bg-white/80 dark:bg-indigo-950/55 backdrop-blur-md rounded-3xl p-5 sm:p-6 border-2 border-purple-200/70 dark:border-purple-700/60 shadow-xl">
+            <div className="bg-white/80 dark:bg-indigo-950/85 backdrop-blur-md rounded-3xl p-5 sm:p-6 border-2 border-purple-200/70 dark:border-purple-700/60 shadow-xl">
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-4">
                 <div>
                   <h3 className="text-2xl font-bold text-indigo-700 dark:text-indigo-100" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
                     Worksheet Samples
                   </h3>
-                  <p className="text-sm text-indigo-700/90 dark:text-indigo-200" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                  <p className="text-sm text-indigo-700 dark:text-indigo-50" style={{ fontFamily: "'Comic Neue', cursive" }}>
                     Preview sample Urdu worksheets for kids and classrooms.
                   </p>
                 </div>
-                <p className="text-xs font-semibold text-indigo-700/80 dark:text-indigo-300 uppercase tracking-wider">
+                <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-100 uppercase tracking-wider">
                   Printable examples
                 </p>
               </div>
@@ -634,7 +625,7 @@ export default function ActivityIndex() {
                 {WORKSHEET_SAMPLE_IMAGES.map((image) => (
                   <figure
                     key={image.src}
-                    className="rounded-2xl border border-indigo-200/70 dark:border-indigo-700/70 bg-white/80 dark:bg-indigo-900/40 p-3 shadow-sm"
+                    className="rounded-2xl border border-indigo-200/70 dark:border-indigo-700/70 bg-white/80 dark:bg-indigo-900/75 p-3 shadow-sm"
                   >
                     <img
                       src={image.src}

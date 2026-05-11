@@ -1138,7 +1138,25 @@ svg.lines{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:n
 /* Base tile styles - default behavior when game is not active */
 .tile {
   -webkit-tap-highlight-color: transparent;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.25s ease, border-color 0.25s ease;
 }
+
+/* Slightly nicer tiles in light mode */
+.tile {
+  background: linear-gradient(180deg, #eef2ff 0%, #e0e7ff 100%) !important;
+  border: 1px solid rgba(99,102,241,0.18) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset, 0 2px 6px -2px rgba(99,102,241,0.18);
+}
+.tile:hover { transform: translateY(-1px); box-shadow: 0 6px 14px -6px rgba(99,102,241,0.35); }
+.tile.disabled { opacity: 0.45; filter: grayscale(0.2); }
+
+/* Dark-mode tiles — visible against indigo aurora bg */
+.dark .tile {
+  background: linear-gradient(180deg, rgba(67,56,202,0.55) 0%, rgba(49,46,129,0.65) 100%) !important;
+  border: 1px solid rgba(165,180,252,0.35) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset, 0 4px 12px -4px rgba(0,0,0,0.45);
+}
+.dark .tile:hover { box-shadow: 0 8px 20px -6px rgba(167,139,250,0.45); }
 
 /* Touch prevention only when game is active */
 .touch-none .tile,
@@ -1481,3 +1499,204 @@ svg.lines{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:n
   overflow: hidden;
 }
 
+
+
+/* ============================================================
+   PHASE 1 � GLOBAL POLISH (added v2)
+   Refined scrollbar, focus, glass cards, page transitions,
+   sticky-nav hooks, dark mode contrast, accessibility helpers.
+   ============================================================ */
+
+/* � Custom scrollbar (themed, slim, child-friendly) � */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(139,92,246,0.55), rgba(56,189,248,0.55));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(139,92,246,0.85), rgba(56,189,248,0.85));
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+.dark *::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(167,139,250,0.55), rgba(56,189,248,0.45));
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+* { scrollbar-width: thin; scrollbar-color: rgba(139,92,246,0.55) transparent; }
+
+/* � Universal focus ring (a11y) � */
+:where(a, button, [role="button"], input, select, textarea):focus-visible {
+  outline: 3px solid rgba(139,92,246,0.6);
+  outline-offset: 3px;
+  border-radius: 14px;
+}
+.dark :where(a, button, [role="button"], input, select, textarea):focus-visible {
+  outline-color: rgba(192,132,252,0.7);
+}
+
+/* � Sticky nav scroll-glass effect � */
+.nav-glass {
+  position: sticky;
+  top: 0;
+  z-index: 70;
+  transition: backdrop-filter 0.35s ease, background 0.35s ease, box-shadow 0.35s ease, padding 0.25s ease;
+}
+.nav-glass.is-scrolled {
+  backdrop-filter: saturate(160%) blur(16px);
+  -webkit-backdrop-filter: saturate(160%) blur(16px);
+  background: linear-gradient(135deg, rgba(99,102,241,0.85), rgba(139,92,246,0.85), rgba(168,85,247,0.85));
+  box-shadow: 0 12px 30px -12px rgba(76, 29, 149, 0.45);
+}
+.dark .nav-glass.is-scrolled {
+  background: linear-gradient(135deg, rgba(49,46,129,0.85), rgba(59,7,100,0.85), rgba(30,27,75,0.85));
+  box-shadow: 0 12px 30px -12px rgba(0,0,0,0.7);
+}
+
+/* � Top scroll progress bar � */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  z-index: 9999;
+  background: linear-gradient(90deg,#f472b6,#a78bfa,#60a5fa,#34d399,#facc15);
+  background-size: 200% 100%;
+  animation: gradientX 8s ease infinite;
+  box-shadow: 0 0 14px rgba(167,139,250,0.7);
+  transition: width 0.18s ease-out;
+  pointer-events: none;
+}
+
+/* � Glass / liquid card utility � */
+.glass-card {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  border: 1px solid rgba(255,255,255,0.55);
+  box-shadow: 0 12px 32px -10px rgba(15,23,42,0.18), 0 4px 12px -4px rgba(15,23,42,0.10);
+}
+.dark .glass-card {
+  background: rgba(30,27,75,0.55);
+  border-color: rgba(167,139,250,0.18);
+  box-shadow: 0 12px 36px -10px rgba(0,0,0,0.55), 0 4px 12px -4px rgba(99,102,241,0.25);
+}
+
+/* � Hover-lift utility for cards � */
+.hover-lift {
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.hover-lift:hover { transform: translateY(-6px) scale(1.02); }
+
+/* � Gradient text utility � */
+.text-gradient {
+  background: linear-gradient(135deg,#ec4899,#8b5cf6,#3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.text-gradient-warm {
+  background: linear-gradient(135deg,#f59e0b,#ef4444,#ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.text-gradient-cool {
+  background: linear-gradient(135deg,#10b981,#06b6d4,#3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* � Animated underline link � */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  height: 2px; width: 0%;
+  background: linear-gradient(90deg,#a78bfa,#60a5fa);
+  transition: width 0.35s ease;
+  border-radius: 2px;
+}
+.link-underline:hover::after { width: 100%; }
+
+/* � Shimmer loading skeleton � */
+.skeleton {
+  background: linear-gradient(90deg, rgba(0,0,0,0.06) 25%, rgba(0,0,0,0.12) 37%, rgba(0,0,0,0.06) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.6s linear infinite;
+  border-radius: 12px;
+}
+.dark .skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.10) 37%, rgba(255,255,255,0.05) 63%);
+  background-size: 400% 100%;
+}
+
+/* � Page fade-in on route mount � */
+.page-fade {
+  animation: fadeInUp 0.55s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* � Decorative blob � */
+.deco-blob {
+  position: absolute;
+  filter: blur(48px);
+  opacity: 0.6;
+  pointer-events: none;
+  border-radius: 50%;
+  animation: blobMorph 14s ease-in-out infinite;
+}
+.dark .deco-blob { opacity: 0.45; }
+
+/* � Section divider wave (used between sections / above footer) � */
+.wave-divider svg { display: block; width: 100%; height: 60px; }
+
+/* � Improved kids-page-bg with subtle aurora layer � */
+.kids-page-bg {
+  position: relative;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(244,114,182,0.18), transparent 45%),
+    radial-gradient(circle at 80% 22%, rgba(139,92,246,0.16), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(56,189,248,0.16), transparent 45%),
+    var(--bg-gradient);
+  background-attachment: fixed;
+}
+.dark .kids-page-bg {
+  background:
+    radial-gradient(circle at 20% 18%, rgba(124,58,237,0.18), transparent 50%),
+    radial-gradient(circle at 80% 22%, rgba(56,189,248,0.10), transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(244,114,182,0.10), transparent 50%),
+    var(--bg-gradient);
+  background-attachment: fixed;
+}
+
+/* � Better dark-mode contrast for muted text � */
+.dark .text-gray-500 { color: #cbd5e1 !important; }
+.dark .text-gray-600 { color: #cbd5e1 !important; }
+.dark .text-gray-700 { color: #e2e8f0 !important; }
+.dark .text-gray-400 { color: #cbd5e1 !important; }
+
+/* � Reduced motion respect � */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* � Border-3 utility (used by existing buttons) � */
+.border-3 { border-width: 3px; }

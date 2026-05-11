@@ -103,7 +103,7 @@ export default function UrduGridFind() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans" style={{ background: "var(--bg-gradient)" }}>
+    <div className="kids-page-bg min-h-screen flex flex-col font-sans relative">
       <Head><title>Grid Find | Urdu Games</title></Head>
       <Navbar />
 

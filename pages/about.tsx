@@ -4,6 +4,7 @@ import SEO from '@/components/SEO'
 import type { NextPage } from 'next'
 import { useState } from 'react'
 import Link from 'next/link'
+import { KidsCard, KidsButton, DecorativeBlobs } from '@/components/ui'
 
 const About: NextPage = () => {
   const [lang, setLang] = useState<'en' | 'ur'>('en')
@@ -54,21 +55,24 @@ const About: NextPage = () => {
   const urduLang = lang === 'ur' ? 'ur' : undefined
 
   return (
-    <div className="kids-page-bg min-h-screen flex flex-col">
+    <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO
         title="About Alif Ujala — Our Mission to Make Urdu Learning Fun"
         description="Learn about Alif Ujala — a free interactive Urdu learning platform for children. Our mission is to celebrate and preserve the Urdu language through play."
         ogUrl="https://alifujala.ai/about"
       />
+      <DecorativeBlobs variant="soft" emojis={["✨", "📚", "🌈", "🌟", "💫"]} />
       <Navbar />
 
       <main className="container mx-auto px-4 py-8 flex-1 relative z-10">
         <div className="max-w-4xl mx-auto" lang={urduLang}>
           {/* Header card */}
-          <div className="bg-white/90 dark:bg-gray-900/90 rounded-3xl shadow-candy-lg p-6 sm:p-8 border-4 border-purple-200 dark:border-purple-800 mb-6">
-            <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+          <div className="glass-card relative rounded-[2rem] shadow-candy-lg p-6 sm:p-8 border-[3px] border-purple-200/70 dark:border-purple-700/40 mb-6 overflow-hidden">
+            <span className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-purple-300/30 blur-3xl" aria-hidden />
+            <span className="pointer-events-none absolute -bottom-20 -left-20 h-44 w-44 rounded-full bg-indigo-300/30 blur-3xl" aria-hidden />
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 relative">
               <div>
-                <h1 className="text-3xl sm:text-4xl font-bold" style={{fontFamily: "'Bubblegum Sans', cursive", color: '#6366f1'}}>
+                <h1 className="text-3xl sm:text-4xl font-bold text-gradient-cool" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                   {c.title} ✨
                 </h1>
                 <p className="mt-2 text-lg text-blue-600 dark:text-blue-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>{c.tagline}</p>

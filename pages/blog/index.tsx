@@ -4,10 +4,11 @@ import Footer from '@/components/Footer'
 import SEO from '@/components/SEO'
 import Link from 'next/link'
 import { blogPosts } from '@/data/blogPosts'
+import { SectionHeader, KidsCard, KidsButton, DecorativeBlobs } from '@/components/ui'
 
 export default function BlogIndex() {
   return (
-    <div className="kids-page-bg min-h-screen flex flex-col">
+    <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO
         title="Blog — Urdu Learning Tips, Activities & Parenting Advice"
         description="Read expert articles on teaching Urdu to children, language learning tips, activity ideas, and cultural stories. Free resources for parents and teachers."
@@ -15,24 +16,17 @@ export default function BlogIndex() {
         ogType="website"
         keywords="Urdu learning blog, teach Urdu kids, Urdu alphabet tips, Urdu parenting, اردو تعلیم"
       />
+      <DecorativeBlobs variant="soft" emojis={["✍️", "📝", "💡", "📚", "✨"]} />
       <Navbar />
 
-      <main className="flex-1 max-w-5xl mx-auto px-4 py-10 w-full">
-        {/* Page header */}
-        <div className="text-center mb-12">
-          <h1
-            className="text-4xl sm:text-5xl font-bold mb-3"
-            style={{ fontFamily: "'Bubblegum Sans', cursive", color: '#6366f1' }}
-          >
-            ✍️ Alif Ujala Blog
-          </h1>
-          <p
-            className="text-lg text-indigo-600 dark:text-purple-300 font-bold max-w-2xl mx-auto"
-            style={{ fontFamily: "'Comic Neue', cursive" }}
-          >
-            Tips, guides, and fun ideas for teaching Urdu to your little ones 🌟
-          </p>
-        </div>
+      <main className="flex-1 max-w-6xl mx-auto px-4 py-8 w-full relative z-10">
+        <SectionHeader
+          eyebrow="✍️ Alif Ujala Blog"
+          emoji="📖"
+          title="Tips, guides & fun ideas"
+          subtitle="Practical advice for teaching Urdu to your little ones — from parents and teachers, for parents and teachers."
+          tone="cool"
+        />
 
         {/* Blog cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -110,20 +104,20 @@ export default function BlogIndex() {
         </div>
 
         {/* CTA */}
-        <div className="mt-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl p-8 text-center text-white">
-          <h3 className="text-2xl font-bold mb-2" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
-            Start Learning Today! 🚀
-          </h3>
-          <p className="mb-5 text-white/90" style={{ fontFamily: "'Comic Neue', cursive" }}>
-            Try our free interactive activities — no account needed!
-          </p>
-          <Link
-            href="/activity"
-            className="inline-block bg-white text-indigo-700 font-bold px-8 py-3 rounded-full text-lg shadow-lg hover:scale-105 transition-transform"
-            style={{ fontFamily: "'Bubblegum Sans', cursive" }}
-          >
-            ✨ Go to Activities
-          </Link>
+        <div className="mt-12">
+          <KidsCard variant="gradient" tone="indigo" padding="lg" className="text-center relative overflow-hidden">
+            <span className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-fuchsia-300/30 blur-3xl" aria-hidden />
+            <span className="pointer-events-none absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-indigo-300/30 blur-3xl" aria-hidden />
+            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-purple-700 dark:text-purple-200" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
+              Start Learning Today! 🚀
+            </h3>
+            <p className="mb-5 text-gray-700 dark:text-gray-200" style={{ fontFamily: "'Comic Neue', cursive" }}>
+              Try our free interactive activities — no account needed!
+            </p>
+            <KidsButton href="/activity" variant="primary" size="lg" iconLeft={<span>✨</span>}>
+              Go to Activities
+            </KidsButton>
+          </KidsCard>
         </div>
       </main>
 

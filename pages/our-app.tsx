@@ -2,51 +2,22 @@ import React from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import SEO from "@/components/SEO"
+import { KidsCard, KidsButton, SectionHeader, DecorativeBlobs } from "@/components/ui"
 
 const APP_SAMPLE_IMAGES = Array.from({ length: 11 }, (_, i) => `/images/AppSampleImages/${i + 1}.jpeg`)
 
-const APP_FEATURES = [
-  {
-    emoji: "🎮",
-    title: "Interactive Activities",
-    description: "Fun games and activities to learn Urdu letters through play!",
-  },
-  {
-    emoji: "📊",
-    title: "Progress Tracker",
-    description: "Track your child's learning journey and celebrate milestones!",
-  },
-  {
-    emoji: "🗣️",
-    title: "Voice Support",
-    description: "Listen to correct pronunciations of Urdu letters and words!",
-  },
-  {
-    emoji: "🎨",
-    title: "Kid-Friendly Design",
-    description: "Colorful, engaging interface designed especially for children!",
-  },
-  {
-    emoji: "📱",
-    title: "Offline Mode",
-    description: "Learn anytime, anywhere - no internet required!",
-  },
-  {
-    emoji: "🌟",
-    title: "AI Assistive Writing",
-    description: "Get smart writing suggestions and guided practice while learning Urdu!",
-  },
+type FeatureTone = 'purple' | 'green' | 'pink' | 'blue' | 'amber' | 'indigo'
+const APP_FEATURES: { emoji: string; title: string; description: string; tone: FeatureTone }[] = [
+  { emoji: "🎮", title: "Interactive Activities", description: "Fun games and activities to learn Urdu letters through play!", tone: 'purple' },
+  { emoji: "📊", title: "Progress Tracker",      description: "Track your child's learning journey and celebrate milestones!", tone: 'blue' },
+  { emoji: "🗣️", title: "Voice Support",         description: "Listen to correct pronunciations of Urdu letters and words!", tone: 'pink' },
+  { emoji: "🎨", title: "Kid-Friendly Design",   description: "Colorful, engaging interface designed especially for children!", tone: 'amber' },
+  { emoji: "📱", title: "Offline Mode",          description: "Learn anytime, anywhere — no internet required!", tone: 'green' },
+  { emoji: "🌟", title: "AI Assistive Writing",  description: "Get smart writing suggestions and guided practice while learning Urdu!", tone: 'indigo' },
 ]
 
 function PageDecorations() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute top-10 left-[5%] text-5xl animate-float opacity-20">📱</div>
-      <div className="absolute top-20 right-[8%] text-4xl animate-float-delay opacity-15">🎮</div>
-      <div className="absolute bottom-20 left-[10%] text-4xl animate-bounce-slow opacity-15">⭐</div>
-      <div className="absolute bottom-40 right-[12%] text-3xl animate-float opacity-20">🚀</div>
-    </div>
-  )
+  return <DecorativeBlobs variant="soft" emojis={["📱", "🎮", "⭐", "🚀", "✨"]} />
 }
 
 export default function OurAppPage() {
@@ -66,89 +37,24 @@ export default function OurAppPage() {
 
       <main className="container mx-auto flex-1 px-4 py-6 relative z-10">
         {/* Header */}
-        <div className="text-center mb-10">
-          <div className="text-6xl mb-4 animate-bounce-slow">📱</div>
-          <h1
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3"
-            style={{ fontFamily: "'Bubblegum Sans', cursive", color: "#10B981" }}
-          >
-            AlifUjala Mobile App
-          </h1>
-          <p
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 font-bold max-w-xl mx-auto"
-            style={{ fontFamily: "'Comic Neue', cursive" }}
-          >
-            Learn Urdu on the go! Download our free app and start your learning adventure!
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="📲 Mobile App"
+          emoji="📱"
+          title={<span>AlifUjala <span className="text-gradient-cool">Mobile App</span></span>}
+          subtitle="Learn Urdu on the go! Download our free app and start your learning adventure."
+          tone="cool"
+        />
 
-        {/* Download CTA */}
-        <div className="max-w-3xl mx-auto mb-10">
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 rounded-3xl shadow-candy p-6 sm:p-8 border-4 border-green-200 dark:border-green-800 text-center">
-            <h2
-              className="text-2xl sm:text-3xl font-bold text-green-700 dark:text-green-400 mb-3"
-              style={{ fontFamily: "'Bubblegum Sans', cursive" }}
-            >
-              🎉 Download Free!
-            </h2>
-            <p
-              className="text-gray-600 dark:text-gray-300 mb-5 text-base sm:text-lg"
-              style={{ fontFamily: "'Comic Neue', cursive" }}
-            >
-              Get the AlifUjala app on your phone and let your child learn Urdu anywhere, anytime!
-            </p>
-
-            <a
-              href="https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold px-8 py-4 rounded-full text-lg shadow-candy hover:scale-105 hover:shadow-xl transition-all duration-300 border-3 border-white"
-              style={{ fontFamily: "'Bubblegum Sans', cursive" }}
-            >
-              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
-              </svg>
-              <span>Get on Google Play</span>
-            </a>
-
-            <p
-              className="text-gray-400 dark:text-gray-500 text-sm mt-4 font-bold"
-              style={{ fontFamily: "'Comic Neue', cursive" }}
-            >
-              📲 Available for Android devices
-            </p>
-
-            <div className="grid grid-cols-3 gap-3 mt-6 max-w-md mx-auto">
-              <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl p-3 text-center border-2 border-purple-100 dark:border-purple-800">
-                <div className="text-2xl mb-1">🆓</div>
-                <p className="text-sm font-bold text-gray-600 dark:text-gray-300" style={{ fontFamily: "'Comic Neue', cursive" }}>Free</p>
-              </div>
-              <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl p-3 text-center border-2 border-indigo-100 dark:border-indigo-800">
-                <div className="text-2xl mb-1">👶</div>
-                <p className="text-sm font-bold text-gray-600 dark:text-gray-300" style={{ fontFamily: "'Comic Neue', cursive" }}>Ages 3+</p>
-              </div>
-              <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl p-3 text-center border-2 border-blue-100 dark:border-blue-800">
-                <div className="text-2xl mb-1">🎓</div>
-                <p className="text-sm font-bold text-gray-600 dark:text-gray-300" style={{ fontFamily: "'Comic Neue', cursive" }}>Educational</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Screenshots Showcase — 3D auto-scrolling phone coverflow */}
-        <section className="mb-14" aria-label="App Screenshots Showcase">
-          <h2
-            className="text-2xl sm:text-3xl font-bold text-center mb-2"
-            style={{ fontFamily: "'Bubblegum Sans', cursive", color: "#10B981" }}
-          >
-            ✨ A Peek Inside the App
-          </h2>
-          <p
-            className="text-center text-gray-600 dark:text-gray-300 mb-6 text-sm sm:text-base font-bold"
-            style={{ fontFamily: "'Comic Neue', cursive" }}
-          >
-            Swipe-free tour — see all the magic at once!
-          </p>
+        {/* Screenshots Showcase — 3D auto-scrolling phone coverflow (FIRST so users see features immediately) */}
+        <section className="mb-10" aria-label="App Screenshots Showcase">
+          <SectionHeader
+            eyebrow="Tour"
+            emoji="✨"
+            title="A peek inside the app"
+            subtitle="Swipe-free tour — see all the magic at once!"
+            tone="cool"
+            className="!mb-6"
+          />
 
           <div className="phone-marquee-wrapper">
             {/* Side fades */}
@@ -180,62 +86,120 @@ export default function OurAppPage() {
           </div>
         </section>
 
+        {/* Download CTA (now BELOW the screenshots showcase) */}
+        <div className="max-w-3xl mx-auto mb-12">
+          <KidsCard variant="gradient" tone="green" padding="lg" className="text-center relative overflow-hidden">
+            <span className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-emerald-300/40 blur-3xl" aria-hidden />
+            <span className="pointer-events-none absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-green-300/40 blur-3xl" aria-hidden />
+            <h2
+              className="text-2xl sm:text-3xl font-bold text-emerald-700 dark:text-emerald-300 mb-3"
+              style={{ fontFamily: "'Bubblegum Sans', cursive" }}
+            >
+              🎉 Download Free!
+            </h2>
+            <p
+              className="text-gray-700 dark:text-gray-200 mb-6 text-base sm:text-lg max-w-xl mx-auto"
+              style={{ fontFamily: "'Comic Neue', cursive" }}
+            >
+              Get the AlifUjala app on your phone and let your child learn Urdu anywhere, anytime!
+            </p>
+
+            <KidsButton
+              href="https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala"
+              external
+              variant="success"
+              size="lg"
+              iconLeft={
+                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                  <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                </svg>
+              }
+            >
+              Get on Google Play
+            </KidsButton>
+
+            <p
+              className="text-emerald-700/70 dark:text-emerald-300/70 text-sm mt-4 font-bold"
+              style={{ fontFamily: "'Comic Neue', cursive" }}
+            >
+              📲 Available for Android devices
+            </p>
+
+            <div className="grid grid-cols-3 gap-3 mt-6 max-w-md mx-auto">
+              {[
+                { icon: '🆓', label: 'Free' },
+                { icon: '👶', label: 'Ages 3+' },
+                { icon: '🎓', label: 'Educational' },
+              ].map((c, i) => (
+                <div key={i} className="bg-white/80 dark:bg-white/10 backdrop-blur rounded-2xl p-3 text-center border-2 border-white/60 dark:border-white/15 shadow-sm">
+                  <div className="text-2xl mb-1">{c.icon}</div>
+                  <p className="text-sm font-bold text-gray-700 dark:text-gray-100" style={{ fontFamily: "'Comic Neue', cursive" }}>{c.label}</p>
+                </div>
+              ))}
+            </div>
+          </KidsCard>
+        </div>
+
         {/* Features Section */}
-        <div className="max-w-5xl mx-auto mb-10">
-          <h2 
-            className="text-2xl sm:text-3xl font-bold text-center mb-8"
-            style={{ fontFamily: "'Bubblegum Sans', cursive", color: "#7C3AED" }}
-          >
-             App Features 
-          </h2>
+        <div className="max-w-6xl mx-auto mb-14">
+          <SectionHeader
+            eyebrow="What you get"
+            emoji="🌈"
+            title="App Features"
+            subtitle="Everything kids need for a joyful, screen-friendly Urdu journey."
+            tone="rainbow"
+          />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {APP_FEATURES.map((feature, i) => (
-              <div 
-                key={i}
-                className="bg-white/90 dark:bg-gray-900/90 rounded-2xl p-5 border-3 border-purple-100 dark:border-purple-800 shadow-candy hover:shadow-candy-lg hover:scale-[1.02] transition-all duration-300"
-              >
-                <div className="text-4xl mb-3">{feature.emoji}</div>
-                <h3 
-                  className="text-lg font-bold text-purple-700 dark:text-purple-400 mb-2"
-                  style={{ fontFamily: "'Bubblegum Sans', cursive" }}
-                >
-                  {feature.title}
-                </h3>
-                <p 
-                  className="text-gray-600 dark:text-gray-300 text-sm"
-                  style={{ fontFamily: "'Comic Neue', cursive" }}
-                >
-                  {feature.description}
-                </p>
-              </div>
+              <KidsCard key={i} variant="glass" tone={feature.tone} padding="md" className="group">
+                <div className="flex items-start gap-3">
+                  <div className="text-4xl flex-shrink-0 transition-transform duration-500 group-hover:scale-110 group-hover:animate-wiggle">{feature.emoji}</div>
+                  <div>
+                    <h3
+                      className="text-lg font-bold text-purple-700 dark:text-purple-300 mb-1"
+                      style={{ fontFamily: "'Bubblegum Sans', cursive" }}
+                    >
+                      {feature.title}
+                    </h3>
+                    <p
+                      className="text-gray-700 dark:text-gray-200 text-sm leading-snug"
+                      style={{ fontFamily: "'Comic Neue', cursive" }}
+                    >
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
+              </KidsCard>
             ))}
           </div>
         </div>
 
         {/* Call to Action */}
-        <div className="max-w-3xl mx-auto mb-8">
-          <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl p-6 sm:p-8 text-center text-white shadow-xl border-4 border-white/20">
-            <h3 
-              className="text-2xl sm:text-3xl font-bold mb-3"
+        <div className="max-w-3xl mx-auto mb-10">
+          <div className="relative rounded-[2rem] p-6 sm:p-10 text-center text-white overflow-hidden border-[3px] border-white/30 shadow-candy-lg">
+            <span className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-fuchsia-600 -z-10" />
+            <span className="absolute inset-0 bg-aurora opacity-60 mix-blend-screen pointer-events-none" />
+            <h3
+              className="text-2xl sm:text-3xl font-bold mb-3 drop-shadow"
               style={{ fontFamily: "'Bubblegum Sans', cursive" }}
             >
               🚀 Start Learning Today!
             </h3>
-            <p 
-              className="text-white/90 text-base mb-5"
+            <p
+              className="text-white/90 text-base sm:text-lg mb-6 max-w-xl mx-auto"
               style={{ fontFamily: "'Comic Neue', cursive" }}
             >
               Join thousands of kids learning Urdu with AlifUjala. Download now and begin the adventure!
             </p>
-            <a
+            <KidsButton
               href="https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-white text-purple-700 font-bold px-8 py-3 rounded-full text-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300"
-              style={{ fontFamily: "'Bubblegum Sans', cursive" }}
+              external
+              variant="warm"
+              size="lg"
+              iconLeft={<span>📥</span>}
             >
-              📥 Download Now
-            </a>
+              Download Now
+            </KidsButton>
           </div>
         </div>
       </main>

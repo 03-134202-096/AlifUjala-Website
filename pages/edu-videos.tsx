@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import SEO from "@/components/SEO"
 import alphabetStories, { type AlphabetStory } from "@/data/alphabetStories"
+import { SectionHeader, DecorativeBlobs, KidsCard } from "@/components/ui"
 
 /* ── helpers ───────────────────────────────── */
 
@@ -27,14 +28,7 @@ const cardGradients = [
 /* ── components ────────────────────────────── */
 
 function PageDecorations() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute top-10 left-[5%] text-5xl animate-float opacity-20">🎬</div>
-      <div className="absolute top-20 right-[8%] text-4xl animate-float-delay opacity-15">📺</div>
-      <div className="absolute bottom-20 left-[10%] text-4xl animate-bounce-slow opacity-15">⭐</div>
-      <div className="absolute bottom-40 right-[12%] text-3xl animate-float opacity-20">🎭</div>
-    </div>
-  )
+  return <DecorativeBlobs variant="soft" emojis={["🎬", "📺", "⭐", "🎭", "✨"]} />
 }
 
 function StoryCard({
@@ -159,21 +153,13 @@ export default function EduVideosPage() {
       <Navbar />
 
       <main className="container mx-auto flex-1 px-4 py-6 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3"
-            style={{ fontFamily: "'Bubblegum Sans', cursive", color: "#7C3AED" }}
-          >
-            🎬 Educational Videos 🎬
-          </h1>
-          <p
-            className="text-base sm:text-lg text-blue-600 dark:text-blue-400 font-bold max-w-xl mx-auto"
-            style={{ fontFamily: "'Comic Neue', cursive" }}
-          >
-            Watch fun stories for every Urdu letter! Click a card below to watch. ✨
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="🎬 Edu Videos"
+          emoji="🎞️"
+          title="Educational Videos"
+          subtitle="Watch fun stories for every Urdu letter! Click a card below to watch."
+          tone="warm"
+        />
 
         {/* Video Player */}
         <div className="mb-10">
@@ -182,12 +168,14 @@ export default function EduVideosPage() {
 
         {/* Story Cards Grid */}
         <div className="max-w-6xl mx-auto">
-          <h2
-            className="text-2xl sm:text-3xl font-bold text-center mb-6"
-            style={{ fontFamily: "'Bubblegum Sans', cursive", color: "#EA580C" }}
-          >
-            🌟 Choose a Story 🌟
-          </h2>
+          <SectionHeader
+            eyebrow="Library"
+            emoji="🌟"
+            title="Choose a story"
+            subtitle="One delightful video for every Urdu letter."
+            tone="rainbow"
+            className="!mb-6"
+          />
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
             {alphabetStories.map((story, i) => (
               <StoryCard
@@ -207,9 +195,9 @@ export default function EduVideosPage() {
 
         {/* Channel credit */}
         <div className="max-w-3xl mx-auto mt-10 mb-6">
-          <div className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/40 dark:to-pink-900/40 border-4 border-purple-300 dark:border-purple-700 rounded-3xl p-6 text-center">
+          <KidsCard variant="gradient" tone="purple" padding="md" className="text-center">
             <p
-              className="text-gray-600 dark:text-gray-300 text-base sm:text-lg font-bold"
+              className="text-gray-700 dark:text-gray-200 text-base sm:text-lg font-bold"
               style={{ fontFamily: "'Comic Neue', cursive" }}
             >
               🎥 Videos by{" "}
@@ -217,13 +205,13 @@ export default function EduVideosPage() {
                 href="https://www.youtube.com/@alifujala"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-purple-600 dark:text-purple-400 underline hover:text-purple-800 dark:hover:text-purple-300 transition-colors"
+                className="text-purple-700 dark:text-purple-300 underline link-underline hover:text-purple-900 dark:hover:text-purple-200 transition-colors"
               >
                 Alif Ujala
               </a>{" "}
               — Subscribe for more! 🌈
             </p>
-          </div>
+          </KidsCard>
         </div>
       </main>
 

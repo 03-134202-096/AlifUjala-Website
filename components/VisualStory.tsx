@@ -302,42 +302,34 @@ const VisualStory: React.FC<VisualStoryProps> = ({ onClose, title, scenes, story
           {hasAudio && (
             <div className="flex flex-wrap items-center justify-center gap-3 mt-3">
 
-              {/* Voice selector cards */}
-              <div className="flex gap-2">
-                {/* Male ♂ */}
+              {/* Voice selector — clear labelled pills */}
+              <div className="flex gap-2" role="group" aria-label="Choose narrator voice">
                 <button
                   onClick={() => { doStop(); setVoice("male"); }}
-                  title="Male Voice (مرد)"
-                  className={`relative flex items-center justify-center w-12 h-12 rounded-2xl border-2 transition-all shadow-sm select-none ${
+                  title="Boy / Male voice (مرد)"
+                  aria-pressed={voice === "male"}
+                  className={`relative flex items-center gap-1.5 px-3 h-11 rounded-full border-2 transition-all shadow-sm select-none font-bold text-sm ${
                     voice === "male"
-                      ? "border-indigo-500 bg-indigo-100 dark:bg-indigo-900/60 scale-110 shadow-indigo-300"
-                      : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-indigo-300 hover:scale-105"
+                      ? "border-indigo-500 bg-gradient-to-br from-indigo-500 to-blue-500 text-white scale-105 shadow-md shadow-indigo-300/60"
+                      : "border-indigo-200 dark:border-indigo-700 bg-white dark:bg-gray-800 text-indigo-700 dark:text-indigo-200 hover:border-indigo-400 hover:scale-105"
                   }`}
                 >
-                  <span className={voice === "male" ? "text-indigo-600" : "text-gray-400"}>
-                    <IconMale />
-                  </span>
-                  {voice === "male" && (
-                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-indigo-500 rounded-full border-2 border-white" />
-                  )}
+                  <span className="text-base leading-none" aria-hidden>👦</span>
+                  <span style={{ fontFamily: "'Bubblegum Sans', cursive" }}>Boy</span>
                 </button>
 
-                {/* Female ♀ */}
                 <button
                   onClick={() => { doStop(); setVoice("female"); }}
-                  title="Female Voice (عورت)"
-                  className={`relative flex items-center justify-center w-12 h-12 rounded-2xl border-2 transition-all shadow-sm select-none ${
+                  title="Girl / Female voice (عورت)"
+                  aria-pressed={voice === "female"}
+                  className={`relative flex items-center gap-1.5 px-3 h-11 rounded-full border-2 transition-all shadow-sm select-none font-bold text-sm ${
                     voice === "female"
-                      ? "border-pink-500 bg-pink-100 dark:bg-pink-900/40 scale-110 shadow-pink-300"
-                      : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-pink-300 hover:scale-105"
+                      ? "border-pink-500 bg-gradient-to-br from-pink-500 to-rose-500 text-white scale-105 shadow-md shadow-pink-300/60"
+                      : "border-pink-200 dark:border-pink-700/60 bg-white dark:bg-gray-800 text-pink-600 dark:text-pink-200 hover:border-pink-400 hover:scale-105"
                   }`}
                 >
-                  <span className={voice === "female" ? "text-pink-500" : "text-gray-400"}>
-                    <IconFemale />
-                  </span>
-                  {voice === "female" && (
-                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-pink-500 rounded-full border-2 border-white" />
-                  )}
+                  <span className="text-base leading-none" aria-hidden>👧</span>
+                  <span style={{ fontFamily: "'Bubblegum Sans', cursive" }}>Girl</span>
                 </button>
               </div>
 

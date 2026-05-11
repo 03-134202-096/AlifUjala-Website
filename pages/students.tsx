@@ -2,7 +2,9 @@ import { useEffect, useState } from "react"
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import LoadingIndicator from "@/components/LoadingIndicator"
+import SEO from '@/components/SEO'
 import type { NextPage } from 'next'
+import { KidsCard, KidsButton, SectionHeader, DecorativeBlobs } from '@/components/ui'
 
 const StudentsPage: NextPage = () => {
   const [user, setUser] = useState<any>(null)
@@ -42,76 +44,52 @@ const StudentsPage: NextPage = () => {
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
-      {/* Floating decorations */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-24 left-[12%] text-5xl animate-float opacity-15">📚</div>
-        <div className="absolute top-44 right-[10%] text-4xl animate-float-delay opacity-15">✏️</div>
-        <div className="absolute bottom-32 left-[8%] text-4xl animate-bounce-slow opacity-10">🎒</div>
-        <div className="absolute bottom-20 right-[12%] text-3xl animate-float opacity-15">🌟</div>
-      </div>
+      <SEO title="Students — AlifUjala" description="See who is learning with AlifUjala." />
+      <DecorativeBlobs variant="soft" emojis={["📚", "✏️", "🎒", "🌟", "✨"]} />
 
       <Navbar />
       <main className="flex-1 px-4 py-8 relative z-10">
         <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="text-6xl mb-3 animate-bounce-slow">👨‍🎓</div>
-            <h1 className="text-4xl sm:text-5xl font-bold mb-2"
-              style={{
-                fontFamily: "'Bubblegum Sans', cursive",
-                background: 'linear-gradient(135deg, #8B5CF6, #EC4899, #F97316)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}>
-              Students
-            </h1>
-            <p className="text-gray-500 dark:text-gray-400 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>
-              See who&apos;s learning with us! 🌈
-            </p>
-          </div>
+          <SectionHeader
+            eyebrow="🎓 Students"
+            emoji="👨‍🎓"
+            title="Students"
+            subtitle="See who's learning with us!"
+            tone="warm"
+          />
 
           {error ? (
-            <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 dark:border-purple-800 p-8 text-center max-w-md mx-auto">
+            <KidsCard variant="glass" tone="purple" padding="lg" className="text-center max-w-md mx-auto">
               <div className="text-5xl mb-4">🔒</div>
-              <p className="text-purple-600 dark:text-purple-400 font-bold text-lg mb-4" style={{fontFamily: "'Comic Neue', cursive"}}>{error}</p>
-              <a href="/login"
-                className="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold rounded-full border-3 border-white shadow-candy hover:scale-105 transition-all"
-                style={{fontFamily: "'Bubblegum Sans', cursive"}}>
-                Login 🔑
-              </a>
-            </div>
+              <p className="text-purple-700 dark:text-purple-300 font-bold text-lg mb-4" style={{fontFamily: "'Comic Neue', cursive"}}>{error}</p>
+              <KidsButton href="/login" variant="primary" size="md">🔑 Login</KidsButton>
+            </KidsCard>
           ) : (
-            <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 dark:border-purple-800 p-6 sm:p-8 text-center">
-              <div className="text-6xl mb-4">🏗️</div>
-              <h2 className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
+            <KidsCard variant="glass" tone="purple" padding="lg" className="text-center">
+              <div className="text-6xl mb-4 animate-bounce-slow">🏗️</div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-purple-700 dark:text-purple-300 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                 Coming Soon!
               </h2>
-              <p className="text-gray-500 dark:text-gray-400 font-bold mb-6" style={{fontFamily: "'Comic Neue', cursive"}}>
+              <p className="text-gray-700 dark:text-gray-200 font-bold mb-6" style={{fontFamily: "'Comic Neue', cursive"}}>
                 We&apos;re building something amazing here! 🚀<br/>
                 Soon you&apos;ll be able to see all the students learning Urdu together.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                <div className="bg-purple-50 dark:bg-purple-900/30 rounded-2xl p-4 border-2 border-purple-100 dark:border-purple-800">
-                  <div className="text-3xl mb-2">📊</div>
-                  <p className="text-purple-600 dark:text-purple-400 font-bold text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>Progress Tracking</p>
-                </div>
-                <div className="bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl p-4 border-2 border-indigo-100 dark:border-indigo-800">
-                  <div className="text-3xl mb-2">🏆</div>
-                  <p className="text-indigo-600 dark:text-indigo-400 font-bold text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>Leaderboard</p>
-                </div>
-                <div className="bg-blue-50 dark:bg-blue-900/30 rounded-2xl p-4 border-2 border-blue-100 dark:border-blue-800">
-                  <div className="text-3xl mb-2">🎖️</div>
-                  <p className="text-blue-600 dark:text-blue-400 font-bold text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>Achievements</p>
-                </div>
+                {[
+                  { icon: '📊', label: 'Progress Tracking', tone: 'purple' as const },
+                  { icon: '🏆', label: 'Leaderboard',       tone: 'indigo' as const },
+                  { icon: '🎖️', label: 'Achievements',      tone: 'blue'   as const },
+                ].map(t => (
+                  <KidsCard key={t.label} variant="glass" tone={t.tone} padding="sm">
+                    <div className="text-3xl mb-2">{t.icon}</div>
+                    <p className="text-purple-700 dark:text-purple-300 font-bold text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>{t.label}</p>
+                  </KidsCard>
+                ))}
               </div>
 
-              <a href="/activity"
-                className="inline-block px-8 py-3 bg-gradient-to-r from-green-400 to-cyan-400 text-white font-bold rounded-full border-3 border-white shadow-candy hover:scale-105 transition-all text-lg"
-                style={{fontFamily: "'Bubblegum Sans', cursive"}}>
-                Go Play Games! 🎮
-              </a>
-            </div>
+              <KidsButton href="/activity" variant="success" size="lg" iconRight={<span>🎮</span>}>Go Play Games!</KidsButton>
+            </KidsCard>
           )}
         </div>
       </main>

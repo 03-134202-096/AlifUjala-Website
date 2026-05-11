@@ -101,7 +101,7 @@ export default function WhackALetter() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans" style={{ background: "var(--bg-gradient)" }}>
+    <div className="kids-page-bg min-h-screen flex flex-col font-sans relative">
       <Head>
         <title>Whack-a-Letter | Urdu Games</title>
       </Head>

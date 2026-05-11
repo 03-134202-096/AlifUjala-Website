@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import LoadingIndicator from "./LoadingIndicator"
 
 type User = { id: number | string; username?: string; email?: string; profileImgId?: number } | null
@@ -10,10 +11,27 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
   const [user, setUser] = useState<User>(null)
   const [loading, setLoading] = useState(true)
   const [isDark, setIsDark] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     setIsDark(document.documentElement.classList.contains('dark'))
   }, [])
+
+  // Track scroll for glass nav effect
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
 
   const toggleTheme = () => {
     if (externalToggle) {
@@ -74,7 +92,12 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
   ]
 
   return (
-    <nav className={className || "relative text-white shadow-lg"} style={{ zIndex: 70, background: 'var(--navbar-bg)' }}>
+    <nav
+      className={`${className || ''} nav-glass text-white shadow-lg ${scrolled ? 'is-scrolled' : ''}`}
+      style={{ background: scrolled ? undefined : 'var(--navbar-bg)' }}
+    >
+      {/* Animated rainbow accent line at the very top */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-rainbow-gradient bg-[length:200%_100%] animate-gradient-x opacity-90 pointer-events-none" />
       {/* Decorative dots */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-1 left-8 w-8 h-8 rounded-full bg-white/10 animate-float" />
@@ -82,7 +105,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
         <div className="absolute top-2 right-44 text-base animate-bounce-slow opacity-40 hidden lg:block">⭐</div>
       </div>
 
-      <div className="max-w-6xl mx-auto relative flex items-center px-4 sm:px-6 py-2 sm:py-3">
+      <div className={`max-w-6xl mx-auto relative flex items-center px-4 sm:px-6 transition-all duration-300 ${scrolled ? 'py-1.5 sm:py-2' : 'py-2 sm:py-3'}`}>
         {/* Logo */}
         <div className="flex items-center flex-shrink-0 z-10">
           <Link href="/" className="mr-2 sm:mr-3 transition-transform duration-300 hover:scale-110">
@@ -95,16 +118,22 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
 
         {/* Desktop menu */}
         <div className="hidden md:flex items-center gap-1 lg:gap-2 mx-auto z-10">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105"
-              style={{fontFamily: "'Baloo 2', 'Comic Neue', cursive"}}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = router.pathname === link.href || (link.href !== '/' && router.pathname.startsWith(link.href))
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105 ${isActive ? 'bg-white/20 ring-1 ring-white/30 shadow-inner' : ''}`}
+                style={{fontFamily: "'Baloo 2', 'Comic Neue', cursive"}}
+              >
+                {link.label}
+                {isActive && (
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 h-1 w-6 rounded-full bg-gradient-to-r from-pink-300 to-yellow-200 shadow-glow-pink" />
+                )}
+              </Link>
+            )
+          })}
           {user ? (
             <Link href="/profile" className="text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105" style={{fontFamily: "'Baloo 2', 'Comic Neue', cursive"}}>
               Profile

@@ -51,10 +51,24 @@ export default function Footer() {
       className="relative mt-0 overflow-hidden text-white"
       style={{ background: 'var(--footer-bg)' }}
     >
-      <div className="absolute -top-px left-0 right-0 h-1 bg-gradient-to-r from-transparent via-indigo-200/50 to-transparent" />
+      {/* Decorative wave divider that meets the page background */}
+      <div className="wave-divider absolute -top-px left-0 right-0 -translate-y-full pointer-events-none">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path
+            d="M0,48 C240,96 480,0 720,32 C960,64 1200,16 1440,48 L1440,80 L0,80 Z"
+            fill="var(--footer-bg-fill, #6d28d9)"
+            opacity="0.95"
+          />
+        </svg>
+      </div>
+      {/* Top rainbow accent */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-rainbow-gradient bg-[length:200%_100%] animate-gradient-x opacity-90 pointer-events-none" />
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-24 -right-10 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-indigo-200/10 blur-3xl" />
+        {/* Floating sparkles */}
+        <div className="absolute top-10 right-[18%] text-2xl opacity-30 animate-float">✨</div>
+        <div className="absolute top-24 left-[12%] text-xl opacity-20 animate-float-delay">⭐</div>
       </div>
 
       <div className="relative max-w-6xl mx-auto px-6 pt-12 pb-8">

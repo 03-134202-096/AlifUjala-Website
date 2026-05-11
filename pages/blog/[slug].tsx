@@ -5,6 +5,7 @@ import Footer from '@/components/Footer'
 import SEO from '@/components/SEO'
 import Link from 'next/link'
 import { blogPosts, getBlogPost, BlogPost } from '@/data/blogPosts'
+import { KidsCard, KidsButton, DecorativeBlobs } from '@/components/ui'
 
 interface Props {
   post: BlogPost
@@ -44,7 +45,7 @@ export default function BlogPostPage({ post }: Props) {
   }
 
   return (
-    <div className="kids-page-bg min-h-screen flex flex-col">
+    <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO
         title={post.title}
         description={post.excerpt}
@@ -54,9 +55,10 @@ export default function BlogPostPage({ post }: Props) {
         keywords={post.tags.join(', ')}
         structuredData={structuredData}
       />
+      <DecorativeBlobs variant="soft" emojis={["✍️", "📖", "✨"]} />
       <Navbar />
 
-      <main className="flex-1 max-w-3xl mx-auto px-4 py-10 w-full">
+      <main className="flex-1 max-w-3xl mx-auto px-4 py-10 w-full relative z-10">
         {/* Breadcrumb */}
         <nav className="mb-6 text-sm" style={{ fontFamily: "'Comic Neue', cursive" }}>
           <Link href="/" className="text-indigo-500 hover:underline">Home</Link>
@@ -67,7 +69,7 @@ export default function BlogPostPage({ post }: Props) {
         </nav>
 
         {/* Article card */}
-        <article className="bg-white/95 dark:bg-gray-900/90 rounded-3xl shadow-xl border-2 border-purple-100 dark:border-indigo-800 overflow-hidden">
+        <article className="glass-card relative rounded-[2rem] shadow-candy-lg border-[3px] border-purple-200/70 dark:border-purple-700/40 overflow-hidden">
           {/* Cover */}
           <div className="h-64 sm:h-80 overflow-hidden">
             <img
@@ -93,8 +95,8 @@ export default function BlogPostPage({ post }: Props) {
 
             {/* Title */}
             <h1
-              className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-3 leading-snug"
-              style={{ fontFamily: "'Bubblegum Sans', cursive", color: '#6366f1' }}
+              className="text-3xl sm:text-4xl font-bold mb-3 leading-snug text-gradient-cool"
+              style={{ fontFamily: "'Bubblegum Sans', cursive" }}
             >
               {post.title}
             </h1>
@@ -146,36 +148,27 @@ export default function BlogPostPage({ post }: Props) {
         </article>
 
         {/* CTA */}
-        <div className="mt-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl p-8 text-center text-white">
-          <h3 className="text-2xl font-bold mb-2" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
-            Ready to See It in Action?
-          </h3>
-          <p className="mb-5 text-white/90" style={{ fontFamily: "'Comic Neue', cursive" }}>
-            Try our free Urdu alphabet activities right now — no signup needed!
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/activity"
-              className="inline-block bg-white text-indigo-700 font-bold px-8 py-3 rounded-full text-lg shadow-lg hover:scale-105 transition-transform"
-              style={{ fontFamily: "'Bubblegum Sans', cursive" }}
-            >
-              ✨ Try Activities
-            </Link>
-            <Link
-              href="/games/urduHunter"
-              className="inline-block bg-indigo-900/40 border-2 border-white text-white font-bold px-8 py-3 rounded-full text-lg shadow-lg hover:scale-105 transition-transform"
-              style={{ fontFamily: "'Bubblegum Sans', cursive" }}
-            >
-              🎮 Play Urdu Hunter
-            </Link>
-          </div>
+        <div className="mt-10">
+          <KidsCard variant="gradient" tone="indigo" padding="lg" className="text-center relative overflow-hidden">
+            <span className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-fuchsia-300/30 blur-3xl" aria-hidden />
+            <h3 className="text-2xl sm:text-3xl font-bold mb-2 text-purple-700 dark:text-purple-200" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
+              Ready to See It in Action?
+            </h3>
+            <p className="mb-5 text-gray-700 dark:text-gray-200" style={{ fontFamily: "'Comic Neue', cursive" }}>
+              Try our free Urdu alphabet activities right now — no signup needed!
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <KidsButton href="/activity" variant="primary" size="lg" iconLeft={<span>✨</span>}>Try Activities</KidsButton>
+              <KidsButton href="/games/urduHunter" variant="warm" size="lg" iconLeft={<span>🎮</span>}>Play Urdu Hunter</KidsButton>
+            </div>
+          </KidsCard>
         </div>
 
         {/* Back to blog */}
         <div className="mt-6 text-center">
           <Link
             href="/blog"
-            className="text-indigo-600 font-bold hover:underline"
+            className="text-indigo-600 dark:text-indigo-300 font-bold link-underline"
             style={{ fontFamily: "'Bubblegum Sans', cursive" }}
           >
             ← Back to Blog

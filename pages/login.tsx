@@ -3,6 +3,8 @@ import type { NextPage } from 'next'
 import LoadingIndicator from "@/components/LoadingIndicator"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import SEO from "@/components/SEO"
+import { KidsButton, DecorativeBlobs } from "@/components/ui"
 
 const LoginPage: NextPage = () => {
   const [email, setEmail] = useState("")
@@ -38,23 +40,19 @@ const LoginPage: NextPage = () => {
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
-      {/* Floating decorations */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-20 left-[10%] text-5xl animate-float opacity-15">🔑</div>
-        <div className="absolute top-40 right-[15%] text-4xl animate-float-delay opacity-15">⭐</div>
-        <div className="absolute bottom-40 left-[8%] text-4xl animate-bounce-slow opacity-10">🌈</div>
-        <div className="absolute bottom-20 right-[10%] text-3xl animate-float opacity-15">✨</div>
-      </div>
-
+      <SEO title="Sign In — AlifUjala" description="Sign in to AlifUjala to continue your Urdu learning adventure." />
+      <DecorativeBlobs variant="soft" emojis={["🔑", "⭐", "🌈", "✨", "💫"]} />
       <Navbar />
       <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
         <div className="w-full max-w-md">
           {/* Login card */}
-          <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 dark:border-purple-800 p-6 sm:p-8">
+          <div className="glass-card relative rounded-[2rem] shadow-candy-lg border-[3px] border-purple-200/70 dark:border-purple-700/40 p-6 sm:p-8 overflow-hidden">
+            <span className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-purple-300/30 blur-3xl" aria-hidden />
+            <span className="pointer-events-none absolute -bottom-20 -left-20 h-44 w-44 rounded-full bg-indigo-300/30 blur-3xl" aria-hidden />
             {/* Header */}
             <div className="text-center mb-6">
-              <div className="text-6xl mb-3">👋</div>
-              <h2 className="text-3xl font-bold mb-2" style={{fontFamily: "'Bubblegum Sans', cursive", color: '#6366f1'}}>
+              <div className="text-6xl mb-3 animate-bounce-slow">👋</div>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-2 text-gradient-cool" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                 Welcome Back!
               </h2>
               <p className="text-gray-500 dark:text-gray-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>
@@ -89,14 +87,9 @@ const LoginPage: NextPage = () => {
                 />
               </div>
               
-              <button 
-                type="submit" 
-                disabled={isSubmitting}
-                className="w-full py-3 bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-full transition-all duration-300 border-3 border-white shadow-candy hover:scale-[1.02] hover:-rotate-0.5 text-lg"
-                style={{fontFamily: "'Bubblegum Sans', cursive"}}
-              >
-                {isSubmitting ? "Logging in... 🔄" : "Let's Go! 🚀"}
-              </button>
+              <KidsButton type="submit" disabled={isSubmitting} variant="primary" size="lg" fullWidth>
+                {isSubmitting ? "Logging in… 🔄" : "Let's Go! 🚀"}
+              </KidsButton>
             </form>
             
             {isSubmitting && (

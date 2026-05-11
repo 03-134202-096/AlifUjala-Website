@@ -2,6 +2,7 @@ import Stories from "../components/Stories";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import { SectionHeader, DecorativeBlobs, KidsCard } from "@/components/ui";
 
 export default function StoriesPage() {
   return (
@@ -12,34 +13,26 @@ export default function StoriesPage() {
         ogUrl="https://alifujala.ai/stories"
         keywords="Urdu stories for kids, Urdu kahani, Urdu storybook online, اردو کہانیاں, children Urdu stories"
       />
-      {/* Floating decorations */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-20 left-[5%] text-4xl animate-float opacity-15">📚</div>
-        <div className="absolute top-40 right-[8%] text-3xl animate-float-delay opacity-15">🌙</div>
-        <div className="absolute bottom-40 left-[10%] text-3xl animate-bounce-slow opacity-15">🦁</div>
-        <div className="absolute bottom-20 right-[5%] text-4xl animate-float opacity-15">🐢</div>
-      </div>
+      <DecorativeBlobs variant="soft" emojis={["📚", "🌙", "🦁", "🐢", "✨"]} />
 
       <Navbar />
       <main className="container mx-auto py-6 px-4 flex-1 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-6">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-3" style={{fontFamily: "'Bubblegum Sans', cursive", color: '#6366f1'}}>
-            📖 Story Time! 📖
-          </h1>
-          <p className="text-lg text-blue-600 font-bold max-w-lg mx-auto" style={{fontFamily: "'Comic Neue', cursive"}}>
-            Click on a story card to start reading! Each story has beautiful pictures! 🌟
-          </p>
-        </div>
+        <SectionHeader
+          eyebrow="📖 Story Time"
+          emoji="📚"
+          title="Beautiful Urdu Stories"
+          subtitle="Click on a story card to start reading! Each story has beautiful pictures."
+          tone="cool"
+        />
         <Stories />
 
         {/* Bottom encouragement */}
-        <div className="mt-10 text-center">
-          <div className="inline-block bg-gradient-to-r from-indigo-50 to-purple-100 dark:from-indigo-900/40 dark:to-purple-900/40 border-4 border-indigo-200 dark:border-indigo-800 rounded-3xl px-8 py-4">
-            <p className="text-lg font-bold text-purple-600 dark:text-purple-400" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
-              🌟 More stories coming soon! Keep reading! 🌟
+        <div className="mt-12 max-w-2xl mx-auto text-center">
+          <KidsCard variant="gradient" tone="indigo" padding="md">
+            <p className="text-lg sm:text-xl font-bold text-purple-700 dark:text-purple-200" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
+              🌟 More stories coming soon — keep reading! 🌟
             </p>
-          </div>
+          </KidsCard>
         </div>
       </main>
       <Footer />

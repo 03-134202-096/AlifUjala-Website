@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react"
+﻿import React, { useEffect, useMemo, useRef, useState } from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import MatchingBoard from "@/components/MatchingBoard"
@@ -26,43 +26,58 @@ function PageDecorations() {
   )
 }
 
+/* Auto-fit SVG glyph: tall viewBox (descender space) keeps every letter inside its tile. */
+const GLYPH_VIEWBOX = "0 0 100 130"
+const GLYPH_X = 50
+const GLYPH_Y = 78
+const GLYPH_FONT_SIZE = 78
+
 function DottedLetter({ char }: { char: string }) {
   if (!char) {
     return <span className="text-slate-300 text-xl">--</span>
   }
 
   return (
-    <svg viewBox="0 0 140 140" className="w-full h-full" aria-hidden="true">
+    <svg
+      viewBox={GLYPH_VIEWBOX}
+      className="w-full h-full block"
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden="true"
+    >
+      {/* soft halo dots */}
       <text
-        x="50%"
-        y="56%"
+        x={GLYPH_X}
+        y={GLYPH_Y}
         textAnchor="middle"
-        dominantBaseline="middle"
+        dominantBaseline="alphabetic"
         fontFamily="'Noto Nastaliq Urdu', serif"
-        fontSize="96"
+        fontSize={GLYPH_FONT_SIZE}
         fill="none"
-        stroke="#cbd5f5"
-        strokeWidth="7"
-        strokeDasharray="1 12"
+        stroke="currentColor"
+        strokeOpacity="0.35"
+        strokeWidth="6"
+        strokeDasharray="1 11"
         strokeLinecap="round"
         strokeLinejoin="round"
-        opacity="0.7"
+        className="text-indigo-400 dark:text-indigo-300"
       >
         {char}
       </text>
+      {/* crisp dotted outline */}
       <text
-        x="50%"
-        y="56%"
+        x={GLYPH_X}
+        y={GLYPH_Y}
         textAnchor="middle"
-        dominantBaseline="middle"
+        dominantBaseline="alphabetic"
         fontFamily="'Noto Nastaliq Urdu', serif"
-        fontSize="96"
+        fontSize={GLYPH_FONT_SIZE}
         fill="none"
-        stroke="#64748b"
-        strokeWidth="4"
-        strokeDasharray="1 9"
+        stroke="currentColor"
+        strokeWidth="3.5"
+        strokeDasharray="1 8"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className="text-slate-700 dark:text-indigo-100"
       >
         {char}
       </text>
@@ -76,13 +91,25 @@ function SolidLetter({ char, className = "" }: { char: string; className?: strin
   }
 
   return (
-    <span
-      className={`text-4xl sm:text-5xl font-bold text-slate-800 drop-shadow-sm ${className}`}
-      style={{ fontFamily: "'Noto Nastaliq Urdu', serif", lineHeight: "1" }}
-      dir="rtl"
+    <svg
+      viewBox={GLYPH_VIEWBOX}
+      className={`w-full h-full block ${className}`}
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden="true"
     >
-      {char}
-    </span>
+      <text
+        x={GLYPH_X}
+        y={GLYPH_Y}
+        textAnchor="middle"
+        dominantBaseline="alphabetic"
+        fontFamily="'Noto Nastaliq Urdu', serif"
+        fontSize={GLYPH_FONT_SIZE}
+        fontWeight="bold"
+        fill="currentColor"
+      >
+        {char}
+      </text>
+    </svg>
   )
 }
 
@@ -198,7 +225,7 @@ export default function UrduDottedMatchPage() {
 
       <main className="container mx-auto flex-1 px-4 py-6 relative z-10">
         <div className="max-w-6xl mx-auto mb-8">
-          <div className="bg-white/80 dark:bg-indigo-950/55 backdrop-blur-md rounded-3xl p-6 sm:p-8 border-2 border-indigo-200/70 dark:border-indigo-700/60 shadow-xl relative overflow-hidden">
+          <div className="bg-white/80 dark:bg-indigo-950/85 backdrop-blur-md rounded-3xl p-6 sm:p-8 border-2 border-indigo-200/70 dark:border-indigo-700/60 shadow-xl relative overflow-hidden">
             <div className="absolute -top-24 right-[-20px] h-48 w-48 rounded-full bg-gradient-to-br from-indigo-200/60 to-purple-200/20 blur-2xl" />
             <div className="absolute bottom-[-80px] left-[-40px] h-56 w-56 rounded-full bg-gradient-to-br from-amber-200/60 to-pink-200/20 blur-2xl" />
 
@@ -206,12 +233,12 @@ export default function UrduDottedMatchPage() {
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] font-bold text-indigo-500">Trace and match</p>
                 <h1
-                  className="text-3xl sm:text-4xl md:text-5xl font-bold mt-2 mb-3 text-indigo-700"
+                  className="text-3xl sm:text-4xl md:text-5xl font-bold mt-2 mb-3 text-indigo-700 dark:text-indigo-100"
                   style={{ fontFamily: "'Bubblegum Sans', cursive" }}
                 >
                   Dotted Letter Match
                 </h1>
-                <p className="text-indigo-700/90 dark:text-indigo-100 text-sm sm:text-base max-w-xl">
+                <p className="text-indigo-700 dark:text-indigo-50 text-sm sm:text-base max-w-xl">
                   Connect dotted outlines on the left to the full Urdu letters on the right. This activity builds shape recognition and tracing readiness.
                 </p>
                 <div className="mt-5 grid gap-3 sm:grid-cols-3">
@@ -325,19 +352,24 @@ export default function UrduDottedMatchPage() {
           </div>
 
           <div className="toolbar-actions">
-            <div className="text-xs sm:text-sm font-bold text-indigo-600">
+            <div className="text-xs sm:text-sm font-bold text-indigo-600 dark:text-indigo-200">
               Range size: {slice.length} letters
             </div>
           </div>
         </div>
 
         <div className="max-w-6xl mx-auto">
-          <div className="bg-white/80 dark:bg-indigo-950/55 backdrop-blur-md rounded-3xl p-5 sm:p-6 border-2 border-indigo-200/70 dark:border-indigo-700/60 shadow-xl">
+          <div className="bg-white/85 dark:bg-indigo-950/85 backdrop-blur-md rounded-3xl p-4 sm:p-6 border-2 border-indigo-200/70 dark:border-indigo-700/60 shadow-xl">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-              <h2 className="text-xl sm:text-2xl font-bold text-indigo-700" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
-                Match the Dotted Letters
-              </h2>
-              <p className="text-xs sm:text-sm text-indigo-600">Drag from dotted to full letter.</p>
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center justify-center h-9 w-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-lg shadow-md" aria-hidden>✍️</span>
+                <h2 className="text-xl sm:text-2xl font-bold text-indigo-700 dark:text-indigo-100" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
+                  Match the Dotted Letters
+                </h2>
+              </div>
+              <p className="text-xs sm:text-sm font-semibold text-indigo-600 dark:text-indigo-200">
+                Drag from <span className="underline decoration-dotted">dotted</span> → <span className="underline">full</span> letter.
+              </p>
             </div>
 
             <div ref={matchingBoardRef} className="matching-board-container">
@@ -353,12 +385,12 @@ export default function UrduDottedMatchPage() {
                   setTriggerSubmit(false)
                 }}
                 renderLeftItem={(item) => (
-                  <div className="w-full h-full p-2">
+                  <div className="w-full h-full p-1.5 flex items-center justify-center text-slate-700 dark:text-indigo-100">
                     <DottedLetter char={item.label || ""} />
                   </div>
                 )}
                 renderRightItem={(item) => (
-                  <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-full h-full p-1.5 flex items-center justify-center text-slate-800 dark:text-indigo-50">
                     <SolidLetter char={item.label || ""} />
                   </div>
                 )}
