@@ -143,7 +143,7 @@ export default function Footer() {
                 <div className="flex flex-col gap-2">
                   {section.links.map((link) =>
                     link.external ? (
-                      
+                      <a
                         key={link.href}
                         href={link.href}
                         className="text-white/75 hover:text-white transition-all text-sm hover:translate-x-1 inline-block"
