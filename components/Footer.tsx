@@ -51,7 +51,6 @@ export default function Footer() {
       className="relative mt-0 overflow-hidden text-white"
       style={{ background: 'var(--footer-bg)' }}
     >
-      {/* Decorative wave divider that meets the page background */}
       <div className="wave-divider absolute -top-px left-0 right-0 -translate-y-full pointer-events-none">
         <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path
@@ -61,12 +60,10 @@ export default function Footer() {
           />
         </svg>
       </div>
-      {/* Top rainbow accent */}
       <div className="absolute top-0 left-0 right-0 h-[3px] bg-rainbow-gradient bg-[length:200%_100%] animate-gradient-x opacity-90 pointer-events-none" />
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-24 -right-10 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-indigo-200/10 blur-3xl" />
-        {/* Floating sparkles */}
         <div className="absolute top-10 right-[18%] text-2xl opacity-30 animate-float">✨</div>
         <div className="absolute top-24 left-[12%] text-xl opacity-20 animate-float-delay">⭐</div>
       </div>
@@ -88,7 +85,7 @@ export default function Footer() {
               </a>
             </div>
 
-            <a
+            
               href="https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala"
               target="_blank"
               rel="noopener noreferrer"
@@ -100,9 +97,9 @@ export default function Footer() {
             </a>
 
             <div className="mt-6">
-              <h4 className="font-bold text-lg mb-3" style={{ fontFamily: "'Comic Neue', cursive" }}>
+              <h3 className="font-bold text-lg mb-3" style={{ fontFamily: "'Comic Neue', cursive" }}>
                 Follow Us
-              </h4>
+              </h3>
               <div className="flex gap-3 justify-center lg:justify-start">
                 <a href="https://www.instagram.com/alifujala.ai/" target="_blank" rel="noopener noreferrer" className="social-icon group" aria-label="Instagram">
                   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -140,9 +137,9 @@ export default function Footer() {
           <div className="lg:col-span-3 grid grid-cols-2 sm:grid-cols-3 gap-8 text-center sm:text-left">
             {footerSections.map((section) => (
               <div key={section.title}>
-                <h4 className="font-bold text-lg mb-3" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                <h3 className="font-bold text-lg mb-3" style={{ fontFamily: "'Comic Neue', cursive" }}>
                   {section.title}
-                </h4>
+                </h3>
                 <div className="flex flex-col gap-2">
                   {section.links.map((link) =>
                     link.external ? (

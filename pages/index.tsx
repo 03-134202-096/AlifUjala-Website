@@ -1,5 +1,4 @@
-
-
+import Head from "next/head";
 import HeroWithFire from "@/components/hero/HeroWithFire";
 import WelcomeHeader from "@/components/home_except_hero/WelcomeHeader";
 import SleepingCards from "@/components/home_except_hero/hoverToShowContent";
@@ -39,7 +38,6 @@ function QuickAccess() {
             }}
           >
             <span className={`absolute inset-0 bg-gradient-to-br ${item.grad} -z-0`} />
-            {/* shine sweep */}
             <span className="pointer-events-none absolute -inset-y-2 -left-1/3 w-1/3 rotate-12 bg-gradient-to-r from-white/0 via-white/40 to-white/0 opacity-0 group-hover:opacity-100 group-hover:translate-x-[260%] transition-all duration-700 ease-out" />
             <div className="relative">
               <div className="text-5xl sm:text-6xl mb-3 transition-transform duration-500 group-hover:scale-110 group-hover:animate-wiggle drop-shadow-md">
@@ -114,6 +112,40 @@ function FunFacts() {
   );
 }
 
+/* FAQ section — visible content matching the FAQPage schema below.
+   Keep this text in sync with faqData in Home() if you edit either one. */
+function FAQSection() {
+  const faqs = [
+    { q: "Is Alif Ujala free to use?", a: "Yes, Alif Ujala is completely free. Kids can play all 14+ Urdu alphabet games, read animated stories, and download worksheets at no cost." },
+    { q: "What age group is Alif Ujala designed for?", a: "Alif Ujala is designed for young children, typically ages 3 to 10, who are learning to recognize and read the 39 letters of the Urdu alphabet." },
+    { q: "How many letters are in the Urdu alphabet?", a: "The Urdu alphabet has 39 letters, starting with Alif (ا) and written from right to left." },
+    { q: "Can kids learn Urdu online without a tutor?", a: "Yes, Alif Ujala's interactive games, stories, and worksheets are designed so children can learn Urdu letters independently, with parents guiding along the way." },
+    { q: "Is there a mobile app for Alif Ujala?", a: "Yes, Alif Ujala has a free Android app with offline learning support, available on Google Play." },
+  ];
+  return (
+    <section className="py-10 px-4 max-w-3xl mx-auto">
+      <SectionHeader
+        eyebrow="Got questions?"
+        emoji="❓"
+        title="Frequently Asked Questions"
+        subtitle="Everything parents ask us about learning Urdu with Alif Ujala."
+        tone="cool"
+      />
+      <div className="space-y-3">
+        {faqs.map((item, i) => (
+          <details key={i} className="group rounded-2xl border-2 border-white/40 dark:border-white/10 bg-white/60 dark:bg-white/5 p-4">
+            <summary className="cursor-pointer font-bold text-gray-800 dark:text-gray-100 list-none flex justify-between items-center" style={{ fontFamily: "'Comic Neue', cursive" }}>
+              {item.q}
+              <span className="ml-2 transition-transform group-open:rotate-180">▼</span>
+            </summary>
+            <p className="mt-2 text-sm sm:text-base text-gray-600 dark:text-gray-300">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 /* App promo strip just above the footer */
 function AppPromo() {
   return (
@@ -126,9 +158,9 @@ function AppPromo() {
             <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur border border-white/30 rounded-full px-3 py-1" style={{ fontFamily: "'Comic Neue', cursive" }}>
               📱 Mobile App
             </p>
-            <h3 className="mt-3 text-3xl sm:text-4xl font-bold leading-tight drop-shadow" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-bold leading-tight drop-shadow" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
               Take AlifUjala on the go!
-            </h3>
+            </h2>
             <p className="mt-2 text-white/90 text-base sm:text-lg font-bold" style={{ fontFamily: "'Comic Neue', cursive" }}>
               Free Android app with games, voice support, and offline learning.
             </p>
@@ -183,12 +215,65 @@ export default function Home() {
         "url": "https://alifujala.ai/images/logo.png"
       }
     }
-  }
+  };
+
+  const faqData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Alif Ujala free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Alif Ujala is completely free. Kids can play all 14+ Urdu alphabet games, read animated stories, and download worksheets at no cost."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What age group is Alif Ujala designed for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Alif Ujala is designed for young children, typically ages 3 to 10, who are learning to recognize and read the 39 letters of the Urdu alphabet."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many letters are in the Urdu alphabet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Urdu alphabet has 39 letters, starting with Alif (ا) and written from right to left."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can kids learn Urdu online without a tutor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Alif Ujala's interactive games, stories, and worksheets are designed so children can learn Urdu letters independently, with parents guiding along the way."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a mobile app for Alif Ujala?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Alif Ujala has a free Android app with offline learning support, available on Google Play."
+        }
+      }
+    ]
+  };
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
+        />
+      </Head>
       <SEO
-        title="Learn Urdu Alphabets for Kids — Fun Games & Stories"
+        title="Learn Urdu Alphabets for Kids"
         description="Alif Ujala is a free, interactive Urdu learning platform for children. Play matching games, watch stories, and learn all 39 Urdu letters — اردو سیکھیں!"
         ogUrl="https://alifujala.ai"
         structuredData={structuredData}
@@ -199,12 +284,16 @@ export default function Home() {
       <main className="relative z-10 flex-1">
         <div className="container mx-auto py-6 px-4 text-center">
           <WelcomeHeader />
+          <p className="max-w-2xl mx-auto mt-4 text-sm sm:text-base font-bold text-gray-600 dark:text-gray-300 leading-relaxed" style={{ fontFamily: "'Comic Neue', cursive" }}>
+            Alif Ujala is a free, interactive platform that helps children learn the Urdu alphabet through colorful games, animated stories, and printable worksheets. Whether your child is just starting to recognize the 39 letters of Urdu or practicing to write them, Alif Ujala makes learning Urdu online fun, easy, and effective — for kids growing up at home or abroad.
+          </p>
         </div>
 
         <StatsStrip />
         <QuickAccess />
         <SleepingCards />
         <FunFacts />
+        <FAQSection />
 
         <div className="container mx-auto px-4 pb-10">
           <SectionHeader
@@ -228,5 +317,3 @@ export default function Home() {
     </div>
   );
 }
-
-
