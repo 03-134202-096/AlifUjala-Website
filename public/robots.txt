@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /administration
 
-Sitemap: https://alifujala.ai/api/sitemap
+Sitemap: https://alifujala.ai/sitemap.xml
