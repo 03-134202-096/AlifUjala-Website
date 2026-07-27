@@ -85,7 +85,7 @@ export default function Footer() {
               </a>
             </div>
 
-            
+            <a
               href="https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala"
               target="_blank"
               rel="noopener noreferrer"
