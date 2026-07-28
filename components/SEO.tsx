@@ -35,7 +35,10 @@ export default function SEO({
   canonical,
 }: SEOProps) {
   const fullTitle = title ? `${title} | Alif Ujala` : 'Alif Ujala — Urdu Learning for Kids 🌟'
-  const canonicalUrl = canonical || ogUrl || BASE_URL
+  const rawCanonical = canonical || ogUrl || BASE_URL
+  // Normalize only the bare root domain to include a trailing slash,
+  // matching how it's actually served. Subpage paths are left untouched.
+  const canonicalUrl = rawCanonical === BASE_URL ? `${BASE_URL}/` : rawCanonical
   const robotsContent = noIndex
     ? 'noindex,nofollow'
     : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
@@ -76,7 +79,6 @@ export default function SEO({
 
   return (
     <Head>
-      {/* ── Basic ─────────────────────────────────────────── */}
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
@@ -86,7 +88,6 @@ export default function SEO({
       <meta name="robots" content={robotsContent} />
       <link rel="canonical" href={canonicalUrl} />
 
-      {/* ── Open Graph ────────────────────────────────────── */}
       <meta property="og:type" content={ogType} />
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:title" content={fullTitle} />
@@ -99,7 +100,6 @@ export default function SEO({
       <meta property="og:locale" content="en_US" />
       <meta property="og:locale:alternate" content="ur_PK" />
 
-      {/* ── Twitter Card ──────────────────────────────────── */}
       <meta name="twitter:card" content={twitterCard} />
       <meta name="twitter:site" content="@AlifUjala" />
       <meta name="twitter:creator" content="@AlifUjala" />
@@ -108,7 +108,6 @@ export default function SEO({
       <meta name="twitter:image" content={ogImage} />
       <meta name="twitter:image:alt" content={fullTitle} />
 
-      {/* ── JSON-LD Structured Data ───────────────────────── */}
       {jsonLdPayload.length > 0 && (
         <script
           type="application/ld+json"
