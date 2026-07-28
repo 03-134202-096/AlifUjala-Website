@@ -304,9 +304,9 @@ export default function Home() {
             tone="warm"
           />
           <div className="max-w-4xl mx-auto rounded-3xl overflow-hidden border-[3px] border-white/60 dark:border-white/10 shadow-candy-lg">
-            <VideoEmbed
-              src="https://www.youtube.com/embed/HKTHE_jDd60?autoplay=1&mute=1&controls=1&rel=0"
-              title="Child Learning"
+             <VideoEmbed
+               src="https://www.youtube-nocookie.com/embed/HKTHE_jDd60?controls=1&rel=0"
+               title="Child Learning"
             />
           </div>
         </div>
