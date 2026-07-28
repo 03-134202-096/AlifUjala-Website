@@ -14,6 +14,7 @@ const CARDS = [
     title: "📄 Worksheets",
     img: lion,
     color: "bg-yellow-400",
+    textColor: "text-gray-900", // fixes contrast fail
     list: [
       "🖨️ Printable Worksheet",
       "🎨 Customized Logo",
@@ -24,6 +25,7 @@ const CARDS = [
     title: "🎥 Educational Videos",
     img: camel,
     color: "bg-pink-400",
+    textColor: "text-gray-900", // fixes contrast fail
     list: [
       "🎉 Fun Learning",
       "📖 Urdu Stories",
@@ -34,6 +36,7 @@ const CARDS = [
     title: "📱 Mobile App",
     img: croco,
     color: "bg-green-400",
+    textColor: "text-white",
     list: [
       "🎮 Interactive Activites",
       "📊 Progress Tracker",
@@ -44,6 +47,7 @@ const CARDS = [
     title: "🐱 Stories",
     img: catStories,
     color: "bg-blue-500",
+    textColor: "text-white",
     list: [
       "📖 Fun Stories",
       "😺 Cute Illustrations",
@@ -80,7 +84,6 @@ export default function FeatureCards() {
             animate="rest"
             whileHover="hover"
           >
-            {/* Front Image Panel */}
             <motion.div
               variants={frontVariants}
               transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -93,13 +96,11 @@ export default function FeatureCards() {
                 width={150}
                 height={150}
               />
-              {/* Show card title below image on mobile screens */}
-              <span className="block sm:hidden mt-4 text-white text-center drop-shadow-sm text-xl font-bold">
+              <span className={`block sm:hidden mt-4 ${c.textColor} text-center drop-shadow-sm text-xl font-bold`}>
                 {c.title}
               </span>
             </motion.div>
 
-            {/* Back Content Panel */}
             <motion.div
               variants={backVariants}
               transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -122,7 +123,6 @@ export default function FeatureCards() {
           </motion.div>
         );
 
-        // Internal navigation: Worksheets -> /games
         if (c.title && c.title.includes("Worksheets")) {
           return (
             <Link key={"link-" + i} href="/activity" className="block w-full sm:w-72 flex-shrink-0" aria-label="Open activities section">
@@ -131,7 +131,6 @@ export default function FeatureCards() {
           );
         }
 
-        // Internal navigation: Stories -> /stories
         if (c.title && c.title.includes("Stories")) {
           return (
             <Link key={"link-" + i} href="/stories" className="block w-full sm:w-72 flex-shrink-0" aria-label="Open stories section">
@@ -140,7 +139,6 @@ export default function FeatureCards() {
           );
         }
 
-        // Optionally wrap other cards with external links (preserve hover/motion)
         if (c.title && c.title.includes("Mobile App")) {
           return (
             <div key={"link-" + i} className="block w-full sm:w-72 flex-shrink-0 cursor-pointer" onClick={() => setShowAppPopup(true)}>
@@ -148,8 +146,7 @@ export default function FeatureCards() {
             </div>
           );
         }
-        
-        // Internal navigation: Educational Videos -> /edu-videos
+
         if (c.title && c.title.includes("Educational Videos")) {
           return (
             <Link key={"link-" + i} href="/edu-videos" className="block w-full sm:w-72 flex-shrink-0" aria-label="Open educational videos section">
@@ -162,7 +159,6 @@ export default function FeatureCards() {
       })}
     </div>
 
-    {/* Mobile App Sample Images Popup */}
     <AnimatePresence>
       {showAppPopup && (
         <motion.div
@@ -180,7 +176,6 @@ export default function FeatureCards() {
             className="relative bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
             <div className="flex items-center justify-between p-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
               <h3 className="text-lg font-bold" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                 📱 AlifUjala Mobile App
@@ -193,14 +188,12 @@ export default function FeatureCards() {
               </button>
             </div>
 
-            {/* Main image */}
             <div className="relative w-full aspect-[9/16] max-h-[55vh] bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
               <img
                 src={APP_SAMPLE_IMAGES[activeImg]}
                 alt={`App Screenshot ${activeImg + 1}`}
                 className="w-full h-full object-contain"
               />
-              {/* Navigation arrows */}
               <button
                 onClick={() => setActiveImg((p) => (p - 1 + APP_SAMPLE_IMAGES.length) % APP_SAMPLE_IMAGES.length)}
                 className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition-all text-xl"
@@ -215,7 +208,6 @@ export default function FeatureCards() {
               </button>
             </div>
 
-            {/* Thumbnails + download link */}
             <div className="p-4 space-y-3">
               <div className="flex gap-2 overflow-x-auto pb-1">
                 {APP_SAMPLE_IMAGES.map((src, idx) => (
@@ -230,7 +222,7 @@ export default function FeatureCards() {
                   </button>
                 ))}
               </div>
-              <a
+              
                 href="https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala"
                 target="_blank"
                 rel="noopener noreferrer"
