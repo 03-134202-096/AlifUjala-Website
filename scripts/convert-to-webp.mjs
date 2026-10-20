@@ -3,7 +3,7 @@ import { readdir, stat, unlink } from 'fs/promises';
 import { join, extname, basename, relative } from 'path';
 
 const PUBLIC_DIR = 'public';
-// Convert all PNGs inside public/imagess
+// Convert all PNGs inside public/imagesss
 const SCAN_DIR = join(PUBLIC_DIR, 'images');
 
 async function findPngs(dir) {
