@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react"
 import { jsPDF } from "jspdf"
-import { buildWorksheetCanvas, type WorksheetBgType } from "@/lib/worksheetRenderer"
+import { buildWorksheetCanvas, type WorksheetBgType, type WorksheetLayout } from "@/lib/worksheetRenderer"
 
 type Item = { id: string; label?: string; src?: string }
 
@@ -13,6 +13,8 @@ interface DownloadWorksheetProps {
   onBgTypeChange?: (next: WorksheetBgType) => void
   colorBackgroundIndex?: number
   showBgSelector?: boolean
+  layout?: WorksheetLayout
+  disabled?: boolean
 }
 
 export default function DownloadWorksheet({
@@ -24,10 +26,14 @@ export default function DownloadWorksheet({
   onBgTypeChange,
   colorBackgroundIndex,
   showBgSelector = true,
+  layout = "matching",
+  disabled = false,
 }: DownloadWorksheetProps) {
   const [internalBgType, setInternalBgType] = useState<WorksheetBgType>("bw")
   const [showTooltip, setShowTooltip] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
+  const [isDownloading, setIsDownloading] = useState(false)
+  const [downloadError, setDownloadError] = useState("")
   const effectiveBgType = useMemo(() => bgType ?? internalBgType, [bgType, internalBgType])
 
   const handleBgTypeChange = (next: WorksheetBgType) => {
@@ -50,54 +56,52 @@ export default function DownloadWorksheet({
   }, [])
 
   const handleDownload = async () => {
-    // 🔹 Step 1: Check with backend about download permissions
-    const res = await fetch("/api/download", { method: "POST" })
-    const data = await res.json().catch(() => ({}))
+    if (isDownloading || disabled || !left.length || (layout === "matching" && !right.length)) return
+    setIsDownloading(true)
+    setDownloadError("")
+    try {
+      const res = await fetch("/api/download", { method: "POST" })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        throw new Error(data.error || "An error occurred while preparing the download.")
+      }
 
-    if (!res.ok) {
-      alert(data.error || "An error occurred while preparing the download.")
-      return
-    }
+      const format = data.format || "png"
+      const resolution = data.resolution || "low"
+      // Tracing dots need enough pixels to remain distinct on a printed PNG, too.
+      const scaleFactor = resolution === "high" ? 2 : layout === "tracing" ? 1.5 : 0.3
+      const { canvas, pageWidth: worksheetPageWidth, pageHeight: worksheetPageHeight } = await buildWorksheetCanvas({
+        left,
+        right,
+        title,
+        bgType: effectiveBgType,
+        scaleFactor,
+        colorBackgroundIndex,
+        layout,
+      })
 
-    // 🔹 Step 2: Get download format and resolution based on login status
-    const format = data.format || "png"
-    const resolution = data.resolution || "low"
+      if (format === "png") {
+        const link = document.createElement("a")
+        link.download = filename.replace(".pdf", ".png")
+        link.href = canvas.toDataURL("image/png")
+        link.click()
+      } else {
+        const imgData = canvas.toDataURL("image/png")
+        const pdf = new jsPDF("p", "pt", "a4")
+        const pdfPageWidth = pdf.internal.pageSize.getWidth()
+        const pdfPageHeight = pdf.internal.pageSize.getHeight()
+        const ratio = Math.min((pdfPageWidth - 40) / worksheetPageWidth, (pdfPageHeight - 40) / worksheetPageHeight)
+        const imgWidth = worksheetPageWidth * ratio
+        const imgHeight = worksheetPageHeight * ratio
+        const x = (pdfPageWidth - imgWidth) / 2
 
-    // 🔹 Step 3: Continue with download
-    if (!left.length || !right.length) return
-
-    // High resolution for logged-in users (PDF), low resolution for non-logged-in (PNG)
-    const scaleFactor = resolution === "high" ? 2 : 0.3
-    const { canvas, pageWidth: worksheetPageWidth, pageHeight: worksheetPageHeight } = await buildWorksheetCanvas({
-      left,
-      right,
-      title,
-      bgType: effectiveBgType,
-      scaleFactor,
-      colorBackgroundIndex,
-    })
-
-    // ✅ Download based on format
-    if (format === "png") {
-      // PNG download for non-logged-in users (low resolution)
-      const link = document.createElement("a")
-      link.download = filename.replace(".pdf", ".png")
-      link.href = canvas.toDataURL("image/png")
-      link.click()
-    } else {
-      // PDF download for logged-in users (high resolution)
-      const imgData = canvas.toDataURL("image/png")
-      const pdf = new jsPDF("p", "pt", "a4")
-      const pdfPageWidth = pdf.internal.pageSize.getWidth()
-      const pdfPageHeight = pdf.internal.pageSize.getHeight()
-      const ratio = Math.min(pdfPageWidth / worksheetPageWidth, pdfPageHeight / worksheetPageHeight)
-      const imgWidth = worksheetPageWidth * ratio
-      const imgHeight = worksheetPageHeight * ratio
-      const x = (pdfPageWidth - imgWidth) / 2
-      const y = 20
-
-      pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight)
-      pdf.save(filename)
+        pdf.addImage(imgData, "PNG", x, 20, imgWidth, imgHeight)
+        pdf.save(filename)
+      }
+    } catch (error) {
+      setDownloadError(error instanceof Error ? error.message : "Could not prepare the worksheet. Please try again.")
+    } finally {
+      setIsDownloading(false)
     }
   }
 
@@ -106,6 +110,7 @@ export default function DownloadWorksheet({
       {showBgSelector && (
         <div className="download-bg-selector">
           <select
+            aria-label="Worksheet appearance"
             value={effectiveBgType}
             onChange={(e) => handleBgTypeChange(e.target.value as WorksheetBgType)}
             className="responsive-select download-select"
@@ -120,9 +125,14 @@ export default function DownloadWorksheet({
         onMouseEnter={() => !isLoggedIn && setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
       >
-        <button onClick={handleDownload} className="responsive-btn download-btn">
-          <span className="btn-text">Download Worksheet</span>
+        <button
+          onClick={handleDownload}
+          disabled={disabled || isDownloading || !left.length || (layout === "matching" && !right.length)}
+          className="responsive-btn download-btn disabled:opacity-60 disabled:cursor-wait"
+        >
+          <span className="btn-text">{isDownloading ? "Preparing worksheet…" : "Download Worksheet"}</span>
         </button>
+        {downloadError && <p role="alert" className="mt-2 text-sm text-red-700 dark:text-red-300">{downloadError}</p>}
         {showTooltip && !isLoggedIn && (
           <div 
             style={{

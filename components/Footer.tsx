@@ -172,7 +172,7 @@ export default function Footer() {
 
         <div className="pt-5 flex flex-col gap-2 md:flex-row md:items-center md:justify-between text-center md:text-left">
           <p className="text-white/65 text-sm" style={{ fontFamily: "'Comic Neue', cursive" }}>
-            © {new Date().getFullYear()} Alif Ujala. Built with care for young Urdu learners.
+            © {new Date().getFullYear()} AIEarlyEdge. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-1 text-sm text-white/75" style={{ fontFamily: "'Comic Neue', cursive" }}>
             <Link href="/about" className="hover:text-white transition-colors">About</Link>

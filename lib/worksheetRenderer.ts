@@ -1,6 +1,7 @@
 type WorksheetItem = { id: string; label?: string; src?: string }
 
 export type WorksheetBgType = "color" | "bw"
+export type WorksheetLayout = "matching" | "tracing"
 
 export interface WorksheetRenderOptions {
   left: WorksheetItem[]
@@ -9,6 +10,7 @@ export interface WorksheetRenderOptions {
   bgType?: WorksheetBgType
   scaleFactor?: number
   colorBackgroundIndex?: number
+  layout?: WorksheetLayout
 }
 
 export interface WorksheetRenderResult {
@@ -60,14 +62,136 @@ function drawRoundedRect(
   ctx.fill()
 }
 
-export async function buildWorksheetCanvas({
-  left,
-  right,
-  title = "ہر حرف کو اس کے جوڑے کے ساتھ ملاؤ!",
+async function drawWorksheetBackground(
+  ctx: CanvasRenderingContext2D,
+  pageWidth: number,
+  pageHeight: number,
+  bgType: WorksheetBgType,
+  colorBackgroundIndex?: number
+) {
+  ctx.fillStyle = "#fff"
+  ctx.fillRect(0, 0, pageWidth, pageHeight)
+  if (bgType !== "color") return
+
+  const idx = typeof colorBackgroundIndex === "number"
+    ? Math.abs(colorBackgroundIndex) % COLOR_BACKGROUNDS.length
+    : Math.floor(Math.random() * COLOR_BACKGROUNDS.length)
+  try {
+    const bg = await loadImage(COLOR_BACKGROUNDS[idx])
+    ctx.drawImage(bg, 0, 0, pageWidth, pageHeight)
+  } catch {
+    // Keep the white page if a decorative background cannot load.
+  }
+}
+
+async function buildTracingWorksheetCanvas({
+  left: letters,
+  title = "Urdu Letter Tracing / اردو حروف کی مشق",
   bgType = "bw",
   scaleFactor = 1,
   colorBackgroundIndex,
 }: WorksheetRenderOptions): Promise<WorksheetRenderResult> {
+  // Canvas does not redraw itself when a web font finishes loading.
+  await document.fonts.load('118px "Noto Nastaliq Urdu"', letters.map((item) => item.label || "").join("") + "اردو حروف کی مشق")
+  // A fixed A4 page keeps every letter large enough to trace when printed.
+  const pageWidth = 1000
+  const pageHeight = Math.round(pageWidth * Math.sqrt(2))
+  const canvas = document.createElement("canvas")
+  canvas.width = Math.max(1, Math.floor(pageWidth * scaleFactor))
+  canvas.height = Math.max(1, Math.floor(pageHeight * scaleFactor))
+  const ctx = canvas.getContext("2d")
+  if (!ctx) throw new Error("Canvas context unavailable")
+  ctx.scale(scaleFactor, scaleFactor)
+
+  await drawWorksheetBackground(ctx, pageWidth, pageHeight, bgType, colorBackgroundIndex)
+  ctx.fillStyle = "#fff"
+  drawRoundedRect(ctx, 40, 30, pageWidth - 80, pageHeight - 60, 20)
+
+  ctx.fillStyle = "#222"
+  ctx.font = "22px Arial, sans-serif"
+  ctx.textAlign = "left"
+  ctx.fillText("Name:", 70, 77)
+  ctx.fillText("Date:", 620, 77)
+  ctx.strokeStyle = "#777"
+  ctx.lineWidth = 1.5
+  ctx.beginPath()
+  ctx.moveTo(145, 80)
+  ctx.lineTo(540, 80)
+  ctx.moveTo(685, 80)
+  ctx.lineTo(925, 80)
+  ctx.stroke()
+
+  const [englishTitle, urduTitle] = title.split(" / ")
+  ctx.textAlign = "center"
+  ctx.font = "bold 36px Arial, sans-serif"
+  ctx.fillText(englishTitle, pageWidth / 2, 140)
+  ctx.font = '30px "Noto Nastaliq Urdu", serif'
+  ctx.direction = "rtl"
+  ctx.fillText(urduTitle || "اردو حروف کی مشق", pageWidth / 2, 187)
+  ctx.direction = "ltr"
+  ctx.font = "20px Arial, sans-serif"
+  ctx.fillStyle = "#555"
+  ctx.fillText("Follow the dots. Start at the right and move left.", pageWidth / 2, 240)
+
+  const columns = Math.min(5, Math.max(1, letters.length))
+  const rows = Math.max(1, Math.ceil(letters.length / columns))
+  const cellWidth = (pageWidth - 140) / columns
+  const gridTop = 275
+  const cellHeight = Math.min(190, (pageHeight - gridTop - 105) / rows)
+
+  letters.forEach((letter, index) => {
+    if (!letter.label) return
+    // Urdu is read right to left; each glyph stays isolated rather than joining.
+    const column = columns - 1 - (index % columns)
+    const row = Math.floor(index / columns)
+    const centerX = 70 + (column + 0.5) * cellWidth
+    const centerY = gridTop + (row + 0.5) * cellHeight
+    let fontSize = 118
+    ctx.font = `${fontSize}px "Noto Nastaliq Urdu", serif`
+    ctx.textAlign = "left"
+    ctx.direction = "rtl"
+    let metrics = ctx.measureText(letter.label)
+    const glyphWidth = metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight
+    const glyphHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
+    const fit = Math.min(1, (cellWidth - 30) / Math.max(1, glyphWidth), (cellHeight - 34) / Math.max(1, glyphHeight))
+    fontSize *= fit
+    ctx.font = `${fontSize}px "Noto Nastaliq Urdu", serif`
+    metrics = ctx.measureText(letter.label)
+    const x = centerX + (metrics.actualBoundingBoxLeft - metrics.actualBoundingBoxRight) / 2
+    const y = centerY + (metrics.actualBoundingBoxAscent - metrics.actualBoundingBoxDescent) / 2
+
+    ctx.save()
+    ctx.strokeStyle = "#666"
+    ctx.lineWidth = 2.2
+    ctx.lineCap = "round"
+    ctx.lineJoin = "round"
+    ctx.setLineDash([0.1, 5.5])
+    // Stroke the actual Urdu glyph, including its nuqta and other marks.
+    ctx.strokeText(letter.label, x, y)
+    ctx.restore()
+  })
+
+  ctx.direction = "ltr"
+  ctx.textAlign = "center"
+  ctx.font = "16px Arial, sans-serif"
+  ctx.fillStyle = "#555"
+  ctx.fillText("AIEarlyEdge · Urdu Alphabet Practice", pageWidth / 2, pageHeight - 55)
+  return { canvas, pageWidth, pageHeight }
+}
+
+export async function buildWorksheetCanvas({
+  left,
+  right,
+  title,
+  bgType = "bw",
+  scaleFactor = 1,
+  colorBackgroundIndex,
+  layout = "matching",
+}: WorksheetRenderOptions): Promise<WorksheetRenderResult> {
+  if (layout === "tracing") {
+    return buildTracingWorksheetCanvas({ left, right, title, bgType, scaleFactor, colorBackgroundIndex })
+  }
+
   const rows = Math.max(left.length, right.length)
   const pageWidth = 1000
   const pageHeight = 340 + rows * 180
@@ -83,24 +207,7 @@ export async function buildWorksheetCanvas({
 
   ctx.scale(scaleFactor, scaleFactor)
 
-  if (bgType === "color") {
-    const idx =
-      typeof colorBackgroundIndex === "number"
-        ? Math.abs(colorBackgroundIndex) % COLOR_BACKGROUNDS.length
-        : Math.floor(Math.random() * COLOR_BACKGROUNDS.length)
-    const chosenBg = COLOR_BACKGROUNDS[idx]
-
-    try {
-      const bg = await loadImage(chosenBg)
-      ctx.drawImage(bg, 0, 0, pageWidth, pageHeight)
-    } catch {
-      ctx.fillStyle = "#fff"
-      ctx.fillRect(0, 0, pageWidth, pageHeight)
-    }
-  } else {
-    ctx.fillStyle = "#fff"
-    ctx.fillRect(0, 0, pageWidth, pageHeight)
-  }
+  await drawWorksheetBackground(ctx, pageWidth, pageHeight, bgType, colorBackgroundIndex)
 
   ctx.fillStyle = "rgba(255,255,255,0.9)"
   ctx.fillRect(40, 30, pageWidth - 80, 60)
@@ -126,7 +233,7 @@ export async function buildWorksheetCanvas({
   ctx.fillStyle = "#000"
   ctx.textAlign = "center"
   ctx.font = "36px serif"
-  ctx.fillText(title, pageWidth / 2, 135)
+  ctx.fillText(title || "ہر حرف کو اس کے جوڑے کے ساتھ ملاؤ!", pageWidth / 2, 135)
 
   ctx.font = "72px serif"
   ctx.textAlign = "center"

@@ -11,7 +11,18 @@ import { SectionHeader, DecorativeBlobs } from '@/components/ui'
 type Letter = { id: string; char: string; name: string }
 type WorksheetItem = { id: string; label?: string; src?: string }
 type ActivitySection = 'interactive' | 'printable'
-type WorksheetType = 'alphabet' | 'image' | 'adhi'
+type WorksheetType = 'tracing' | 'alphabet' | 'image' | 'adhi'
+
+// Include the Urdu forms missing from the game's image-based letter set.
+// Repertoire: https://www.unicode.org/cldr/charts/48/summary/ur.html
+const EXTRA_TRACING_LETTERS: Record<string, Letter> = {
+  dal: { id: 'ddal', char: 'ڈ', name: 'Ddal' },
+  noon: { id: 'noon-ghunna', char: 'ں', name: 'Noon Ghunna' },
+  he: { id: 'do-chashmi-he', char: 'ھ', name: 'Do Chashmi He' },
+}
+const TRACING_LETTERS: Letter[] = alphabetsData.letters.flatMap((letter) =>
+  EXTRA_TRACING_LETTERS[letter.id] ? [letter, EXTRA_TRACING_LETTERS[letter.id]] : [letter]
+)
 
 function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5)
@@ -56,6 +67,11 @@ const SMALL_ALPHABETS_MAP: Record<string, string> = {
 }
 
 const WORKSHEET_META: Record<WorksheetType, { title: string; filename: string; helper: string }> = {
+  tracing: {
+    title: 'Urdu Letter Tracing / اردو حروف کی مشق',
+    filename: 'worksheet_urdu_letter_tracing.pdf',
+    helper: 'Follow the dotted Urdu letters with a pencil. Start at the right and move left.',
+  },
   alphabet: {
     title: 'Alphabet Matching / حرف ملائیں',
     filename: 'worksheet_alphabet_match.pdf',
@@ -132,8 +148,9 @@ export default function ActivityIndex() {
     [allLetters]
   )
 
-  const [worksheetType, setWorksheetType] = useState<WorksheetType>('alphabet')
+  const [worksheetType, setWorksheetType] = useState<WorksheetType>('tracing')
   const [worksheetCount, setWorksheetCount] = useState(6)
+  const [tracingCount, setTracingCount] = useState(0)
   const [seed, setSeed] = useState(Date.now())
   const [colorBgIndex, setColorBgIndex] = useState(0)
   const [bgType, setBgType] = useState<WorksheetBgType>('bw')
@@ -143,9 +160,12 @@ export default function ActivityIndex() {
   const [isSheetLoading, setIsSheetLoading] = useState(false)
   const [isPreviewLoading, setIsPreviewLoading] = useState(false)
   const [sheetError, setSheetError] = useState('')
+  const [previewError, setPreviewError] = useState('')
+  const isTracing = worksheetType === 'tracing'
+  const worksheetLayout = isTracing ? 'tracing' : 'matching'
 
   const activePool = useMemo(
-    () => (worksheetType === 'adhi' ? adhiLetters : allLetters),
+    () => (worksheetType === 'tracing' ? TRACING_LETTERS : worksheetType === 'adhi' ? adhiLetters : allLetters),
     [worksheetType, adhiLetters, allLetters]
   )
 
@@ -182,11 +202,18 @@ export default function ActivityIndex() {
     setColorBgIndex(Math.floor(Math.random() * 4))
   }
 
+  const resetTracingRange = () => {
+    setStartId(TRACING_LETTERS[0]?.id || '')
+    setEndId(TRACING_LETTERS[TRACING_LETTERS.length - 1]?.id || '')
+    setTracingCount(0)
+  }
+
   useEffect(() => {
     let cancelled = false
 
     const generateWorksheetItems = async () => {
       setSheetError('')
+      setIsSheetLoading(false)
 
       const pool = selectedSlice.length ? selectedSlice : activePool
       if (!pool.length) {
@@ -199,6 +226,13 @@ export default function ActivityIndex() {
 
       const requested = Math.max(5, Math.min(8, worksheetCount))
       const take = Math.min(requested, pool.length)
+
+      if (worksheetType === 'tracing') {
+        const chosen = tracingCount ? pool.slice(0, tracingCount) : pool
+        setLeftItems(chosen.map((letter) => ({ id: letter.id, label: letter.char })))
+        setRightItems([])
+        return
+      }
 
       const fallbackToLetterPairs = () => {
         const chosen = shuffle(pool).slice(0, take)
@@ -280,14 +314,16 @@ export default function ActivityIndex() {
     return () => {
       cancelled = true
     }
-  }, [worksheetType, worksheetCount, selectedSlice, activePool, seed, allLetters])
+  }, [worksheetType, worksheetCount, tracingCount, selectedSlice, activePool, seed, allLetters])
 
   useEffect(() => {
     let cancelled = false
 
     const generatePreview = async () => {
-      if (!leftItems.length || !rightItems.length) {
+      setPreviewError('')
+      if (!leftItems.length || (!isTracing && !rightItems.length)) {
         setPreviewSrc('')
+        setIsPreviewLoading(false)
         return
       }
 
@@ -299,7 +335,8 @@ export default function ActivityIndex() {
           title: worksheetMeta.title,
           bgType,
           colorBackgroundIndex: colorBgIndex,
-          scaleFactor: 0.46,
+          scaleFactor: 1,
+          layout: worksheetLayout,
         })
         if (!cancelled) {
           setPreviewSrc(canvas.toDataURL('image/png'))
@@ -307,6 +344,7 @@ export default function ActivityIndex() {
       } catch {
         if (!cancelled) {
           setPreviewSrc('')
+          setPreviewError('Could not render the worksheet. Please change a setting or try again.')
         }
       } finally {
         if (!cancelled) {
@@ -320,7 +358,7 @@ export default function ActivityIndex() {
     return () => {
       cancelled = true
     }
-  }, [leftItems, rightItems, worksheetMeta.title, bgType, colorBgIndex])
+  }, [leftItems, rightItems, worksheetMeta.title, bgType, colorBgIndex, isTracing, worksheetLayout])
 
   const activities = [
     {
@@ -357,7 +395,7 @@ export default function ActivityIndex() {
     <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO
         title="Activities — Learn Urdu Alphabets Through Fun Activities"
-        description="Interactive Urdu activities plus printable worksheets with live preview. Match letters, pictures and half-shapes, then download practice sheets for home or school."
+        description="Interactive Urdu activities plus printable worksheets with live preview. Trace dotted Urdu letters or match letters, pictures and half-shapes, then download practice sheets for home or school."
         ogUrl="https://alifujala.ai/activity"
         keywords="Urdu activities for kids, printable Urdu worksheets, children worksheets, Urdu learning, match Urdu letters, Urdu alphabet activities, learn Urdu online free"
         structuredData={WORKSHEET_STRUCTURED_DATA}
@@ -369,8 +407,8 @@ export default function ActivityIndex() {
         <SectionHeader
           eyebrow="✨ Activities"
           emoji="🎯"
-          title="Learn, match & recognize letters"
-          subtitle="Choose interactive sheets or printable worksheets — سیکھیں، ملائیں اور حروف پہچانیں!"
+          title="Learn, trace & match letters"
+          subtitle="Choose interactive sheets or printable worksheets — سیکھیں، لکھیں اور حروف پہچانیں!"
           tone="rainbow"
         />
 
@@ -463,7 +501,7 @@ export default function ActivityIndex() {
 
         {activeSection === 'printable' && (
           <div className="max-w-6xl mx-auto mb-10 space-y-6">
-            <div className="bg-white/80 dark:bg-indigo-950/85 backdrop-blur-md rounded-3xl p-5 sm:p-6 border-2 border-purple-200/70 dark:border-purple-700/60 shadow-xl">
+            <div className="bg-white dark:bg-indigo-950 rounded-3xl p-5 sm:p-6 border-2 border-purple-200 dark:border-purple-700 shadow-xl">
               <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-indigo-700 dark:text-indigo-100" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
                 🖨️ Printable Worksheets
               </h2>
@@ -479,6 +517,7 @@ export default function ActivityIndex() {
                     onChange={(e) => setWorksheetType(e.target.value as WorksheetType)}
                     className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/75 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
                   >
+                    <option value="tracing">Urdu Letter Tracing</option>
                     <option value="alphabet">Letter to Letter</option>
                     <option value="image">Letter to Image</option>
                     <option value="adhi">Adhi Ashkal</option>
@@ -486,13 +525,14 @@ export default function ActivityIndex() {
                 </label>
 
                 <label className="flex flex-col gap-1.5">
-                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-50 uppercase tracking-wider">Count</span>
+                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-50 uppercase tracking-wider">{isTracing ? 'Letters' : 'Count'}</span>
                   <select
-                    value={worksheetCount}
-                    onChange={(e) => setWorksheetCount(Number(e.target.value))}
+                    value={isTracing ? tracingCount : worksheetCount}
+                    onChange={(e) => isTracing ? setTracingCount(Number(e.target.value)) : setWorksheetCount(Number(e.target.value))}
                     className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/75 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
                   >
-                    {[5, 6, 7, 8].map((n) => (
+                    {isTracing && <option value={0}>All in range ({selectedSlice.length})</option>}
+                    {(isTracing ? [6, 12, 24] : [5, 6, 7, 8]).map((n) => (
                       <option key={n} value={n}>{n}</option>
                     ))}
                   </select>
@@ -526,11 +566,11 @@ export default function ActivityIndex() {
 
                 <div className="flex items-end">
                   <button
-                    onClick={regenerateWorksheet}
+                    onClick={isTracing ? resetTracingRange : regenerateWorksheet}
                     className="w-full rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold px-4 py-2.5 hover:scale-[1.02] transition-transform"
                     style={{ fontFamily: "'Bubblegum Sans', cursive" }}
                   >
-                    🔀 Shuffle
+                    {isTracing ? '↺ Reset Range' : '🔀 Shuffle'}
                   </button>
                 </div>
               </div>
@@ -553,6 +593,8 @@ export default function ActivityIndex() {
                   bgType={bgType}
                   onBgTypeChange={setBgType}
                   colorBackgroundIndex={colorBgIndex}
+                  layout={worksheetLayout}
+                  disabled={isSheetLoading || isPreviewLoading || !!previewError}
                 />
               </div>
 
@@ -572,7 +614,7 @@ export default function ActivityIndex() {
               )}
             </div>
 
-            <div className="bg-white/80 dark:bg-indigo-950/85 backdrop-blur-md rounded-3xl p-5 sm:p-6 border-2 border-purple-200/70 dark:border-purple-700/60 shadow-xl">
+            <div className="bg-white dark:bg-indigo-950 rounded-3xl p-5 sm:p-6 border-2 border-purple-200 dark:border-purple-700 shadow-xl">
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-4">
                 <div>
                   <h3 className="text-2xl font-bold text-indigo-700 dark:text-indigo-100" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
@@ -583,11 +625,11 @@ export default function ActivityIndex() {
                   </p>
                 </div>
                 <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-100 uppercase tracking-wider">
-                  Range size: {selectedSlice.length || activePool.length} letters
+                  {isTracing ? `Tracing: ${leftItems.length} letters · Right to left` : `Range size: ${selectedSlice.length || activePool.length} letters`}
                 </p>
               </div>
 
-              <div className="mx-auto max-w-[640px] rounded-2xl border border-indigo-200 dark:border-indigo-700 bg-slate-50/90 dark:bg-indigo-950/60 p-4 sm:p-5 max-h-[60vh] overflow-auto flex justify-center">
+              <div className="mx-auto max-w-[640px] rounded-2xl border border-indigo-200 dark:border-indigo-700 bg-slate-100 dark:bg-slate-900 p-4 sm:p-5 max-h-[72vh] overflow-auto" aria-busy={isPreviewLoading}>
                 {isPreviewLoading ? (
                   <div className="h-[220px] sm:h-[260px] flex items-center justify-center text-indigo-700 dark:text-indigo-50 font-bold" style={{ fontFamily: "'Comic Neue', cursive" }}>
                     Rendering preview...
@@ -595,18 +637,18 @@ export default function ActivityIndex() {
                 ) : previewSrc ? (
                   <img
                     src={previewSrc}
-                    alt="Worksheet preview"
-                    className="w-full h-auto max-w-[360px] sm:max-w-[420px] md:max-w-[520px] rounded-xl shadow-lg border border-indigo-200 mx-auto"
+                    alt={`${worksheetMeta.title} — printable worksheet preview`}
+                    className="block w-full h-auto max-w-[520px] rounded-xl shadow-lg border border-indigo-200 mx-auto"
                   />
                 ) : (
                   <div className="h-[220px] sm:h-[260px] flex items-center justify-center text-indigo-700 dark:text-indigo-50 font-bold text-center px-4" style={{ fontFamily: "'Comic Neue', cursive" }}>
-                    Select worksheet settings to generate preview.
+                    {previewError || 'Select worksheet settings to generate preview.'}
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="bg-white/80 dark:bg-indigo-950/85 backdrop-blur-md rounded-3xl p-5 sm:p-6 border-2 border-purple-200/70 dark:border-purple-700/60 shadow-xl">
+            <div className="bg-white dark:bg-indigo-950 rounded-3xl p-5 sm:p-6 border-2 border-purple-200 dark:border-purple-700 shadow-xl">
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-4">
                 <div>
                   <h3 className="text-2xl font-bold text-indigo-700 dark:text-indigo-100" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
