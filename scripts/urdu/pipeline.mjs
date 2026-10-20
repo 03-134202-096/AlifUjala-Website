@@ -180,12 +180,13 @@ function classifyContours(contours) {
     const sameWinding = Math.sign(c.signed) === bodySign
     if (!sameWinding) {
       bodyHoles.push(c)
-    } else if (c.aspect < 1.5) {
-      // Compact and roughly round — nuqta / dot.
+    } else if (c.aspect < 1.5 && c.area < body.area * 0.15) {
+      // Compact AND small — a true nuqta.
       marks.push(c)
     } else {
-      // Elongated — part of the letter's silhouette (madd on آ, toy on گ,
-      // retroflex ط on ٹ/ڈ/ڑ). Rasterise into the body for skeletonisation.
+      // Elongated (madd on آ, toy on گ) OR substantial even if round
+      // (the retroflex ط-mark on ٹ/ڈ/ڑ, which is a mini-letter, not a dot).
+      // These go into the body raster so they're skeletonised as a stroke.
       body._extra = body._extra || []
       body._extra.push(c)
     }
