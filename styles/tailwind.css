@@ -1043,6 +1043,9 @@ html {
   transform: translateY(-1px);
 }
 
+.responsive-download-control > div { min-width: 0; max-width: 100%; }
+.responsive-download-control .download-btn { max-width: 100%; white-space: normal; }
+
 /* Mobile Responsive Download Control */
 @media (max-width: 640px) {
   .responsive-download-control {

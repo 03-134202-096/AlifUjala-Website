@@ -1,3 +1,4 @@
+import UrduTraceGlyph from '@/components/UrduTraceGlyph'
 import { DecorativeBlobs, LearningIcon, IconBadge } from '@/components/ui'
 ﻿import React, { useEffect, useMemo, useRef, useState } from "react"
 import Navbar from "@/components/Navbar"
@@ -21,91 +22,12 @@ function PageDecorations() {
   return <DecorativeBlobs motifs={['pencil', 'letters']} />
 }
 
-/* Auto-fit SVG glyph: tall viewBox (descender space) keeps every letter inside its tile. */
-const GLYPH_VIEWBOX = "0 0 100 130"
-const GLYPH_X = 50
-const GLYPH_Y = 78
-const GLYPH_FONT_SIZE = 78
-
 function DottedLetter({ char }: { char: string }) {
-  if (!char) {
-    return <span className="text-slate-300 text-xl">--</span>
-  }
-
-  return (
-    <svg
-      viewBox={GLYPH_VIEWBOX}
-      className="w-full h-full block"
-      preserveAspectRatio="xMidYMid meet"
-      aria-hidden="true"
-    >
-      {/* soft halo dots */}
-      <text
-        x={GLYPH_X}
-        y={GLYPH_Y}
-        textAnchor="middle"
-        dominantBaseline="alphabetic"
-        fontFamily="'Noto Nastaliq Urdu', serif"
-        fontSize={GLYPH_FONT_SIZE}
-        fill="none"
-        stroke="currentColor"
-        strokeOpacity="0.35"
-        strokeWidth="6"
-        strokeDasharray="1 11"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="text-indigo-400 dark:text-indigo-300"
-      >
-        {char}
-      </text>
-      {/* crisp dotted outline */}
-      <text
-        x={GLYPH_X}
-        y={GLYPH_Y}
-        textAnchor="middle"
-        dominantBaseline="alphabetic"
-        fontFamily="'Noto Nastaliq Urdu', serif"
-        fontSize={GLYPH_FONT_SIZE}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3.5"
-        strokeDasharray="1 8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="text-slate-700 dark:text-indigo-100"
-      >
-        {char}
-      </text>
-    </svg>
-  )
+  return char ? <UrduTraceGlyph char={char} className="text-slate-700 dark:text-indigo-100" /> : <span>--</span>
 }
 
-function SolidLetter({ char, className = "" }: { char: string; className?: string }) {
-  if (!char) {
-    return <span className="text-slate-300 text-xl">--</span>
-  }
-
-  return (
-    <svg
-      viewBox={GLYPH_VIEWBOX}
-      className={`w-full h-full block ${className}`}
-      preserveAspectRatio="xMidYMid meet"
-      aria-hidden="true"
-    >
-      <text
-        x={GLYPH_X}
-        y={GLYPH_Y}
-        textAnchor="middle"
-        dominantBaseline="alphabetic"
-        fontFamily="'Noto Nastaliq Urdu', serif"
-        fontSize={GLYPH_FONT_SIZE}
-        fontWeight="bold"
-        fill="currentColor"
-      >
-        {char}
-      </text>
-    </svg>
-  )
+function SolidLetter({ char, className = '' }: { char: string; className?: string }) {
+  return char ? <UrduTraceGlyph char={char} dotted={false} className={className} /> : <span>--</span>
 }
 
 export default function UrduDottedMatchPage() {
