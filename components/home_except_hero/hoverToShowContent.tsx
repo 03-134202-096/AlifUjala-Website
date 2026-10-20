@@ -108,12 +108,12 @@ export default function FeatureCards() {
             <motion.div
               variants={backVariants}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="absolute inset-0 bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center"
+              className="feature-card-details absolute inset-0 bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center"
             >
-              <h3 className="font-extrabold text-xl text-indigo-700 mb-4 tracking-wide drop-shadow-sm">
+              <h3 className="font-extrabold text-xl text-indigo-700 dark:text-indigo-100 mb-4 tracking-wide drop-shadow-sm">
                 <IconBadge name={c.icon} size="sm" className="mr-2" />{c.title}
               </h3>
-              <ul className="list-none text-left w-full text-gray-700 text-sm sm:text-base space-y-2 font-medium">
+              <ul className="list-none text-left w-full text-slate-700 dark:text-slate-200 text-sm sm:text-base space-y-2 font-semibold">
                 {c.list.map((item, idx) => (
                   <li
                     key={idx}

@@ -13,10 +13,10 @@ import { KidsCard, KidsButton, SectionHeader, DecorativeBlobs, LearningIcon, Ico
 /* Quick access section for kids — bigger, animated cards with shine sweep */
 function QuickAccess() {
   const items = [
-    { href: "/activity",  icon: 'worksheet', label: "Activities",   sub: "Worksheets & fun tasks", grad: "from-fuchsia-500 via-purple-500 to-indigo-500", glow: "hover:shadow-glow-purple" },
-    { href: "/games",     icon: 'gamepad', label: "Play Games",   sub: "14+ playful Urdu games", grad: "from-emerald-500 via-teal-500 to-cyan-500",     glow: "hover:shadow-glow-green" },
-    { href: "/stories",   icon: 'book', label: "Read Stories", sub: "Animated visual tales",  grad: "from-rose-500 via-pink-500 to-fuchsia-500",      glow: "hover:shadow-glow-pink" },
-    { href: "/edu-videos",icon: 'play', label: "Edu Videos",   sub: "Watch & learn",          grad: "from-amber-400 via-orange-500 to-rose-500",      glow: "hover:shadow-candy-lg" },
+    { href: "/activity",  icon: 'worksheet', label: "Activities",   sub: "Worksheets & fun tasks", grad: "from-fuchsia-700 via-purple-700 to-indigo-700", glow: "hover:shadow-glow-purple" },
+    { href: "/games",     icon: 'gamepad', label: "Play Games",   sub: "14+ playful Urdu games", grad: "from-emerald-700 via-teal-700 to-cyan-800",     glow: "hover:shadow-glow-green" },
+    { href: "/stories",   icon: 'book', label: "Read Stories", sub: "Animated visual tales",  grad: "from-rose-700 via-pink-700 to-fuchsia-700",      glow: "hover:shadow-glow-pink" },
+    { href: "/edu-videos",icon: 'play', label: "Edu Videos",   sub: "Watch & learn",          grad: "from-amber-800 via-orange-800 to-rose-700",      glow: "hover:shadow-candy-lg" },
   ];
   return (
     <section className="relative py-12 px-4">
@@ -44,7 +44,7 @@ function QuickAccess() {
                 <IconBadge name={item.icon as LearningIconName} size="lg" />
               </div>
               <p className="text-lg sm:text-xl font-bold drop-shadow" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>{item.label}</p>
-              <p className="text-xs sm:text-sm font-bold opacity-90 mt-1" style={{ fontFamily: "'Comic Neue', cursive" }}>{item.sub}</p>
+              <p className="text-xs sm:text-sm font-bold text-white mt-1" style={{ fontFamily: "'Comic Neue', cursive" }}>{item.sub}</p>
               <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold bg-white/25 backdrop-blur px-3 py-1 rounded-full border border-white/40 group-hover:bg-white/40 transition" style={{ fontFamily: "'Comic Neue', cursive" }}>
                 Start <span aria-hidden>→</span>
               </span>

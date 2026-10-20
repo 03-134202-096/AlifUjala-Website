@@ -27,8 +27,9 @@ export default function WelcomeHeader() {
           }}
           lang="ur"
           dir="rtl"
+          data-testid="urdu-welcome"
         >
-          !خوش آمدید
+          {'خوش آمدید!'}
         </span>
       </motion.h1>
       <motion.p

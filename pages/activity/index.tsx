@@ -5,24 +5,13 @@ import Link from 'next/link'
 import SEO from '@/components/SEO'
 import DownloadWorksheet from '@/components/DownloadWorksheet'
 import alphabetsData from '@/data/alphabets.json'
-import { buildWorksheetCanvas, type WorksheetBgType } from '@/lib/worksheetRenderer'
+import { PRACTICE_LETTERS, PICTURE_PRACTICE_LETTERS } from '@/data/practiceLetters'
+import { WORKSHEET_TEMPLATES, PRACTICE_TEMPLATE_IDS, type WorksheetType } from '@/data/worksheetTemplates'
+import { buildWorksheetCanvas, getWorksheetPageCount, type WorksheetBgType, type WorksheetItem } from '@/lib/worksheetRenderer'
 import { SectionHeader, DecorativeBlobs, LearningIcon, IconBadge, type LearningIconName } from '@/components/ui'
 
 type Letter = { id: string; char: string; name: string }
-type WorksheetItem = { id: string; label?: string; src?: string }
 type ActivitySection = 'interactive' | 'printable'
-type WorksheetType = 'tracing' | 'alphabet' | 'image' | 'adhi'
-
-// Include the Urdu forms missing from the game's image-based letter set.
-// Repertoire: https://www.unicode.org/cldr/charts/48/summary/ur.html
-const EXTRA_TRACING_LETTERS: Record<string, Letter> = {
-  dal: { id: 'ddal', char: 'ڈ', name: 'Ddal' },
-  noon: { id: 'noon-ghunna', char: 'ں', name: 'Noon Ghunna' },
-  he: { id: 'do-chashmi-he', char: 'ھ', name: 'Do Chashmi He' },
-}
-const TRACING_LETTERS: Letter[] = alphabetsData.letters.flatMap((letter) =>
-  EXTRA_TRACING_LETTERS[letter.id] ? [letter, EXTRA_TRACING_LETTERS[letter.id]] : [letter]
-)
 
 function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5)
@@ -64,29 +53,6 @@ const SMALL_ALPHABETS_MAP: Record<string, string> = {
   say: 'se-small-1.webp',
   tte: 'tte-small-1.webp',
   'choti-yaa': 'yay-small.webp',
-}
-
-const WORKSHEET_META: Record<WorksheetType, { title: string; filename: string; helper: string }> = {
-  tracing: {
-    title: 'Urdu Letter Tracing / اردو حروف کی مشق',
-    filename: 'worksheet_urdu_letter_tracing.pdf',
-    helper: 'Follow the dotted Urdu letters with a pencil. Start at the right and move left.',
-  },
-  alphabet: {
-    title: 'Alphabet Matching / حرف ملائیں',
-    filename: 'worksheet_alphabet_match.pdf',
-    helper: 'Match Urdu letters with their correct pair.',
-  },
-  image: {
-    title: 'Letter to Image Matching / حرف اور تصویر',
-    filename: 'worksheet_letter_image_match.pdf',
-    helper: 'Match letters with picture tiles and practice recognition.',
-  },
-  adhi: {
-    title: 'Adhi Ashkal Matching / آدھی اشکال ملائیں',
-    filename: 'worksheet_adhi_ashkal_match.pdf',
-    helper: 'Match letters with their half-shape style cards.',
-  },
 }
 
 const SITE_URL = 'https://alifujala.ai'
@@ -150,7 +116,7 @@ export default function ActivityIndex() {
 
   const [worksheetType, setWorksheetType] = useState<WorksheetType>('tracing')
   const [worksheetCount, setWorksheetCount] = useState(6)
-  const [tracingCount, setTracingCount] = useState(0)
+  const [practiceCount, setPracticeCount] = useState(0)
   const [seed, setSeed] = useState(Date.now())
   const [colorBgIndex, setColorBgIndex] = useState(0)
   const [bgType, setBgType] = useState<WorksheetBgType>('bw')
@@ -161,12 +127,17 @@ export default function ActivityIndex() {
   const [isPreviewLoading, setIsPreviewLoading] = useState(false)
   const [sheetError, setSheetError] = useState('')
   const [previewError, setPreviewError] = useState('')
-  const isTracing = worksheetType === 'tracing'
-  const worksheetLayout = isTracing ? 'tracing' : 'matching'
+  const [previewPage, setPreviewPage] = useState(0)
+  const worksheetMeta = WORKSHEET_TEMPLATES[worksheetType]
+  const worksheetLayout = worksheetMeta.layout
+  const isPractice = worksheetLayout !== 'matching'
+  const hasPictures = worksheetLayout === 'picture-rows' || worksheetLayout === 'letter-focus'
+  const pageCount = getWorksheetPageCount(worksheetLayout, leftItems.length)
+  const effectivePreviewPage = Math.min(previewPage, pageCount - 1)
 
   const activePool = useMemo(
-    () => (worksheetType === 'tracing' ? TRACING_LETTERS : worksheetType === 'adhi' ? adhiLetters : allLetters),
-    [worksheetType, adhiLetters, allLetters]
+    () => (hasPictures ? PICTURE_PRACTICE_LETTERS : isPractice ? PRACTICE_LETTERS : worksheetType === 'adhi' ? adhiLetters : allLetters),
+    [hasPictures, isPractice, worksheetType, adhiLetters, allLetters]
   )
 
   const [startId, setStartId] = useState(allLetters[0]?.id || '')
@@ -195,17 +166,19 @@ export default function ActivityIndex() {
     return activePool.slice(a, b + 1)
   }, [activePool, startId, endId])
 
-  const worksheetMeta = WORKSHEET_META[worksheetType]
+  useEffect(() => {
+    setPreviewPage(0)
+  }, [worksheetType, startId, endId, practiceCount, worksheetCount, seed])
 
   const regenerateWorksheet = () => {
     setSeed(Date.now())
     setColorBgIndex(Math.floor(Math.random() * 4))
   }
 
-  const resetTracingRange = () => {
-    setStartId(TRACING_LETTERS[0]?.id || '')
-    setEndId(TRACING_LETTERS[TRACING_LETTERS.length - 1]?.id || '')
-    setTracingCount(0)
+  const resetPracticeRange = () => {
+    setStartId(activePool[0]?.id || '')
+    setEndId(activePool[activePool.length - 1]?.id || '')
+    setPracticeCount(0)
   }
 
   useEffect(() => {
@@ -227,9 +200,12 @@ export default function ActivityIndex() {
       const requested = Math.max(5, Math.min(8, worksheetCount))
       const take = Math.min(requested, pool.length)
 
-      if (worksheetType === 'tracing') {
-        const chosen = tracingCount ? pool.slice(0, tracingCount) : pool
-        setLeftItems(chosen.map((letter) => ({ id: letter.id, label: letter.char })))
+      if (isPractice) {
+        const chosen = practiceCount ? pool.slice(0, practiceCount) : pool
+        setLeftItems(chosen.map((letter) => {
+          const details = PRACTICE_LETTERS.find((entry) => entry.id === letter.id)
+          return { id: letter.id, label: letter.char, name: letter.name, src: details?.src, word: details?.word }
+        }))
         setRightItems([])
         return
       }
@@ -314,14 +290,14 @@ export default function ActivityIndex() {
     return () => {
       cancelled = true
     }
-  }, [worksheetType, worksheetCount, tracingCount, selectedSlice, activePool, seed, allLetters])
+  }, [worksheetType, isPractice, worksheetCount, practiceCount, selectedSlice, activePool, seed, allLetters])
 
   useEffect(() => {
     let cancelled = false
 
     const generatePreview = async () => {
       setPreviewError('')
-      if (!leftItems.length || (!isTracing && !rightItems.length)) {
+      if (!leftItems.length || (!isPractice && !rightItems.length)) {
         setPreviewSrc('')
         setIsPreviewLoading(false)
         return
@@ -337,6 +313,8 @@ export default function ActivityIndex() {
           colorBackgroundIndex: colorBgIndex,
           scaleFactor: 1,
           layout: worksheetLayout,
+          pageIndex: effectivePreviewPage,
+          seed,
         })
         if (!cancelled) {
           setPreviewSrc(canvas.toDataURL('image/png'))
@@ -358,7 +336,7 @@ export default function ActivityIndex() {
     return () => {
       cancelled = true
     }
-  }, [leftItems, rightItems, worksheetMeta.title, bgType, colorBgIndex, isTracing, worksheetLayout])
+  }, [leftItems, rightItems, worksheetMeta.title, bgType, colorBgIndex, isPractice, worksheetLayout, effectivePreviewPage, seed])
 
   const activities = [
     {
@@ -501,6 +479,28 @@ export default function ActivityIndex() {
 
         {activeSection === 'printable' && (
           <div className="max-w-6xl mx-auto mb-10 space-y-6">
+            <section aria-label="Urdu writing and recognition worksheets" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+              {PRACTICE_TEMPLATE_IDS.map((id) => {
+                const template = WORKSHEET_TEMPLATES[id]
+                return (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => setWorksheetType(id)}
+                    aria-pressed={worksheetType === id}
+                    className={`group text-left rounded-2xl border-2 p-3 transition-colors ${worksheetType === id
+                      ? 'border-violet-500 bg-violet-50 dark:bg-indigo-900 shadow-md'
+                      : 'border-indigo-100 dark:border-indigo-800 bg-white dark:bg-indigo-950 hover:border-violet-400'}`}
+                  >
+                    <div className="aspect-[1/1.15] rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-indigo-800 mb-3">
+                      <img src={template.thumbnail} alt={`${template.label} worksheet example`} className="block w-full h-full object-contain" loading="lazy" />
+                    </div>
+                    <span className="block font-bold text-sm text-indigo-800 dark:text-indigo-100"><LearningIcon name={template.icon} className="mr-1.5" />{template.label}</span>
+                    <span className="block mt-1 text-xs text-slate-600 dark:text-slate-300">{template.caption}</span>
+                  </button>
+                )
+              })}
+            </section>
             <div className="bg-white dark:bg-indigo-950 rounded-3xl p-5 sm:p-6 border-2 border-purple-200 dark:border-purple-700 shadow-xl">
               <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-indigo-700 dark:text-indigo-100" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
                 <IconBadge name="worksheet" className="mr-2" /> Printable Worksheets
@@ -509,30 +509,34 @@ export default function ActivityIndex() {
                 Select worksheet type and letter range. The preview below matches the downloadable worksheet layout.
               </p>
 
-              <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-4">
-                <label className="col-span-2 sm:col-span-1 flex flex-col gap-1.5">
+              <div className="grid grid-cols-2 lg:grid-cols-6 gap-3 mb-4">
+                <label className="col-span-2 sm:col-span-1 lg:col-span-2 flex flex-col gap-1.5">
                   <span className="text-xs font-bold text-indigo-700 dark:text-indigo-50 uppercase tracking-wider">Worksheet</span>
                   <select
+                    aria-label="Worksheet type"
                     value={worksheetType}
                     onChange={(e) => setWorksheetType(e.target.value as WorksheetType)}
                     className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/75 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
                   >
-                    <option value="tracing">Urdu Letter Tracing</option>
-                    <option value="alphabet">Letter to Letter</option>
-                    <option value="image">Letter to Image</option>
-                    <option value="adhi">Adhi Ashkal</option>
+                    <optgroup label="Writing & recognition">
+                      {PRACTICE_TEMPLATE_IDS.map((id) => <option key={id} value={id}>{WORKSHEET_TEMPLATES[id].label}</option>)}
+                    </optgroup>
+                    <optgroup label="Matching activities">
+                      {(['alphabet', 'image', 'adhi'] as const).map((id) => <option key={id} value={id}>{WORKSHEET_TEMPLATES[id].label}</option>)}
+                    </optgroup>
                   </select>
                 </label>
 
                 <label className="col-span-2 sm:col-span-1 flex flex-col gap-1.5">
-                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-50 uppercase tracking-wider">{isTracing ? 'Letters' : 'Count'}</span>
+                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-50 uppercase tracking-wider">{isPractice ? 'Letters' : 'Count'}</span>
                   <select
-                    value={isTracing ? tracingCount : worksheetCount}
-                    onChange={(e) => isTracing ? setTracingCount(Number(e.target.value)) : setWorksheetCount(Number(e.target.value))}
+                    aria-label="Number of letters"
+                    value={isPractice ? practiceCount : worksheetCount}
+                    onChange={(e) => isPractice ? setPracticeCount(Number(e.target.value)) : setWorksheetCount(Number(e.target.value))}
                     className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/75 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
                   >
-                    {isTracing && <option value={0}>All in range ({selectedSlice.length})</option>}
-                    {(isTracing ? [6, 12, 24] : [5, 6, 7, 8]).map((n) => (
+                    {isPractice && <option value={0}>All in range ({selectedSlice.length})</option>}
+                    {(isPractice ? [6, 12, 24] : [5, 6, 7, 8]).map((n) => (
                       <option key={n} value={n}>{n}</option>
                     ))}
                   </select>
@@ -541,6 +545,7 @@ export default function ActivityIndex() {
                 <label className="flex flex-col gap-1.5">
                   <span className="text-xs font-bold text-indigo-700 dark:text-indigo-50 uppercase tracking-wider">From</span>
                   <select
+                    aria-label="From letter"
                     value={startId}
                     onChange={(e) => setStartId(e.target.value)}
                     className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/75 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
@@ -554,6 +559,7 @@ export default function ActivityIndex() {
                 <label className="flex flex-col gap-1.5">
                   <span className="text-xs font-bold text-indigo-700 dark:text-indigo-50 uppercase tracking-wider">To</span>
                   <select
+                    aria-label="To letter"
                     value={endId}
                     onChange={(e) => setEndId(e.target.value)}
                     className="rounded-xl border border-indigo-200 dark:border-indigo-600 bg-white/90 dark:bg-indigo-900/75 px-3 py-2 text-indigo-800 dark:text-indigo-100 font-semibold"
@@ -566,12 +572,12 @@ export default function ActivityIndex() {
 
                 <div className="col-span-2 sm:col-span-1 flex items-end">
                   <button
-                    onClick={isTracing ? resetTracingRange : regenerateWorksheet}
+                    onClick={isPractice && worksheetLayout !== 'letter-find' ? resetPracticeRange : regenerateWorksheet}
                     className="w-full rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold px-4 py-2.5 hover:scale-[1.02] transition-transform"
                     style={{ fontFamily: "'Bubblegum Sans', cursive" }}
                   >
-                    <LearningIcon name={isTracing ? 'letters' : 'shuffle'} className="mr-2" />
-                    {isTracing ? 'Reset Range' : 'Shuffle'}
+                    <LearningIcon name={isPractice && worksheetLayout !== 'letter-find' ? 'letters' : 'shuffle'} className="mr-2" />
+                    {worksheetLayout === 'letter-find' ? 'New Puzzle' : isPractice ? 'Reset Range' : 'Shuffle'}
                   </button>
                 </div>
               </div>
@@ -595,6 +601,8 @@ export default function ActivityIndex() {
                   onBgTypeChange={setBgType}
                   colorBackgroundIndex={colorBgIndex}
                   layout={worksheetLayout}
+                  pageIndex={effectivePreviewPage}
+                  seed={seed}
                   disabled={isSheetLoading || isPreviewLoading || !!previewError}
                 />
               </div>
@@ -626,10 +634,17 @@ export default function ActivityIndex() {
                   </p>
                 </div>
                 <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-100 uppercase tracking-wider">
-                  {isTracing ? `Tracing: ${leftItems.length} letters · Right to left` : `Range size: ${selectedSlice.length || activePool.length} letters`}
+                  {isPractice ? `${leftItems.length} letters · ${pageCount} ${pageCount === 1 ? 'page' : 'pages'} · Right to left` : `Range size: ${selectedSlice.length || activePool.length} letters`}
                 </p>
               </div>
 
+              {pageCount > 1 && (
+                <nav aria-label="Worksheet preview pages" className="flex items-center justify-center gap-3 mb-4">
+                  <button type="button" aria-label="Previous preview page" onClick={() => setPreviewPage((page) => Math.max(0, page - 1))} disabled={effectivePreviewPage === 0 || isPreviewLoading} className="rounded-full border border-indigo-300 dark:border-indigo-700 px-3 py-2 text-sm font-bold text-indigo-700 dark:text-indigo-100 disabled:opacity-40">← Prev</button>
+                  <span className="text-sm font-semibold text-indigo-700 dark:text-indigo-100" aria-live="polite">Page {effectivePreviewPage + 1} of {pageCount}</span>
+                  <button type="button" aria-label="Next preview page" onClick={() => setPreviewPage((page) => Math.min(pageCount - 1, page + 1))} disabled={effectivePreviewPage >= pageCount - 1 || isPreviewLoading} className="rounded-full border border-indigo-300 dark:border-indigo-700 px-3 py-2 text-sm font-bold text-indigo-700 dark:text-indigo-100 disabled:opacity-40">Next →</button>
+                </nav>
+              )}
               <div className="mx-auto max-w-[640px] rounded-2xl border border-indigo-200 dark:border-indigo-700 bg-slate-100 dark:bg-slate-900 p-4 sm:p-5 max-h-[72vh] overflow-auto" aria-busy={isPreviewLoading}>
                 {isPreviewLoading ? (
                   <div className="h-[220px] sm:h-[260px] flex items-center justify-center text-indigo-700 dark:text-indigo-50 font-bold" style={{ fontFamily: "'Comic Neue', cursive" }}>
