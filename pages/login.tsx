@@ -1,3 +1,4 @@
+import { LearningIcon, IconBadge } from '@/components/ui'
 import { useState, FormEvent } from "react"
 import type { NextPage } from 'next'
 import LoadingIndicator from "@/components/LoadingIndicator"
@@ -41,7 +42,7 @@ const LoginPage: NextPage = () => {
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO title="Sign In — AlifUjala" description="Sign in to AlifUjala to continue your Urdu learning adventure." />
-      <DecorativeBlobs variant="soft" emojis={["🔑", "⭐", "🌈", "✨", "💫"]} />
+      <DecorativeBlobs variant="soft" motifs={["book","letters"]} />
       <Navbar />
       <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
         <div className="w-full max-w-md">
@@ -51,18 +52,18 @@ const LoginPage: NextPage = () => {
             <span className="pointer-events-none absolute -bottom-20 -left-20 h-44 w-44 rounded-full bg-indigo-300/30 blur-3xl" aria-hidden />
             {/* Header */}
             <div className="text-center mb-6">
-              <div className="text-6xl mb-3 animate-bounce-slow">👋</div>
+              <div className="mb-4"><IconBadge name="book" size="hero" /></div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-2 text-gradient-cool" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                 Welcome Back!
               </h2>
               <p className="text-gray-500 dark:text-gray-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>
-                Sign in to continue learning! 🌟
+                Sign in to continue learning!
               </p>
             </div>
             
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <label className="block text-sm font-bold text-indigo-500 dark:text-indigo-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>📧 Email</label>
+                <label className="block text-sm font-bold text-indigo-500 dark:text-indigo-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}><LearningIcon name="mail" className="mr-1.5" /> Email</label>
                 <input
                   type="email"
                   placeholder="your@email.com"
@@ -75,7 +76,7 @@ const LoginPage: NextPage = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-bold text-indigo-500 dark:text-indigo-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>🔒 Password</label>
+                <label className="block text-sm font-bold text-indigo-500 dark:text-indigo-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}><LearningIcon name="lock" className="mr-1.5" /> Password</label>
                 <input
                   type="password"
                   placeholder="Your secret password"
@@ -117,9 +118,9 @@ const LoginPage: NextPage = () => {
           {/* Fun bottom decoration */}
           <div className="text-center mt-6">
             <div className="flex justify-center gap-3 text-3xl">
-              <span className="animate-bounce-slow">🎮</span>
-              <span className="animate-bounce-slow" style={{animationDelay: '0.3s'}}>📖</span>
-              <span className="animate-bounce-slow" style={{animationDelay: '0.6s'}}>✨</span>
+              <IconBadge name="gamepad" />
+              <IconBadge name="book" />
+              <IconBadge name="sparkles" />
             </div>
           </div>
         </div>

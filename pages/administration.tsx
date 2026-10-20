@@ -1,3 +1,4 @@
+import { LearningIcon, IconBadge, type LearningIconName } from '@/components/ui'
 import { useEffect, useState } from "react"
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -45,14 +46,14 @@ const AdministrationPage: NextPage = () => {
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO title="Administration — AlifUjala" description="Administration dashboard for AlifUjala." />
-      <DecorativeBlobs variant="soft" emojis={["⚙️", "📋", "🔧", "🛡️", "✨"]} />
+      <DecorativeBlobs variant="soft" motifs={["school","book"]} />
 
       <Navbar />
       <main className="flex-1 px-4 py-8 relative z-10">
         <div className="max-w-4xl mx-auto">
           <SectionHeader
-            eyebrow="🏫 Admin"
-            emoji="🏫"
+            eyebrow="Admin"
+            icon="school"
             title="Administration"
             subtitle="Manage the learning platform."
             tone="cool"
@@ -60,13 +61,13 @@ const AdministrationPage: NextPage = () => {
 
           {error ? (
             <KidsCard variant="glass" tone="purple" padding="lg" className="text-center max-w-md mx-auto">
-              <div className="text-5xl mb-4">🔒</div>
+              <div className="mb-4"><IconBadge name="lock" size="lg" /></div>
               <p className="text-purple-700 dark:text-purple-300 font-bold text-lg mb-4" style={{fontFamily: "'Comic Neue', cursive"}}>{error}</p>
-              <KidsButton href="/login" variant="primary" size="md">🔑 Login</KidsButton>
+              <KidsButton href="/login" variant="primary" size="md"><LearningIcon name="lock" className="mr-1.5" /> Login</KidsButton>
             </KidsCard>
           ) : (
             <KidsCard variant="glass" tone="blue" padding="lg" className="text-center">
-              <div className="text-6xl mb-4 animate-bounce-slow">🏗️</div>
+              <div className="mb-4"><IconBadge name="school" size="hero" /></div>
               <h2 className="text-2xl sm:text-3xl font-bold text-blue-700 dark:text-blue-300 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                 Admin Dashboard Coming Soon!
               </h2>
@@ -77,12 +78,12 @@ const AdministrationPage: NextPage = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                 {[
-                  { icon: '👥', label: 'User Management', tone: 'blue' as const },
-                  { icon: '📝', label: 'Content Editor',   tone: 'purple' as const },
-                  { icon: '📈', label: 'Analytics',        tone: 'green' as const },
+                  { icon: 'users' as LearningIconName, label: 'User Management', tone: 'blue' as const },
+                  { icon: 'pencil' as LearningIconName, label: 'Content Editor',   tone: 'purple' as const },
+                  { icon: 'chart' as LearningIconName, label: 'Analytics',        tone: 'green' as const },
                 ].map(t => (
                   <KidsCard key={t.label} variant="glass" tone={t.tone} padding="sm">
-                    <div className="text-3xl mb-2">{t.icon}</div>
+                    <div className="mb-2"><IconBadge name={t.icon} /></div>
                     <p className="text-purple-700 dark:text-purple-300 font-bold text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>{t.label}</p>
                   </KidsCard>
                 ))}

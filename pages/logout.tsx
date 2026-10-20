@@ -1,3 +1,4 @@
+import { LearningIcon, IconBadge } from '@/components/ui'
 import { useEffect, useState } from "react"
 import type { NextPage } from "next"
 import LoadingIndicator from "@/components/LoadingIndicator"
@@ -37,7 +38,7 @@ const LogoutPage: NextPage = () => {
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO title="Logging out — AlifUjala" description="Securely sign out of AlifUjala." />
-      <DecorativeBlobs variant="soft" emojis={["👋", "✨", "🌙", "🔒", "💫"]} />
+      <DecorativeBlobs variant="soft" motifs={["book","heart"]} />
       <Navbar />
       <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
         <div className="w-full max-w-md">
@@ -45,7 +46,7 @@ const LogoutPage: NextPage = () => {
             <span className="pointer-events-none absolute -top-20 -right-20 h-40 w-40 rounded-full bg-purple-300/30 blur-3xl" aria-hidden />
             <span className="pointer-events-none absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-pink-300/30 blur-3xl" aria-hidden />
 
-            <div className="text-7xl mb-4 animate-bounce-slow">{done ? "👋" : "🔒"}</div>
+            <div className="mb-4"><IconBadge name={done ? 'heart' : 'lock'} size="hero" /></div>
             <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-gradient-cool" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
               {done ? "See You Soon!" : "Signing You Out…"}
             </h1>
@@ -70,8 +71,8 @@ const LogoutPage: NextPage = () => {
             )}
 
             <div className="flex gap-3 justify-center flex-wrap">
-              <KidsButton href="/" variant="primary" size="md">🏠 Go Home</KidsButton>
-              <KidsButton href="/login" variant="outline" size="md">🔑 Sign In Again</KidsButton>
+              <KidsButton href="/" variant="primary" size="md"><LearningIcon name="home" className="mr-1.5" /> Go Home</KidsButton>
+              <KidsButton href="/login" variant="outline" size="md"><LearningIcon name="lock" className="mr-1.5" /> Sign In Again</KidsButton>
             </div>
           </div>
         </div>

@@ -4,50 +4,55 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { LearningIcon, IconBadge, type LearningIconName } from '@/components/ui';
 import lion from "public/images/lion_worksheet.png";
 import camel from "public/images/camel_youtube.png";
 import croco from "public/images/croco_app.png";
 import catStories from "public/images/cat_stories.png";
 
-const CARDS = [
+const CARDS: { title: string; icon: LearningIconName; img: typeof lion; color: string; list: { icon: LearningIconName; label: string }[] }[] = [
   {
-    title: "📄 Worksheets",
+    title: "Worksheets",
+    icon: 'worksheet',
     img: lion,
     color: "bg-yellow-400",
     list: [
-      "🖨️ Printable Worksheet",
-      "🎨 Customized Logo",
-      "📚 Interactive Learning",
+      { icon: 'worksheet', label: 'Printable worksheets' },
+      { icon: 'letters', label: 'Choose your letter range' },
+      { icon: 'pencil', label: 'Dotted letter practice' },
     ],
   },
   {
-    title: "🎥 Educational Videos",
+    title: "Educational Videos",
+    icon: 'play',
     img: camel,
     color: "bg-pink-400",
     list: [
-      "🎉 Fun Learning",
-      "📖 Urdu Stories",
-      "⚔️ Letters Fighting",
+      { icon: 'play', label: 'Learn through videos' },
+      { icon: 'book', label: 'Urdu stories' },
+      { icon: 'letters', label: 'Alphabet adventures' },
     ],
   },
   {
-    title: "📱 Mobile App",
+    title: "Mobile App",
+    icon: 'mobile',
     img: croco,
     color: "bg-green-400",
     list: [
-      "🎮 Interactive Activites",
-      "📊 Progress Tracker",
-      "🗣️ Voice Support",
+      { icon: 'gamepad', label: 'Interactive activities' },
+      { icon: 'chart', label: 'Progress tracker' },
+      { icon: 'audio', label: 'Voice support' },
     ],
   },
   {
-    title: "🐱 Stories",
+    title: "Stories",
+    icon: 'book',
     img: catStories,
     color: "bg-blue-500",
     list: [
-      "📖 Fun Stories",
-      "😺 Cute Illustrations",
-      "🌟 Imaginative Reading",
+      { icon: 'book', label: 'Wonderful Urdu stories' },
+      { icon: 'palette', label: 'Colorful illustrations' },
+      { icon: 'bulb', label: 'Imaginative reading' },
     ],
   },
 ];
@@ -95,7 +100,7 @@ export default function FeatureCards() {
               />
               {/* Show card title below image on mobile screens */}
               <span className="block sm:hidden mt-4 text-white text-center drop-shadow-sm text-xl font-bold">
-                {c.title}
+                <LearningIcon name={c.icon} className="mr-2" />{c.title}
               </span>
             </motion.div>
 
@@ -106,7 +111,7 @@ export default function FeatureCards() {
               className="absolute inset-0 bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center"
             >
               <h3 className="font-extrabold text-xl text-indigo-700 mb-4 tracking-wide drop-shadow-sm">
-                {c.title}
+                <IconBadge name={c.icon} size="sm" className="mr-2" />{c.title}
               </h3>
               <ul className="list-none text-left w-full text-gray-700 text-sm sm:text-base space-y-2 font-medium">
                 {c.list.map((item, idx) => (
@@ -114,7 +119,7 @@ export default function FeatureCards() {
                     key={idx}
                     className="hover:translate-x-1 transition-transform duration-300 flex gap-2"
                   >
-                    {item}
+                    <LearningIcon name={item.icon} />{item.label}
                   </li>
                 ))}
               </ul>
@@ -143,9 +148,9 @@ export default function FeatureCards() {
         // Optionally wrap other cards with external links (preserve hover/motion)
         if (c.title && c.title.includes("Mobile App")) {
           return (
-            <div key={"link-" + i} className="block w-full sm:w-72 flex-shrink-0 cursor-pointer" onClick={() => setShowAppPopup(true)}>
+            <button type="button" key={"link-" + i} className="block w-full sm:w-72 flex-shrink-0 cursor-pointer" onClick={() => setShowAppPopup(true)} aria-label="Preview the Alif Ujala mobile app">
               {card}
-            </div>
+            </button>
           );
         }
         
@@ -183,10 +188,11 @@ export default function FeatureCards() {
             {/* Header */}
             <div className="flex items-center justify-between p-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
               <h3 className="text-lg font-bold" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
-                📱 AlifUjala Mobile App
+                <LearningIcon name="mobile" className="mr-2" />AlifUjala Mobile App
               </h3>
               <button
                 onClick={() => setShowAppPopup(false)}
+                aria-label="Close app preview"
                 className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-all text-lg"
               >
                 ✕
@@ -203,12 +209,14 @@ export default function FeatureCards() {
               {/* Navigation arrows */}
               <button
                 onClick={() => setActiveImg((p) => (p - 1 + APP_SAMPLE_IMAGES.length) % APP_SAMPLE_IMAGES.length)}
+                aria-label="Previous app screenshot"
                 className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition-all text-xl"
               >
                 ‹
               </button>
               <button
                 onClick={() => setActiveImg((p) => (p + 1) % APP_SAMPLE_IMAGES.length)}
+                aria-label="Next app screenshot"
                 className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition-all text-xl"
               >
                 ›
@@ -237,7 +245,7 @@ export default function FeatureCards() {
                 className="block w-full text-center py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:shadow-lg hover:scale-[1.02] transition-all"
                 style={{fontFamily: "'Comic Neue', cursive"}}
               >
-                📥 Download on Google Play
+                <LearningIcon name="download" className="mr-2" />Download on Google Play
               </a>
             </div>
           </motion.div>

@@ -1,3 +1,4 @@
+import { LearningIcon, IconBadge } from '@/components/ui'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { KidsCard, KidsButton, DecorativeBlobs } from '@/components/ui'
@@ -6,7 +7,7 @@ import type { NextPage } from 'next'
 const NotFoundPage: NextPage = () => {
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
-      <DecorativeBlobs variant="rich" emojis={['🔍', '❓', '🗺️', '🧭', '⭐']} />
+      <DecorativeBlobs variant="rich" motifs={["book","search"]} />
 
       <Navbar />
       <main className="flex-1 flex items-center justify-center px-4 py-10 sm:py-16 relative z-10">
@@ -14,7 +15,7 @@ const NotFoundPage: NextPage = () => {
           {/* Massive 404 with animated rainbow gradient */}
           <div className="mb-4 sm:mb-6 select-none">
             <span
-              className="inline-block text-[6rem] sm:text-[9rem] leading-none font-bold animate-bounce-slow text-gradient bg-[length:200%_200%] animate-gradient-x"
+              className="inline-block text-[6rem] sm:text-[9rem] leading-none font-bold text-gradient"
               style={{ fontFamily: "'Bubblegum Sans', cursive" }}
             >
               404
@@ -22,7 +23,7 @@ const NotFoundPage: NextPage = () => {
           </div>
 
           {/* Lost mascot with shadow */}
-          <div className="text-7xl sm:text-8xl mb-4 animate-wiggle drop-shadow-lg">🙈</div>
+          <div className="mb-4"><IconBadge name="search" size="hero" /></div>
 
           {/* Glass message card */}
           <KidsCard variant="glass" tone="purple" padding="lg" className="mb-6">
@@ -42,10 +43,10 @@ const NotFoundPage: NextPage = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <KidsButton href="/" variant="primary" size="lg" iconRight={<span>🏠</span>}>
+              <KidsButton href="/" variant="primary" size="lg" iconRight={<LearningIcon name="home" />}>
                 Go Home
               </KidsButton>
-              <KidsButton href="/games" variant="success" size="lg" iconRight={<span>🎮</span>}>
+              <KidsButton href="/games" variant="success" size="lg" iconRight={<LearningIcon name="gamepad" />}>
                 Play Games
               </KidsButton>
             </div>
@@ -53,11 +54,7 @@ const NotFoundPage: NextPage = () => {
 
           {/* Fun bouncing emojis */}
           <div className="flex justify-center gap-3 sm:gap-5 text-3xl sm:text-4xl">
-            {['🌟', '📖', '🎮', '🎨', '🚀'].map((e, i) => (
-              <span key={i} className="animate-bounce-slow drop-shadow" style={{ animationDelay: `${i * 0.15}s` }}>
-                {e}
-              </span>
-            ))}
+            {(['book', 'pencil', 'puzzle'] as const).map((name) => <IconBadge key={name} name={name} />)}
           </div>
         </div>
       </main>

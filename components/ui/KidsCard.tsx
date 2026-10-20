@@ -49,7 +49,7 @@ export default function KidsCard({
       ? `bg-gradient-to-br ${TONE_GRADIENT[tone]} ${TONE_RING[tone]}`
       : variant === 'outline'
       ? `bg-transparent ${TONE_RING[tone]}`
-      : `bg-white/95 dark:bg-gray-900/85 ${TONE_RING[tone]}`
+      : `bg-white/95 dark:bg-gray-900/[0.85] ${TONE_RING[tone]}`
 
   return (
     <div className={`${base} ${variantCls} ${hover} ${PAD[padding]} ${className}`} {...rest}>

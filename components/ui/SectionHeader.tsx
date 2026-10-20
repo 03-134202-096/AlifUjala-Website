@@ -1,4 +1,5 @@
 import React from 'react'
+import { IconBadge, type LearningIconName } from './LearningIcon'
 
 type Tone = 'rainbow' | 'warm' | 'cool' | 'purple' | 'green' | 'pink'
 
@@ -15,7 +16,7 @@ export interface SectionHeaderProps {
   eyebrow?: React.ReactNode
   title: React.ReactNode
   subtitle?: React.ReactNode
-  emoji?: string
+  icon?: LearningIconName
   tone?: Tone
   align?: 'left' | 'center'
   className?: string
@@ -25,7 +26,7 @@ export default function SectionHeader({
   eyebrow,
   title,
   subtitle,
-  emoji,
+  icon,
   tone = 'rainbow',
   align = 'center',
   className = '',
@@ -33,12 +34,9 @@ export default function SectionHeader({
   const alignCls = align === 'center' ? 'text-center mx-auto' : 'text-left'
   return (
     <div className={`max-w-3xl mb-8 ${alignCls} ${className}`}>
-      {emoji && (
-        <div
-          className={`text-5xl sm:text-6xl mb-3 animate-bounce-slow ${align === 'center' ? '' : 'inline-block'}`}
-          aria-hidden="true"
-        >
-          {emoji}
+      {icon && (
+        <div className="mb-4">
+          <IconBadge name={icon} size="hero" />
         </div>
       )}
       {eyebrow && (

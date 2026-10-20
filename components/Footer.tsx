@@ -64,8 +64,6 @@ export default function Footer() {
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-24 -right-10 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-indigo-200/10 blur-3xl" />
-        <div className="absolute top-10 right-[18%] text-2xl opacity-30 animate-float">✨</div>
-        <div className="absolute top-24 left-[12%] text-xl opacity-20 animate-float-delay">⭐</div>
       </div>
 
       <div className="relative max-w-6xl mx-auto px-6 pt-12 pb-8">
@@ -89,7 +87,7 @@ export default function Footer() {
               href="https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-5 rounded-full border border-white/30 bg-white/15 px-4 py-2 text-sm font-bold text-white hover:bg-white/25 transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 mt-5 rounded-full border border-white/30 bg-white/[0.15] px-4 py-2 text-sm font-bold text-white hover:bg-white/25 transition-all hover:-translate-y-0.5"
               style={{ fontFamily: "'Comic Neue', cursive" }}
             >
               <span>Get the App on Google Play</span>
@@ -171,7 +169,7 @@ export default function Footer() {
         <div className="mt-10 h-px bg-white/20" />
 
         <div className="pt-5 flex flex-col gap-2 md:flex-row md:items-center md:justify-between text-center md:text-left">
-          <p className="text-white/65 text-sm" style={{ fontFamily: "'Comic Neue', cursive" }}>
+          <p className="text-white/[0.65] text-sm" style={{ fontFamily: "'Comic Neue', cursive" }}>
             © {new Date().getFullYear()} AIEarlyEdge. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-1 text-sm text-white/75" style={{ fontFamily: "'Comic Neue', cursive" }}>

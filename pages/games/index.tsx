@@ -1,3 +1,4 @@
+import { IconBadge, type LearningIconName } from '@/components/ui'
 import React from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -7,16 +8,16 @@ import { KidsCard, KidsButton, SectionHeader, DecorativeBlobs } from '@/componen
 
 type Tone = 'purple' | 'green' | 'pink' | 'blue' | 'amber' | 'indigo'
 
-const GAMES: { href: string; title: string; emoji: string; description: string; img: string; tone: Tone }[] = [
-  { href: "/games/urduHunter",       title: "Alphabet Hunter", emoji: "🎯", description: "Bubbles with Urdu letters fall from the sky — pop the correct one before it escapes!", img: "/images/urduHunter.svg",            tone: 'purple' },
-  { href: "/games/urduBasketCatch",  title: "Basket Catch",    emoji: "🧺", description: "Move your basket left and right to catch the target Urdu letter falling from above!", img: "/images/urduBasketCatch.svg",     tone: 'blue' },
-  { href: "/games/memoryMatch",      title: "Memory Match",    emoji: "🧠", description: "Flip the cards and find matching pairs of Urdu letters — train your memory!",          img: "/images/games/memoryMatch.svg",   tone: 'green' },
-  { href: "/games/whackALetter",     title: "Whack-a-Letter",  emoji: "🔨", description: "Whack the mole holding the correct Urdu letter! Fast and fun.",                          img: "/images/games/whackALetter.svg",  tone: 'amber' },
-  { href: "/games/urduBalloonPop",   title: "Balloon Pop",     emoji: "🎈", description: "Colorful balloons are floating away! Pop the correct Urdu letter balloon.",              img: "/images/games/urduBalloonPop.svg", tone: 'pink' },
-  { href: "/games/urduTrainPuzzle",  title: "Train Puzzle",    emoji: "🚂", description: "Complete the alphabet sequence to make the train go choo-choo!",                          img: "/images/games/urduTrainPuzzle.svg", tone: 'blue' },
-  { href: "/games/urduGridFind",     title: "Grid Find",       emoji: "🔍", description: "Scan the 4x4 grid quickly to find all instances of the hidden target letter!",          img: "/images/games/urduGridFind.svg",   tone: 'indigo' },
-  { href: "/games/urduNuqtaSort",    title: "Nuqta Sorter",    emoji: "⚖️", description: "Does the letter have dots (Nuqtas)? Sort them into bins before time runs out!",         img: "/images/games/urduNuqtaSort.svg",  tone: 'green' },
-  { href: "/games/urduTileTap",      title: "Tile Tap",        emoji: "🎹", description: "Piano-style tiles fall from the sky. Tap the ones containing the target letter!",       img: "/images/games/urduTileTap.svg",    tone: 'amber' },
+const GAMES: { href: string; title: string; icon: LearningIconName; description: string; img: string; tone: Tone }[] = [
+  { href: "/games/urduHunter",       title: "Alphabet Hunter", icon: 'target', description: "Bubbles with Urdu letters fall from the sky — pop the correct one before it escapes!", img: "/images/urduHunter.svg",            tone: 'purple' },
+  { href: "/games/urduBasketCatch",  title: "Basket Catch",    icon: 'basket', description: "Move your basket left and right to catch the target Urdu letter falling from above!", img: "/images/urduBasketCatch.svg",     tone: 'blue' },
+  { href: "/games/memoryMatch",      title: "Memory Match",    icon: 'cards', description: "Flip the cards and find matching pairs of Urdu letters — train your memory!",          img: "/images/games/memoryMatch.svg",   tone: 'green' },
+  { href: "/games/whackALetter",     title: "Whack-a-Letter",  icon: 'hammer', description: "Whack the mole holding the correct Urdu letter! Fast and fun.",                          img: "/images/games/whackALetter.svg",  tone: 'amber' },
+  { href: "/games/urduBalloonPop",   title: "Balloon Pop",     icon: 'balloon', description: "Colorful balloons are floating away! Pop the correct Urdu letter balloon.",              img: "/images/games/urduBalloonPop.svg", tone: 'pink' },
+  { href: "/games/urduTrainPuzzle",  title: "Train Puzzle",    icon: 'train', description: "Complete the alphabet sequence to make the train go choo-choo!",                          img: "/images/games/urduTrainPuzzle.svg", tone: 'blue' },
+  { href: "/games/urduGridFind",     title: "Grid Find",       icon: 'search', description: "Scan the 4x4 grid quickly to find all instances of the hidden target letter!",          img: "/images/games/urduGridFind.svg",   tone: 'indigo' },
+  { href: "/games/urduNuqtaSort",    title: "Nuqta Sorter",    icon: 'sort', description: "Does the letter have dots (Nuqtas)? Sort them into bins before time runs out!",         img: "/images/games/urduNuqtaSort.svg",  tone: 'green' },
+  { href: "/games/urduTileTap",      title: "Tile Tap",        icon: 'tiles', description: "Piano-style tiles fall from the sky. Tap the ones containing the target letter!",       img: "/images/games/urduTileTap.svg",    tone: 'amber' },
 ]
 
 export default function GamesIndex() {
@@ -28,13 +29,13 @@ export default function GamesIndex() {
         ogUrl="https://alifujala.ai/games"
         keywords="Urdu games for kids, Urdu alphabet games, learn Urdu online free, Urdu arcade games"
       />
-      <DecorativeBlobs variant="rich" emojis={["🕹️", "🎮", "🎯", "🎲", "✨"]} />
+      <DecorativeBlobs variant="rich" motifs={["puzzle","gamepad","star"]} />
       <Navbar />
 
       <main className="container mx-auto flex-1 px-4 py-8 relative z-10">
         <SectionHeader
-          eyebrow="🕹️ Arcade"
-          emoji="🎮"
+          eyebrow="Arcade"
+          icon="gamepad"
           title="Urdu Letter Games"
           subtitle="Fast-paced arcade fun while learning Urdu letters! Pick a game and start playing."
           tone="rainbow"
@@ -51,9 +52,7 @@ export default function GamesIndex() {
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <span className="absolute top-3 left-3 inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/90 dark:bg-gray-900/80 backdrop-blur shadow-md text-2xl">
-                    {game.emoji}
-                  </span>
+                  <IconBadge name={game.icon} className="absolute top-3 left-3" />
                 </div>
                 <div className="p-5 flex-1 flex flex-col">
                   <h2 className="text-xl font-bold mb-2 text-purple-700 dark:text-purple-300" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>

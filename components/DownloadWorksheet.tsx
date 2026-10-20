@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react"
 import { jsPDF } from "jspdf"
+import LearningIcon from "@/components/ui/LearningIcon"
 import { buildWorksheetCanvas, type WorksheetBgType, type WorksheetLayout } from "@/lib/worksheetRenderer"
 
 type Item = { id: string; label?: string; src?: string }
@@ -130,6 +131,7 @@ export default function DownloadWorksheet({
           disabled={disabled || isDownloading || !left.length || (layout === "matching" && !right.length)}
           className="responsive-btn download-btn disabled:opacity-60 disabled:cursor-wait"
         >
+          <LearningIcon name="download" className="mr-2" />
           <span className="btn-text">{isDownloading ? "Preparing worksheet…" : "Download Worksheet"}</span>
         </button>
         {downloadError && <p role="alert" className="mt-2 text-sm text-red-700 dark:text-red-300">{downloadError}</p>}

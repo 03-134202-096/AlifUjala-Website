@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import SEO from "@/components/SEO"
 import alphabetStories, { type AlphabetStory } from "@/data/alphabetStories"
-import { SectionHeader, DecorativeBlobs, KidsCard } from "@/components/ui"
+import { SectionHeader, DecorativeBlobs, KidsCard, LearningIcon } from "@/components/ui"
 
 /* ── helpers ───────────────────────────────── */
 
@@ -28,7 +28,7 @@ const cardGradients = [
 /* ── components ────────────────────────────── */
 
 function PageDecorations() {
-  return <DecorativeBlobs variant="soft" emojis={["🎬", "📺", "⭐", "🎭", "✨"]} />
+  return <DecorativeBlobs variant="soft" motifs={["play","book"]} />
 }
 
 function StoryCard({
@@ -68,7 +68,7 @@ function StoryCard({
         {/* Play icon */}
         <div className="flex items-center justify-center mb-3">
           <div className="bg-white/25 rounded-full w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center group-hover:bg-white/40 transition-colors duration-300">
-            <span className="text-3xl sm:text-4xl">▶️</span>
+            <LearningIcon name="play" className="!w-10 !h-10" />
           </div>
         </div>
 
@@ -122,7 +122,7 @@ function VideoPlayer({ story }: { story: AlphabetStory }) {
           className="text-xl sm:text-2xl font-bold text-purple-700 dark:text-purple-400"
           style={{ fontFamily: "'Bubblegum Sans', cursive" }}
         >
-          📖 {story.title}
+          <LearningIcon name="book" className="mr-2" />{story.title}
         </h2>
         <p
           className="text-gray-500 dark:text-gray-400 text-sm mt-1 font-bold"
@@ -154,8 +154,8 @@ export default function EduVideosPage() {
 
       <main className="container mx-auto flex-1 px-4 py-6 relative z-10">
         <SectionHeader
-          eyebrow="🎬 Edu Videos"
-          emoji="🎞️"
+          eyebrow="Edu Videos"
+          icon="play"
           title="Educational Videos"
           subtitle="Watch fun stories for every Urdu letter! Click a card below to watch."
           tone="warm"
@@ -170,7 +170,7 @@ export default function EduVideosPage() {
         <div className="max-w-6xl mx-auto">
           <SectionHeader
             eyebrow="Library"
-            emoji="🌟"
+            icon="book"
             title="Choose a story"
             subtitle="One delightful video for every Urdu letter."
             tone="rainbow"

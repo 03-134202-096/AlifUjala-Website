@@ -1,3 +1,4 @@
+import { IconBadge, type LearningIconName } from '@/components/ui'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import SEO from '@/components/SEO'
@@ -21,9 +22,9 @@ const About: NextPage = () => {
       mission: 'Alif Ujala is the first-ever comprehensive AI-powered Urdu learning platform designed especially for young learners. It combines an interactive web app featuring engaging games, interactive and printable worksheets, a YouTube channel filled with fun educational videos, and an AI-assisted learning app that personalizes the learning experience for every child. By blending technology, creativity, and native-language education, Alif Ujala is making Urdu learning smarter, more engaging, and accessible for the next generation.',
       featuresTitle: '🌟 What you can do here',
       features: [
-        { title: '🎮 Play & Learn', body: 'Match letters, pictures and sounds. Our games are designed to make repetition feel like play!', emoji: '🎮' },
-        { title: '📖 Stories & Worksheets', body: 'Short stories written in simple Urdu and printable worksheets for practice.', emoji: '📖' },
-        { title: '👩‍🏫 Teacher Tools', body: 'Track progress, assign worksheets, and use the platform in classrooms.', emoji: '👩‍🏫' },
+        { title: 'Play & Learn', body: 'Match letters, pictures and sounds. Our games are designed to make repetition feel like play!' },
+        { title: 'Stories & Worksheets', body: 'Short stories written in simple Urdu and printable worksheets for practice.' },
+        { title: 'Teacher Tools', body: 'Track progress, assign worksheets, and use the platform in classrooms.' },
       ],
       quizQ: 'Which Urdu letter is the first in the Urdu alphabet?',
       quizOptions: ['ا (Alif)', 'ب (Bay)', 'ت (Tay)'],
@@ -37,9 +38,9 @@ const About: NextPage = () => {
       mission: 'الف اُجاﻻ کو اردو زبان کو محفوظ کرنے، اس کی ترویج کرنے اور بچوں اور ابتدائی طلبہ کے لیے سیکھنے کو مزید دلچسپ اور آسان بنانے کے لیے بنایا گیا ہے۔',
       featuresTitle: '🌟 یہاں آپ کیا کر سکتے ہیں',
       features: [
-        { title: '🎮 کھیلیں اور سیکھیں', body: 'حروف، تصاویر اور آوازوں کو ملائیں۔ ہمارے کھیل دہرانے کو مزید دلچسپ بناتے ہیں!', emoji: '🎮' },
-        { title: '📖 کہانیاں اور ورکشیٹس', body: 'آسان اردو میں مختصر کہانیاں اور عمل کے لیے ورکشیٹس فراہم کی جاتی ہیں۔', emoji: '📖' },
-        { title: '👩‍🏫 اساتذہ کے لیے ٹولز', body: 'پیش رفت کو ٹریک کریں، ورکشیٹس تفویض کریں، اور کلاس روم میں پلیٹ فارم کا استعمال کریں۔', emoji: '👩‍🏫' },
+        { title: 'کھیلیں اور سیکھیں', body: 'حروف، تصاویر اور آوازوں کو ملائیں۔ ہمارے کھیل دہرانے کو مزید دلچسپ بناتے ہیں!' },
+        { title: 'کہانیاں اور ورکشیٹس', body: 'آسان اردو میں مختصر کہانیاں اور عمل کے لیے ورکشیٹس فراہم کی جاتی ہیں۔' },
+        { title: 'اساتذہ کے لیے ٹولز', body: 'پیش رفت کو ٹریک کریں، ورکشیٹس تفویض کریں، اور کلاس روم میں پلیٹ فارم کا استعمال کریں۔' },
       ],
       quizQ: 'اردو حروفِ تہجی کا پہلا حرف کون سا ہے؟',
       quizOptions: ['ا (الف)', 'ب (ب)', 'ت (ت)'],
@@ -61,7 +62,7 @@ const About: NextPage = () => {
         description="Learn about Alif Ujala — a free interactive Urdu learning platform for children. Our mission is to celebrate and preserve the Urdu language through play."
         ogUrl="https://alifujala.ai/about"
       />
-      <DecorativeBlobs variant="soft" emojis={["✨", "📚", "🌈", "🌟", "💫"]} />
+      <DecorativeBlobs variant="soft" motifs={["book","heart"]} />
       <Navbar />
 
       <main className="container mx-auto px-4 py-8 flex-1 relative z-10">
@@ -73,12 +74,12 @@ const About: NextPage = () => {
             <div className="flex flex-col sm:flex-row items-start justify-between gap-4 relative">
               <div>
                 <h1 className="text-3xl sm:text-4xl font-bold text-gradient-cool" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
-                  {c.title} ✨
+                  {c.title}
                 </h1>
                 <p className="mt-2 text-lg text-blue-600 dark:text-blue-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>{c.tagline}</p>
               </div>
               <div className="flex flex-col items-end gap-2">
-                <div className="text-sm text-indigo-500 dark:text-indigo-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>Language / زبان 🌍</div>
+                <div className="text-sm text-indigo-500 dark:text-indigo-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>Language / زبان</div>
                 <div className="flex gap-2">
                   <button
                     aria-pressed={lang === 'en'}
@@ -117,7 +118,7 @@ const About: NextPage = () => {
                     onClick={() => toggle(i)}
                     className="w-full text-left px-5 py-4 flex justify-between items-center border-0 bg-transparent"
                   >
-                    <span className="font-bold text-lg text-gray-700 dark:text-gray-200" style={{fontFamily: "'Comic Neue', cursive"}}>{f.title}</span>
+                    <span className="flex items-center gap-3 font-bold text-lg text-gray-700 dark:text-gray-200" style={{fontFamily: "'Comic Neue', cursive"}}><IconBadge name={(['gamepad', 'book', 'school'] as LearningIconName[])[i]} size="sm" />{f.title}</span>
                     <span className={`text-2xl transition-transform duration-300 ${open === i ? 'rotate-45' : ''}`}>
                       {open === i ? '✕' : '➕'}
                     </span>
@@ -136,7 +137,7 @@ const About: NextPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             {/* Quiz */}
             <div className="bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/30 dark:to-amber-900/30 rounded-3xl shadow-candy p-6 border-4 border-yellow-200 dark:border-yellow-800">
-              <h4 className="font-bold text-xl text-purple-600 dark:text-purple-400 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>🧠 Quick Quiz!</h4>
+              <h4 className="font-bold text-xl text-purple-600 dark:text-purple-400 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}><IconBadge name="bulb" size="sm" className="mr-2" />Quick Quiz!</h4>
               {!quizState.answered ? (
                 <div>
                   <p className="text-gray-700 dark:text-gray-300 font-bold mb-3" style={{fontFamily: "'Comic Neue', cursive"}}>{c.quizQ}</p>
@@ -157,14 +158,14 @@ const About: NextPage = () => {
                 <div className="text-center py-4">
                   {quizState.correct ? (
                     <>
-                      <div className="text-6xl mb-3">🎉</div>
+                      <div className="mb-3"><IconBadge name="trophy" size="hero" /></div>
                       <p className="text-green-600 dark:text-green-400 font-bold text-xl" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                         {lang === 'en' ? 'Correct — amazing job!' : 'صحیح — شاباش!'}
                       </p>
                     </>
                   ) : (
                     <>
-                      <div className="text-6xl mb-3">🤔</div>
+                      <div className="mb-3"><IconBadge name="bulb" size="hero" /></div>
                       <p className="text-purple-600 dark:text-purple-400 font-bold text-lg mb-3" style={{fontFamily: "'Comic Neue', cursive"}}>
                         {lang === 'en' ? 'Not quite — the correct answer is ا (Alif)!' : 'درست نہیں — درست جواب ا (الف) ہے!'}
                       </p>
@@ -191,9 +192,9 @@ const About: NextPage = () => {
                   {lang === 'en' ? 'Jump in and play a fun matching game! Match Urdu letters and have a blast!' : 'ایک مزیدار میچنگ گیم کھیلیں اور اردو حروف سیکھیں!'}
                 </p>
                 <div className="flex gap-3 mt-4 text-4xl justify-center">
-                  <span className="animate-bounce-slow">🎲</span>
-                  <span className="animate-bounce-slow" style={{animationDelay: '0.3s'}}>🧩</span>
-                  <span className="animate-bounce-slow" style={{animationDelay: '0.6s'}}>🏆</span>
+                  <IconBadge name="puzzle" />
+                  <IconBadge name="puzzle" />
+                  <IconBadge name="trophy" />
                 </div>
               </div>
               <div className="mt-6">

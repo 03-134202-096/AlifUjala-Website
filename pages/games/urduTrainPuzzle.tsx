@@ -59,7 +59,7 @@ export default function UrduTrainPuzzle() {
   };
 
   return (
-    <div className="kids-page-bg min-h-screen flex flex-col font-sans relative">
+    <div className="kids-page-bg arcade-page min-h-screen flex flex-col font-sans relative">
       <Head>
         <title>Train Puzzle | Urdu Games</title>
       </Head>

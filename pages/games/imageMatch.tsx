@@ -18,7 +18,7 @@ export default function ImageMatchPage() {
   const [triggerSubmit, setTriggerSubmit] = useState(false)
   const matchingBoardRef = useRef<HTMLDivElement>(null)
 
-  const allImages = (imagesData as any).images || []
+  const allImages = imagesData.mapping
 
   const [left, setLeft] = useState<Array<{ id: string; src: string }>>([])
   const [right, setRight] = useState<Array<{ id: string; src: string }>>([])

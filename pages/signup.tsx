@@ -1,3 +1,4 @@
+import { LearningIcon, IconBadge } from '@/components/ui'
 import { useState, FormEvent } from "react"
 import type { NextPage } from 'next'
 import LoadingIndicator from "@/components/LoadingIndicator"
@@ -81,7 +82,7 @@ const SignupPage: NextPage = () => {
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO title="Sign Up — AlifUjala" description="Create a free AlifUjala account to start your child's Urdu learning journey." />
-      <DecorativeBlobs variant="soft" emojis={["🌟", "🎨", "📚", "🦋", "✨"]} />
+      <DecorativeBlobs variant="soft" motifs={["pencil","book"]} />
       <Navbar />
       <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
         <div className="w-full max-w-md">
@@ -109,7 +110,7 @@ const SignupPage: NextPage = () => {
             <span className="pointer-events-none absolute -bottom-20 -left-20 h-44 w-44 rounded-full bg-indigo-300/30 blur-3xl" aria-hidden />
             {/* Header */}
             <div className="text-center mb-6">
-              <div className="text-6xl mb-3 animate-bounce-slow">{step === 1 ? '📝' : step === 2 ? '📬' : '🎊'}</div>
+              <div className="mb-4"><IconBadge name={step === 1 ? 'pencil' : step === 2 ? 'mail' : 'check'} size="hero" /></div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-2 text-gradient-warm" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                 {stepLabels[step - 1]}
               </h2>
@@ -121,7 +122,7 @@ const SignupPage: NextPage = () => {
             {step === 1 && (
               <form onSubmit={handleSignup} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-bold text-purple-500 dark:text-purple-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>👤 Username</label>
+                  <label className="block text-sm font-bold text-purple-500 dark:text-purple-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}><LearningIcon name="users" className="mr-1.5" /> Username</label>
                   <input
                     type="text"
                     placeholder="Pick a fun name!"
@@ -135,7 +136,7 @@ const SignupPage: NextPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-purple-500 dark:text-purple-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>📧 Email</label>
+                  <label className="block text-sm font-bold text-purple-500 dark:text-purple-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}><LearningIcon name="mail" className="mr-1.5" /> Email</label>
                   <input
                     type="email"
                     placeholder="your@email.com"
@@ -149,7 +150,7 @@ const SignupPage: NextPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-purple-500 dark:text-purple-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}>🔒 Password</label>
+                  <label className="block text-sm font-bold text-purple-500 dark:text-purple-400 mb-1" style={{fontFamily: "'Comic Neue', cursive"}}><LearningIcon name="lock" className="mr-1.5" /> Password</label>
                   <input
                     type="password"
                     placeholder="Your secret password"
@@ -199,7 +200,7 @@ const SignupPage: NextPage = () => {
 
             {step === 3 && (
               <div className="text-center space-y-4">
-                <div className="text-7xl animate-bounce-slow">🎉</div>
+                <IconBadge name="check" size="hero" />
                 <p className="text-gray-700 dark:text-gray-300 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>
                   Your account has been created! Welcome aboard!
                 </p>
@@ -246,9 +247,9 @@ const SignupPage: NextPage = () => {
           {/* Fun bottom decoration */}
           <div className="text-center mt-6">
             <div className="flex justify-center gap-3 text-3xl">
-              <span className="animate-bounce-slow">🎮</span>
-              <span className="animate-bounce-slow" style={{animationDelay: '0.3s'}}>📖</span>
-              <span className="animate-bounce-slow" style={{animationDelay: '0.6s'}}>🌟</span>
+              <IconBadge name="gamepad" />
+              <IconBadge name="book" />
+              <IconBadge name="star" />
             </div>
           </div>
         </div>

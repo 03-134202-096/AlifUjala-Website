@@ -1,3 +1,4 @@
+import { LearningIcon } from '@/components/ui'
 import React from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -16,13 +17,13 @@ export default function BlogIndex() {
         ogType="website"
         keywords="Urdu learning blog, teach Urdu kids, Urdu alphabet tips, Urdu parenting, اردو تعلیم"
       />
-      <DecorativeBlobs variant="soft" emojis={["✍️", "📝", "💡", "📚", "✨"]} />
+      <DecorativeBlobs variant="soft" motifs={["pencil","book"]} />
       <Navbar />
 
       <main className="flex-1 max-w-6xl mx-auto px-4 py-8 w-full relative z-10">
         <SectionHeader
-          eyebrow="✍️ Alif Ujala Blog"
-          emoji="📖"
+          eyebrow="Alif Ujala Blog"
+          icon="book"
           title="Tips, guides & fun ideas"
           subtitle="Practical advice for teaching Urdu to your little ones — from parents and teachers, for parents and teachers."
           tone="cool"
@@ -114,7 +115,7 @@ export default function BlogIndex() {
             <p className="mb-5 text-gray-700 dark:text-gray-200" style={{ fontFamily: "'Comic Neue', cursive" }}>
               Try our free interactive activities — no account needed!
             </p>
-            <KidsButton href="/activity" variant="primary" size="lg" iconLeft={<span>✨</span>}>
+            <KidsButton href="/activity" variant="primary" size="lg" iconLeft={<LearningIcon name="worksheet" />}>
               Go to Activities
             </KidsButton>
           </KidsCard>

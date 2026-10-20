@@ -1,5 +1,5 @@
 import Head from "next/head";
-import HeroWithFire from "@/components/hero/HeroWithFire";
+import LearningHero from "@/components/hero/LearningHero";
 import WelcomeHeader from "@/components/home_except_hero/WelcomeHeader";
 import SleepingCards from "@/components/home_except_hero/hoverToShowContent";
 import VideoEmbed    from "@/components/home_except_hero/VideoEmbed";
@@ -8,21 +8,21 @@ import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { KidsCard, KidsButton, SectionHeader, DecorativeBlobs } from "@/components/ui";
+import { KidsCard, KidsButton, SectionHeader, DecorativeBlobs, LearningIcon, IconBadge, type LearningIconName } from "@/components/ui";
 
 /* Quick access section for kids — bigger, animated cards with shine sweep */
 function QuickAccess() {
   const items = [
-    { href: "/activity",  emoji: "✨", label: "Activities",   sub: "Worksheets & fun tasks", grad: "from-fuchsia-500 via-purple-500 to-indigo-500", glow: "hover:shadow-glow-purple" },
-    { href: "/games",     emoji: "🎮", label: "Play Games",   sub: "14+ playful Urdu games", grad: "from-emerald-500 via-teal-500 to-cyan-500",     glow: "hover:shadow-glow-green" },
-    { href: "/stories",   emoji: "📖", label: "Read Stories", sub: "Animated visual tales",  grad: "from-rose-500 via-pink-500 to-fuchsia-500",      glow: "hover:shadow-glow-pink" },
-    { href: "/edu-videos",emoji: "🎬", label: "Edu Videos",   sub: "Watch & learn",          grad: "from-amber-400 via-orange-500 to-rose-500",      glow: "hover:shadow-candy-lg" },
+    { href: "/activity",  icon: 'worksheet', label: "Activities",   sub: "Worksheets & fun tasks", grad: "from-fuchsia-500 via-purple-500 to-indigo-500", glow: "hover:shadow-glow-purple" },
+    { href: "/games",     icon: 'gamepad', label: "Play Games",   sub: "14+ playful Urdu games", grad: "from-emerald-500 via-teal-500 to-cyan-500",     glow: "hover:shadow-glow-green" },
+    { href: "/stories",   icon: 'book', label: "Read Stories", sub: "Animated visual tales",  grad: "from-rose-500 via-pink-500 to-fuchsia-500",      glow: "hover:shadow-glow-pink" },
+    { href: "/edu-videos",icon: 'play', label: "Edu Videos",   sub: "Watch & learn",          grad: "from-amber-400 via-orange-500 to-rose-500",      glow: "hover:shadow-candy-lg" },
   ];
   return (
     <section className="relative py-12 px-4">
       <SectionHeader
         eyebrow="Pick your adventure"
-        emoji="🤔"
+        icon="puzzle"
         title="What do you want to do?"
         subtitle="Tap any card to start exploring — every section is bursting with fun!"
         tone="rainbow"
@@ -41,7 +41,7 @@ function QuickAccess() {
             <span className="pointer-events-none absolute -inset-y-2 -left-1/3 w-1/3 rotate-12 bg-gradient-to-r from-white/0 via-white/40 to-white/0 opacity-0 group-hover:opacity-100 group-hover:translate-x-[260%] transition-all duration-700 ease-out" />
             <div className="relative">
               <div className="text-5xl sm:text-6xl mb-3 transition-transform duration-500 group-hover:scale-110 group-hover:animate-wiggle drop-shadow-md">
-                {item.emoji}
+                <IconBadge name={item.icon as LearningIconName} size="lg" />
               </div>
               <p className="text-lg sm:text-xl font-bold drop-shadow" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>{item.label}</p>
               <p className="text-xs sm:text-sm font-bold opacity-90 mt-1" style={{ fontFamily: "'Comic Neue', cursive" }}>{item.sub}</p>
@@ -59,17 +59,17 @@ function QuickAccess() {
 /* Stats strip — gives the page authority and "real product" feel */
 function StatsStrip() {
   const stats = [
-    { num: "39",   label: "Urdu letters", emoji: "🔤" },
-    { num: "14+",  label: "Fun games",    emoji: "🎮" },
-    { num: "100+", label: "Activities",   emoji: "✨" },
-    { num: "Free", label: "Forever",      emoji: "🆓" },
+    { num: "39",   label: "Urdu letters", icon: 'letters' },
+    { num: "14+",  label: "Fun games",    icon: 'gamepad' },
+    { num: "100+", label: "Activities",   icon: 'worksheet' },
+    { num: "Free", label: "Forever",      icon: 'heart' },
   ];
   return (
     <section className="relative px-4 -mt-2">
       <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         {stats.map((s, i) => (
           <KidsCard key={i} variant="glass" tone="purple" padding="sm" className="text-center">
-            <div className="text-2xl sm:text-3xl mb-1">{s.emoji}</div>
+            <div className="mb-2"><IconBadge name={s.icon as LearningIconName} /></div>
             <div className="text-2xl sm:text-3xl font-extrabold text-gradient" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>{s.num}</div>
             <div className="text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-200 mt-0.5" style={{ fontFamily: "'Comic Neue', cursive" }}>{s.label}</div>
           </KidsCard>
@@ -82,18 +82,18 @@ function StatsStrip() {
 /* Fun facts ticker — refreshed with gradient cards */
 function FunFacts() {
   const facts = [
-    { icon: "🌟", text: "Urdu has 39 letters in its alphabet!" },
-    { icon: "📝", text: "Urdu is written from right to left!" },
-    { icon: "🎨", text: "The word 'Urdu' means 'army' in Turkish!" },
-    { icon: "🌍", text: "Over 230 million people speak Urdu worldwide!" },
-    { icon: "✨", text: "Alif (ا) is the very first Urdu letter!" },
-    { icon: "📚", text: "Urdu shares its script family with Arabic & Persian!" },
+    { icon: 'letters', text: "Urdu has 39 letters in its alphabet!" },
+    { icon: 'pencil', text: "Urdu is written from right to left!" },
+    { icon: 'book', text: "The word 'Urdu' means 'army' in Turkish!" },
+    { icon: 'users', text: "Over 230 million people speak Urdu worldwide!" },
+    { icon: 'bulb', text: "Alif (ا) is the very first Urdu letter!" },
+    { icon: 'book', text: "Urdu shares its script family with Arabic & Persian!" },
   ];
   return (
     <section className="py-10 px-4 max-w-5xl mx-auto">
       <SectionHeader
         eyebrow="Fun facts"
-        emoji="🤓"
+        icon="bulb"
         title="Did you know?"
         subtitle="A few magical facts about the beautiful Urdu language."
         tone="cool"
@@ -101,7 +101,7 @@ function FunFacts() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {facts.map((fact, i) => (
           <KidsCard key={i} variant="glass" tone={["purple","pink","blue","green","amber","indigo"][i % 6] as any} padding="md" className="flex items-start gap-3">
-            <div className="text-3xl flex-shrink-0 animate-float" style={{ animationDelay: `${i * 0.4}s` }}>{fact.icon}</div>
+            <IconBadge name={fact.icon as LearningIconName} />
             <p className="text-sm sm:text-base font-bold text-gray-700 dark:text-gray-100 leading-snug" style={{ fontFamily: "'Comic Neue', cursive" }}>
               {fact.text}
             </p>
@@ -126,7 +126,7 @@ function FAQSection() {
     <section className="py-10 px-4 max-w-3xl mx-auto">
       <SectionHeader
         eyebrow="Got questions?"
-        emoji="❓"
+        icon="question"
         title="Frequently Asked Questions"
         subtitle="Everything parents ask us about learning Urdu with Alif Ujala."
         tone="cool"
@@ -156,7 +156,7 @@ function AppPromo() {
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-6 items-center p-6 sm:p-10 text-white">
           <div>
             <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur border border-white/30 rounded-full px-3 py-1" style={{ fontFamily: "'Comic Neue', cursive" }}>
-              📱 Mobile App
+              <LearningIcon name="mobile" /> Mobile App
             </p>
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold leading-tight drop-shadow" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
               Take AlifUjala on the go!
@@ -182,8 +182,8 @@ function AppPromo() {
           <div className="hidden md:flex justify-center items-center">
             <div className="relative">
               <div className="absolute -inset-6 rounded-full bg-white/20 blur-2xl animate-pulse" />
-              <div className="relative w-44 h-44 rounded-[2rem] bg-white/95 dark:bg-white/90 grid place-items-center shadow-2xl border-4 border-white/70 animate-float">
-                <span className="text-7xl">📱</span>
+              <div className="relative w-44 h-44 rounded-[2rem] bg-white/95 dark:bg-white/90 grid place-items-center shadow-2xl border-4 border-white/70 text-violet-700">
+                <LearningIcon name="mobile" className="!w-28 !h-28" />
               </div>
             </div>
           </div>
@@ -278,9 +278,9 @@ export default function Home() {
         ogUrl="https://alifujala.ai"
         structuredData={structuredData}
       />
-      <DecorativeBlobs variant="soft" emojis={["🌟","🎈","🦋","☁️","⭐"]} />
+      <DecorativeBlobs variant="soft" motifs={["book","pencil","letters"]} />
       <Navbar />
-      <HeroWithFire />
+      <LearningHero />
       <main className="relative z-10 flex-1">
         <div className="container mx-auto py-6 px-4 text-center">
           <WelcomeHeader />
@@ -298,7 +298,7 @@ export default function Home() {
         <div className="container mx-auto px-4 pb-10">
           <SectionHeader
             eyebrow="Watch & learn"
-            emoji="🎬"
+            icon="play"
             title="A taste of our learning videos"
             subtitle="Short, lively videos kids love — and parents trust."
             tone="warm"

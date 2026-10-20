@@ -14,7 +14,7 @@ const VARIANT: Record<Variant, string> = {
   warm:
     'bg-gradient-to-r from-amber-400 via-orange-400 to-pink-400 text-white border-white/80 shadow-candy hover:shadow-glow-pink',
   ghost:
-    'bg-white/15 text-white border-white/40 hover:bg-white/30 backdrop-blur',
+    'bg-white/[0.15] text-white border-white/40 hover:bg-white/30 backdrop-blur',
   outline:
     'bg-transparent text-purple-700 dark:text-purple-300 border-purple-400 dark:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/30',
 }

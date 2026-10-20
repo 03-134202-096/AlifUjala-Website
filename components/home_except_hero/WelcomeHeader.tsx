@@ -10,25 +10,17 @@ export default function WelcomeHeader() {
         className="mb-3"
       >
         <span
-          className="block text-2xl sm:text-3xl md:text-4xl font-bold"
+          className="welcome-title-gradient block text-2xl sm:text-3xl md:text-4xl font-bold"
           style={{
             fontFamily: "'Bubblegum Sans', cursive",
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
           }}
         >
           Learn Urdu Alphabets for Kids
         </span>
         <span
-          className="block text-4xl sm:text-5xl md:text-6xl font-bold"
+          className="welcome-title-gradient block text-4xl sm:text-5xl md:text-6xl font-bold"
           style={{
             fontFamily: "'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif",
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
             lineHeight: '2.2',
             padding: '0.3em 0',
             overflow: 'visible',

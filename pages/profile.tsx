@@ -1,3 +1,4 @@
+import { LearningIcon, IconBadge } from '@/components/ui'
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import type { NextPage } from 'next'
@@ -98,7 +99,7 @@ const ProfilePage: NextPage = () => {
         <Navbar />
         <main className="flex-1 flex items-center justify-center px-4 py-8">
           <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 dark:border-purple-800 p-8 text-center max-w-sm w-full">
-            <div className="text-6xl mb-4">😕</div>
+              <div className="mb-4"><IconBadge name="lock" size="hero" /></div>
             <p className="text-purple-600 dark:text-purple-400 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{error}</p>
             <a href="/login" className="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold rounded-full border-3 border-white shadow-candy hover:scale-105 transition-all"
               style={{fontFamily: "'Bubblegum Sans', cursive"}}>
@@ -114,7 +115,7 @@ const ProfilePage: NextPage = () => {
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO title="My Profile — AlifUjala" description="Manage your AlifUjala profile." />
-      <DecorativeBlobs variant="soft" emojis={["⭐", "🎨", "🏆", "🌈", "✨"]} />
+      <DecorativeBlobs variant="soft" motifs={["star","pencil"]} />
       <Navbar />
       <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
         <div className="w-full max-w-md">
@@ -135,7 +136,7 @@ const ProfilePage: NextPage = () => {
                       className="object-cover w-32 h-32 rounded-full"
                     />
                   ) : (
-                    <span className="text-5xl">👤</span>
+                    <IconBadge name="users" size="hero" />
                   )}
                 </div>
                 {/* Change photo button */}
@@ -145,7 +146,7 @@ const ProfilePage: NextPage = () => {
                   className="absolute -bottom-1 -right-1 w-10 h-10 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full border-3 border-white shadow-candy flex items-center justify-center text-white hover:scale-110 transition-all"
                   aria-label="Change profile image"
                 >
-                  <span className="text-lg">📷</span>
+                  <LearningIcon name="camera" />
                 </button>
               </div>
 
@@ -169,11 +170,11 @@ const ProfilePage: NextPage = () => {
                 <p className="text-gray-700 dark:text-gray-200 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{user.id}</p>
               </div>
               <div className="bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl p-4 border-2 border-indigo-100 dark:border-indigo-800">
-                <label className="text-xs font-bold text-indigo-400 uppercase tracking-wide" style={{fontFamily: "'Comic Neue', cursive"}}>👤 Username</label>
+                <label className="text-xs font-bold text-indigo-400 uppercase tracking-wide" style={{fontFamily: "'Comic Neue', cursive"}}><LearningIcon name="users" className="mr-1.5" /> Username</label>
                 <p className="text-gray-700 dark:text-gray-200 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{user.username}</p>
               </div>
               <div className="bg-blue-50 dark:bg-blue-900/30 rounded-2xl p-4 border-2 border-blue-100 dark:border-blue-800">
-                <label className="text-xs font-bold text-blue-400 uppercase tracking-wide" style={{fontFamily: "'Comic Neue', cursive"}}>📧 Email</label>
+                <label className="text-xs font-bold text-blue-400 uppercase tracking-wide" style={{fontFamily: "'Comic Neue', cursive"}}><LearningIcon name="mail" className="mr-1.5" /> Email</label>
                 <p className="text-gray-700 dark:text-gray-200 font-bold text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{user.email}</p>
               </div>
             </div>
@@ -222,9 +223,9 @@ const ProfilePage: NextPage = () => {
           {/* Fun decoration */}
           <div className="text-center mt-6">
             <div className="flex justify-center gap-3 text-3xl">
-              <span className="animate-bounce-slow">🎮</span>
-              <span className="animate-bounce-slow" style={{animationDelay: '0.3s'}}>📖</span>
-              <span className="animate-bounce-slow" style={{animationDelay: '0.6s'}}>⭐</span>
+              <IconBadge name="gamepad" />
+              <IconBadge name="book" />
+              <IconBadge name="star" />
             </div>
           </div>
         </div>
@@ -236,7 +237,7 @@ const ProfilePage: NextPage = () => {
           <div className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm" onClick={() => setShowImgPicker(false)} />
           <div className="fixed z-50 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <div className="bg-white/95 dark:bg-gray-900/95 rounded-3xl shadow-candy-lg border-4 border-purple-200 dark:border-purple-800 px-8 py-6 flex flex-col items-center min-w-[260px]">
-              <div className="text-4xl mb-3">📸</div>
+              <div className="mb-3"><IconBadge name="camera" size="lg" /></div>
               <h3 className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-4" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
                 Choose Avatar
               </h3>

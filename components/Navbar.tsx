@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import LoadingIndicator from "./LoadingIndicator"
+import LearningIcon from "./ui/LearningIcon"
 
 type User = { id: number | string; username?: string; email?: string; profileImgId?: number } | null
 
@@ -102,7 +103,6 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-1 left-8 w-8 h-8 rounded-full bg-white/10 animate-float" />
         <div className="absolute -bottom-2 right-24 w-6 h-6 rounded-full bg-purple-200/20 animate-float-delay" />
-        <div className="absolute top-2 right-44 text-base animate-bounce-slow opacity-40 hidden lg:block">⭐</div>
       </div>
 
       <div className={`max-w-6xl mx-auto relative flex items-center px-4 sm:px-6 transition-all duration-300 ${scrolled ? 'py-1.5 sm:py-2' : 'py-2 sm:py-3'}`}>
@@ -158,7 +158,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
           {/* Dark mode toggle */}
           <button
             onClick={toggleTheme}
-            className="w-10 h-10 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/25 transition-all duration-300 hover:scale-110 border border-white/20"
+            className="w-10 h-10 rounded-full bg-white/[0.15] backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/25 transition-all duration-300 hover:scale-110 border border-white/20"
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             title={isDark ? 'Light Mode' : 'Dark Mode'}
           >
@@ -175,7 +175,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
               {typeof user.profileImgId === 'number' && profileImages[user.profileImgId] ? (
                 <img src={profileImages[user.profileImgId].src} alt="Profile" className="w-10 h-10 rounded-full object-cover border-[3px] border-white shadow-lg" />
               ) : (
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 text-white text-2xl font-bold border-[3px] border-white shadow-lg">👤</span>
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 text-white font-bold border-[3px] border-white shadow-lg"><LearningIcon name="users" /></span>
               )}
             </Link>
           ) : null}
@@ -216,7 +216,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
                 {typeof user.profileImgId === 'number' && profileImages[user.profileImgId] ? (
                   <img src={profileImages[user.profileImgId].src} alt="Profile" className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg" />
                 ) : (
-                  <span className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/30 text-white text-4xl font-bold border-4 border-white shadow-lg">👤</span>
+                <span className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/30 text-white text-4xl font-bold border-4 border-white shadow-lg"><LearningIcon name="users" /></span>
                 )}
               </Link>
             ) : (
@@ -253,7 +253,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
               <Link href="/login" className="text-white text-lg font-bold py-3 px-4 rounded-2xl hover:bg-white/20 transition-all" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
                 Login
               </Link>
-              <Link href="/signup" className="bg-white/25 text-white text-lg font-bold py-3 px-4 rounded-2xl border-2 border-white/50 hover:bg-white/35 transition-all text-center" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
+              <Link href="/signup" className="bg-white/25 text-white text-lg font-bold py-3 px-4 rounded-2xl border-2 border-white/50 hover:bg-white/[0.35] transition-all text-center" style={{fontFamily: "'Comic Neue', cursive"}} onClick={() => setMenuOpen(false)}>
                 Sign Up
               </Link>
               */}
@@ -264,7 +264,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
             {/* Mobile dark mode toggle */}
             <button
               onClick={toggleTheme}
-              className="mx-auto flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 text-white font-bold hover:bg-white/25 transition-all border border-white/20"
+              className="mx-auto flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.15] text-white font-bold hover:bg-white/25 transition-all border border-white/20"
               style={{fontFamily: "'Comic Neue', cursive"}}
             >
               {isDark ? (
@@ -274,7 +274,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
               )}
               {isDark ? 'Light Mode' : 'Dark Mode'}
             </button>
-            <p className="text-white/60 text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>🌈 Let&apos;s Learn Urdu! 🌈</p>
+          <p className="text-white/80 text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>Let&apos;s Learn Urdu!</p>
           </div>
         </div>
       </div>

@@ -87,7 +87,7 @@ export default function UrduBalloonPop() {
   };
 
   return (
-    <div className="kids-page-bg min-h-screen flex flex-col font-sans relative">
+    <div className="kids-page-bg arcade-page min-h-screen flex flex-col font-sans relative">
       <Head>
         <title>Balloon Pop | Urdu Games</title>
         <style>{`
@@ -155,7 +155,7 @@ export default function UrduBalloonPop() {
         )}
 
         {/* Play Area */}
-        <div className="relative mt-4 w-full flex-1 min-h-[360px] md:min-h-[520px] overflow-hidden pointer-events-none border-t-2 border-white/15 rounded-2xl">
+        <div className="relative mt-4 w-full flex-1 min-h-[360px] md:min-h-[520px] overflow-hidden pointer-events-none border-t-2 border-white/[0.15] rounded-2xl">
            {balloons.map((b) => (
              <div 
                key={b.id}

@@ -1,3 +1,4 @@
+import { DecorativeBlobs, LearningIcon, IconBadge } from '@/components/ui'
 import React, { useState } from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
@@ -26,14 +27,7 @@ const cardGradients = [
 /* ── components ────────────────────────────── */
 
 function PageDecorations() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute top-10 left-[5%] text-5xl animate-float opacity-20">📖</div>
-      <div className="absolute top-20 right-[8%] text-4xl animate-float-delay opacity-15">🎬</div>
-      <div className="absolute bottom-20 left-[10%] text-4xl animate-bounce-slow opacity-15">⭐</div>
-      <div className="absolute bottom-40 right-[12%] text-3xl animate-float opacity-20">🎭</div>
-    </div>
-  )
+  return <DecorativeBlobs motifs={['book', 'letters']} />
 }
 
 function StoryCard({
@@ -73,7 +67,7 @@ function StoryCard({
         {/* Play icon */}
         <div className="flex items-center justify-center mb-3">
           <div className="bg-white/25 rounded-full w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center group-hover:bg-white/40 transition-colors duration-300">
-            <span className="text-3xl sm:text-4xl">▶️</span>
+            <LearningIcon name="play" className="!w-10 !h-10" />
           </div>
         </div>
 
@@ -127,7 +121,7 @@ function VideoPlayer({ story }: { story: AlphabetStory }) {
           className="text-xl sm:text-2xl font-bold text-purple-700"
           style={{ fontFamily: "'Bubblegum Sans', cursive" }}
         >
-          📖 {story.title}
+          <LearningIcon name="book" className="mr-2" />{story.title}
         </h2>
         <p
           className="text-gray-500 text-sm mt-1 font-bold"
@@ -158,13 +152,13 @@ export default function UrduAlphabetStoriesPage() {
             className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3"
             style={{ fontFamily: "'Bubblegum Sans', cursive", color: "#7C3AED" }}
           >
-            📚 Urdu Alphabets Stories 📚
+            <IconBadge name="book" className="mr-2" />Urdu Alphabets Stories
           </h1>
           <p
             className="text-base sm:text-lg text-blue-600 font-bold max-w-xl mx-auto"
             style={{ fontFamily: "'Comic Neue', cursive" }}
           >
-            Watch fun stories for every Urdu letter! Click a card below to watch. ✨
+            Watch fun stories for every Urdu letter! Click a card below to watch.
           </p>
         </div>
 
@@ -179,7 +173,7 @@ export default function UrduAlphabetStoriesPage() {
             className="text-2xl sm:text-3xl font-bold text-center mb-6"
             style={{ fontFamily: "'Bubblegum Sans', cursive", color: "#EA580C" }}
           >
-            🌟 Choose a Story 🌟
+            <IconBadge name="book" size="sm" className="mr-2" />Choose a Story
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
             {alphabetStories.map((story, i) => (

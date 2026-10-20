@@ -13,13 +13,13 @@ export default function StoriesPage() {
         ogUrl="https://alifujala.ai/stories"
         keywords="Urdu stories for kids, Urdu kahani, Urdu storybook online, اردو کہانیاں, children Urdu stories"
       />
-      <DecorativeBlobs variant="soft" emojis={["📚", "🌙", "🦁", "🐢", "✨"]} />
+      <DecorativeBlobs variant="soft" motifs={["book","letters"]} />
 
       <Navbar />
       <main className="container mx-auto py-6 px-4 flex-1 relative z-10">
         <SectionHeader
-          eyebrow="📖 Story Time"
-          emoji="📚"
+          eyebrow="Story Time"
+          icon="book"
           title="Beautiful Urdu Stories"
           subtitle="Click on a story card to start reading! Each story has beautiful pictures."
           tone="cool"

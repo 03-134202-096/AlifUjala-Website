@@ -1,0 +1,46 @@
+.hero { position: relative; padding: clamp(2rem, 5vw, 5rem) 1.25rem; overflow: hidden; }
+.inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; gap: 3rem; }
+.copy { position: relative; z-index: 1; }
+.eyebrow { display: inline-flex; align-items: center; gap: .5rem; border: 1px solid #ddd6fe; background: rgba(255,255,255,.75); color: #6d28d9; border-radius: 999px; padding: .45rem .8rem; font-size: .85rem; font-weight: 700; }
+.copy h2 { margin: 1.25rem 0; font-family: 'Bubblegum Sans', cursive; font-size: clamp(2.7rem, 4.4vw, 4.3rem); color: #312e81; line-height: 1.08; }
+.copy h2 span { color: #b53385; }
+.description { max-width: 460px; color: #475569; font-size: 1.12rem; line-height: 1.7; }
+.actions { display: flex; flex-wrap: wrap; gap: .85rem; margin-top: 1.75rem; }
+.primary, .secondary { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; border-radius: 999px; padding: .85rem 1.3rem; font-weight: 700; transition: transform .2s, box-shadow .2s; }
+.primary { background: #6d28d9; color: white; box-shadow: 0 6px 18px #7c3aed30; }
+.secondary { background: white; color: #5b21b6; border: 1px solid #ddd6fe; }
+.primary:hover, .secondary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px #7c3aed25; }
+.note { display: flex; align-items: center; gap: .5rem; color: #64748b; font-size: .85rem; margin-top: 1.3rem; }
+.art { position: relative; min-height: 400px; display: grid; align-content: center; padding: 30px; }
+.orbit { position: absolute; width: 380px; height: 380px; top: 8px; left: 10%; border-radius: 50%; background: #ddd6fe80; border: 1px dashed #b7a4d9; }
+.lesson { position: relative; background: #fffcf6; padding: 1.5rem; border: 2px solid #ede4d8; border-radius: 28px; box-shadow: 0 18px 40px -15px #55417835, 0 7px 0 #e5dce9; transform: rotate(-3deg); }
+.lessonHeading { display: flex; align-items: center; gap: .7rem; color: #61508e; font-size: .9rem; font-weight: 700; }
+.letters { display: flex; direction: rtl; gap: .7rem; margin: 1.6rem 0 .5rem; }
+.letters span { display: grid; place-items: center; flex: 1; height: 105px; border-radius: 18px; border: 1px solid #dbd3f7; background: #eee8ff; font-size: 2.6rem; color: #6d28d9; box-shadow: 0 4px 0 #dacef0; }
+.letters span:nth-child(2) { background: #dcfce7; border-color: #bbebc9; color: #166534; box-shadow: 0 4px 0 #bce4cb; transform: translateY(-8px); }
+.letters span:nth-child(3) { background: #fef3c7; border-color: #f5dfa0; color: #92400e; box-shadow: 0 4px 0 #efdda4; }
+.urdu { text-align: center; font-size: 1.15rem; color: #6c5e7d; padding: .3rem 0 .7rem; }
+.bookTab, .pencilTab { position: absolute; display: flex; align-items: center; gap: .6rem; padding: .55rem .85rem .55rem .55rem; background: white; border: 1px solid #e9d5ff; border-radius: 20px; box-shadow: 0 8px 24px #5c39751a; color: #61508e; font-size: .85rem; font-weight: 700; }
+.bookTab { top: 0; right: -10px; transform: rotate(5deg); }
+.pencilTab { bottom: -10px; left: -5px; transform: rotate(3deg); }
+.sparkle { position: absolute; right: -4px; bottom: 45px; width: 40px !important; height: 40px !important; color: #a47c2b; }
+:global(.dark) .copy h2 { color: #ede9fe; }
+:global(.dark) .copy h2 span { color: #f9a8d4; }
+:global(.dark) .description { color: #cbd5e1; }
+:global(.dark) .eyebrow, :global(.dark) .secondary { background: #302752; color: #e9d5ff; border-color: #62518d; }
+:global(.dark) .note { color: #cbd5e1; }
+:global(.dark) .orbit { background: #7c3aed18; border-color: #62518d; }
+@media (max-width: 767px) {
+  .inner { grid-template-columns: 1fr; gap: 1.75rem; }
+  .copy { text-align: center; }
+  .description { margin-inline: auto; }
+  .actions, .note { justify-content: center; }
+  .art { width: min(100%, 440px); margin: 0 auto; min-height: 340px; padding: 20px 12px; }
+  .orbit { width: 290px; height: 290px; left: calc(50% - 145px); }
+  .lesson { padding: 1.1rem; }
+  .bookTab { right: 0; top: -8px; }
+  .pencilTab { left: 0; bottom: -12px; }
+  .bookTab, .pencilTab { font-size: .72rem; padding: .35rem .6rem .35rem .35rem; }
+  .bookTab > :global(.learning-badge), .pencilTab > :global(.learning-badge) { width: 36px; height: 36px; }
+  .letters span { height: 86px; font-size: 2.2rem; }
+}

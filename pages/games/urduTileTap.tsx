@@ -136,7 +136,7 @@ export default function UrduTileTap() {
   };
 
   return (
-    <div className="kids-page-bg min-h-screen flex flex-col font-sans relative">
+    <div className="kids-page-bg arcade-page min-h-screen flex flex-col font-sans relative">
       <Head>
         <title>Tile Tap | Urdu Games</title>
       </Head>

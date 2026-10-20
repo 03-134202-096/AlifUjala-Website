@@ -1,3 +1,4 @@
+import { LearningIcon, IconBadge, type LearningIconName } from '@/components/ui'
 import React from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
@@ -7,17 +8,17 @@ import { KidsCard, KidsButton, SectionHeader, DecorativeBlobs } from "@/componen
 const APP_SAMPLE_IMAGES = Array.from({ length: 11 }, (_, i) => `/images/AppSampleImages/${i + 1}.jpeg`)
 
 type FeatureTone = 'purple' | 'green' | 'pink' | 'blue' | 'amber' | 'indigo'
-const APP_FEATURES: { emoji: string; title: string; description: string; tone: FeatureTone }[] = [
-  { emoji: "🎮", title: "Interactive Activities", description: "Fun games and activities to learn Urdu letters through play!", tone: 'purple' },
-  { emoji: "📊", title: "Progress Tracker",      description: "Track your child's learning journey and celebrate milestones!", tone: 'blue' },
-  { emoji: "🗣️", title: "Voice Support",         description: "Listen to correct pronunciations of Urdu letters and words!", tone: 'pink' },
-  { emoji: "🎨", title: "Kid-Friendly Design",   description: "Colorful, engaging interface designed especially for children!", tone: 'amber' },
-  { emoji: "📱", title: "Offline Mode",          description: "Learn anytime, anywhere — no internet required!", tone: 'green' },
-  { emoji: "🌟", title: "AI Assistive Writing",  description: "Get smart writing suggestions and guided practice while learning Urdu!", tone: 'indigo' },
+const APP_FEATURES: { icon: LearningIconName; title: string; description: string; tone: FeatureTone }[] = [
+  { icon: 'gamepad', title: "Interactive Activities", description: "Fun games and activities to learn Urdu letters through play!", tone: 'purple' },
+  { icon: 'chart', title: "Progress Tracker",      description: "Track your child's learning journey and celebrate milestones!", tone: 'blue' },
+  { icon: 'audio', title: "Voice Support",         description: "Listen to correct pronunciations of Urdu letters and words!", tone: 'pink' },
+  { icon: 'palette', title: "Kid-Friendly Design",   description: "Colorful, engaging interface designed especially for children!", tone: 'amber' },
+  { icon: 'mobile', title: "Offline Mode",          description: "Learn anytime, anywhere — no internet required!", tone: 'green' },
+  { icon: 'pencil', title: "AI Assistive Writing",  description: "Get smart writing suggestions and guided practice while learning Urdu!", tone: 'indigo' },
 ]
 
 function PageDecorations() {
-  return <DecorativeBlobs variant="soft" emojis={["📱", "🎮", "⭐", "🚀", "✨"]} />
+  return <DecorativeBlobs variant="soft" motifs={["mobile","pencil"]} />
 }
 
 export default function OurAppPage() {
@@ -38,8 +39,8 @@ export default function OurAppPage() {
       <main className="container mx-auto flex-1 px-4 py-6 relative z-10">
         {/* Header */}
         <SectionHeader
-          eyebrow="📲 Mobile App"
-          emoji="📱"
+          eyebrow="Mobile App"
+          icon="mobile"
           title={<span>AlifUjala <span className="text-gradient-cool">Mobile App</span></span>}
           subtitle="Learn Urdu on the go! Download our free app and start your learning adventure."
           tone="cool"
@@ -49,7 +50,7 @@ export default function OurAppPage() {
         <section className="mb-10" aria-label="App Screenshots Showcase">
           <SectionHeader
             eyebrow="Tour"
-            emoji="✨"
+            icon="search"
             title="A peek inside the app"
             subtitle="Swipe-free tour — see all the magic at once!"
             tone="cool"
@@ -95,7 +96,7 @@ export default function OurAppPage() {
               className="text-2xl sm:text-3xl font-bold text-emerald-700 dark:text-emerald-300 mb-3"
               style={{ fontFamily: "'Bubblegum Sans', cursive" }}
             >
-              🎉 Download Free!
+              <IconBadge name="download" size="sm" className="mr-2" />Download Free!
             </h2>
             <p
               className="text-gray-700 dark:text-gray-200 mb-6 text-base sm:text-lg max-w-xl mx-auto"
@@ -131,8 +132,8 @@ export default function OurAppPage() {
                 { icon: '👶', label: 'Ages 3+' },
                 { icon: '🎓', label: 'Educational' },
               ].map((c, i) => (
-                <div key={i} className="bg-white/80 dark:bg-white/10 backdrop-blur rounded-2xl p-3 text-center border-2 border-white/60 dark:border-white/15 shadow-sm">
-                  <div className="text-2xl mb-1">{c.icon}</div>
+                <div key={i} className="bg-white/80 dark:bg-white/10 backdrop-blur rounded-2xl p-3 text-center border-2 border-white/60 dark:border-white/[0.15] shadow-sm">
+                  <div className="mb-2"><IconBadge name={(['heart', 'users', 'book'] as LearningIconName[])[i]} /></div>
                   <p className="text-sm font-bold text-gray-700 dark:text-gray-100" style={{ fontFamily: "'Comic Neue', cursive" }}>{c.label}</p>
                 </div>
               ))}
@@ -144,7 +145,7 @@ export default function OurAppPage() {
         <div className="max-w-6xl mx-auto mb-14">
           <SectionHeader
             eyebrow="What you get"
-            emoji="🌈"
+            icon="palette"
             title="App Features"
             subtitle="Everything kids need for a joyful, screen-friendly Urdu journey."
             tone="rainbow"
@@ -153,7 +154,7 @@ export default function OurAppPage() {
             {APP_FEATURES.map((feature, i) => (
               <KidsCard key={i} variant="glass" tone={feature.tone} padding="md" className="group">
                 <div className="flex items-start gap-3">
-                  <div className="text-4xl flex-shrink-0 transition-transform duration-500 group-hover:scale-110 group-hover:animate-wiggle">{feature.emoji}</div>
+                  <IconBadge name={feature.icon} size="lg" />
                   <div>
                     <h3
                       className="text-lg font-bold text-purple-700 dark:text-purple-300 mb-1"
@@ -183,7 +184,7 @@ export default function OurAppPage() {
               className="text-2xl sm:text-3xl font-bold mb-3 drop-shadow"
               style={{ fontFamily: "'Bubblegum Sans', cursive" }}
             >
-              🚀 Start Learning Today!
+              <IconBadge name="book" size="sm" className="mr-2" />Start Learning Today!
             </h3>
             <p
               className="text-white/90 text-base sm:text-lg mb-6 max-w-xl mx-auto"
@@ -196,7 +197,7 @@ export default function OurAppPage() {
               external
               variant="warm"
               size="lg"
-              iconLeft={<span>📥</span>}
+              iconLeft={<LearningIcon name="download" />}
             >
               Download Now
             </KidsButton>

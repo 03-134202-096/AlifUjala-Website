@@ -1,3 +1,4 @@
+import { LearningIcon } from '@/components/ui'
 import React from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Navbar from '@/components/Navbar'
@@ -55,7 +56,7 @@ export default function BlogPostPage({ post }: Props) {
         keywords={post.tags.join(', ')}
         structuredData={structuredData}
       />
-      <DecorativeBlobs variant="soft" emojis={["✍️", "📖", "✨"]} />
+      <DecorativeBlobs variant="soft" motifs={["book","pencil"]} />
       <Navbar />
 
       <main className="flex-1 max-w-3xl mx-auto px-4 py-10 w-full relative z-10">
@@ -158,8 +159,8 @@ export default function BlogPostPage({ post }: Props) {
               Try our free Urdu alphabet activities right now — no signup needed!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <KidsButton href="/activity" variant="primary" size="lg" iconLeft={<span>✨</span>}>Try Activities</KidsButton>
-              <KidsButton href="/games/urduHunter" variant="warm" size="lg" iconLeft={<span>🎮</span>}>Play Urdu Hunter</KidsButton>
+              <KidsButton href="/activity" variant="primary" size="lg" iconLeft={<LearningIcon name="worksheet" />}>Try Activities</KidsButton>
+              <KidsButton href="/games/urduHunter" variant="warm" size="lg" iconLeft={<LearningIcon name="gamepad" />}>Play Urdu Hunter</KidsButton>
             </div>
           </KidsCard>
         </div>

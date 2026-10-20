@@ -1,3 +1,4 @@
+import { DecorativeBlobs, LearningIcon, IconBadge } from '@/components/ui'
 ﻿import React, { useEffect, useMemo, useRef, useState } from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
@@ -17,13 +18,7 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 function PageDecorations() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute -top-24 left-[-40px] h-56 w-56 rounded-full bg-gradient-to-br from-indigo-200/70 to-purple-200/20 blur-3xl animate-float" />
-      <div className="absolute top-24 right-[-30px] h-48 w-48 rounded-full bg-gradient-to-br from-amber-200/70 to-pink-200/20 blur-3xl animate-float-delay" />
-      <div className="absolute bottom-[-60px] left-[12%] h-60 w-60 rounded-full bg-gradient-to-br from-teal-200/70 to-cyan-200/20 blur-3xl animate-bounce-slow" />
-    </div>
-  )
+  return <DecorativeBlobs motifs={['pencil', 'letters']} />
 }
 
 /* Auto-fit SVG glyph: tall viewBox (descender space) keeps every letter inside its tile. */
@@ -225,7 +220,7 @@ export default function UrduDottedMatchPage() {
 
       <main className="container mx-auto flex-1 px-4 py-6 relative z-10">
         <div className="max-w-6xl mx-auto mb-8">
-          <div className="bg-white/80 dark:bg-indigo-950/85 backdrop-blur-md rounded-3xl p-6 sm:p-8 border-2 border-indigo-200/70 dark:border-indigo-700/60 shadow-xl relative overflow-hidden">
+          <div className="bg-white dark:bg-indigo-950 backdrop-blur-md rounded-3xl p-6 sm:p-8 border-2 border-indigo-200/70 dark:border-indigo-700/60 shadow-xl relative overflow-hidden">
             <div className="absolute -top-24 right-[-20px] h-48 w-48 rounded-full bg-gradient-to-br from-indigo-200/60 to-purple-200/20 blur-2xl" />
             <div className="absolute bottom-[-80px] left-[-40px] h-56 w-56 rounded-full bg-gradient-to-br from-amber-200/60 to-pink-200/20 blur-2xl" />
 
@@ -264,13 +259,13 @@ export default function UrduDottedMatchPage() {
                   <span className="font-bold">Dotted vs Full</span>
                 </div>
                 <div className="mt-4 grid grid-cols-2 gap-4">
-                  <div className="rounded-2xl bg-white/15 p-4 text-center">
+                  <div className="rounded-2xl bg-white/[0.15] p-4 text-center">
                     <div className="text-[0.65rem] uppercase tracking-widest text-white/70">Dotted</div>
                     <div className="mt-2 h-20 flex items-center justify-center">
                       <DottedLetter char={previewChar} />
                     </div>
                   </div>
-                  <div className="rounded-2xl bg-white/15 p-4 text-center">
+                  <div className="rounded-2xl bg-white/[0.15] p-4 text-center">
                     <div className="text-[0.65rem] uppercase tracking-widest text-white/70">Full</div>
                     <div className="mt-2 h-20 flex items-center justify-center">
                       <SolidLetter char={previewChar} className="text-white" />
@@ -359,7 +354,7 @@ export default function UrduDottedMatchPage() {
         </div>
 
         <div className="max-w-6xl mx-auto">
-          <div className="bg-white/85 dark:bg-indigo-950/85 backdrop-blur-md rounded-3xl p-4 sm:p-6 border-2 border-indigo-200/70 dark:border-indigo-700/60 shadow-xl">
+          <div className="bg-white dark:bg-indigo-950 backdrop-blur-md rounded-3xl p-4 sm:p-6 border-2 border-indigo-200/70 dark:border-indigo-700/60 shadow-xl">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center justify-center h-9 w-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-lg shadow-md" aria-hidden>✍️</span>
