@@ -59,28 +59,60 @@ const SITE_URL = 'https://alifujala.ai'
 
 const WORKSHEET_SAMPLE_IMAGES = [
   {
+    src: '/images/worksheetsSample/seven.png',
+    alt: 'Urdu letter tracing worksheet sample — dotted alphabet',
+  },
+  {
+    src: '/images/worksheetsSample/eight.png',
+    alt: 'Trace & Write Urdu worksheet sample for kids',
+  },
+  {
+    src: '/images/worksheetsSample/nine.png',
+    alt: 'Picture, Trace & Write Urdu worksheet with pictures',
+  },
+  {
+    src: '/images/worksheetsSample/ten.png',
+    alt: 'Letter Spotlight Urdu worksheet — one letter per page',
+  },
+  {
+    src: '/images/worksheetsSample/eleven.png',
+    alt: 'Find & Circle Urdu letter recognition worksheet',
+  },
+  {
+    src: '/images/worksheetsSample/twelve.png',
+    alt: 'Urdu letter tracing worksheet — second alphabet group',
+  },
+  {
+    src: '/images/worksheetsSample/thirteen.png',
+    alt: 'Picture Urdu worksheet — words and letters practice',
+  },
+  {
+    src: '/images/worksheetsSample/fourteen.png',
+    alt: 'Letter Spotlight Urdu worksheet — Bay practice page',
+  },
+  {
     src: '/images/worksheetsSample/one.png',
-    alt: 'Urdu worksheet sample 1 for kids',
+    alt: 'Alphabet Matching Urdu worksheet sample',
   },
   {
     src: '/images/worksheetsSample/two.png',
-    alt: 'Urdu worksheet sample 2 for children',
+    alt: 'Letter to Image Matching Urdu worksheet sample',
   },
   {
     src: '/images/worksheetsSample/three.png',
-    alt: 'Printable Urdu worksheet sample 3',
+    alt: 'Printable Urdu matching worksheet sample',
   },
   {
     src: '/images/worksheetsSample/four.png',
-    alt: 'Printable Urdu worksheet sample 4',
+    alt: 'Printable Urdu alphabet worksheet sample',
   },
   {
     src: '/images/worksheetsSample/five.png',
-    alt: 'Urdu learning worksheet sample 5',
+    alt: 'Urdu learning matching worksheet sample',
   },
   {
     src: '/images/worksheetsSample/six.png',
-    alt: 'Urdu worksheet sample 6 for kids',
+    alt: 'Letter to Image Urdu worksheet sample with animals',
   },
 ]
 
@@ -671,7 +703,7 @@ export default function ActivityIndex() {
                     Worksheet Samples
                   </h3>
                   <p className="text-sm text-indigo-700 dark:text-indigo-50" style={{ fontFamily: "'Comic Neue', cursive" }}>
-                    Preview sample Urdu worksheets for kids and classrooms.
+                    Previews of our tracing, writing, picture-practice, letter-spotlight, find-&amp;-circle and matching worksheets — each one carries the Alif Ujala watermark.
                   </p>
                 </div>
                 <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-100 uppercase tracking-wider">
@@ -679,7 +711,7 @@ export default function ActivityIndex() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                 {WORKSHEET_SAMPLE_IMAGES.map((image) => (
                   <figure
                     key={image.src}

@@ -9,13 +9,74 @@ const APP_SAMPLE_IMAGES = Array.from({ length: 11 }, (_, i) => `/images/AppSampl
 
 type FeatureTone = 'purple' | 'green' | 'pink' | 'blue' | 'amber' | 'indigo'
 const APP_FEATURES: { icon: LearningIconName; title: string; description: string; tone: FeatureTone }[] = [
+  { icon: 'pencil', title: "Letter Tracing Activities", description: "Guided dotted-line tracing teaches each Urdu letter stroke by stroke — kids learn to form every حرف correctly!", tone: 'indigo' },
+  { icon: 'book', title: "AI Story Generation",   description: "Kids pick a character and a topic — the app crafts a brand-new Urdu story just for them, instantly!", tone: 'pink' },
+  { icon: 'palette', title: "Profession Figure Generator", description: "Child chooses a favorite profession, taps generate, and gets a personalized figure of themselves in that role!", tone: 'amber' },
   { icon: 'gamepad', title: "Interactive Activities", description: "Fun games and activities to learn Urdu letters through play!", tone: 'purple' },
   { icon: 'chart', title: "Progress Tracker",      description: "Track your child's learning journey and celebrate milestones!", tone: 'blue' },
-  { icon: 'audio', title: "Voice Support",         description: "Listen to correct pronunciations of Urdu letters and words!", tone: 'pink' },
-  { icon: 'palette', title: "Kid-Friendly Design",   description: "Colorful, engaging interface designed especially for children!", tone: 'amber' },
-  { icon: 'mobile', title: "Offline Mode",          description: "Learn anytime, anywhere — no internet required!", tone: 'green' },
-  { icon: 'pencil', title: "AI Assistive Writing",  description: "Get smart writing suggestions and guided practice while learning Urdu!", tone: 'indigo' },
+  { icon: 'audio', title: "Voice Support",         description: "Listen to correct pronunciations of Urdu letters and words!", tone: 'green' },
 ]
+
+type HighlightTone = 'indigo' | 'pink' | 'amber'
+type FeatureHighlight = {
+  tag: string
+  title: string
+  tagline: string
+  description: string
+  steps: string[]
+  icon: LearningIconName
+  tone: HighlightTone
+  accent: string
+}
+
+const FEATURE_HIGHLIGHTS: FeatureHighlight[] = [
+  {
+    tag: 'Writing practice',
+    title: 'Letter Tracing Activities',
+    tagline: 'Teach your child every Urdu letter — the right way.',
+    description:
+      "Each lesson walks the child through a dotted outline of an Urdu letter. They follow the path with a finger, hear the sound, and build confident muscle memory for correct letter formation.",
+    steps: [
+      'Pick a letter from Alif (ا) to Yay (ی).',
+      'Trace the dotted shape — a star marks the start point.',
+      'The app praises every stroke and tracks progress.',
+    ],
+    icon: 'pencil',
+    tone: 'indigo',
+    accent: 'from-indigo-500 via-violet-500 to-purple-600',
+  },
+  {
+    tag: 'AI storytelling',
+    title: 'Stories Generation',
+    tagline: "Your child's imagination becomes a brand-new Urdu story.",
+    description:
+      "The child picks a character — a bear, a princess, a robot — and chooses a topic like friendship or courage. The app then crafts a fresh, age-appropriate Urdu story around their choices, every single time.",
+    steps: [
+      'Choose a character the child loves.',
+      'Pick a topic — kindness, adventure, honesty, more.',
+      'Tap Generate and read the fresh story together.',
+    ],
+    icon: 'book',
+    tone: 'pink',
+    accent: 'from-rose-500 via-pink-500 to-fuchsia-600',
+  },
+  {
+    tag: 'Dream big',
+    title: 'Profession Figure Generation',
+    tagline: 'What will your child be when they grow up?',
+    description:
+      "Doctor, pilot, astronaut, teacher, cricketer — the child selects their favorite profession and taps generate. In seconds, the app produces a cheerful figure of them wearing that role's outfit, ready to be saved and shared.",
+    steps: [
+      'Browse a gallery of professions.',
+      'Tap one and press Generate.',
+      'See a personalized figure appear — save or share it.',
+    ],
+    icon: 'palette',
+    tone: 'amber',
+    accent: 'from-amber-500 via-orange-500 to-rose-500',
+  },
+]
+
 
 function PageDecorations() {
   return <DecorativeBlobs variant="soft" motifs={["mobile","pencil"]} />
@@ -174,6 +235,112 @@ export default function OurAppPage() {
             ))}
           </div>
         </div>
+
+        {/* Feature deep-dives — tracing / stories / profession figure */}
+        <section className="max-w-6xl mx-auto mb-14" aria-label="App feature deep-dives">
+          <SectionHeader
+            eyebrow="Three magical features"
+            icon="bulb"
+            title="See how the app teaches, imagines & inspires"
+            subtitle="A closer look at the activities kids love most — and parents trust."
+            tone="warm"
+          />
+
+          <div className="space-y-8">
+            {FEATURE_HIGHLIGHTS.map((feature, i) => (
+              <article
+                key={feature.title}
+                className={`relative overflow-hidden rounded-[2rem] border-[3px] border-white/60 dark:border-white/10 shadow-candy-lg bg-white/80 dark:bg-indigo-950/70 backdrop-blur-md`}
+              >
+                <span
+                  className={`absolute inset-x-0 top-0 h-2 bg-gradient-to-r ${feature.accent}`}
+                  aria-hidden
+                />
+                <div
+                  className={`grid grid-cols-1 md:grid-cols-5 gap-6 p-6 sm:p-8 ${
+                    i % 2 === 1 ? 'md:[&>*:first-child]:order-last' : ''
+                  }`}
+                >
+                  {/* Illustration tile */}
+                  <div className="md:col-span-2 flex items-center justify-center">
+                    <div
+                      className={`relative w-full max-w-sm aspect-[4/5] rounded-3xl bg-gradient-to-br ${feature.accent} p-6 flex items-center justify-center shadow-xl border-4 border-white/60`}
+                    >
+                      <div className="absolute inset-4 rounded-2xl border-2 border-dashed border-white/40 pointer-events-none" />
+                      <div className="relative z-10 flex flex-col items-center text-white text-center">
+                        <div className="bg-white/25 rounded-full w-24 h-24 flex items-center justify-center mb-4 backdrop-blur-sm border-2 border-white/40">
+                          <LearningIcon name={feature.icon} className="!w-14 !h-14" />
+                        </div>
+                        <p
+                          className="text-xs font-bold uppercase tracking-[0.2em] bg-white/20 border border-white/40 rounded-full px-3 py-1"
+                          style={{ fontFamily: "'Comic Neue', cursive" }}
+                        >
+                          {feature.tag}
+                        </p>
+                        <p
+                          className="mt-4 text-2xl font-bold drop-shadow"
+                          style={{ fontFamily: "'Bubblegum Sans', cursive" }}
+                        >
+                          {feature.title}
+                        </p>
+                      </div>
+                      {/* corner sparkles */}
+                      <span className="absolute top-3 left-3 text-xl text-white/80">✦</span>
+                      <span className="absolute top-4 right-4 text-lg text-white/70">✧</span>
+                      <span className="absolute bottom-4 left-5 text-lg text-white/70">✧</span>
+                      <span className="absolute bottom-3 right-3 text-xl text-white/80">✦</span>
+                    </div>
+                  </div>
+
+                  {/* Text content */}
+                  <div className="md:col-span-3 flex flex-col justify-center">
+                    <p
+                      className="text-xs font-bold uppercase tracking-widest text-purple-500 dark:text-purple-300 mb-2"
+                      style={{ fontFamily: "'Comic Neue', cursive" }}
+                    >
+                      Feature {i + 1} of 3 · {feature.tag}
+                    </p>
+                    <h3
+                      className="text-2xl sm:text-3xl font-bold text-purple-700 dark:text-purple-200 mb-2"
+                      style={{ fontFamily: "'Bubblegum Sans', cursive" }}
+                    >
+                      {feature.title}
+                    </h3>
+                    <p
+                      className="text-base sm:text-lg font-bold text-indigo-600 dark:text-indigo-200 mb-3"
+                      style={{ fontFamily: "'Comic Neue', cursive" }}
+                    >
+                      {feature.tagline}
+                    </p>
+                    <p
+                      className="text-gray-700 dark:text-gray-200 leading-relaxed mb-5"
+                      style={{ fontFamily: "'Comic Neue', cursive" }}
+                    >
+                      {feature.description}
+                    </p>
+                    <ol className="space-y-2.5">
+                      {feature.steps.map((step, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-start gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-100"
+                          style={{ fontFamily: "'Comic Neue', cursive" }}
+                        >
+                          <span
+                            className={`shrink-0 w-7 h-7 rounded-full bg-gradient-to-br ${feature.accent} text-white font-bold flex items-center justify-center shadow-md`}
+                          >
+                            {idx + 1}
+                          </span>
+                          <span className="font-bold leading-snug pt-0.5">{step}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
 
         {/* Call to Action */}
         <div className="max-w-3xl mx-auto mb-10">
