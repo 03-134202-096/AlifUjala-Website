@@ -91,10 +91,11 @@ const Stories: React.FC = () => {
   const [videoStory, setVideoStory] = useState<string | null>(null);
 
   return (
-    <div className="flex flex-row flex-wrap gap-8 justify-center mt-4">
+    <div dir="rtl" className="flex flex-row flex-wrap gap-8 justify-center mt-4">
       {stories.map((story, i) => (
         <motion.div
           key={story.id}
+          dir="ltr"
           className={`relative w-72 sm:w-80 flex-shrink-0 rounded-3xl shadow-candy flex flex-col items-center justify-center p-5 bg-gradient-to-br ${storyColors[i % storyColors.length]} cursor-pointer border-4 overflow-hidden group`}
           whileHover={{ y: -8, scale: 1.03 }}
           whileTap={{ scale: 0.98 }}

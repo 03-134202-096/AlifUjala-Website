@@ -175,19 +175,23 @@ export default function UrduAlphabetStoriesPage() {
           >
             <IconBadge name="book" size="sm" className="mr-2" />Choose a Story
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
+          <div
+            dir="rtl"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5"
+          >
             {alphabetStories.map((story, i) => (
-              <StoryCard
-                key={story.videoId}
-                story={story}
-                index={i}
-                isActive={i === selectedIndex}
-                onSelect={() => {
-                  setSelectedIndex(i)
-                  // Smooth scroll to video player
-                  window.scrollTo({ top: 0, behavior: "smooth" })
-                }}
-              />
+              <div key={story.videoId} dir="ltr">
+                <StoryCard
+                  story={story}
+                  index={i}
+                  isActive={i === selectedIndex}
+                  onSelect={() => {
+                    setSelectedIndex(i)
+                    // Smooth scroll to video player
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                  }}
+                />
+              </div>
             ))}
           </div>
         </div>

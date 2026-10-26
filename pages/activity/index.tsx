@@ -57,12 +57,79 @@ const SMALL_ALPHABETS_MAP: Record<string, string> = {
 
 const SITE_URL = 'https://alifujala.ai'
 
+const WORKSHEET_SAMPLE_IMAGES = [
+  {
+    src: '/images/worksheetsSample/seven.png',
+    alt: 'Urdu letter tracing worksheet sample — dotted alphabet',
+  },
+  {
+    src: '/images/worksheetsSample/eight.png',
+    alt: 'Trace & Write Urdu worksheet sample for kids',
+  },
+  {
+    src: '/images/worksheetsSample/nine.png',
+    alt: 'Picture, Trace & Write Urdu worksheet with pictures',
+  },
+  {
+    src: '/images/worksheetsSample/ten.png',
+    alt: 'Letter Spotlight Urdu worksheet — one letter per page',
+  },
+  {
+    src: '/images/worksheetsSample/eleven.png',
+    alt: 'Find & Circle Urdu letter recognition worksheet',
+  },
+  {
+    src: '/images/worksheetsSample/twelve.png',
+    alt: 'Urdu letter tracing worksheet — second alphabet group',
+  },
+  {
+    src: '/images/worksheetsSample/thirteen.png',
+    alt: 'Picture Urdu worksheet — words and letters practice',
+  },
+  {
+    src: '/images/worksheetsSample/fourteen.png',
+    alt: 'Letter Spotlight Urdu worksheet — Bay practice page',
+  },
+  {
+    src: '/images/worksheetsSample/one.png',
+    alt: 'Alphabet Matching Urdu worksheet sample',
+  },
+  {
+    src: '/images/worksheetsSample/two.png',
+    alt: 'Letter to Image Matching Urdu worksheet sample',
+  },
+  {
+    src: '/images/worksheetsSample/three.png',
+    alt: 'Printable Urdu matching worksheet sample',
+  },
+  {
+    src: '/images/worksheetsSample/four.png',
+    alt: 'Printable Urdu alphabet worksheet sample',
+  },
+  {
+    src: '/images/worksheetsSample/five.png',
+    alt: 'Urdu learning matching worksheet sample',
+  },
+  {
+    src: '/images/worksheetsSample/six.png',
+    alt: 'Letter to Image Urdu worksheet sample with animals',
+  },
+]
+
+const WORKSHEET_SAMPLE_IMAGE_OBJECTS = WORKSHEET_SAMPLE_IMAGES.map((img) => ({
+  '@type': 'ImageObject',
+  contentUrl: `${SITE_URL}${img.src}`,
+  caption: img.alt,
+}))
+
 const WORKSHEET_STRUCTURED_DATA = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: 'Printable Urdu Worksheets',
-  description: 'Printable Urdu worksheets for kids — tracing, writing, picture practice, letter spotlight, find & circle, and matching activities, generated on demand and ready to download.',
+  description: 'Printable Urdu worksheets for kids with sample pages and downloadable practice sheets.',
   url: `${SITE_URL}/activity`,
+  image: WORKSHEET_SAMPLE_IMAGE_OBJECTS.map((img) => img.contentUrl),
+  hasPart: WORKSHEET_SAMPLE_IMAGE_OBJECTS,
 }
 
 /* Animated floating shapes */
@@ -629,6 +696,38 @@ export default function ActivityIndex() {
               </div>
             </div>
 
+            <div className="bg-white dark:bg-indigo-950 rounded-3xl p-5 sm:p-6 border-2 border-purple-200 dark:border-purple-700 shadow-xl">
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-4">
+                <div>
+                  <h3 className="text-2xl font-bold text-indigo-700 dark:text-indigo-100" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
+                    Worksheet Samples
+                  </h3>
+                  <p className="text-sm text-indigo-700 dark:text-indigo-50" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                    Previews of our tracing, writing, picture-practice, letter-spotlight, find-&amp;-circle and matching worksheets — each one carries the Alif Ujala watermark.
+                  </p>
+                </div>
+                <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-100 uppercase tracking-wider">
+                  Printable examples
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                {WORKSHEET_SAMPLE_IMAGES.map((image) => (
+                  <figure
+                    key={image.src}
+                    className="rounded-2xl border border-indigo-200/70 dark:border-indigo-700/70 bg-white/80 dark:bg-indigo-900/75 p-3 shadow-sm"
+                  >
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="w-full h-auto rounded-xl"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </figure>
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </main>
