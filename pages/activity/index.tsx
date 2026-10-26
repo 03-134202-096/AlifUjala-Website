@@ -57,47 +57,12 @@ const SMALL_ALPHABETS_MAP: Record<string, string> = {
 
 const SITE_URL = 'https://alifujala.ai'
 
-const WORKSHEET_SAMPLE_IMAGES = [
-  {
-    src: '/images/worksheetsSample/one.png',
-    alt: 'Urdu worksheet sample 1 for kids',
-  },
-  {
-    src: '/images/worksheetsSample/two.png',
-    alt: 'Urdu worksheet sample 2 for children',
-  },
-  {
-    src: '/images/worksheetsSample/three.png',
-    alt: 'Printable Urdu worksheet sample 3',
-  },
-  {
-    src: '/images/worksheetsSample/four.png',
-    alt: 'Printable Urdu worksheet sample 4',
-  },
-  {
-    src: '/images/worksheetsSample/five.png',
-    alt: 'Urdu learning worksheet sample 5',
-  },
-  {
-    src: '/images/worksheetsSample/six.png',
-    alt: 'Urdu worksheet sample 6 for kids',
-  },
-]
-
-const WORKSHEET_SAMPLE_IMAGE_OBJECTS = WORKSHEET_SAMPLE_IMAGES.map((img) => ({
-  '@type': 'ImageObject',
-  contentUrl: `${SITE_URL}${img.src}`,
-  caption: img.alt,
-}))
-
 const WORKSHEET_STRUCTURED_DATA = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: 'Printable Urdu Worksheets',
-  description: 'Printable Urdu worksheets for kids with sample pages and downloadable practice sheets.',
+  description: 'Printable Urdu worksheets for kids — tracing, writing, picture practice, letter spotlight, find & circle, and matching activities, generated on demand and ready to download.',
   url: `${SITE_URL}/activity`,
-  image: WORKSHEET_SAMPLE_IMAGE_OBJECTS.map((img) => img.contentUrl),
-  hasPart: WORKSHEET_SAMPLE_IMAGE_OBJECTS,
 }
 
 /* Animated floating shapes */
@@ -664,38 +629,6 @@ export default function ActivityIndex() {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-indigo-950 rounded-3xl p-5 sm:p-6 border-2 border-purple-200 dark:border-purple-700 shadow-xl">
-              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-4">
-                <div>
-                  <h3 className="text-2xl font-bold text-indigo-700 dark:text-indigo-100" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
-                    Worksheet Samples
-                  </h3>
-                  <p className="text-sm text-indigo-700 dark:text-indigo-50" style={{ fontFamily: "'Comic Neue', cursive" }}>
-                    Preview sample Urdu worksheets for kids and classrooms.
-                  </p>
-                </div>
-                <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-100 uppercase tracking-wider">
-                  Printable examples
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {WORKSHEET_SAMPLE_IMAGES.map((image) => (
-                  <figure
-                    key={image.src}
-                    className="rounded-2xl border border-indigo-200/70 dark:border-indigo-700/70 bg-white/80 dark:bg-indigo-900/75 p-3 shadow-sm"
-                  >
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      className="w-full h-auto rounded-xl"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </figure>
-                ))}
-              </div>
-            </div>
           </div>
         )}
       </main>
