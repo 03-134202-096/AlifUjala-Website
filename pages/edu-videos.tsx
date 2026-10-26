@@ -25,6 +25,72 @@ const cardGradients = [
   "from-red-400 to-orange-500",
 ]
 
+/* ── latest YouTube videos ─────────────────── */
+
+type YTVideo = { id: string; title: string }
+
+/**
+ * Latest 10 videos from https://www.youtube.com/@AlifUjala
+ * Order: newest first. Update this list when new videos are published,
+ * or wire it to the channel's RSS feed in getStaticProps.
+ */
+const latestYouTubeVideos: YTVideo[] = [
+  { id: "d7sqR9tudQY", title: "Quaid-e-Azam's Wise Advice | قائداعظم کی نصیحت | Castle Garden Story for Kids" },
+  { id: "WL2XEaG89Gs", title: "The Little Duckling and the Squirrel | نئے دوست | Kindness & Friendship Story" },
+  { id: "fAGJ7lGamhc", title: "The Tortoise and the Hare | کچھوا اور خرگوش | Moral Story for Kids" },
+  { id: "n9aJ9SBSoOk", title: "Learning Car Story | Urdu Story" },
+  { id: "QNd2jUwW7VY", title: "Playing Child Stories | Children Stories" },
+  { id: "swdAClO67VA", title: "Alif Ujala Urdu Qaida – Interactive Urdu Alphabet Learning for Kids" },
+  { id: "MkpfS7cABc4", title: "Chicken and Star | Stories" },
+  { id: "Gi-anywi6N4", title: "A Little Story | Alif Ujala" },
+  { id: "FoYCuJCnssI", title: "Chicken and Alien | Stories Generation" },
+  { id: "AiCgfxeZ8sI", title: "Squirrel Stories | Children Stories | Moral With Quaid-e-Azam" },
+]
+
+function LatestVideoCard({ video, index }: { video: YTVideo; index: number }) {
+  const gradient = cardGradients[index % cardGradients.length]
+  const thumb = `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`
+  const href = `https://www.youtube.com/watch?v=${video.id}`
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative block rounded-3xl overflow-hidden border-4 border-white/60 dark:border-gray-700 shadow-candy hover:shadow-candy-lg transition-all duration-300 hover:scale-[1.03] hover:-rotate-1 focus:outline-none focus:ring-4 focus:ring-red-300"
+      aria-label={`Watch on YouTube: ${video.title}`}
+    >
+      <div className={`bg-gradient-to-br ${gradient} p-2`}>
+        <div className="relative w-full aspect-video rounded-2xl overflow-hidden">
+          <img
+            src={thumb}
+            alt={video.title}
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
+          {/* Play overlay */}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/35 transition-colors duration-300">
+            <div className="bg-red-600 text-white rounded-full w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 sm:w-8 sm:h-8 ml-1">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+          {/* YouTube badge */}
+          <div className="absolute top-2 left-2 bg-red-600 text-white text-[10px] sm:text-xs font-bold px-2 py-1 rounded-full shadow-md">
+            YouTube
+          </div>
+        </div>
+        <h3
+          className="mt-2 px-2 pb-1 text-white text-xs sm:text-sm font-bold leading-snug line-clamp-2 text-center drop-shadow"
+          style={{ fontFamily: "'Bubblegum Sans', cursive" }}
+        >
+          {video.title}
+        </h3>
+      </div>
+    </a>
+  )
+}
+
 /* ── components ────────────────────────────── */
 
 function PageDecorations() {
@@ -196,6 +262,37 @@ export default function EduVideosPage() {
             ))}
           </div>
         </div>
+
+        {/* Latest from YouTube */}
+        <section className="max-w-6xl mx-auto mt-14">
+          <SectionHeader
+            eyebrow="New on YouTube"
+            icon="play"
+            title="Videos from our YouTube channel"
+            subtitle="Hot off the press! Tap to watch on YouTube."
+            tone="warm"
+            className="!mb-6"
+          />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
+            {latestYouTubeVideos.map((v, i) => (
+              <LatestVideoCard key={v.id} video={v} index={i} />
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <a
+              href="https://www.youtube.com/@AlifUjala/videos"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold text-base sm:text-lg px-6 py-3 rounded-full shadow-candy hover:shadow-candy-lg hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-red-300"
+              aria-label="Explore the Alif Ujala YouTube channel"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6" aria-hidden="true">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.546 15.568V8.432L15.818 12l-6.272 3.568z" />
+              </svg>
+              Explore on YouTube
+            </a>
+          </div>
+        </section>
 
         {/* Channel credit */}
         <div className="max-w-3xl mx-auto mt-10 mb-6">
