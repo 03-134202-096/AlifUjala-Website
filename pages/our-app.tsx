@@ -27,6 +27,7 @@ type FeatureHighlight = {
   icon: LearningIconName
   tone: HighlightTone
   accent: string
+  figure: string
 }
 
 const FEATURE_HIGHLIGHTS: FeatureHighlight[] = [
@@ -44,6 +45,7 @@ const FEATURE_HIGHLIGHTS: FeatureHighlight[] = [
     icon: 'pencil',
     tone: 'indigo',
     accent: 'from-indigo-500 via-violet-500 to-purple-600',
+    figure: '/images/AppFeatureFigures/workSheet.webp',
   },
   {
     tag: 'AI storytelling',
@@ -59,6 +61,7 @@ const FEATURE_HIGHLIGHTS: FeatureHighlight[] = [
     icon: 'book',
     tone: 'pink',
     accent: 'from-rose-500 via-pink-500 to-fuchsia-600',
+    figure: '/images/AppFeatureFigures/story.webp',
   },
   {
     tag: 'Dream big',
@@ -74,6 +77,7 @@ const FEATURE_HIGHLIGHTS: FeatureHighlight[] = [
     icon: 'palette',
     tone: 'amber',
     accent: 'from-amber-500 via-orange-500 to-rose-500',
+    figure: '/images/AppFeatureFigures/profession.webp',
   },
 ]
 
@@ -261,34 +265,29 @@ export default function OurAppPage() {
                     i % 2 === 1 ? 'md:[&>*:first-child]:order-last' : ''
                   }`}
                 >
-                  {/* Illustration tile */}
+                  {/* Illustration tile — real app figure */}
                   <div className="md:col-span-2 flex items-center justify-center">
                     <div
-                      className={`relative w-full max-w-sm aspect-[4/5] rounded-3xl bg-gradient-to-br ${feature.accent} p-6 flex items-center justify-center shadow-xl border-4 border-white/60`}
+                      className={`relative w-full max-w-sm aspect-[4/5] rounded-3xl bg-gradient-to-br ${feature.accent} p-4 flex items-center justify-center shadow-xl border-4 border-white/60`}
                     >
                       <div className="absolute inset-4 rounded-2xl border-2 border-dashed border-white/40 pointer-events-none" />
-                      <div className="relative z-10 flex flex-col items-center text-white text-center">
-                        <div className="bg-white/25 rounded-full w-24 h-24 flex items-center justify-center mb-4 backdrop-blur-sm border-2 border-white/40">
-                          <LearningIcon name={feature.icon} className="!w-14 !h-14" />
-                        </div>
-                        <p
-                          className="text-xs font-bold uppercase tracking-[0.2em] bg-white/20 border border-white/40 rounded-full px-3 py-1"
-                          style={{ fontFamily: "'Comic Neue', cursive" }}
-                        >
-                          {feature.tag}
-                        </p>
-                        <p
-                          className="mt-4 text-2xl font-bold drop-shadow"
-                          style={{ fontFamily: "'Bubblegum Sans', cursive" }}
-                        >
-                          {feature.title}
-                        </p>
-                      </div>
+                      <img
+                        src={feature.figure}
+                        alt={`${feature.title} — ${feature.tagline}`}
+                        loading="lazy"
+                        className="relative z-10 w-full h-full object-contain drop-shadow-xl rounded-2xl"
+                      />
+                      {/* tag chip */}
+                      <p
+                        className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 text-xs font-bold uppercase tracking-[0.2em] text-white bg-black/35 border border-white/40 rounded-full px-3 py-1 backdrop-blur-sm whitespace-nowrap"
+                        style={{ fontFamily: "'Comic Neue', cursive" }}
+                      >
+                        {feature.tag}
+                      </p>
                       {/* corner sparkles */}
-                      <span className="absolute top-3 left-3 text-xl text-white/80">✦</span>
-                      <span className="absolute top-4 right-4 text-lg text-white/70">✧</span>
-                      <span className="absolute bottom-4 left-5 text-lg text-white/70">✧</span>
-                      <span className="absolute bottom-3 right-3 text-xl text-white/80">✦</span>
+                      <span className="absolute top-3 left-3 text-xl text-white/80 z-20">✦</span>
+                      <span className="absolute top-4 right-4 text-lg text-white/70 z-20">✧</span>
+                      <span className="absolute bottom-3 right-3 text-xl text-white/80 z-20">✦</span>
                     </div>
                   </div>
 
