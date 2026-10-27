@@ -1,12 +1,14 @@
 import { LearningIcon, IconBadge } from '@/components/ui'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import SEO from '@/components/SEO'
 import { KidsCard, KidsButton, DecorativeBlobs } from '@/components/ui'
 import type { NextPage } from 'next'
 
 const NotFoundPage: NextPage = () => {
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
+      <SEO title="Page Not Found" description="The page you were looking for could not be found." noIndex />
       <DecorativeBlobs variant="rich" motifs={["book","search"]} />
 
       <Navbar />

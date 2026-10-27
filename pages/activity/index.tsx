@@ -404,8 +404,8 @@ export default function ActivityIndex() {
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO
-        title="Activities — Learn Urdu Alphabets Through Fun Activities"
-        description="Interactive Urdu activities plus printable worksheets with live preview. Trace dotted Urdu letters or match letters, pictures and half-shapes, then download practice sheets for home or school."
+        title="Printable Urdu Worksheets & Activities for Kids — Trace, Write & Match"
+        description="Free printable Urdu worksheets for kids with live preview — generate and download Urdu letter tracing, writing and picture-matching practice sheets, plus interactive Urdu alphabet activities for home or school."
         ogUrl="https://alifujala.ai/activity"
         keywords="Urdu activities for kids, printable Urdu worksheets, children worksheets, Urdu learning, match Urdu letters, Urdu alphabet activities, learn Urdu online free"
         structuredData={WORKSHEET_STRUCTURED_DATA}
@@ -421,6 +421,20 @@ export default function ActivityIndex() {
           subtitle="Choose interactive sheets or printable worksheets — سیکھیں، لکھیں اور حروف پہچانیں!"
           tone="rainbow"
         />
+
+        {/* Intro copy — crawlable, keyword-rich description for search engines */}
+        <div className="max-w-3xl mx-auto mb-8 text-center">
+          <p
+            className="text-sm sm:text-base font-bold text-gray-600 dark:text-gray-300 leading-relaxed"
+            style={{ fontFamily: "'Comic Neue', cursive" }}
+          >
+            Explore free <strong>printable Urdu worksheets</strong> and interactive activities that help
+            children learn the Urdu alphabet step by step. Generate and download{' '}
+            <strong>Urdu tracing worksheets</strong>, letter writing practice, and picture-matching sheets,
+            or play letter, image and half-shape (adhi ashkal) matching activities online — perfect for home,
+            school, and آن لائن اردو سیکھنے کے لیے.
+          </p>
+        </div>
 
         {/* Section switcher */}
         <div className="max-w-5xl mx-auto mb-8">

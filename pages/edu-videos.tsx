@@ -7,6 +7,8 @@ import { SectionHeader, DecorativeBlobs, KidsCard, LearningIcon } from "@/compon
 
 /* ── helpers ───────────────────────────────── */
 
+const SITE_URL = "https://alifujala.ai"
+
 /** Gradient pairs for story cards so each card looks unique */
 const cardGradients = [
   "from-pink-400 to-rose-500",
@@ -24,6 +26,14 @@ const cardGradients = [
   "from-amber-400 to-yellow-500",
   "from-red-400 to-orange-500",
 ]
+
+/** Convert a "m:ss" / "mm:ss" duration string to an ISO 8601 duration (PT#M#S). */
+function toIsoDuration(duration: string): string {
+  const parts = duration.split(":").map((n) => parseInt(n, 10))
+  if (parts.some((n) => Number.isNaN(n))) return "PT0S"
+  const [minutes, seconds] = parts.length === 2 ? parts : [0, parts[0]]
+  return `PT${minutes}M${seconds}S`
+}
 
 /* ── latest YouTube videos ─────────────────── */
 
@@ -207,13 +217,37 @@ export default function EduVideosPage() {
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const activeStory = alphabetStories[selectedIndex]
 
+  // ItemList of VideoObject — helps these Urdu alphabet story videos surface in search.
+  const videosStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Urdu Alphabet Stories — Educational Videos",
+    itemListElement: alphabetStories.map((story, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "VideoObject",
+        name: story.title,
+        description: `Urdu alphabet story video for the letter(s) ${story.letters} — learn the Urdu alphabet with fun animated stories from Alif Ujala.`,
+        thumbnailUrl: [`https://i.ytimg.com/vi/${story.videoId}/hqdefault.jpg`],
+        uploadDate: "2024-01-01",
+        duration: toIsoDuration(story.duration),
+        contentUrl: `https://www.youtube.com/watch?v=${story.videoId}`,
+        embedUrl: `https://www.youtube.com/embed/${story.videoId}`,
+        inLanguage: "ur",
+        publisher: { "@id": `${SITE_URL}/#organization` },
+      },
+    })),
+  }
+
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO
         title="Educational Videos — Learn Urdu Alphabets Through Stories"
-        description="Watch fun educational videos for every Urdu letter! Interactive alphabet stories for kids to learn Urdu in a fun and engaging way."
+        description="Watch fun educational videos for every Urdu letter! Interactive Urdu alphabet stories for kids to learn Urdu in a fun and engaging way — plus the latest videos from our YouTube channel."
         ogUrl="https://alifujala.ai/edu-videos"
-        keywords="Urdu educational videos, Urdu alphabet videos, learn Urdu online, Urdu stories for kids"
+        keywords="Urdu educational videos, Urdu alphabet videos, Urdu stories for kids, learn Urdu online, Urdu alphabet stories, اردو حروف تہجی"
+        structuredData={videosStructuredData}
       />
       <PageDecorations />
       <Navbar />
@@ -268,8 +302,8 @@ export default function EduVideosPage() {
           <SectionHeader
             eyebrow="New on YouTube"
             icon="play"
-            title="Videos from our YouTube channel"
-            subtitle="Hot off the press! Tap to watch on YouTube."
+            title="Latest 10 videos from our channel"
+            subtitle="Hot off the press! Tap any thumbnail to watch on YouTube."
             tone="warm"
             className="!mb-6"
           />

@@ -20,7 +20,7 @@ const DEFAULT_DESCRIPTION =
 const DEFAULT_IMAGE = `${BASE_URL}/images/hero.jpg`
 const DEFAULT_LOGO = `${BASE_URL}/images/logo.png`
 const DEFAULT_KEYWORDS =
-  'Urdu learning for kids, Urdu alphabet, learn Urdu online, Urdu activities, Urdu games, اردو سیکھیں, حروف تہجی, Urdu for children, Alif Ujala'
+  'Urdu learning for kids, Urdu alphabet, learn Urdu online, Urdu stories for kids, Urdu worksheets, printable Urdu worksheets, Urdu tracing worksheets, Urdu alphabet worksheets, Urdu activities, Urdu games, Urdu videos for kids, اردو سیکھیں, اردو کہانیاں, حروف تہجی, Urdu for children, Alif Ujala'
 
 export default function SEO({
   title,

@@ -9,6 +9,8 @@ const nextConfig = {
   i18n: {
     locales: ['en', 'ur'],
     defaultLocale: 'en',
+    // Don't auto-redirect by Accept-Language: keep clean, crawlable URLs for search engines.
+    localeDetection: false,
   },
   async rewrites() {
     return [
