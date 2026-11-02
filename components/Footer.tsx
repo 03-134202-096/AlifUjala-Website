@@ -41,7 +41,16 @@ export default function Footer() {
         { href: '/profile', label: 'Profile' },
         { href: '/students', label: 'Students' },
         { href: '/administration', label: 'Administration' },
-        { href: 'mailto:aiearlyedge@gmail.com', label: 'Contact Email', external: true },
+        { href: '/contact', label: 'Contact Us' },
+      ],
+    },
+    {
+      title: 'Company',
+      links: [
+        { href: '/about', label: 'About Us' },
+        { href: '/contact', label: 'Contact' },
+        { href: '/privacy', label: 'Privacy Policy' },
+        { href: '/terms', label: 'Terms of Service' },
       ],
     },
   ]
@@ -174,9 +183,10 @@ export default function Footer() {
           </p>
           <div className="flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-1 text-sm text-white/75" style={{ fontFamily: "'Comic Neue', cursive" }}>
             <Link href="/about" className="hover:text-white transition-colors">About</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
             <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
-            <Link href="/stories" className="hover:text-white transition-colors">Stories</Link>
-            <Link href="/games" className="hover:text-white transition-colors">Games</Link>
           </div>
         </div>
       </div>

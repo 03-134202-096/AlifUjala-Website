@@ -17,6 +17,14 @@ export default function Document() {
         <meta name="msapplication-TileImage" content="/images/logo.png" />
         <meta name="theme-color" content="#6366f1" />
 
+        {/* Google AdSense */}
+        <meta name="google-adsense-account" content="ca-pub-3145939941746367" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3145939941746367"
+          crossOrigin="anonymous"
+        />
+
         {/* Fonts */}
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap"

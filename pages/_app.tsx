@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import ScrollProgress from '@/components/ui/ScrollProgress'
+import CookieConsent from '@/components/CookieConsent'
 
 export default function App({ Component, pageProps, router: _r }: AppProps) {
   const [dark, setDark] = useState(false)
@@ -37,6 +38,7 @@ export default function App({ Component, pageProps, router: _r }: AppProps) {
       <div key={routeKey} className="page-fade">
         <Component {...pageProps} toggleTheme={toggleTheme} isDark={dark} />
       </div>
+      <CookieConsent />
     </>
   )
 }

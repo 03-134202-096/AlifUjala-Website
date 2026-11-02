@@ -20,6 +20,9 @@ export const STATIC_ENTRIES: SitemapEntry[] = [
   { path: '/blog', changefreq: 'weekly', priority: '0.8' },
   { path: '/our-app', changefreq: 'monthly', priority: '0.7' },
   { path: '/about', changefreq: 'monthly', priority: '0.5' },
+  { path: '/contact', changefreq: 'yearly', priority: '0.5' },
+  { path: '/privacy', changefreq: 'yearly', priority: '0.3' },
+  { path: '/terms', changefreq: 'yearly', priority: '0.3' },
 
   // Individual games
   { path: '/games/alphabetMatch', changefreq: 'monthly', priority: '0.7' },
