@@ -83,6 +83,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
   }
 
   const navLinks = [
+    { href: "/urdu-alphabet", label: "Alphabet" },
     { href: "/activity", label: "Worksheets" },
     { href: "/games", label: "Games" },
     { href: "/edu-videos", label: "Edu Videos" },
@@ -117,14 +118,14 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
         </div>
 
         {/* Desktop menu */}
-        <div className="hidden md:flex items-center gap-1 lg:gap-2 mx-auto z-10">
+        <div className="hidden lg:flex items-center gap-1 xl:gap-2 mx-auto z-10">
           {navLinks.map((link) => {
             const isActive = router.pathname === link.href || (link.href !== '/' && router.pathname.startsWith(link.href))
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative text-white text-base font-bold px-3 lg:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105 ${isActive ? 'bg-white/20 ring-1 ring-white/30 shadow-inner' : ''}`}
+                className={`relative whitespace-nowrap text-white text-base font-bold px-3 xl:px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/25 hover:scale-105 ${isActive ? 'bg-white/20 ring-1 ring-white/30 shadow-inner' : ''}`}
                 style={{fontFamily: "'Baloo 2', 'Comic Neue', cursive"}}
               >
                 {link.label}
@@ -154,7 +155,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
         </div>
 
         {/* Desktop profile & dark mode toggle */}
-        <div className="hidden md:flex items-center gap-3 z-10">
+        <div className="hidden lg:flex items-center gap-3 z-10">
           {/* Dark mode toggle */}
           <button
             onClick={toggleTheme}
@@ -183,7 +184,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col justify-center items-center w-12 h-12 rounded-full bg-white/20 focus:outline-none ml-auto z-10 transition-transform duration-300 hover:scale-110 active:scale-95"
+          className="lg:hidden flex flex-col justify-center items-center w-12 h-12 rounded-full bg-white/20 focus:outline-none ml-auto z-10 transition-transform duration-300 hover:scale-110 active:scale-95"
           aria-label="Toggle menu"
           onClick={() => setMenuOpen((open) => !open)}
         >
@@ -195,7 +196,7 @@ export default function Navbar({ className = "", toggleTheme: externalToggle, is
 
       {/* Mobile menu overlay */}
       <div
-        className={`md:hidden fixed top-0 left-0 w-full h-full bg-black/40 z-[200] transition-opacity duration-300 ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`lg:hidden fixed top-0 left-0 w-full h-full bg-black/40 z-[200] transition-opacity duration-300 ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setMenuOpen(false)}
       >
         <div

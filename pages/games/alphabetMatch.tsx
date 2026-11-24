@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState, useRef } from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import GameGuide from "@/components/GameGuide"
 import MatchingBoard from "@/components/MatchingBoard"
 import lettersData from "@/data/alphabets.json"
 import DownloadWorksheet from "@/components/DownloadWorksheet"
@@ -11,7 +12,7 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export default function AlphabetMatchPage() {
-  const [status, setStatus] = useState<"checking" | "playing" | "out" | "error">("checking")
+  const [status, setStatus] = useState<"checking" | "playing" | "out" | "error">("playing")
   const [count, setCount] = useState(5)
   const [startId, setStartId] = useState("alif")
   const [endId, setEndId] = useState("bari-yaa")
@@ -134,7 +135,7 @@ export default function AlphabetMatchPage() {
       <Navbar />
       <div className="container">
         <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
-          <h2 style={{ margin: 0, fontWeight: 700, fontSize: '1.25rem' }}>Alphabet &nbsp;→&nbsp; Alphabet Match</h2>
+          <h1 style={{ margin: 0, fontWeight: 700, fontSize: '1.25rem' }}>Alphabet &nbsp;→&nbsp; Alphabet Match</h1>
         </div>
 
         {/* Responsive Toolbar */}
@@ -246,6 +247,7 @@ export default function AlphabetMatchPage() {
           />
         </div>
       </div>
+      <GameGuide slug="alphabetMatch" />
       <Footer />
     </>
   )

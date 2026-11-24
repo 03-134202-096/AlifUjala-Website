@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import GameGuide from '@/components/GameGuide';
 import alphabetsData from '@/data/alphabets.json';
 
 const ALL_LETTERS = alphabetsData.letters;
@@ -137,9 +138,6 @@ export default function UrduTileTap() {
 
   return (
     <div className="kids-page-bg arcade-page min-h-screen flex flex-col font-sans relative">
-      <Head>
-        <title>Tile Tap | Urdu Games</title>
-      </Head>
       <Navbar />
 
       <main className="flex-1 flex flex-col items-center p-4 pt-24 pb-8 w-full max-w-lg mx-auto min-h-[calc(100dvh-76px)]">
@@ -236,6 +234,7 @@ export default function UrduTileTap() {
 
       </main>
 
+         {!isPlaying && <GameGuide slug="urduTileTap" />}
          {!isPlaying && <Footer />}
     </div>
   );

@@ -13,13 +13,13 @@ export default function Footer() {
       title: 'Explore',
       links: [
         { href: '/', label: 'Home' },
-        { href: '/activity', label: 'Activities' },
+        { href: '/urdu-alphabet', label: 'Urdu Alphabet' },
+        { href: '/activity', label: 'Worksheets & Activities' },
         { href: '/games', label: 'Games Hub' },
-        { href: '/edu-videos', label: 'Edu Videos' },
-        { href: '/our-app', label: 'Our App' },
         { href: '/stories', label: 'Stories' },
+        { href: '/edu-videos', label: 'Edu Videos' },
         { href: '/blog', label: 'Blog' },
-        { href: '/about', label: 'About Us' },
+        { href: '/our-app', label: 'Our App' },
       ],
     },
     {
@@ -30,18 +30,18 @@ export default function Footer() {
         { href: '/games/memoryMatch', label: 'Memory Match' },
         { href: '/games/urduHunter', label: 'Urdu Hunter' },
         { href: '/games/urduBasketCatch', label: 'Basket Catch' },
-        { href: '/edu-videos', label: 'Story Videos' },
+        { href: '/games/urduNuqtaSort', label: 'Nuqta Sort' },
       ],
     },
     {
-      title: 'Account & School',
+      title: 'Guides for Parents',
       links: [
-        { href: '/login', label: 'Login' },
-        { href: '/signup', label: 'Sign Up' },
-        { href: '/profile', label: 'Profile' },
-        { href: '/students', label: 'Students' },
-        { href: '/administration', label: 'Administration' },
-        { href: '/contact', label: 'Contact Us' },
+        { href: '/urdu-alphabet#families', label: 'Letter Families' },
+        { href: '/blog/nuqta-dots-in-urdu-letters', label: 'Understanding Nuqtay' },
+        { href: '/blog/urdu-joining-letters-half-forms', label: 'Joining Letters' },
+        { href: '/blog/urdu-handwriting-tracing-tips', label: 'Handwriting Tips' },
+        { href: '/blog/urdu-bedtime-stories-reading-routine', label: 'Bedtime Stories' },
+        { href: '/blog/teaching-urdu-to-children-abroad', label: 'Urdu Abroad' },
       ],
     },
     {
@@ -51,6 +51,7 @@ export default function Footer() {
         { href: '/contact', label: 'Contact' },
         { href: '/privacy', label: 'Privacy Policy' },
         { href: '/terms', label: 'Terms of Service' },
+        { href: '/disclaimer', label: 'Disclaimer' },
       ],
     },
   ]
@@ -82,7 +83,7 @@ export default function Footer() {
               Alif Ujala
             </Link>
             <p className="mt-3 text-white/80 text-sm leading-relaxed max-w-md mx-auto lg:mx-0" style={{ fontFamily: "'Comic Neue', cursive" }}>
-              A playful Urdu learning platform with activities, stories, and interactive games designed for children.
+              Free Urdu learning for children aged 3 to 8: letter games, printable worksheets, illustrated stories and practical guides for parents and teachers.
             </p>
 
             <div className="mt-5 space-y-2 text-sm" style={{ fontFamily: "'Comic Neue', cursive" }}>
@@ -186,6 +187,7 @@ export default function Footer() {
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+            <Link href="/disclaimer" className="hover:text-white transition-colors">Disclaimer</Link>
             <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
           </div>
         </div>

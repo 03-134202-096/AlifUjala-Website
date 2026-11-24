@@ -45,7 +45,7 @@ const StudentsPage: NextPage = () => {
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
-      <SEO title="Students — AlifUjala" description="See who is learning with AlifUjala." />
+      <SEO title="Students — AlifUjala" description="See who is learning with AlifUjala." noIndex />
       <DecorativeBlobs variant="soft" motifs={["book","pencil"]} />
 
       <Navbar />

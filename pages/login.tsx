@@ -41,7 +41,7 @@ const LoginPage: NextPage = () => {
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
-      <SEO title="Sign In — AlifUjala" description="Sign in to AlifUjala to continue your Urdu learning adventure." />
+      <SEO title="Sign In — AlifUjala" description="Sign in to AlifUjala to continue your Urdu learning adventure." noIndex />
       <DecorativeBlobs variant="soft" motifs={["book","letters"]} />
       <Navbar />
       <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">

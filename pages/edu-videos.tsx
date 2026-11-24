@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import Link from "next/link"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import SEO from "@/components/SEO"
@@ -230,7 +231,9 @@ export default function EduVideosPage() {
         name: story.title,
         description: `Urdu alphabet story video for the letter(s) ${story.letters} — learn the Urdu alphabet with fun animated stories from Alif Ujala.`,
         thumbnailUrl: [`https://i.ytimg.com/vi/${story.videoId}/hqdefault.jpg`],
-        uploadDate: "2024-01-01",
+        // Add the real publish date from YouTube Studio as `uploadDate` in data/alphabetStories.ts
+        // to make these eligible for video rich results; we never publish a made-up date.
+        ...(story.uploadDate ? { uploadDate: story.uploadDate } : {}),
         duration: toIsoDuration(story.duration),
         contentUrl: `https://www.youtube.com/watch?v=${story.videoId}`,
         embedUrl: `https://www.youtube.com/embed/${story.videoId}`,
@@ -244,7 +247,7 @@ export default function EduVideosPage() {
     <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO
         title="Educational Videos — Learn Urdu Alphabets Through Stories"
-        description="Watch fun educational videos for every Urdu letter! Interactive Urdu alphabet stories for kids to learn Urdu in a fun and engaging way — plus the latest videos from our YouTube channel."
+        description="Animated Urdu alphabet story videos for kids, from alif to bari yay, with tips for parents on how to use them — plus the latest moral-story videos from the Alif Ujala YouTube channel."
         ogUrl="https://alifujala.ai/edu-videos"
         keywords="Urdu educational videos, Urdu alphabet videos, Urdu stories for kids, learn Urdu online, Urdu alphabet stories, اردو حروف تہجی"
         structuredData={videosStructuredData}
@@ -253,11 +256,11 @@ export default function EduVideosPage() {
       <Navbar />
 
       <main className="container mx-auto flex-1 px-4 py-6 relative z-10">
-        <SectionHeader
+        <SectionHeader as="h1"
           eyebrow="Edu Videos"
           icon="play"
-          title="Educational Videos"
-          subtitle="Watch fun stories for every Urdu letter! Click a card below to watch."
+          title="Urdu Alphabet Story Videos"
+          subtitle="Animated stories that walk through the Urdu alphabet, from alif to bari yay. Click a card below to watch."
           tone="warm"
         />
 
@@ -272,7 +275,7 @@ export default function EduVideosPage() {
             eyebrow="Library"
             icon="book"
             title="Choose a story"
-            subtitle="One delightful video for every Urdu letter."
+            subtitle={`${alphabetStories.length} short videos that cover the alphabet letter family by letter family.`}
             tone="rainbow"
             className="!mb-6"
           />
@@ -348,6 +351,43 @@ export default function EduVideosPage() {
             </p>
           </KidsCard>
         </div>
+
+        {/* Guide for parents — how to turn watching into learning */}
+        <section aria-label="How to use Alif Ujala's Urdu alphabet videos" className="max-w-5xl mx-auto mt-14 mb-6">
+          <SectionHeader
+            eyebrow="For parents & teachers"
+            icon="bulb"
+            title="Making screen time count"
+            subtitle="These videos work best as the start of a short learning moment, not the whole of it."
+            tone="cool"
+            className="!mb-6"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <KidsCard variant="gradient" tone="blue" padding="md" hoverable={false}>
+              <h3 className="text-lg font-bold text-blue-700 dark:text-blue-300 mb-2" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>Before the video</h3>
+              <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                Show your child the letter on the card and say its sound together. Ask them to shout &quot;stop!&quot; whenever
+                they spot that letter or hear a word that starts with it.
+              </p>
+            </KidsCard>
+            <KidsCard variant="gradient" tone="green" padding="md" hoverable={false}>
+              <h3 className="text-lg font-bold text-emerald-700 dark:text-emerald-300 mb-2" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>While watching</h3>
+              <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                Watch together the first time. Pause to repeat new words, point at the letter on screen and let your child
+                copy its shape in the air with a finger. One video a day is plenty.
+              </p>
+            </KidsCard>
+            <KidsCard variant="gradient" tone="amber" padding="md" hoverable={false}>
+              <h3 className="text-lg font-bold text-amber-700 dark:text-amber-300 mb-2" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>After the video</h3>
+              <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                Ask what happened in the story, then practise the same letters with a{' '}
+                <Link href="/games/alphabetMatch" className="font-bold text-indigo-700 dark:text-indigo-300 underline">matching game</Link> or a{' '}
+                <Link href="/activity" className="font-bold text-indigo-700 dark:text-indigo-300 underline">tracing worksheet</Link>.
+                The <Link href="/urdu-alphabet" className="font-bold text-indigo-700 dark:text-indigo-300 underline">alphabet guide</Link> has an example word for every letter.
+              </p>
+            </KidsCard>
+          </div>
+        </section>
       </main>
 
       <Footer />

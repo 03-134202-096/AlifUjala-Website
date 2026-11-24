@@ -140,13 +140,38 @@ export default function BlogPostPage({ post }: Props) {
                 <p className="font-bold text-gray-800 dark:text-white" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
                   {post.author}
                 </p>
-                <p className="text-sm text-gray-500" style={{ fontFamily: "'Comic Neue', cursive" }}>
-                  Making Urdu learning fun for every child 🌟
+                <p className="text-sm text-gray-600 dark:text-gray-300" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                  Written by the team behind Alif Ujala&apos;s games, worksheets and stories.{' '}
+                  <Link href="/about" className="font-bold text-indigo-700 dark:text-indigo-300 underline underline-offset-2">About us</Link>
+                  {' · '}
+                  <a href="mailto:aiearlyedge@gmail.com" className="font-bold text-indigo-700 dark:text-indigo-300 underline underline-offset-2">Suggest a correction</a>
                 </p>
               </div>
             </div>
           </div>
         </article>
+
+        {/* Keep reading */}
+        <section aria-label="More articles" className="mt-10">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-5 text-purple-700 dark:text-purple-300" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
+            Keep reading
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3).map((p) => (
+              <Link
+                key={p.slug}
+                href={`/blog/${p.slug}`}
+                className="group rounded-2xl overflow-hidden border-2 border-purple-100 dark:border-indigo-700 bg-white/90 dark:bg-gray-800/90 shadow-candy hover:-translate-y-1 hover:shadow-candy-lg transition-all flex flex-col"
+              >
+                <img src={p.coverImage} alt="" loading="lazy" className="h-28 w-full object-cover" />
+                <div className="p-4">
+                  <p className="font-bold leading-snug text-gray-800 dark:text-white group-hover:text-indigo-700 dark:group-hover:text-indigo-300" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>{p.title}</p>
+                  <p className="mt-1 text-xs text-gray-600 dark:text-gray-300" style={{ fontFamily: "'Comic Neue', cursive" }}>{p.readTime}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* CTA */}
         <div className="mt-10">
@@ -182,8 +207,11 @@ export default function BlogPostPage({ post }: Props) {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = blogPosts.map((post) => ({ params: { slug: post.slug } }))
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+  // Pre-render every post for every configured locale so links never lead to a 404.
+  const paths = (locales && locales.length ? locales : [undefined]).flatMap((locale) =>
+    blogPosts.map((post) => ({ params: { slug: post.slug }, ...(locale ? { locale } : {}) }))
+  )
   return { paths, fallback: false }
 }
 

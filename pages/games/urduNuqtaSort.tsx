@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import GameGuide from '@/components/GameGuide';
 import alphabetsData from '@/data/alphabets.json';
 
 const ALL_LETTERS = alphabetsData.letters;
@@ -63,9 +64,6 @@ export default function UrduNuqtaSort() {
 
   return (
     <div className="kids-page-bg arcade-page min-h-screen flex flex-col font-sans relative">
-      <Head>
-        <title>Nuqta Sorter | Urdu Games</title>
-      </Head>
       <Navbar />
 
       <main className="flex-1 flex flex-col items-center justify-center p-4 pt-24 pb-12 w-full max-w-4xl mx-auto h-full">
@@ -159,6 +157,7 @@ export default function UrduNuqtaSort() {
 
         </div>
       </main>
+      <GameGuide slug="urduNuqtaSort" />
       <Footer />
     </div>
   );

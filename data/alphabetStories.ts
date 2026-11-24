@@ -9,6 +9,8 @@ export interface AlphabetStory {
   duration: string
   /** Order in the Urdu alphabet sequence */
   order: number
+  /** Optional real YouTube publish date (YYYY-MM-DD) used in structured data */
+  uploadDate?: string
 }
 
 const alphabetStories: AlphabetStory[] = [

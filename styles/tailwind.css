@@ -1494,6 +1494,47 @@ svg.lines{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:n
   background: rgba(49,46,129,0.3);
 }
 
+/* Wide tables scroll sideways on small phones instead of breaking the layout */
+.blog-content .blog-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5rem 0;
+}
+
+.blog-content .blog-table-wrap .blog-table {
+  margin: 0;
+  min-width: 32rem;
+}
+
+/* Inline Urdu words inside English articles */
+.blog-content .ur {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  direction: rtl;
+  unicode-bidi: isolate;
+  line-height: 2.2;
+  font-size: 1.1em;
+  font-weight: 400;
+  word-spacing: 0.2em;
+}
+
+.blog-content blockquote {
+  margin: 1.4rem 0;
+  padding: 0.9rem 1.2rem;
+  border-left: 4px solid #a5b4fc;
+  background: rgba(224,231,255,0.45);
+  border-radius: 0 1rem 1rem 0;
+}
+
+/* Dark mode readability for article text */
+.dark .blog-content h2 { color: #a5b4fc; border-bottom-color: rgba(99,102,241,0.35); }
+.dark .blog-content h3 { color: #c4b5fd; }
+.dark .blog-content .blog-lead { color: #c7d2fe; border-left-color: #6366f1; }
+.dark .blog-content a { color: #a5b4fc; }
+.dark .blog-content a:hover { color: #c7d2fe; }
+.dark .blog-content strong { color: #c7d2fe; }
+.dark .blog-content blockquote { background: rgba(49,46,129,0.35); border-left-color: #6366f1; }
+
 /* line-clamp utility */
 .line-clamp-3 {
   display: -webkit-box;

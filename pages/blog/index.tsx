@@ -21,10 +21,10 @@ export default function BlogIndex() {
       <Navbar />
 
       <main className="flex-1 max-w-6xl mx-auto px-4 py-8 w-full relative z-10">
-        <SectionHeader
+        <SectionHeader as="h1"
           eyebrow="Alif Ujala Blog"
           icon="book"
-          title="Tips, guides & fun ideas"
+          title="Urdu teaching tips & guides"
           subtitle="Practical advice for teaching Urdu to your little ones — from parents and teachers, for parents and teachers."
           tone="cool"
         />

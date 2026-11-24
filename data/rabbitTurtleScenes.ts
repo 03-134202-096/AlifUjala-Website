@@ -13,7 +13,7 @@ export const rabbitTurtleScenes = [
     img: "/images/stories/story 1/scene 3.webp"
   },
   {
-    text: " وہ جب مُڑ کر دیکھنے لگا، تو اسے کچھوے کا کہیں نام و نشان نہ ملا۔راستے میں خرگوش نے ایک سایہ دار درخت دیکھا۔",
+    text: "وہ جب مُڑ کر دیکھنے لگا، تو اسے کچھوے کا کہیں نام و نشان نہ ملا۔ راستے میں خرگوش نے ایک سایہ دار درخت دیکھا۔",
     img: "/images/stories/story 1/scene 4.webp"
   },
   {

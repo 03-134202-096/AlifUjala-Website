@@ -10,6 +10,8 @@ import { antGrasshopperScenes } from "@/data/antGrasshopperScenes";
 import { foxGrapesScenes } from "@/data/foxGrapesScenes";
 import { sheepWolfScenes } from "@/data/sheepWolfScenes";
 import { hardworkingFarmerScenes } from "@/data/hardworkingFarmerScenes";
+import Link from "next/link";
+import { getStoryGuideByStoryId } from "@/data/storyGuides";
 
 const storyColors = [
   'from-indigo-200 to-violet-100 dark:from-indigo-900/50 dark:to-violet-900/50 border-indigo-300 dark:border-indigo-700',
@@ -33,7 +35,7 @@ const stories = [
   },
   {
     id: "lion-fox",
-    title: "شیر اور چلاک لومڑی",
+    title: "شیر اور چالاک لومڑی",
     text: "ایک جنگل کا شیر طاقتور اور شرارتی تھا۔",
     img: "/images/stories/sroty 2.webp"
   },
@@ -64,7 +66,7 @@ const stories = [
   {
     id: "sheep-wolf",
     title: "بھیڑیا آیا! بھیڑیا آیا!",
-    text: "احمد نے بار بار جھوٹا شور مچایا — اور جب سچ میں خطرہ آیا تو کوئی نہ آیا۔",
+    text: "احمد نے بار بار جھوٹا شور مچایا، اور جب سچ میں خطرہ آیا تو کوئی نہ آیا۔",
     img: "/images/stories/sheep-story/thumbnail.webp"
   },
   {
@@ -130,10 +132,21 @@ const Stories: React.FC = () => {
             {story.title}
           </span>
 
-          {/* Click prompt */}
-          <div className="mt-3 bg-white/80 dark:bg-gray-800/80 rounded-full px-4 py-1.5 text-sm font-bold text-purple-600 dark:text-purple-400 group-hover:bg-purple-100 dark:group-hover:bg-purple-900/50 transition-colors" style={{fontFamily: "'Comic Neue', cursive"}}>
-            📖 Click to Read!
+          {/* Click prompt, in Urdu */}
+          <div className="mt-3 inline-flex items-center gap-2 bg-white/80 dark:bg-gray-800/80 rounded-full px-4 py-0.5 text-base text-purple-600 dark:text-purple-400 group-hover:bg-purple-100 dark:group-hover:bg-purple-900/50 transition-colors" title="Read the story">
+            <span aria-hidden="true">📖</span>
+            <span lang="ur" dir="rtl" style={{lineHeight: 1.9}}>کہانی پڑھیں</span>
           </div>
+          {getStoryGuideByStoryId(story.id) && (
+            <Link
+              href={`/stories/${getStoryGuideByStoryId(story.id)!.slug}`}
+              onClick={(e) => e.stopPropagation()}
+              title="Story page: new words and questions"
+              className="mt-1 text-sm text-indigo-700 dark:text-indigo-300 hover:text-indigo-900 hover:underline dark:hover:text-white"
+            >
+              <span lang="ur" dir="rtl" style={{lineHeight: 2}}>نئے الفاظ اور سوال ←</span>
+            </Link>
+          )}
         </motion.div>
       ))}
 

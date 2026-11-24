@@ -81,7 +81,7 @@ const SignupPage: NextPage = () => {
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
-      <SEO title="Sign Up — AlifUjala" description="Create a free AlifUjala account to start your child's Urdu learning journey." />
+      <SEO title="Sign Up — AlifUjala" description="Create a free AlifUjala account to start your child's Urdu learning journey." noIndex />
       <DecorativeBlobs variant="soft" motifs={["pencil","book"]} />
       <Navbar />
       <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">

@@ -5,7 +5,7 @@ export const sheepWolfScenes = [
     img: "/images/stories/sheep-story/scene1.webp",
   },
   {
-    text: "ایک دن اسے شرارت سوجھی۔ اس نے زور سے چلّایا: 'بھیڑیا آیا! بھیڑیا آیا!'۔",
+    text: "ایک دن اسے شرارت سوجھی۔ اس نے زور سے چلّایا: ”بھیڑیا آیا! بھیڑیا آیا!“",
     img: "/images/stories/sheep-story/scene2.webp",
   },
   {
@@ -13,19 +13,19 @@ export const sheepWolfScenes = [
     img: "/images/stories/sheep-story/scene3.webp",
   },
   {
-    text: "اگلے دن اس نے پھر وہی حرکت کی — پھر سب بھاگے آئے اور پھر ہنسا۔",
+    text: "اگلے دن اس نے پھر وہی حرکت کی، پھر سب بھاگے آئے اور پھر ہنسا۔",
     img: "/images/stories/sheep-story/scene4.webp",
   },
   {
-    text: "تیسرے دن سچ میں بھیڑیا آ گیا! احمد نے چلّایا: 'بھیڑیا آیا! مدد کرو!'۔",
+    text: "تیسرے دن سچ میں بھیڑیا آ گیا! احمد نے چلّایا: ”بھیڑیا آیا! مدد کرو!“",
     img: "/images/stories/sheep-story/scene5.webp",
   },
   {
-    text: "مگر اس بار کوئی نہ آیا — کیونکہ سب سمجھتے تھے کہ وہ پھر جھوٹ بول رہا ہے۔ بھیڑیے نے بھیڑیں مار دیں۔",
+    text: "مگر اس بار کوئی نہ آیا، کیونکہ سب سمجھتے تھے کہ وہ پھر جھوٹ بول رہا ہے۔ بھیڑیے نے بھیڑیں مار دیں۔",
     img: "/images/stories/sheep-story/scene6.webp",
   },
   {
-    text: "احمد روتا رہا۔ اب اسے معلوم ہوا کہ جو بار بار جھوٹ بولے اس کا سچ بھی نہیں مانا جاتا۔",
+    text: "احمد روتا رہا۔ اب اسے معلوم ہوا کہ جو بار بار جھوٹ بولے، اس کا سچ بھی نہیں مانا جاتا۔",
     img: "/images/stories/sheep-story/scene7.webp",
   },
   {

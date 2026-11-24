@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState, useRef } from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import GameGuide from "@/components/GameGuide"
 import MatchingBoard from "@/components/MatchingBoard"
 import lettersData from "@/data/alphabets.json"
 import DownloadWorksheet from "@/components/DownloadWorksheet"
@@ -44,7 +45,7 @@ const SMALL_ALPHABETS_MAP: Record<string, string> = {
 }
 
 export default function AdhiAshkalMatchPage() {
-  const [status, setStatus] = useState<"checking" | "playing" | "out" | "error">("checking")
+  const [status, setStatus] = useState<"checking" | "playing" | "out" | "error">("playing")
   const [count, setCount] = useState(5)
   const [startId, setStartId] = useState("")
   const [endId, setEndId] = useState("")
@@ -184,7 +185,7 @@ export default function AdhiAshkalMatchPage() {
       <Navbar />
       <div className="container">
         <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem 0' }}>
-          <h2 style={{ margin: 0, fontWeight: 700, fontSize: '1.25rem' }}>Adhi Ashkal &nbsp;→&nbsp; Matching</h2>
+          <h1 style={{ margin: 0, fontWeight: 700, fontSize: '1.25rem' }}>Adhi Ashkal &nbsp;→&nbsp; Matching</h1>
         </div>
 
         {/* Responsive Toolbar */}
@@ -297,6 +298,7 @@ export default function AdhiAshkalMatchPage() {
           />
         </div>
       </div>
+      <GameGuide slug="adhiAshkalMatch" />
       <Footer />
     </>
   )

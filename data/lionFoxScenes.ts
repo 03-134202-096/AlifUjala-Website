@@ -1,4 +1,4 @@
-// شیر اور چلاک لومڑی: Visual scenes for the story 2
+// شیر اور چالاک لومڑی: Visual scenes for the story 2
 export const lionFoxScenes = [
   {
     text: "ایک جنگل کا شیر طاقتور اور شرارتی تھا۔ وہ ہر روز شکار جاتا اور جانور ڈر کر رہتے۔",
@@ -13,11 +13,11 @@ export const lionFoxScenes = [
     img: "/images/stories/story 2/scene 3.webp"
   },
   {
-    text: "لومڑی نے کہا راستے میں ایک اور شیر نے روک رکھا تھا، آؤ میں دکھاتی ہوں کہاں ہے۔",
+    text: "لومڑی نے کہا: ”راستے میں ایک اور شیر نے روک رکھا تھا۔ آؤ، میں دکھاتی ہوں کہاں ہے۔“",
     img: "/images/stories/story 2/scene 4.webp"
   },
   {
-    text: "وہ اسے کنویں کے پاس لے گئی اور بولی: وہی اندر ہے!",
+    text: "وہ اسے کنویں کے پاس لے گئی اور بولی: ”وہی اندر ہے!“",
     img: "/images/stories/story 2/scene 5.webp"
   },
   {

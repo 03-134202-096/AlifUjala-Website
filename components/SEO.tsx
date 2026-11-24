@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 interface SEOProps {
   title?: string
@@ -22,6 +23,17 @@ const DEFAULT_LOGO = `${BASE_URL}/images/logo.png`
 const DEFAULT_KEYWORDS =
   'Urdu learning for kids, Urdu alphabet, learn Urdu online, Urdu stories for kids, Urdu worksheets, printable Urdu worksheets, Urdu tracing worksheets, Urdu alphabet worksheets, Urdu activities, Urdu games, Urdu videos for kids, اردو سیکھیں, اردو کہانیاں, حروف تہجی, Urdu for children, Alif Ujala'
 
+/**
+ * Build the canonical URL for the current page from the router path.
+ * Query strings and hashes are dropped, and the default locale never appears in the URL,
+ * so every page points at exactly one clean address (and never at the homepage by mistake).
+ */
+function canonicalFromPath(asPath: string | undefined) {
+  const clean = (asPath || '/').split(/[?#]/)[0] || '/'
+  if (clean === '/' || clean === '') return BASE_URL
+  return `${BASE_URL}${clean.replace(/\/$/, '')}`
+}
+
 export default function SEO({
   title,
   description = DEFAULT_DESCRIPTION,
@@ -34,23 +46,32 @@ export default function SEO({
   structuredData,
   canonical,
 }: SEOProps) {
-  const fullTitle = title ? `${title} | Alif Ujala` : 'Alif Ujala — Urdu Learning for Kids 🌟'
-  const canonicalUrl = canonical || ogUrl || BASE_URL
-  const robotsContent = noIndex
-    ? 'noindex,nofollow'
+  const router = useRouter()
+  const fullTitle = title ? `${title} | Alif Ujala` : 'Alif Ujala — Urdu Learning for Kids'
+  const canonicalUrl = canonical || ogUrl || canonicalFromPath(router?.asPath)
+
+  // The /ur/* locale currently serves the same English pages, so keep those copies out of
+  // the index and let only the canonical English URLs be indexed.
+  const isAlternateLocale = !!router?.locale && !!router?.defaultLocale && router.locale !== router.defaultLocale
+  const shouldNoIndex = noIndex || isAlternateLocale
+  const robotsContent = shouldNoIndex
+    ? 'noindex,follow'
     : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
 
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': `${BASE_URL}/#organization`,
-    name: SITE_NAME,
+    name: 'Alif Ujala',
+    alternateName: 'AIEarlyEdge',
     url: BASE_URL,
     logo: DEFAULT_LOGO,
-    image: ogImage,
+    email: 'aiearlyedge@gmail.com',
     sameAs: [
       'https://www.instagram.com/alifujala.ai/',
       'https://www.facebook.com/profile.php?id=61579001649615',
+      'https://www.youtube.com/@AlifUjala',
+      'https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala',
     ],
   }
 
@@ -72,7 +93,7 @@ export default function SEO({
       : [structuredData]
     : []
 
-  const jsonLdPayload = [organizationSchema, websiteSchema, ...extraStructuredData]
+  const jsonLdPayload = shouldNoIndex ? [] : [organizationSchema, websiteSchema, ...extraStructuredData]
 
   return (
     <Head>
@@ -84,7 +105,8 @@ export default function SEO({
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="theme-color" content="#6366f1" />
       <meta name="robots" content={robotsContent} />
-      <link rel="canonical" href={canonicalUrl} />
+      {/* A noindex page never also declares a canonical: the two signals would contradict each other. */}
+      {!shouldNoIndex && <link rel="canonical" href={canonicalUrl} />}
 
       {/* ── Open Graph ────────────────────────────────────── */}
       <meta property="og:type" content={ogType} />
@@ -92,8 +114,6 @@ export default function SEO({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={fullTitle} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:locale" content="en_US" />
@@ -101,8 +121,6 @@ export default function SEO({
 
       {/* ── Twitter Card ──────────────────────────────────── */}
       <meta name="twitter:card" content={twitterCard} />
-      <meta name="twitter:site" content="@AlifUjala" />
-      <meta name="twitter:creator" content="@AlifUjala" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />

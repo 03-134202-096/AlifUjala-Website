@@ -414,7 +414,7 @@ export default function ActivityIndex() {
       <Navbar />
 
       <main className="container mx-auto flex-1 px-4 py-6 relative z-10">
-        <SectionHeader
+        <SectionHeader as="h1"
           eyebrow="Activities"
           icon="pencil"
           title="Learn, trace & match letters"
@@ -509,17 +509,6 @@ export default function ActivityIndex() {
               </div>
             </div>
 
-            {/* Coming soon */}
-            <div className="max-w-3xl mx-auto mb-8">
-              <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/50 dark:to-purple-950/50 border-2 border-indigo-200 dark:border-indigo-700 rounded-3xl p-6 sm:p-8 text-center">
-                <h3 className="text-2xl font-bold mb-3" style={{fontFamily: "'Bubblegum Sans', cursive", color: '#6366f1'}}>
-                  <IconBadge name="bulb" size="sm" className="mr-2" /> More Activities Coming Soon!
-                </h3>
-                <p className="text-gray-600 text-lg mb-4" style={{fontFamily: "'Comic Neue', cursive"}}>
-                  We&apos;re making exciting new learning activities for you! Stay tuned!
-                </p>
-              </div>
-            </div>
           </>
         )}
 
@@ -744,6 +733,64 @@ export default function ActivityIndex() {
             </div>
           </div>
         )}
+
+        {/* Teaching guide — how to use the activities and worksheets well */}
+        <section aria-label="How to use Alif Ujala worksheets and activities" className="max-w-5xl mx-auto mt-4 mb-10">
+          <SectionHeader
+            eyebrow="For parents & teachers"
+            icon="bulb"
+            title="How to get the most from these worksheets"
+            subtitle="A few minutes of the right practice, done often, works better than a long session once a week."
+            tone="warm"
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            <div className="rounded-3xl border-2 border-indigo-200 dark:border-indigo-700 bg-white/90 dark:bg-indigo-950/80 p-5 sm:p-6 shadow-candy">
+              <h3 className="text-xl font-bold text-indigo-700 dark:text-indigo-200 mb-3" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
+                <IconBadge name="worksheet" size="sm" className="mr-2" />Which worksheet should I choose?
+              </h3>
+              <ul className="space-y-2 text-gray-700 dark:text-gray-200 text-sm sm:text-base" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                <li><strong>Letter Tracing</strong> — the best first sheet for ages 3 to 5. Children follow dotted letters and get a feel for each shape.</li>
+                <li><strong>Trace &amp; Write</strong> — once tracing is steady, children trace a few letters and then write the rest on their own.</li>
+                <li><strong>Picture, Trace &amp; Write</strong> — links each letter to a word that starts with it, so sound and shape stick together.</li>
+                <li><strong>Letter Spotlight</strong> — one letter and picture per page, with guided rows; ideal when introducing a new letter or fixing a tricky one.</li>
+                <li><strong>Find &amp; Circle</strong> — a recognition sheet: circle every copy of the model letter in a mixed set. Great practice for spotting the dots (nuqtay).</li>
+                <li><strong>Matching sheets</strong> — paper versions of our letter, picture and half-shape matching activities above.</li>
+              </ul>
+            </div>
+
+            <div className="rounded-3xl border-2 border-emerald-200 dark:border-emerald-700 bg-white/90 dark:bg-emerald-950/60 p-5 sm:p-6 shadow-candy">
+              <h3 className="text-xl font-bold text-emerald-700 dark:text-emerald-300 mb-3" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
+                <IconBadge name="pencil" size="sm" className="mr-2" />A simple 10-minute routine
+              </h3>
+              <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-200 text-sm sm:text-base" style={{ fontFamily: "'Comic Neue', cursive" }}>
+                <li>Warm up with an interactive activity so the letters look familiar before the pencil comes out.</li>
+                <li>Print one page, not ten. Pick 3 to 5 letters from the same family, such as ب پ ت ٹ ث.</li>
+                <li>Trace each letter with a finger first, then a crayon, then a pencil.</li>
+                <li>Say the letter&apos;s sound aloud every time it is traced or written.</li>
+                <li>Remind your child that Urdu starts on the right and moves to the left.</li>
+                <li>Stop while it is still fun, and praise effort rather than neatness.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border-2 border-amber-200 dark:border-amber-700 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/30 p-5 sm:p-6 shadow-candy">
+            <h3 className="text-xl font-bold text-amber-700 dark:text-amber-300 mb-3" style={{ fontFamily: "'Bubblegum Sans', cursive" }}>
+              <IconBadge name="star" size="sm" className="mr-2" />Printing tips
+            </h3>
+            <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-200 text-sm sm:text-base" style={{ fontFamily: "'Comic Neue', cursive" }}>
+              <li>Each worksheet downloads ready to print on A4 or US Letter paper. Choose &quot;Fit to page&quot; in your print settings so nothing is cut off.</li>
+              <li>Slip a page into a clear plastic sleeve and use a dry-wipe marker to practise the same sheet again and again.</li>
+              <li>Thick crayons or triangular pencils are easier for small hands than thin pencils.</li>
+            </ul>
+            <p className="mt-4 text-sm sm:text-base text-gray-700 dark:text-gray-200" style={{ fontFamily: "'Comic Neue', cursive" }}>
+              Want more detail? Read our{' '}
+              <Link href="/blog/urdu-handwriting-tracing-tips" className="font-bold text-indigo-700 dark:text-indigo-300 underline underline-offset-2">Urdu handwriting and tracing tips</Link>, the guide to{' '}
+              <Link href="/blog/teaching-urdu-letters-by-family" className="font-bold text-indigo-700 dark:text-indigo-300 underline underline-offset-2">teaching Urdu letters by family</Link>, or look up any letter in the{' '}
+              <Link href="/urdu-alphabet" className="font-bold text-indigo-700 dark:text-indigo-300 underline underline-offset-2">Urdu alphabet guide</Link>.
+            </p>
+          </div>
+        </section>
       </main>
 
       <Footer />

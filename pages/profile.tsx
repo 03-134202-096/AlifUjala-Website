@@ -114,7 +114,7 @@ const ProfilePage: NextPage = () => {
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
-      <SEO title="My Profile — AlifUjala" description="Manage your AlifUjala profile." />
+      <SEO title="My Profile — AlifUjala" description="Manage your AlifUjala profile." noIndex />
       <DecorativeBlobs variant="soft" motifs={["star","pencil"]} />
       <Navbar />
       <main className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">

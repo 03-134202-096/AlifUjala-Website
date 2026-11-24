@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import GameGuide from "@/components/GameGuide";
 import alphabets from "@/data/alphabets.json";
 
 /* ─── Types ─────────────────────────────────────────────── */
@@ -219,10 +220,6 @@ export default function UrduBasketCatch() {
 
   return (
     <>
-      <Head>
-        <title>Urdu Basket Catch | Alif Ujala</title>
-        <meta name="description" content="Move your basket to catch the correct Urdu letter! A fun arcade game for kids." />
-      </Head>
       <Navbar />
 
       <div style={{
@@ -560,6 +557,7 @@ export default function UrduBasketCatch() {
         )}
       </div>
 
+      <GameGuide slug="urduBasketCatch" />
       <Footer />
     </>
   );

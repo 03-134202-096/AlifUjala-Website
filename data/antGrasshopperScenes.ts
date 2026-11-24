@@ -9,11 +9,11 @@ export const antGrasshopperScenes = [
     img: "/images/stories/ant-grasshopper/scene2.webp",
   },
   {
-    text: "ٹڈی نے چیونٹی سے کہا: 'اتنی محنت کیوں کرتی ہو؟ آؤ میرے ساتھ کھیلو!'۔",
+    text: "ٹڈی نے چیونٹی سے کہا: ”اتنی محنت کیوں کرتی ہو؟ آؤ میرے ساتھ کھیلو!“",
     img: "/images/stories/ant-grasshopper/scene3.webp",
   },
   {
-    text: "چیونٹی نے کہا: 'سردی آنے والی ہے، مجھے کھانا جمع کرنا ہے۔' لیکن ٹڈی ہنستی رہی۔",
+    text: "چیونٹی نے کہا: ”سردی آنے والی ہے، مجھے کھانا جمع کرنا ہے۔“ لیکن ٹڈی ہنستی رہی۔",
     img: "/images/stories/ant-grasshopper/scene4.webp",
   },
   {
@@ -25,7 +25,7 @@ export const antGrasshopperScenes = [
     img: "/images/stories/ant-grasshopper/scene6.webp",
   },
   {
-    text: "سبق: آج کی محنت کل کی آسانی ہے۔ کل پر کام مت چھوڑو — ابھی سے تیاری کرو!",
+    text: "سبق: آج کی محنت کل کی آسانی ہے۔ کل پر کام مت چھوڑو، ابھی سے تیاری کرو!",
     ending: true,
   },
 ];

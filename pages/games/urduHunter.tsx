@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import GameGuide from "@/components/GameGuide";
 import alphabets from "@/data/alphabets.json";
 
 /* ─── Types ─────────────────────────────────────────────── */
@@ -188,10 +189,6 @@ export default function UrduHunter() {
 
   return (
     <>
-      <Head>
-        <title>Alphabet Hunter | Alif Ujala</title>
-        <meta name="description" content="Pop the correct Urdu letter bubble! A fun arcade game to learn Urdu alphabets." />
-      </Head>
       <Navbar />
 
       <div style={{
@@ -476,6 +473,7 @@ export default function UrduHunter() {
         )}
       </div>
 
+      <GameGuide slug="urduHunter" />
       <Footer />
     </>
   );

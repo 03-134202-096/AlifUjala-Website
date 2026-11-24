@@ -1,242 +1,272 @@
-import { IconBadge, type LearningIconName } from '@/components/ui'
+import type { NextPage } from 'next'
+import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import SEO from '@/components/SEO'
-import type { NextPage } from 'next'
-import { useState } from 'react'
-import Link from 'next/link'
-import { KidsCard, KidsButton, DecorativeBlobs } from '@/components/ui'
+import { KidsCard, KidsButton, SectionHeader, DecorativeBlobs, IconBadge, LearningIcon, type LearningIconName } from '@/components/ui'
+import { blogPosts } from '@/data/blogPosts'
+import { storyGuides } from '@/data/storyGuides'
+import { GAME_GUIDES } from '@/data/gameGuides'
+
+const SITE_URL = 'https://alifujala.ai'
+const CONTACT_EMAIL = 'aiearlyedge@gmail.com'
+const URDU_FONT = "'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif"
+const BODY_FONT = { fontFamily: "'Comic Neue', cursive" }
+const HEAD_FONT = { fontFamily: "'Bubblegum Sans', cursive" }
+
+type Offer = { icon: LearningIconName; title: string; body: string; href: string; cta: string }
+
+const PRINCIPLES: { icon: LearningIconName; title: string; body: string }[] = [
+  {
+    icon: 'letters',
+    title: 'Urdu first, English when you need it',
+    body: 'Letters, words and stories are shown in proper Nastaliq Urdu first. Short English notes, and story translations you can reveal with one tap, help parents who read little Urdu guide their child with confidence.',
+  },
+  {
+    icon: 'puzzle',
+    title: 'Built around how children learn letters',
+    body: 'We teach letters in shape families, make the dots (nuqtay) a game of their own, and keep sessions short. Every game page explains what it practises and how to use it, so screen time has a clear purpose.',
+  },
+  {
+    icon: 'heart',
+    title: 'Gentle, positive and age-appropriate',
+    body: 'Games cheer children on and let them try again straight away. There is no chat and no user-generated content, stories carry simple, kind lessons, and pictures and language are chosen for children aged roughly 3 to 8.',
+  },
+  {
+    icon: 'shield',
+    title: 'Free to use, with privacy in mind',
+    body: 'Games, worksheets, stories and guides need no account. We collect as little information as possible and explain exactly what we do in our privacy policy.',
+  },
+]
 
 const About: NextPage = () => {
-  const [lang, setLang] = useState<'en' | 'ur'>('en')
-  const [open, setOpen] = useState<number | null>(null)
-  const [quizState, setQuizState] = useState<{ answered: boolean; correct?: boolean }>({ answered: false })
+  const gameCount = Object.keys(GAME_GUIDES).length
+  const storyCount = storyGuides.length
+  const articleCount = blogPosts.length
 
-  const toggle = (i: number) => setOpen(open === i ? null : i)
-
-  const content = {
-    en: {
-      title: 'About AlifUjala',
-      tagline: 'A playful platform to learn Urdu through games, stories and activities! 🎉',
-      missionTitle: '🎯 Our Mission',
-      mission: 'Alif Ujala is the first-ever comprehensive AI-powered Urdu learning platform designed especially for young learners. It combines an interactive web app featuring engaging games, interactive and printable worksheets, a YouTube channel filled with fun educational videos, and an AI-assisted learning app that personalizes the learning experience for every child. By blending technology, creativity, and native-language education, Alif Ujala is making Urdu learning smarter, more engaging, and accessible for the next generation.',
-      featuresTitle: '🌟 What you can do here',
-      features: [
-        { title: 'Play & Learn', body: 'Match letters, pictures and sounds. Our games are designed to make repetition feel like play!' },
-        { title: 'Stories & Worksheets', body: 'Short stories written in simple Urdu and printable worksheets for practice.' },
-        { title: 'Teacher Tools', body: 'Track progress, assign worksheets, and use the platform in classrooms.' },
-      ],
-      quizQ: 'Which Urdu letter is the first in the Urdu alphabet?',
-      quizOptions: ['ا (Alif)', 'ب (Bay)', 'ت (Tay)'],
-      playCTA: '🎮 Try a sample game!',
-      contribute: 'Want to help? Add content, translate, or suggest features. Reach out through the profile page! 💪'
+  const offers: Offer[] = [
+    {
+      icon: 'letters',
+      title: 'A complete Urdu alphabet guide',
+      body: 'Every letter with its name, sound, example word and dots, plus the letter families and the ten letters that never join forward.',
+      href: '/urdu-alphabet',
+      cta: 'Open the alphabet guide',
     },
-    ur: {
-      title: 'الف اُجاﻻ کے بارے میں',
-      tagline: 'کھیلوں، کہانیوں اور سرگرمیوں کے ذریعے اردو سیکھنے کا ایک دلچسپ پلیٹ فارم! 🎉',
-      missionTitle: '🎯 ہمارا مقصد',
-      mission: 'الف اُجاﻻ کو اردو زبان کو محفوظ کرنے، اس کی ترویج کرنے اور بچوں اور ابتدائی طلبہ کے لیے سیکھنے کو مزید دلچسپ اور آسان بنانے کے لیے بنایا گیا ہے۔',
-      featuresTitle: '🌟 یہاں آپ کیا کر سکتے ہیں',
-      features: [
-        { title: 'کھیلیں اور سیکھیں', body: 'حروف، تصاویر اور آوازوں کو ملائیں۔ ہمارے کھیل دہرانے کو مزید دلچسپ بناتے ہیں!' },
-        { title: 'کہانیاں اور ورکشیٹس', body: 'آسان اردو میں مختصر کہانیاں اور عمل کے لیے ورکشیٹس فراہم کی جاتی ہیں۔' },
-        { title: 'اساتذہ کے لیے ٹولز', body: 'پیش رفت کو ٹریک کریں، ورکشیٹس تفویض کریں، اور کلاس روم میں پلیٹ فارم کا استعمال کریں۔' },
-      ],
-      quizQ: 'اردو حروفِ تہجی کا پہلا حرف کون سا ہے؟',
-      quizOptions: ['ا (الف)', 'ب (ب)', 'ت (ت)'],
-      playCTA: '🎮 ایک نمونہ کھیل کھیلیں!',
-      contribute: 'مدد کرنا چاہتے ہیں؟ مواد شامل کریں، ترجمہ کریں، یا نئے فیچرز تجویز کریں۔ 💪'
-    }
-  }
+    {
+      icon: 'gamepad',
+      title: `${gameCount} games and matching activities`,
+      body: 'Short browser games for letter recognition, sounds, nuqtay and joined shapes. Each one has a written guide for parents and teachers.',
+      href: '/games',
+      cta: 'Browse the games',
+    },
+    {
+      icon: 'worksheet',
+      title: 'Printable worksheets',
+      body: 'Tracing, colouring and letter-matching sheets you can print at home or in class to practise handwriting away from the screen.',
+      href: '/activity',
+      cta: 'See the worksheets',
+    },
+    {
+      icon: 'book',
+      title: `${storyCount} illustrated moral stories`,
+      body: 'Classic fables told in simple Urdu with narration, new words, questions in Urdu and a follow-up activity, plus an English translation for parents when needed.',
+      href: '/stories',
+      cta: 'Read the stories',
+    },
+    {
+      icon: 'play',
+      title: 'Animated Urdu videos',
+      body: 'Letter and story videos from the Alif Ujala YouTube channel, collected in one place for calm, purposeful screen time.',
+      href: '/edu-videos',
+      cta: 'Watch the videos',
+    },
+    {
+      icon: 'bulb',
+      title: `${articleCount} in-depth guides for parents`,
+      body: 'Practical articles on teaching letters by family, nuqtay, joining letters, handwriting, bedtime stories and raising Urdu readers abroad.',
+      href: '/blog',
+      cta: 'Read the blog',
+    },
+  ]
 
-  const c = content[lang]
-  const urduStyle = lang === 'ur' 
-    ? { fontFamily: "'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif", direction: 'rtl' as const, lineHeight: '2.2' }
-    : {}
-  const urduLang = lang === 'ur' ? 'ur' : undefined
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: 'About Alif Ujala',
+      url: `${SITE_URL}/about`,
+      description:
+        'Alif Ujala is a free Urdu learning website for young children with an alphabet guide, letter games, worksheets, illustrated stories and guides for parents and teachers.',
+      about: { '@id': `${SITE_URL}/#organization` },
+    },
+  ]
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO
-        title="About Alif Ujala — Our Mission to Make Urdu Learning Fun"
-        description="Learn about Alif Ujala — a free interactive Urdu learning platform for children. Our mission is to celebrate and preserve the Urdu language through play."
-        ogUrl="https://alifujala.ai/about"
+        title="About Alif Ujala — Free Urdu Learning for Young Children"
+        description="Who we are, why we built Alif Ujala, what you will find on the site and how we create our Urdu games, worksheets, stories and parent guides."
+        ogUrl={`${SITE_URL}/about`}
+        structuredData={structuredData}
       />
-      <DecorativeBlobs variant="soft" motifs={["book","heart"]} />
+      <DecorativeBlobs variant="soft" motifs={['book', 'heart']} />
       <Navbar />
 
-      <main className="container mx-auto px-4 py-8 flex-1 relative z-10">
-        <div className="max-w-4xl mx-auto" lang={urduLang}>
-          {/* Header card */}
-          <div className="glass-card relative rounded-[2rem] shadow-candy-lg p-6 sm:p-8 border-[3px] border-purple-200/70 dark:border-purple-700/40 mb-6 overflow-hidden">
-            <span className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-purple-300/30 blur-3xl" aria-hidden />
-            <span className="pointer-events-none absolute -bottom-20 -left-20 h-44 w-44 rounded-full bg-indigo-300/30 blur-3xl" aria-hidden />
-            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 relative">
-              <div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-gradient-cool" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
-                  {c.title}
-                </h1>
-                <p className="mt-2 text-lg text-blue-600 dark:text-blue-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>{c.tagline}</p>
-              </div>
-              <div className="flex flex-col items-end gap-2">
-                <div className="text-sm text-indigo-500 dark:text-indigo-400 font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>Language / زبان</div>
-                <div className="flex gap-2">
-                  <button
-                    aria-pressed={lang === 'en'}
-                    onClick={() => setLang('en')}
-                    className={`px-4 py-2 rounded-full font-bold transition-all duration-300 border-2 ${lang === 'en' ? 'bg-gradient-to-r from-blue-400 to-cyan-400 text-white border-white scale-105' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-blue-300'}`}
-                    style={{fontFamily: "'Comic Neue', cursive"}}
-                  >
-                    English
-                  </button>
-                  <button
-                    aria-pressed={lang === 'ur'}
-                    onClick={() => setLang('ur')}
-                    className={`px-4 py-2 rounded-full font-bold transition-all duration-300 border-2 ${lang === 'ur' ? 'bg-gradient-to-r from-indigo-400 to-purple-400 text-white border-white scale-105' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-indigo-300'}`}
-                    style={{fontFamily: "'Comic Neue', cursive"}}
-                  >
-                    اردو
-                  </button>
-                </div>
-              </div>
+      <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-8 relative z-10">
+        {/* Header */}
+        <header className="text-center max-w-3xl mx-auto mb-8">
+          <div className="mb-4"><IconBadge name="heart" size="hero" /></div>
+          <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-200 text-xs font-bold uppercase tracking-wider mb-3 border border-purple-200 dark:border-purple-700/50" style={BODY_FONT}>
+            About us
+          </p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-gradient" style={HEAD_FONT}>
+            About Alif Ujala
+          </h1>
+          <p lang="ur" dir="rtl" className="mt-2 text-2xl text-indigo-600 dark:text-indigo-300" style={{ fontFamily: URDU_FONT, lineHeight: 2.2 }}>
+            الف اُجالا — اردو سیکھنے کی روشنی
+          </p>
+          <p className="mt-3 text-base sm:text-lg text-gray-700 dark:text-gray-200 leading-relaxed" style={BODY_FONT}>
+            Alif Ujala is a free website that helps young children take their first steps in reading and writing Urdu — and
+            gives the parents and teachers beside them clear, practical guidance on what to do next.
+          </p>
+        </header>
+
+        {/* Our story */}
+        <section className="mb-10">
+          <KidsCard variant="glass" tone="purple" padding="lg" hoverable={false}>
+            <h2 className="text-2xl sm:text-3xl font-bold text-purple-700 dark:text-purple-300 mb-3" style={HEAD_FONT}>
+              Why we built Alif Ujala
+            </h2>
+            <div className="space-y-3 text-gray-700 dark:text-gray-200 leading-relaxed text-base sm:text-lg" style={BODY_FONT}>
+              <p>
+                Alif Ujala started with a simple wish: we want children to fall in love with Urdu long before they think of
+                it as a school subject. Many families hope their children will read Urdu, but a printed <em>qaida</em> can
+                feel dry to a four-year-old, and parents living outside Pakistan often have no Urdu class nearby. Much of
+                the Urdu material online for children is a single video or a list of letters, with no help for the adult
+                sitting beside the child.
+              </p>
+              <p>
+                So we built Alif Ujala as a learning platform for children, designed from the very first tap for small
+                hands and young minds. Children learn their letters through short games, colourful worksheets and
+                illustrated stories, so a few minutes of practice feels like play. Next to every activity we explain{' '}
+                <strong>what it teaches</strong>, <strong>how to help</strong> and <strong>what to try next</strong>, so
+                parents and teachers are never left guessing. The name says it all:{' '}
+                <span lang="ur" style={{ fontFamily: URDU_FONT }}>الف</span> (alif) is where every Urdu reader begins, and{' '}
+                <span lang="ur" style={{ fontFamily: URDU_FONT }}>اُجالا</span> (ujala) means light — the first light of
+                learning.
+              </p>
+              <p>
+                Alif Ujala is created and run by <strong>AIEarlyEdge</strong>, a small team focused on early-years
+                language learning. Alongside this website we publish animated Urdu videos on our{' '}
+                <a href="https://www.youtube.com/@AlifUjala" target="_blank" rel="noopener noreferrer" className="font-bold text-indigo-600 dark:text-indigo-300 underline underline-offset-2">YouTube channel</a>{' '}
+                and offer the <Link href="/our-app" className="font-bold text-indigo-600 dark:text-indigo-300 underline underline-offset-2">Alif Ujala Android app</Link>.
+                We keep adding new games, stories, worksheets and guides, and we shape them around the questions parents
+                and teachers send us.
+              </p>
             </div>
-          </div>
+          </KidsCard>
+        </section>
 
-          {/* Mission section */}
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 rounded-3xl shadow-candy p-6 sm:p-8 border-4 border-green-200 dark:border-green-800 mb-6">
-            <h2 className="text-2xl font-bold text-green-700 dark:text-green-400 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>{c.missionTitle}</h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>{c.mission}</p>
-          </div>
-
-          {/* Features accordion */}
-          <div className="bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-900/30 dark:to-violet-900/30 rounded-3xl shadow-candy p-6 sm:p-8 border-4 border-indigo-200 dark:border-indigo-800 mb-6">
-            <h3 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-4" style={{fontFamily: "'Bubblegum Sans', cursive"}}>{c.featuresTitle}</h3>
-            <div className="space-y-3">
-              {c.features.map((f, i) => (
-                <div key={i} className="bg-white/80 dark:bg-gray-800/80 border-3 border-indigo-100 dark:border-indigo-700 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md">
-                  <button
-                    onClick={() => toggle(i)}
-                    className="w-full text-left px-5 py-4 flex justify-between items-center border-0 bg-transparent"
-                  >
-                    <span className="flex items-center gap-3 font-bold text-lg text-gray-700 dark:text-gray-200" style={{fontFamily: "'Comic Neue', cursive"}}><IconBadge name={(['gamepad', 'book', 'school'] as LearningIconName[])[i]} size="sm" />{f.title}</span>
-                    <span className={`text-2xl transition-transform duration-300 ${open === i ? 'rotate-45' : ''}`}>
-                      {open === i ? '✕' : '➕'}
-                    </span>
-                  </button>
-                  {open === i && (
-                    <div className="px-5 pb-4 text-gray-600 dark:text-gray-300 text-lg border-t-2 border-indigo-100 dark:border-indigo-700 pt-3" style={{fontFamily: "'Comic Neue', cursive"}}>
-                      {f.body}
-                    </div>
-                  )}
+        {/* What you'll find */}
+        <section className="mb-10">
+          <SectionHeader eyebrow="On the site" icon="sparkles" title="What you will find here" subtitle="Everything is free to use and needs no account." tone="cool" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {offers.map((o) => (
+              <KidsCard key={o.href} variant="solid" tone="indigo" padding="md" className="flex flex-col">
+                <div className="flex items-center gap-3 mb-2">
+                  <IconBadge name={o.icon} size="sm" />
+                  <h3 className="text-lg font-bold text-gray-800 dark:text-white leading-snug" style={HEAD_FONT}>{o.title}</h3>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Quiz & Game section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            {/* Quiz */}
-            <div className="bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/30 dark:to-amber-900/30 rounded-3xl shadow-candy p-6 border-4 border-yellow-200 dark:border-yellow-800">
-              <h4 className="font-bold text-xl text-purple-600 dark:text-purple-400 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}><IconBadge name="bulb" size="sm" className="mr-2" />Quick Quiz!</h4>
-              {!quizState.answered ? (
-                <div>
-                  <p className="text-gray-700 dark:text-gray-300 font-bold mb-3" style={{fontFamily: "'Comic Neue', cursive"}}>{c.quizQ}</p>
-                  <div className="space-y-2">
-                    {c.quizOptions.map((opt, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setQuizState({ answered: true, correct: idx === 0 })}
-                        className="block w-full text-left px-4 py-3 bg-white dark:bg-gray-800 border-3 border-purple-200 dark:border-purple-700 rounded-2xl hover:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:scale-[1.02] transition-all duration-300 font-bold text-gray-700 dark:text-gray-200"
-                        style={{fontFamily: "'Comic Neue', cursive"}}
-                      >
-                        {opt}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className="text-center py-4">
-                  {quizState.correct ? (
-                    <>
-                      <div className="mb-3"><IconBadge name="trophy" size="hero" /></div>
-                      <p className="text-green-600 dark:text-green-400 font-bold text-xl" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
-                        {lang === 'en' ? 'Correct — amazing job!' : 'صحیح — شاباش!'}
-                      </p>
-                    </>
-                  ) : (
-                    <>
-                      <div className="mb-3"><IconBadge name="bulb" size="hero" /></div>
-                      <p className="text-purple-600 dark:text-purple-400 font-bold text-lg mb-3" style={{fontFamily: "'Comic Neue', cursive"}}>
-                        {lang === 'en' ? 'Not quite — the correct answer is ا (Alif)!' : 'درست نہیں — درست جواب ا (الف) ہے!'}
-                      </p>
-                      <button
-                        onClick={() => setQuizState({ answered: false })}
-                        className="px-6 py-2 bg-gradient-to-r from-blue-400 to-cyan-400 text-white rounded-full font-bold border-2 border-white hover:scale-105 transition-all"
-                        style={{fontFamily: "'Comic Neue', cursive"}}
-                      >
-                        {lang === 'en' ? '🔄 Try again!' : '🔄 دوبارہ کوشش کریں!'}
-                      </button>
-                    </>
-                  )}
-                </div>
-              )}
-            </div>
-
-            {/* Try a game */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-3xl shadow-candy p-6 border-4 border-blue-200 dark:border-blue-800 flex flex-col justify-between">
-              <div>
-                <h4 className="font-bold text-xl text-blue-600 dark:text-blue-400 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
-                  🎮 {lang === 'en' ? 'Ready to Play?' : 'کھیلنے کے لیے تیار؟'}
-                </h4>
-                <p className="text-gray-600 dark:text-gray-300 text-lg" style={{fontFamily: "'Comic Neue', cursive"}}>
-                  {lang === 'en' ? 'Jump in and play a fun matching game! Match Urdu letters and have a blast!' : 'ایک مزیدار میچنگ گیم کھیلیں اور اردو حروف سیکھیں!'}
-                </p>
-                <div className="flex gap-3 mt-4 text-4xl justify-center">
-                  <IconBadge name="puzzle" />
-                  <IconBadge name="puzzle" />
-                  <IconBadge name="trophy" />
-                </div>
-              </div>
-              <div className="mt-6">
-                <Link href="/activity" className="block w-full text-center px-6 py-3 bg-gradient-to-r from-green-400 to-emerald-400 text-white rounded-full font-bold text-lg border-3 border-white hover:scale-105 transition-all duration-300 shadow-candy" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
-                  {c.playCTA}
+                <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed flex-1" style={BODY_FONT}>{o.body}</p>
+                <Link href={o.href} className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-indigo-700 dark:text-indigo-300 underline underline-offset-2" style={BODY_FONT}>
+                  {o.cta} →
                 </Link>
-              </div>
-            </div>
+              </KidsCard>
+            ))}
           </div>
+        </section>
 
-          {/* Get involved & Contact */}
-          <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/30 dark:to-violet-900/30 rounded-3xl shadow-candy p-6 sm:p-8 border-4 border-purple-200 dark:border-purple-800 mb-6">
-            <h4 className="font-bold text-xl text-purple-600 dark:text-purple-400 mb-3" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
-              🤝 {lang === 'en' ? 'Get Involved!' : 'شمولیت اختیار کریں!'}
-            </h4>
-            <p className="text-gray-600 dark:text-gray-300 text-lg mb-4" style={{fontFamily: "'Comic Neue', cursive"}}>{c.contribute}</p>
-
-            <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
-              <a href="https://www.instagram.com/alifujala.ai/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-400 to-purple-400 text-white rounded-full font-bold hover:scale-105 transition-all text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                Instagram
-              </a>
-              <a href="https://www.facebook.com/profile.php?id=61579001649615" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-full font-bold hover:scale-105 transition-all text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                Facebook
-              </a>
-              <a href="mailto:aiearlyedge@gmail.com" className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-400 to-emerald-400 text-white rounded-full font-bold hover:scale-105 transition-all text-sm" style={{fontFamily: "'Comic Neue', cursive"}}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                Email Us
-              </a>
-            </div>
+        {/* How we create content */}
+        <section className="mb-10">
+          <SectionHeader eyebrow="Our approach" icon="bulb" title="How we create our content" subtitle="The principles behind every game, story and guide on Alif Ujala." tone="warm" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {PRINCIPLES.map((p) => (
+              <KidsCard key={p.title} variant="gradient" tone="amber" padding="lg" hoverable={false}>
+                <h3 className="flex items-center gap-3 text-xl font-bold text-amber-700 dark:text-amber-300 mb-2" style={HEAD_FONT}>
+                  <IconBadge name={p.icon} size="sm" />{p.title}
+                </h3>
+                <p className="text-gray-700 dark:text-gray-200 leading-relaxed" style={BODY_FONT}>{p.body}</p>
+              </KidsCard>
+            ))}
           </div>
+        </section>
 
-          {/* Bottom tagline */}
-          <div className="text-center py-4">
-            <p className="text-purple-400 text-sm font-bold" style={{fontFamily: "'Comic Neue', cursive"}}>
-              {lang === 'en'
-                ? '🌈 AlifUjala — built with love for Urdu. Made for kids, teachers and families! 🌈'
-                : '🌈 الف اُجاﻻ — اردو کے جذبے کے ساتھ بنایا گیا۔ بچوں، اساتذہ اور خاندانوں کے لیے! 🌈'}
+        {/* Accuracy, ads and contact */}
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+          <KidsCard variant="gradient" tone="green" padding="lg" hoverable={false}>
+            <h2 className="flex items-center gap-3 text-2xl font-bold text-emerald-700 dark:text-emerald-300 mb-3" style={HEAD_FONT}>
+              <IconBadge name="check" size="sm" />Accuracy and corrections
+            </h2>
+            <div className="space-y-3 text-gray-700 dark:text-gray-200 leading-relaxed" style={BODY_FONT}>
+              <p>
+                Urdu spelling, letter names and how letters are counted vary a little between primers. Where they differ we
+                say so — our <Link href="/urdu-alphabet" className="font-bold text-indigo-700 dark:text-indigo-300 underline underline-offset-2">alphabet guide</Link>{' '}
+                explains why some books list 37 letters and others 39.
+              </p>
+              <p>
+                If you spot a mistake in a letter, word, translation or article, please{' '}
+                <a href={`mailto:${CONTACT_EMAIL}`} className="font-bold text-indigo-700 dark:text-indigo-300 underline underline-offset-2">email us</a>.
+                We read every message and correct errors as soon as we can.
+              </p>
+            </div>
+          </KidsCard>
+
+          <KidsCard variant="gradient" tone="blue" padding="lg" hoverable={false}>
+            <h2 className="flex items-center gap-3 text-2xl font-bold text-blue-700 dark:text-blue-300 mb-3" style={HEAD_FONT}>
+              <IconBadge name="shield" size="sm" />Keeping Alif Ujala free
+            </h2>
+            <div className="space-y-3 text-gray-700 dark:text-gray-200 leading-relaxed" style={BODY_FONT}>
+              <p>
+                Alif Ujala is free for every family and classroom. To cover hosting and the time it takes to make new
+                material, the website may show a limited number of advertisements served by Google AdSense.
+              </p>
+              <p>
+                Ads never decide what we teach. You can read how ads and cookies work on our site in the{' '}
+                <Link href="/privacy" className="font-bold text-indigo-700 dark:text-indigo-300 underline underline-offset-2">privacy policy</Link>, and the limits of our
+                educational content in the{' '}
+                <Link href="/disclaimer" className="font-bold text-indigo-700 dark:text-indigo-300 underline underline-offset-2">disclaimer</Link>.
+              </p>
+            </div>
+          </KidsCard>
+        </section>
+
+        {/* Urdu summary */}
+        <section className="mb-10">
+          <KidsCard variant="glass" tone="indigo" padding="lg" hoverable={false}>
+            <div lang="ur" dir="rtl" className="text-right text-gray-800 dark:text-gray-100" style={{ fontFamily: URDU_FONT, lineHeight: 2.3 }}>
+              <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-2">ہمارا مقصد</h2>
+              <p className="text-lg">
+                الف اُجالا کا مقصد بچوں کے لیے اردو پڑھنا اور لکھنا سیکھنا آسان اور خوشگوار بنانا ہے۔ یہاں حروفِ تہجی کی مکمل
+                رہنمائی، حروف کے کھیل، ورک شیٹس، تصویری کہانیاں اور والدین اور اساتذہ کے لیے مفید مضامین مفت دستیاب ہیں۔
+              </p>
+            </div>
+          </KidsCard>
+        </section>
+
+        {/* Contact CTA */}
+        <section className="text-center">
+          <KidsCard variant="glass" tone="pink" padding="lg" hoverable={false}>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gradient-warm mb-2" style={HEAD_FONT}>Get in touch</h2>
+            <p className="text-gray-700 dark:text-gray-200 max-w-2xl mx-auto mb-5" style={BODY_FONT}>
+              Questions, ideas for new games or stories, school enquiries or feedback — we would love to hear from you at{' '}
+              <a href={`mailto:${CONTACT_EMAIL}`} className="font-bold text-indigo-700 dark:text-indigo-300 underline underline-offset-2">{CONTACT_EMAIL}</a>.
             </p>
-          </div>
-        </div>
+            <div className="flex flex-wrap justify-center gap-3">
+              <KidsButton href="/contact" variant="primary" size="lg" iconLeft={<LearningIcon name="mail" />}>Contact us</KidsButton>
+              <KidsButton href="/urdu-alphabet" variant="success" size="lg" iconLeft={<LearningIcon name="letters" />}>Start with the alphabet</KidsButton>
+            </div>
+          </KidsCard>
+        </section>
       </main>
 
       <Footer />

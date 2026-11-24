@@ -20,5 +20,23 @@ const nextConfig = {
       },
     ];
   },
+  // Consolidate duplicate / retired pages into their best equivalent so search engines
+  // (and AdSense reviewers) only see one strong page per topic.
+  async redirects() {
+    return [
+      {
+        // Same video library as /edu-videos — keep a single page for it.
+        source: '/games/urduAlphabetStories',
+        destination: '/edu-videos',
+        permanent: true,
+      },
+      {
+        // Retired 5-picture prototype; "Letter to Image" is the full version of this game.
+        source: '/games/imageMatch',
+        destination: '/games/matching',
+        permanent: true,
+      },
+    ];
+  },
 }
 module.exports = nextConfig

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import GameGuide from '@/components/GameGuide';
 import alphabetsData from '@/data/alphabets.json';
 
 const ALL_LETTERS = alphabetsData.letters;
@@ -89,7 +90,6 @@ export default function UrduBalloonPop() {
   return (
     <div className="kids-page-bg arcade-page min-h-screen flex flex-col font-sans relative">
       <Head>
-        <title>Balloon Pop | Urdu Games</title>
         <style>{`
           @keyframes floatUp {
             0% { transform: translateY(100vh); opacity: 0; }
@@ -174,6 +174,7 @@ export default function UrduBalloonPop() {
 
       </main>
 
+      {!isPlaying && <GameGuide slug="urduBalloonPop" />}
       {!isPlaying && <Footer />}
     </div>
   );

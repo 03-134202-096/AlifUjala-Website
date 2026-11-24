@@ -13,7 +13,7 @@ export const crowWaterScenes = [
     img: "/images/stories/story 3/scene 3.webp"
   },
   {
-    text: "کوئے نے پھرتی سے آس پاس چھوٹے کنکر جمع کیے۔",
+    text: "کوے نے پھرتی سے آس پاس چھوٹے کنکر جمع کیے۔",
     img: "/images/stories/story 3/scene 4.webp"
   },
   {
@@ -29,7 +29,7 @@ export const crowWaterScenes = [
     img: "/images/stories/story 3/scene 7.webp"
   },
   {
-      text: 'سبق: عقل و ہوشیاری اور ایجادِ حل سے مشکلات کا حل نکل آتا ہے — "ضرورت ایجاد کی ماں ہے"۔',
+      text: "سبق: عقل و ہوشیاری اور ایجادِ حل سے مشکلات کا حل نکل آتا ہے۔ ”ضرورت ایجاد کی ماں ہے۔“",
     ending: true
   }
 ];

@@ -1,22 +1,18 @@
+import { useState } from "react";
 import Stories from "../components/Stories";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import { SectionHeader, DecorativeBlobs, KidsCard } from "@/components/ui";
+import Link from "next/link";
+import { SectionHeader, DecorativeBlobs, KidsCard, IconBadge, TranslationToggle } from "@/components/ui";
+import { storyGuides, urduAges } from "@/data/storyGuides";
 
 const SITE_URL = "https://alifujala.ai";
+const BODY_FONT = { fontFamily: "'Comic Neue', cursive" };
+const HEAD_FONT = { fontFamily: "'Bubblegum Sans', cursive" };
 
 /** Story titles (English + Urdu) used to build the ItemList structured data. */
-const STORY_LIST = [
-  { en: "The Rabbit and the Tortoise", ur: "خرگوش اور کچھوا" },
-  { en: "The Lion and the Clever Fox", ur: "شیر اور چلاک لومڑی" },
-  { en: "The Thirsty Crow", ur: "کوا اور پانی" },
-  { en: "The Greedy Dog", ur: "لالچی کتا" },
-  { en: "The Ant and the Grasshopper", ur: "چیونٹی اور ٹڈی" },
-  { en: "The Fox and the Grapes", ur: "لومڑی اور انگور" },
-  { en: "The Boy Who Cried Wolf", ur: "بھیڑیا آیا! بھیڑیا آیا!" },
-  { en: "The Hardworking Farmer", ur: "محنتی کسان" },
-];
+const STORY_LIST = storyGuides.map((s) => ({ en: s.titleEn, ur: s.titleUr, slug: s.slug }));
 
 const storiesStructuredData = {
   "@context": "https://schema.org",
@@ -38,14 +34,31 @@ const storiesStructuredData = {
         "@type": "CreativeWork",
         name: `${story.en} / ${story.ur}`,
         inLanguage: "ur",
-        url: `${SITE_URL}/stories`,
+        url: `${SITE_URL}/stories/${story.slug}`,
         publisher: { "@id": `${SITE_URL}/#organization` },
       },
     })),
   },
 };
 
+/** Urdu label with a small English one, for the pill above a heading (no letter-spacing, so the Urdu letters stay joined). */
+function UrduEyebrow({ ur, en }: { ur: string; en: string }) {
+  return (
+    <>
+      <span lang="ur" dir="rtl" className="text-sm normal-case tracking-normal" style={{ lineHeight: 1.8 }}>
+        {ur}
+      </span>
+      <span aria-hidden="true">·</span>
+      <span>{en}</span>
+    </>
+  );
+}
+
 export default function StoriesPage() {
+  // Urdu first: the English summaries appear only when a reader asks for them.
+  const [showEnglish, setShowEnglish] = useState(false);
+  const toggleEnglish = () => setShowEnglish((v) => !v);
+
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
       <SEO
@@ -59,37 +72,133 @@ export default function StoriesPage() {
 
       <Navbar />
       <main className="container mx-auto py-6 px-4 flex-1 relative z-10">
-        <SectionHeader
-          eyebrow="Story Time"
+        {/* The Urdu title leads; the English line underneath helps parents who are still learning to read Urdu */}
+        <SectionHeader as="h1"
+          eyebrow={<UrduEyebrow ur="کہانی کا وقت" en="Story time" />}
           icon="book"
+          urduTitle="پیاری پیاری اردو کہانیاں"
           title="Beautiful Urdu Stories"
-          subtitle="Click on a story card to start reading! Each story has beautiful pictures."
+          urduSubtitle="اپنی پسند کی کہانی پر کلک کریں، تصویریں دیکھیں اور کہانی سنیں۔"
+          subtitle="Tap a story to see the pictures and hear it read aloud."
           tone="cool"
+          className="mb-5"
         />
 
-        {/* Intro copy — crawlable, keyword-rich description for search engines */}
+        {/* Short introduction in everyday Urdu (the longer English note for parents is at the end of the page) */}
         <div className="max-w-3xl mx-auto mb-6 text-center">
-          <p
-            className="text-sm sm:text-base font-bold text-gray-600 dark:text-gray-300 leading-relaxed"
-            style={{ fontFamily: "'Comic Neue', cursive" }}
-          >
-            Enjoy a free collection of <strong>Urdu stories for kids</strong> (اردو کہانیاں) — classic moral
-            tales like the Thirsty Crow, the Rabbit and the Tortoise, and the Greedy Dog, told with colourful
-            animated pictures and simple Urdu that young children can follow. Each <strong>Urdu kahani</strong> is
-            perfect for bedtime reading, story time, and learning to read Urdu online.
+          <p lang="ur" dir="rtl" className="text-lg text-gray-700 dark:text-gray-200 [text-wrap:balance]" style={{ lineHeight: 2.2 }}>
+            یہاں بچوں کے لیے مشہور سبق آموز کہانیاں ہیں، جیسے ”کوا اور پانی“، ”خرگوش اور کچھوا“ اور ”لالچی کتا“۔ ہر کہانی
+            آسان اردو میں ہے۔ سونے سے پہلے، اسکول کے بعد یا جب دل چاہے، کہانی سنیں اور ساتھ ساتھ پڑھنا سیکھیں۔
           </p>
         </div>
 
         <Stories />
 
-        {/* Bottom encouragement */}
-        <div className="mt-12 max-w-2xl mx-auto text-center">
-          <KidsCard variant="gradient" tone="indigo" padding="md">
-            <p className="text-lg sm:text-xl font-bold text-purple-700 dark:text-purple-200" style={{fontFamily: "'Bubblegum Sans', cursive"}}>
-              🌟 More stories coming soon — keep reading! 🌟
+        {/* Story pages: Urdu title and summary first, English behind the translation button */}
+        <section aria-labelledby="story-guides" className="mt-16 max-w-6xl mx-auto">
+          <SectionHeader
+            id="story-guides"
+            eyebrow={<UrduEyebrow ur="کہانی کے صفحات" en="Story pages" />}
+            icon="book"
+            urduTitle="ہر کہانی پوری پڑھیں"
+            title="Read every story in full"
+            urduSubtitle="ہر صفحے پر پوری کہانی اردو میں ہے اور ساتھ آواز بھی۔ وہاں نئے الفاظ، اردو میں سوال اور ایک مزے دار سرگرمی بھی ملے گی۔ انگریزی ترجمہ دیکھنا ہو تو بس ایک بٹن دبائیں۔"
+            subtitle="Each story page has the complete Urdu text with narration, new words, questions in Urdu and a hands-on activity. An English translation is one tap away when you need it."
+            subtitleHidden={!showEnglish}
+            tone="cool"
+            className="mb-4"
+          />
+          <div className="mb-6 flex justify-center">
+            <TranslationToggle shown={showEnglish} onToggle={toggleEnglish} />
+          </div>
+          <div dir="rtl" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {storyGuides.map((s) => (
+              <Link
+                key={s.slug}
+                href={`/stories/${s.slug}`}
+                className="group flex flex-col rounded-3xl overflow-hidden border-[3px] border-white/60 dark:border-white/10 bg-white/90 dark:bg-gray-800/90 shadow-candy hover:shadow-candy-lg hover:-translate-y-1 transition-all"
+              >
+                <img src={s.cover} alt={`${s.titleUr} (${s.titleEn})`} loading="lazy" className="w-full h-36 object-cover" />
+                <div className="p-4 flex-1 flex flex-col text-right">
+                  <h3>
+                    <span lang="ur" dir="rtl" className="block text-2xl text-indigo-700 dark:text-indigo-200 group-hover:text-purple-600 dark:group-hover:text-purple-300" style={{ lineHeight: 2 }}>
+                      {s.titleUr}
+                    </span>
+                    <span lang="en" dir="ltr" className="block text-right text-sm font-bold text-gray-500 dark:text-gray-400" style={BODY_FONT}>
+                      {s.titleEn}
+                    </span>
+                  </h3>
+                  <p lang="ur" dir="rtl" className="mt-2 flex-1 text-base text-gray-800 dark:text-gray-100" style={{ lineHeight: 2.1 }}>
+                    {s.summaryUr}
+                  </p>
+                  <p
+                    lang="en"
+                    dir="ltr"
+                    className={showEnglish ? "mt-2 pt-2 border-t border-indigo-100 dark:border-indigo-800 text-left text-sm text-gray-600 dark:text-gray-300 leading-relaxed" : "hidden"}
+                    style={BODY_FONT}
+                  >
+                    {s.summary}
+                  </p>
+                  <div className="mt-3 flex items-center justify-between gap-2 text-indigo-600 dark:text-indigo-300">
+                    <span lang="ur" dir="rtl" className="text-sm" style={{ lineHeight: 2 }}>
+                      {urduAges(s.ages)}
+                    </span>
+                    <span lang="ur" dir="rtl" className="text-base font-bold" style={{ lineHeight: 2 }}>
+                      کہانی پڑھیں ←
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* For parents: why these stories help (in English) */}
+        <section aria-labelledby="why-stories" className="mt-14 max-w-4xl mx-auto">
+          <KidsCard variant="glass" tone="purple" padding="lg" hoverable={false}>
+            <p className="mb-1 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-300" style={BODY_FONT}>
+              <IconBadge name="heart" size="sm" />
+              <span lang="ur" dir="rtl" className="text-sm normal-case tracking-normal" style={{ lineHeight: 1.8 }}>والدین کے لیے</span>
+              <span aria-hidden="true">·</span>
+              <span>For parents</span>
             </p>
+            <h2 id="why-stories" className="mb-3">
+              <span lang="ur" dir="rtl" className="block text-left text-3xl text-purple-700 dark:text-purple-300" style={{ lineHeight: 2 }}>
+                چھوٹی کہانیاں، بڑے سبق
+              </span>
+              <span className="block text-xl sm:text-2xl font-bold text-purple-700/80 dark:text-purple-300/80" style={HEAD_FONT}>
+                Why short moral stories work so well for young Urdu learners
+              </span>
+            </h2>
+            <div className="space-y-3 text-gray-700 dark:text-gray-200 leading-relaxed" style={BODY_FONT}>
+              <p>
+                Alif Ujala has a free collection of <strong>Urdu stories for kids</strong> (<span lang="ur" dir="rtl">اردو کہانیاں</span>):
+                classic moral tales like the Thirsty Crow, the Rabbit and the Tortoise and the Greedy Dog, told with colourful
+                animated pictures and simple Urdu that young children can follow. Each <strong>Urdu kahani</strong> is perfect for
+                bedtime reading, story time and learning to read Urdu online.
+              </p>
+              <p>
+                Classic tales such as the Thirsty Crow or the Rabbit and the Tortoise are told in almost every Urdu-speaking
+                home. Because children often already know the plot, they can focus their attention on the words themselves —
+                the sounds of new vocabulary, the shapes of the letters and the rhythm of Urdu sentences.
+              </p>
+              <p>
+                Our versions keep each sentence short and pair it with one picture, so a child can follow the story even
+                before they can read. As reading grows, they can start recognising familiar words like <span lang="ur" dir="rtl">پانی</span>,{' '}
+                <span lang="ur" dir="rtl">جنگل</span> and <span lang="ur" dir="rtl">دوست</span>, and then whole lines.
+              </p>
+              <p>
+                A good routine is one story a day: listen first, talk about the pictures, read the lesson (<span lang="ur" dir="rtl">سبق</span>)
+                together and ask one or two of the questions on the story page. The English translation is there whenever a
+                word is new to you: press <strong>Show English translation</strong>, then hide it again and read the Urdu once
+                more. Want more ideas? Read our guide on{' '}
+                <Link href="/blog/urdu-bedtime-stories-reading-routine" className="font-bold text-indigo-600 dark:text-indigo-300 underline">
+                  building an Urdu bedtime story routine
+                </Link>.
+              </p>
+            </div>
           </KidsCard>
-        </div>
+        </section>
       </main>
       <Footer />
     </div>

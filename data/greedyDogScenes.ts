@@ -25,7 +25,7 @@ export const greedyDogScenes = [
     img: "/images/stories/story 4/lastscene.webp",
   },
   {
-    text: "سبق: لالچ بُری بلا ہے۔ جو ہے اس پر شکر کرو ورنہ وہ بھی چلا جاتا ہے۔",
+    text: "سبق: لالچ بُری بلا ہے۔ جو ہے اس پر شکر کرو، ورنہ وہ بھی چلا جاتا ہے۔",
     ending: true,
   },
 ];

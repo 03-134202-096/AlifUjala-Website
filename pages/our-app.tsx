@@ -103,7 +103,7 @@ export default function OurAppPage() {
 
       <main className="container mx-auto flex-1 px-4 py-6 relative z-10">
         {/* Header */}
-        <SectionHeader
+        <SectionHeader as="h1"
           eyebrow="Mobile App"
           icon="mobile"
           title={<span>AlifUjala <span className="text-gradient-cool">Mobile App</span></span>}
@@ -356,7 +356,7 @@ export default function OurAppPage() {
               className="text-white/90 text-base sm:text-lg mb-6 max-w-xl mx-auto"
               style={{ fontFamily: "'Comic Neue', cursive" }}
             >
-              Join thousands of kids learning Urdu with AlifUjala. Download now and begin the adventure!
+              Give your child a playful start with Urdu letters, sounds and stories. Download now and begin the adventure!
             </p>
             <KidsButton
               href="https://play.google.com/store/apps/details?id=com.aiearlyedge.alifujala"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import GameGuide from "@/components/GameGuide"
 import MatchingBoard from "@/components/MatchingBoard"
 import imagesData from "@/data/images.json"
 import alphabetsData from "@/data/alphabets.json"
@@ -25,7 +26,7 @@ const FOLDER_TO_URDU: Record<string, string> = {
 }
 
 export default function MatchingPage() {
-  const [status, setStatus] = useState<"checking" | "playing" | "out" | "error">("checking")
+  const [status, setStatus] = useState<"checking" | "playing" | "out" | "error">("playing")
   const [count, setCount] = useState(6)
   const [seed, setSeed] = useState(Date.now())
   const [filterRange, setFilterRange] = useState<string>('all')
@@ -198,7 +199,7 @@ export default function MatchingPage() {
     <>
       <Navbar />
       <div className="container">
-        <h2 className="center" style={{ margin: "1rem 0" }}>Match Images</h2>
+        <h1 className="center" style={{ margin: "1rem 0", fontWeight: 700 }}>Match Letters to Pictures</h1>
 
         {/* Responsive Toolbar */}
         <div className="responsive-game-toolbar">
@@ -275,6 +276,7 @@ export default function MatchingPage() {
           />
         </div>
       </div>
+      <GameGuide slug="matching" />
       <Footer />
     </>
   )

@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import GameGuide from "@/components/GameGuide";
 import alphabets from "@/data/alphabets.json";
 
 /* ─── Types ─────────────────────────────────────────────── */
@@ -154,10 +155,6 @@ export default function MemoryMatch() {
   /* ─── Render ───────────────────────────────────────────── */
   return (
     <>
-      <Head>
-        <title>Memory Match | Alif Ujala</title>
-        <meta name="description" content="Flip cards and match pairs of Urdu letters! A fun memory game for kids learning Urdu alphabets." />
-      </Head>
       <Navbar />
 
       <div style={{
@@ -410,6 +407,7 @@ export default function MemoryMatch() {
         )}
       </div>
 
+      <GameGuide slug="memoryMatch" />
       <Footer />
     </>
   );

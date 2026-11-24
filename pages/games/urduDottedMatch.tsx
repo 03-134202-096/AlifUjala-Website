@@ -3,6 +3,7 @@ import { DecorativeBlobs, LearningIcon, IconBadge } from '@/components/ui'
 ﻿import React, { useEffect, useMemo, useRef, useState } from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import GameGuide from "@/components/GameGuide"
 import MatchingBoard from "@/components/MatchingBoard"
 import alphabetsData from "@/data/alphabets.json"
 import LoadingIndicator from "@/components/LoadingIndicator"
@@ -31,7 +32,7 @@ function SolidLetter({ char, className = '' }: { char: string; className?: strin
 }
 
 export default function UrduDottedMatchPage() {
-  const [status, setStatus] = useState<GameStatus>("checking")
+  const [status, setStatus] = useState<GameStatus>("playing")
   const [count, setCount] = useState(6)
   const [startId, setStartId] = useState("alif")
   const [endId, setEndId] = useState("bari-yaa")
@@ -131,12 +132,6 @@ export default function UrduDottedMatchPage() {
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
-      <SEO
-        title="Dotted Letter Match"
-        description="Match dotted Urdu letters to their full forms. A focused activity for letter recognition and tracing readiness."
-        ogUrl="https://alifujala.ai/games/urduDottedMatch"
-        keywords="Urdu dotted letters, Urdu tracing activity, Urdu alphabet match, Urdu learning for kids"
-      />
       <PageDecorations />
       <Navbar />
 
@@ -317,6 +312,7 @@ export default function UrduDottedMatchPage() {
         </div>
       </main>
 
+      <GameGuide slug="urduDottedMatch" />
       <Footer />
     </div>
   )

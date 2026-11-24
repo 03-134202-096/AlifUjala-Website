@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import GameGuide from '@/components/GameGuide';
 import alphabetsData from '@/data/alphabets.json';
 
 const ALL_LETTERS = alphabetsData.letters;
@@ -102,9 +103,6 @@ export default function WhackALetter() {
 
   return (
     <div className="kids-page-bg arcade-page min-h-screen flex flex-col font-sans relative">
-      <Head>
-        <title>Whack-a-Letter | Urdu Games</title>
-      </Head>
       <Navbar />
 
       <main className="flex-1 flex flex-col items-center justify-center p-4 pt-24 pb-12">
@@ -178,6 +176,7 @@ export default function WhackALetter() {
         </div>
       </main>
 
+      <GameGuide slug="whackALetter" />
       <Footer />
     </div>
   );

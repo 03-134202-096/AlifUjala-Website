@@ -45,7 +45,7 @@ const AdministrationPage: NextPage = () => {
 
   return (
     <div className="kids-page-bg min-h-screen flex flex-col relative">
-      <SEO title="Administration — AlifUjala" description="Administration dashboard for AlifUjala." />
+      <SEO title="Administration — AlifUjala" description="Administration dashboard for AlifUjala." noIndex />
       <DecorativeBlobs variant="soft" motifs={["school","book"]} />
 
       <Navbar />
