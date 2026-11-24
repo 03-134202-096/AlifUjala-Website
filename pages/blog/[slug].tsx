@@ -104,8 +104,10 @@ export default function BlogPostPage({ post }: Props) {
 
             {/* Urdu title */}
             <p
+              lang="ur"
+              dir="rtl"
               className="text-lg text-indigo-500 dark:text-indigo-400 mb-6 text-right border-r-4 border-indigo-300 pr-4"
-              style={{ fontFamily: "'Noto Nastaliq Urdu', serif", direction: 'rtl' }}
+              style={{ fontFamily: "'Noto Nastaliq Urdu', serif", direction: 'rtl', lineHeight: 2.4 }}
             >
               {post.titleUrdu}
             </p>

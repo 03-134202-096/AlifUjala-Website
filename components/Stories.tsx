@@ -128,7 +128,7 @@ const Stories: React.FC = () => {
             </div>
           )}
 
-          <span className="block mt-2 font-bold text-xl text-center drop-shadow-sm" style={{fontFamily: "'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif", color: '#6366f1', direction: 'rtl', lineHeight: '2'}}>
+          <span lang="ur" dir="rtl" className="block mt-2 font-bold text-xl text-center drop-shadow-sm" style={{fontFamily: "'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif", color: '#6366f1', direction: 'rtl', lineHeight: '2'}}>
             {story.title}
           </span>
 

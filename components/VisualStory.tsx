@@ -276,6 +276,7 @@ const VisualStory: React.FC<VisualStoryProps> = ({ onClose, title, scenes, story
           </button>
 
           <h2
+            lang="ur"
             className="font-extrabold text-2xl text-indigo-700 dark:text-purple-300 text-center pr-10"
             style={{ fontFamily: "'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif", direction: "rtl", lineHeight: "2" }}
           >
@@ -415,7 +416,7 @@ const VisualStory: React.FC<VisualStoryProps> = ({ onClose, title, scenes, story
             // – trailing space inside the span avoids needing mx gaps
             // – only color/background change → zero layout reflow
             const textNode = hasAudio && isAct ? (
-              <span>
+              <span lang="ur">
                 {words.map((w, wi) => (
                   <span
                     key={wi}
@@ -438,7 +439,7 @@ const VisualStory: React.FC<VisualStoryProps> = ({ onClose, title, scenes, story
                 ))}
               </span>
             ) : (
-              <span>{scene.text}</span>
+              <span lang="ur">{scene.text}</span>
             );
 
             /* ── ending card (indigo) ── */

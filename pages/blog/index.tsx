@@ -67,8 +67,10 @@ export default function BlogIndex() {
 
                 {/* Urdu title */}
                 <p
+                  lang="ur"
+                  dir="rtl"
                   className="text-sm text-indigo-500 dark:text-indigo-400 mb-3 text-right"
-                  style={{ fontFamily: "'Noto Nastaliq Urdu', serif", direction: 'rtl' }}
+                  style={{ fontFamily: "'Noto Nastaliq Urdu', serif", direction: 'rtl', lineHeight: 2.4 }}
                 >
                   {post.titleUrdu}
                 </p>

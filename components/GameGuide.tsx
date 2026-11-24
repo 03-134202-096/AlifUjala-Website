@@ -58,8 +58,9 @@ export default function GameGuide({ slug }: { slug: string }) {
           </p>
           <h2 id={`guide-${guide.slug}`} className="text-3xl sm:text-4xl font-bold leading-tight text-gradient-cool" style={HEAD_FONT}>
             About {guide.name}
+            {/* The Urdu name keeps its own solid colour: inside the gradient heading its low dots and tails would be cut off */}
             {guide.urduName && (
-              <span lang="ur" dir="rtl" className="block text-2xl mt-1 text-indigo-600 dark:text-indigo-300 font-normal" style={{ fontFamily: "'Noto Nastaliq Urdu', serif", lineHeight: 2 }}>
+              <span lang="ur" dir="rtl" className="block text-2xl mt-1 text-indigo-600 dark:text-indigo-300 font-normal" style={{ fontFamily: "'Noto Nastaliq Urdu', serif", lineHeight: 2.2, WebkitTextFillColor: 'currentColor' }}>
                 {guide.urduName}
               </span>
             )}

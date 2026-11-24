@@ -45,7 +45,7 @@ function UrduHeading({
     <h2 id={id} className={`${alignText} ${className}`}>
       <span dir={align === 'left' ? 'ltr' : 'rtl'} className={`flex items-center gap-2 ${align === 'center' ? 'justify-center' : 'justify-start'}`}>
         {icon}
-        <span lang="ur" dir="rtl" className={`${size} ${tone}`} style={{ fontFamily: URDU_FONT, lineHeight: 2 }}>
+        <span lang="ur" dir="rtl" className={`${size} ${tone}`} style={{ fontFamily: URDU_FONT, lineHeight: 2.2 }}>
           {ur}
         </span>
       </span>
@@ -131,15 +131,16 @@ export default function StoryPage({ slug }: Props) {
                 <p lang="ur" dir="rtl" className="text-base text-purple-600 dark:text-purple-300" style={{ fontFamily: URDU_FONT, lineHeight: 2 }}>
                   اردو کہانی · {urduAges(story.ages)}
                 </p>
-                <h1>
-                  <span lang="ur" dir="rtl" className="block text-4xl sm:text-5xl text-indigo-700 dark:text-indigo-200" style={{ fontFamily: URDU_FONT, lineHeight: 2.2 }}>
+                {/* mt-3 keeps the tall stroke of ک and گ in the title clear of the line above */}
+                <h1 className="mt-3">
+                  <span lang="ur" dir="rtl" className="block text-4xl sm:text-5xl text-indigo-700 dark:text-indigo-200" style={{ fontFamily: URDU_FONT, lineHeight: 2.4 }}>
                     {story.titleUr}
                   </span>
                   <span className="block text-xl sm:text-2xl font-bold leading-tight text-gradient-cool" style={HEAD_FONT}>
                     {story.titleEn}
                   </span>
                 </h1>
-                <p lang="ur" dir="rtl" className="mt-3 text-lg text-gray-800 dark:text-gray-100" style={{ fontFamily: URDU_FONT, lineHeight: 2.2 }}>
+                <p lang="ur" dir="rtl" className="mt-3 text-lg text-gray-800 dark:text-gray-100" style={{ fontFamily: URDU_FONT, lineHeight: 2.6 }}>
                   {story.summaryUr}
                 </p>
                 <p lang="en" dir="ltr" className={showEnglish ? 'mt-2 text-sm text-gray-600 dark:text-gray-300 leading-relaxed' : 'hidden'} style={BODY_FONT}>
@@ -147,7 +148,7 @@ export default function StoryPage({ slug }: Props) {
                 </p>
                 <div dir="rtl" className="mt-4 flex flex-wrap justify-center gap-2">
                   {story.themesUr.map((t) => (
-                    <span key={t} lang="ur" className="text-sm px-3 py-0.5 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-200" style={{ fontFamily: URDU_FONT, lineHeight: 1.9 }}>
+                    <span key={t} lang="ur" className="text-sm px-3 py-0.5 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-200" style={{ fontFamily: URDU_FONT, lineHeight: 2.1 }}>
                       {t}
                     </span>
                   ))}
@@ -207,7 +208,7 @@ export default function StoryPage({ slug }: Props) {
                         <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 text-white text-sm font-bold mb-2">
                           {i + 1}
                         </span>
-                        <p lang="ur" dir="rtl" className="text-xl text-gray-800 dark:text-gray-100" style={{ fontFamily: URDU_FONT, lineHeight: 2.3 }}>
+                        <p lang="ur" dir="rtl" className="text-xl text-gray-800 dark:text-gray-100" style={{ fontFamily: URDU_FONT, lineHeight: 2.6 }}>
                           {scene.text.trim()}
                         </p>
                         {story.englishScenes[i] && (
@@ -240,7 +241,7 @@ export default function StoryPage({ slug }: Props) {
                 className="mb-2"
               />
               {lessonLines.map((line, i) => (
-                <p key={i} lang="ur" dir="rtl" className="text-xl text-gray-800 dark:text-gray-100" style={{ fontFamily: URDU_FONT, lineHeight: 2.3 }}>
+                <p key={i} lang="ur" dir="rtl" className="text-xl text-gray-800 dark:text-gray-100" style={{ fontFamily: URDU_FONT, lineHeight: 2.6 }}>
                   {line}
                 </p>
               ))}
@@ -282,7 +283,7 @@ export default function StoryPage({ slug }: Props) {
                       {i + 1}
                     </span>
                     <div className="flex-1 text-right">
-                      <p lang="ur" className="text-lg text-gray-800 dark:text-gray-100" style={{ fontFamily: URDU_FONT, lineHeight: 2.2 }}>
+                      <p lang="ur" className="text-lg text-gray-800 dark:text-gray-100" style={{ fontFamily: URDU_FONT, lineHeight: 2.6 }}>
                         {q}
                       </p>
                       {story.questions[i] && (

@@ -245,7 +245,7 @@ const About: NextPage = () => {
           <KidsCard variant="glass" tone="indigo" padding="lg" hoverable={false}>
             <div lang="ur" dir="rtl" className="text-right text-gray-800 dark:text-gray-100" style={{ fontFamily: URDU_FONT, lineHeight: 2.3 }}>
               <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-2">ہمارا مقصد</h2>
-              <p className="text-lg">
+              <p className="text-lg" style={{ lineHeight: 2.6 }}>
                 الف اُجالا کا مقصد بچوں کے لیے اردو پڑھنا اور لکھنا سیکھنا آسان اور خوشگوار بنانا ہے۔ یہاں حروفِ تہجی کی مکمل
                 رہنمائی، حروف کے کھیل، ورک شیٹس، تصویری کہانیاں اور والدین اور اساتذہ کے لیے مفید مضامین مفت دستیاب ہیں۔
               </p>

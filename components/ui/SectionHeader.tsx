@@ -64,11 +64,13 @@ export default function SectionHeader({
       )}
       {urduTitle ? (
         <Heading id={id}>
+          {/* Gradient text is painted only inside its own box, and Nastaliq dots and tails reach below the line,
+              so the padding gives them room (otherwise the third dot of پ is cut off) */}
           <span
             lang="ur"
             dir="rtl"
             className={`block text-4xl sm:text-5xl md:text-6xl ${TONE_CLASS[tone]}`}
-            style={{ lineHeight: 2 }}
+            style={{ lineHeight: 2, padding: '0.15em 0.3em 0.4em' }}
           >
             {urduTitle}
           </span>
@@ -93,7 +95,7 @@ export default function SectionHeader({
           lang="ur"
           dir="rtl"
           className="mt-3 text-lg sm:text-xl text-gray-700 dark:text-gray-200 max-w-2xl [text-wrap:balance]"
-          style={{ lineHeight: 2.1, marginInline: align === 'center' ? 'auto' : undefined }}
+          style={{ lineHeight: 2.6, marginInline: align === 'center' ? 'auto' : undefined }}
         >
           {urduSubtitle}
         </p>

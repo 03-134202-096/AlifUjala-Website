@@ -86,7 +86,7 @@ export default function StoriesPage() {
 
         {/* Short introduction in everyday Urdu (the longer English note for parents is at the end of the page) */}
         <div className="max-w-3xl mx-auto mb-6 text-center">
-          <p lang="ur" dir="rtl" className="text-lg text-gray-700 dark:text-gray-200 [text-wrap:balance]" style={{ lineHeight: 2.2 }}>
+          <p lang="ur" dir="rtl" className="text-lg text-gray-700 dark:text-gray-200 [text-wrap:balance]" style={{ lineHeight: 2.6 }}>
             یہاں بچوں کے لیے مشہور سبق آموز کہانیاں ہیں، جیسے ”کوا اور پانی“، ”خرگوش اور کچھوا“ اور ”لالچی کتا“۔ ہر کہانی
             آسان اردو میں ہے۔ سونے سے پہلے، اسکول کے بعد یا جب دل چاہے، کہانی سنیں اور ساتھ ساتھ پڑھنا سیکھیں۔
           </p>
@@ -121,14 +121,14 @@ export default function StoriesPage() {
                 <img src={s.cover} alt={`${s.titleUr} (${s.titleEn})`} loading="lazy" className="w-full h-36 object-cover" />
                 <div className="p-4 flex-1 flex flex-col text-right">
                   <h3>
-                    <span lang="ur" dir="rtl" className="block text-2xl text-indigo-700 dark:text-indigo-200 group-hover:text-purple-600 dark:group-hover:text-purple-300" style={{ lineHeight: 2 }}>
+                    <span lang="ur" dir="rtl" className="block text-2xl text-indigo-700 dark:text-indigo-200 group-hover:text-purple-600 dark:group-hover:text-purple-300" style={{ lineHeight: 2.2 }}>
                       {s.titleUr}
                     </span>
                     <span lang="en" dir="ltr" className="block text-right text-sm font-bold text-gray-500 dark:text-gray-400" style={BODY_FONT}>
                       {s.titleEn}
                     </span>
                   </h3>
-                  <p lang="ur" dir="rtl" className="mt-2 flex-1 text-base text-gray-800 dark:text-gray-100" style={{ lineHeight: 2.1 }}>
+                  <p lang="ur" dir="rtl" className="mt-2 flex-1 text-base text-gray-800 dark:text-gray-100" style={{ lineHeight: 2.6 }}>
                     {s.summaryUr}
                   </p>
                   <p

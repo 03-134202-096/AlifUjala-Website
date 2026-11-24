@@ -148,7 +148,7 @@ export default function UrduAlphabetPage() {
                     <div className="min-w-0 flex-1" style={BODY_FONT}>
                       <h3 className="text-xl font-bold text-gray-800 dark:text-white" style={HEAD_FONT}>
                         {i + 1}. {l.name}{' '}
-                        <span lang="ur" className="text-indigo-600 dark:text-indigo-300 font-normal" style={{ fontFamily: URDU_FONT }}>({l.urduName})</span>
+                        <span lang="ur" className="text-indigo-600 dark:text-indigo-300 font-normal" style={{ fontFamily: URDU_FONT }}>(<span style={{ paddingInline: '0.15em' }}>{l.urduName}</span>)</span>
                       </h3>
                       <p className="text-sm text-gray-700 dark:text-gray-200"><strong>Sound:</strong> {l.sound}</p>
                       <p className="text-sm text-gray-700 dark:text-gray-200"><strong>Dots & marks:</strong> {l.marks}</p>

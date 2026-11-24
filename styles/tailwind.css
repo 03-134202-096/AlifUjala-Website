@@ -133,6 +133,16 @@ div[lang="ur"] label {
   line-height: 2.2;
 }
 
+/* Nastaliq letters lean into the next word, so a little extra space between words keeps
+   the tails and dots of one word from touching the next (English inside stays normal) */
+body [lang="ur"],
+body .urdu-font {
+  word-spacing: 0.2em;
+}
+body [lang="en"] {
+  word-spacing: normal;
+}
+
 button, input, textarea, select, .btn, .game-toolbar .btn, .bordered-select {
   color: var(--text-primary);
   font-family: inherit;
